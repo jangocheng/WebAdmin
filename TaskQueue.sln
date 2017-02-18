@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TaskQueue", "TaskQueue\TaskQueue.xproj", "{4A87DAA1-B419-424F-869C-C79403231856}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TaskQueue", "TaskQueue\MSDev.TaskQueue.xproj", "{4A87DAA1-B419-424F-869C-C79403231856}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MSDev.DataAgent", "..\DataAgent\DataAgent\MSDev.DataAgent.xproj", "{530D5BA0-094B-4317-9903-A44FC8FA7134}"
 EndProject
