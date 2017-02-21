@@ -1,7 +1,7 @@
-using MSDev.Core;
+using MsDev.Taskschd.Core;
 using System;
 
-namespace MSDev.TaskQueue.Entities
+namespace MsDev.Taskschd.Entities
 {
 
     public class BingNewsEntity:Entity

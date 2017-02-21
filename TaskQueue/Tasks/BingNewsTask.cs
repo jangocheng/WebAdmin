@@ -1,31 +1,37 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MSDev.Core.Tools;
+using MsDev.Taskschd.Core.Tools;
 using MSDev.DataAgent.Agents.News;
 using MSDev.DataAgent.Models;
-using MSDev.TaskQueue.Entities;
-using MSDev.TaskQueue.Helpers;
+using MsDev.Taskschd.Entities;
+using MsDev.Taskschd.Helpers;
 using Microsoft.AspNetCore.WebUtilities;
+using MSDev.DataAgent.Agents.Interfaces;
 
-namespace MSDev.TaskQueue.News
+namespace MsDev.Taskschd.Tasks
 {
     public class BingNewsTask
     {
         private const string BingSearchKey = "2dd3ac889c7e42d4934d017abf80cae3";
         private const string Domain = "http://msdev.cc/";//TODO: [域名]读取配置
         private const double Similarity = 0.5;//定义相似度
+        private IBingNewsAgent BingAgent;
 
+        public BingNewsTask(IBingNewsAgent agent)
+        {
+            this.BingAgent = agent;
+        }
 
         public async Task<List<BingNewsEntity>> GetNews(string query, string freshness = "Day")
         {
             //获取新闻
-            BingSearchHelper.SearchApiKey = BingSearchKey;
-            var newNews = await BingSearchHelper.GetNewsSearchResults(query);
+            BingSearchCrawler.SearchApiKey = BingSearchKey;
+            var newNews = await BingSearchCrawler.GetNewsSearchResults(query);
             if (newNews == null) throw new ArgumentNullException(nameof(newNews));
 
             //todo:获取过滤来源名单
-            string[] providerFilter = { "中金在线", "安卓网资讯专区", "中国通信网", "中国网", "华商网", "A5站长网", "东方财富网 股票", "秦巴在线", "ITBEAR科技资讯","京华网" , "TechWeb", "四海网" };
+            string[] providerFilter = { "中金在线", "安卓网资讯专区", "中国通信网", "中国网", "华商网", "A5站长网", "东方财富网 股票", "秦巴在线", "ITBEAR科技资讯", "京华网", "TechWeb", "四海网" };
 
             //数据预处理
             for (int i = 0; i < newNews.Count; i++)
@@ -54,16 +60,13 @@ namespace MSDev.TaskQueue.News
                     {
                         Console.WriteLine("repeat:" + newNews[i].Title);
                         newNews[i].Title = string.Empty;
-                        
-
                     }
                 }
             }
 
-
             //查询库中内容并去重
-            var agent = new BingNewsAgent();
-            var oldTitles = agent.GetRecentTitlesAsync(7);
+
+            var oldTitles = BingAgent.GetRecentTitlesAsync(7);
             for (var i = 0; i < newNews.Count; i++)
             {
                 if (string.IsNullOrEmpty(newNews[i].Title)) continue;
@@ -75,10 +78,9 @@ namespace MSDev.TaskQueue.News
                         newNews[i].Title = string.Empty;
                         break;
                     }
- 
                 }
             }
-            //去重后的内容    
+            //去重后的内容
             var newsTBA = new List<BingNews>();
             foreach (var item in newNews)
             {
@@ -101,9 +103,8 @@ namespace MSDev.TaskQueue.News
                     UpdatedTime = DateTime.Now
                 };
                 newsTBA.Add(news);
-
             }
-            var re = agent.AddRange(newsTBA);
+            var re = BingAgent.AddRange(newsTBA);
 
             return newNews;
         }

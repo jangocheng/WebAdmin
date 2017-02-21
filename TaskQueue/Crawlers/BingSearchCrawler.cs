@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using MSDev.TaskQueue.Entities;
+using MsDev.Taskschd.Entities;
 using System;
 
-namespace MSDev.TaskQueue.Helpers
+namespace MsDev.Taskschd.Helpers
 {
-    public class BingSearchHelper
+    public class BingSearchCrawler
     {
         #region Define Attributes
-        private static string ImageSearchEndPoint    = "https://api.cognitive.microsoft.com/bing/v5.0/images/search";
-        private static string AutoSuggestionEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/suggestions";
-        private static string NewsSearchEndPoint     = "https://api.cognitive.microsoft.com/bing/v5.0/news/search";
 
+        private static string ImageSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/images/search";
+        private static string AutoSuggestionEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/suggestions";
+        private static string NewsSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/news/search";
 
         private static HttpClient autoSuggestionClient { get; set; }
         private static HttpClient searchClient { get; set; }
@@ -23,35 +23,29 @@ namespace MSDev.TaskQueue.Helpers
 
         public static string AutoSuggestionApiKey
         {
-
             get { return autoSuggestionApiKey; }
 
-            set {
-
+            set
+            {
                 var changed = autoSuggestionApiKey != value;
 
                 autoSuggestionApiKey = value;
 
                 if (changed)
                 {
-
                     InitializeBingClients();
-
                 }
             }
         }
-
-
 
         private static string searchApiKey;
 
         public static string SearchApiKey
         {
-
             get { return searchApiKey; }
 
-            set {
-
+            set
+            {
                 var changed = searchApiKey != value;
 
                 searchApiKey = value;
@@ -59,16 +53,12 @@ namespace MSDev.TaskQueue.Helpers
                 if (changed)
 
                 {
-
                     InitializeBingClients();
-
                 }
-
             }
-
         }
 
-        #endregion
+        #endregion Define Attributes
 
         private static void InitializeBingClients()
         {
@@ -115,8 +105,8 @@ namespace MSDev.TaskQueue.Helpers
                 }
             }
             return suggestions;
-
         }
+
         /// <summary>
         /// 获取必应新闻列表
         /// </summary>
@@ -129,7 +119,7 @@ namespace MSDev.TaskQueue.Helpers
         public static async Task<List<BingNewsEntity>> GetNewsSearchResults(string query, int count = 20, int offset = 0, string market = "zh-CN", string freshness = "Day")
         {
             var articles = new List<BingNewsEntity>();
-            var result = await searchClient.GetAsync(string.Format("{0}/?q={1}&count={2}&offset={3}&mkt={4}&freshness={5}", NewsSearchEndPoint, WebUtility.UrlEncode(query), count, offset, market,freshness));
+            var result = await searchClient.GetAsync(string.Format("{0}/?q={1}&count={2}&offset={3}&mkt={4}&freshness={5}", NewsSearchEndPoint, WebUtility.UrlEncode(query), count, offset, market, freshness));
 
             result.EnsureSuccessStatusCode();
             var json = await result.Content.ReadAsStringAsync();
@@ -139,8 +129,7 @@ namespace MSDev.TaskQueue.Helpers
             {
                 for (var i = 0; i < data.value.Count; i++)
                 {
-
-                    var news =new BingNewsEntity
+                    var news = new BingNewsEntity
                     {
                         Title = data.value[i].name,
                         Url = data.value[i].url,
@@ -149,7 +138,6 @@ namespace MSDev.TaskQueue.Helpers
                         Provider = data.value[i].provider?[0].name,
                         DatePublished = data.value[i].datePublished,
                         CateGory = data.value[i].category
-
                     };
                     if (!string.IsNullOrEmpty(news.ThumbnailUrl))
                     {
@@ -160,6 +148,4 @@ namespace MSDev.TaskQueue.Helpers
             return articles;
         }
     }
-
 }
-
