@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MsDev.Taskschd.Core.Tools;
-using MSDev.DataAgent.Agents.News;
-using MSDev.DataAgent.Models;
 using MsDev.Taskschd.Entities;
 using MsDev.Taskschd.Helpers;
 using Microsoft.AspNetCore.WebUtilities;
-using MSDev.DataAgent.Agents.Interfaces;
+using MsDev.Taskschd.Core.Repositories;
+using MsDev.Taskschd.Core.Models;
 
 namespace MsDev.Taskschd.Tasks
 {
@@ -16,11 +15,11 @@ namespace MsDev.Taskschd.Tasks
         private const string BingSearchKey = "2dd3ac889c7e42d4934d017abf80cae3";
         private const string Domain = "http://msdev.cc/";//TODO: [域名]读取配置
         private const double Similarity = 0.5;//定义相似度
-        private IBingNewsAgent BingAgent;
+        private IBingNewsRepository repository;
 
-        public BingNewsTask(IBingNewsAgent agent)
+        public BingNewsTask(IBingNewsRepository repository)
         {
-            this.BingAgent = agent;
+            this.repository = repository;
         }
 
         public async Task<List<BingNewsEntity>> GetNews(string query, string freshness = "Day")
@@ -66,7 +65,7 @@ namespace MsDev.Taskschd.Tasks
 
             //查询库中内容并去重
 
-            var oldTitles = BingAgent.GetRecentTitlesAsync(7);
+            var oldTitles = await repository.GetRecentTitlesAsync(7);
             for (var i = 0; i < newNews.Count; i++)
             {
                 if (string.IsNullOrEmpty(newNews[i].Title)) continue;
@@ -104,7 +103,7 @@ namespace MsDev.Taskschd.Tasks
                 };
                 newsTBA.Add(news);
             }
-            var re = BingAgent.AddRange(newsTBA);
+            var re = repository.AddRange(newsTBA);
 
             return newNews;
         }

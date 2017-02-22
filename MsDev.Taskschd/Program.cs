@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using MSDev.DataAgent.Agents.Interfaces;
 using MSDev.DataAgent.Agents.News;
+using MsDev.Taskschd.Core.Repositories;
 
 namespace MsDev.Taskschd
 {
@@ -34,7 +35,7 @@ namespace MsDev.Taskschd
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IBingNewsAgent, BingNewsAgent>();
+            services.AddScoped<IBingNewsRepository, BingNewsAgent>();
             services.AddScoped<BingNewsTask>();
 
             ////确保数据库建立

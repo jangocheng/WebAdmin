@@ -14,8 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DataAgent\Core\MsDev.Taskschd.Core.csproj" />
     <ProjectReference Include="..\..\DataAgent\DataAgent\MsDev.DataAgent.csproj" />
+    <ProjectReference Include="..\MsDev.Taskschd.Core\MsDev.Taskschd.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +29,6 @@
     <PackageReference Include="Microsoft.Web.WebJobs.Publish" Version="1.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.2-beta2" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.3.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
