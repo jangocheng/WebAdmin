@@ -11,7 +11,7 @@ namespace MsDev.Taskschd.Tasks
     public class CloudNewsTask
     {
         private IRssRepository repository = null;
-        private const string CloudNewsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
+        private const string CloudNewsFeedsLink = "https://sxp.microsoft.com/feeds/3.0/cloud";
 
         public CloudNewsTask(IRssRepository repository)
         {
