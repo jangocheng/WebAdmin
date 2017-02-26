@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DataAgent\DataAgent\MsDev.DataAgent.csproj" />
-    <ProjectReference Include="..\MsDev.Taskschd.Core\MsDev.Taskschd.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

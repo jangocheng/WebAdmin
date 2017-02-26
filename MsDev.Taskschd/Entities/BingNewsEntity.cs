@@ -1,10 +1,9 @@
-using MsDev.Taskschd.Core;
 using System;
 
 namespace MsDev.Taskschd.Entities
 {
 
-    public class BingNewsEntity:Entity
+    public class BingNewsEntity
     {
 
         public string Title { get; set; }

@@ -7,9 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 using Microsoft.Extensions.Logging;
-using MSDev.DataAgent.Agents.Interfaces;
-using MSDev.DataAgent.Agents.News;
-using MsDev.Taskschd.Core.Repositories;
+using MsDev.DataAgent.Repositories;
+using MSDev.DataAgent.Agents;
 
 namespace MsDev.Taskschd
 {
