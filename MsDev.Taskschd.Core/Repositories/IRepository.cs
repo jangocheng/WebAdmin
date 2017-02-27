@@ -13,8 +13,6 @@ namespace MsDev.Taskschd.Core.Repositories
     /// <typeparam name="TEntity"></typeparam>
     public interface IRepository<TEntity> where TEntity : class, new()
     {
-        IQueryable<TEntity> DbSet { get; }
-
         #region query
 
         TEntity Find(int id);
