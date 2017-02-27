@@ -7,10 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 using Microsoft.Extensions.Logging;
-using MSDev.DataAgent.Agents.News;
-using MsDev.Taskschd.Core.Repositories;
-using System.Reflection;
-using MsDev.DataAgent.Agents.News;
+using MsDev.DataAgent.Repositories;
+using MSDev.DataAgent.Agents;
 
 namespace MsDev.Taskschd
 {
@@ -34,15 +32,11 @@ namespace MsDev.Taskschd
             services.AddSingleton(factory);
 
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(Program).GetTypeInfo().Assembly.FullName)));
+                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IBingNewsRepository, BingNewsRepository>();
-            services.AddScoped<IRssRepository, RssNewsRepsitory>();
-
+            services.AddScoped<IBingNewsRepository, BingNewsAgent>();
             services.AddScoped<BingNewsTask>();
-            services.AddScoped<CloudNewsTask>();
-            services.AddScoped<DevBlogsTask>();
+
             ////确保数据库建立
             //var dbContext = new AppDbContext();
             //dbContext.Database.Migrate();

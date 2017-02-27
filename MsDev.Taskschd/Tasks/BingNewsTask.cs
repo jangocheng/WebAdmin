@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MsDev.Taskschd.Core.Tools;
 using MsDev.Taskschd.Entities;
 using MsDev.Taskschd.Helpers;
 using Microsoft.AspNetCore.WebUtilities;
-using MsDev.Taskschd.Core.Repositories;
-using MsDev.Taskschd.Core.Models;
+using MsDev.DataAgent.Repositories;
+using MSDev.Core.Tools;
+using MSDev.DataAgent.Models;
 
 namespace MsDev.Taskschd.Tasks
 {

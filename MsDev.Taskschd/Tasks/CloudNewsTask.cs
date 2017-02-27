@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MsDev.Taskschd.Core.EnumTypes;
-using MsDev.Taskschd.Core.Models;
-using MsDev.Taskschd.Core.Repositories;
+using MsDev.DataAgent.EnumTypes;
+using MsDev.DataAgent.Models;
+using MsDev.DataAgent.Repositories;
 using MsDev.Taskschd.Helpers;
 using System.Linq;
 using System.Threading.Tasks;
