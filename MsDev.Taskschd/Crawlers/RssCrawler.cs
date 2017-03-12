@@ -50,7 +50,6 @@ namespace MsDev.Taskschd.Helpers
                         .ToList();
                 }
             }
-
             return blogs;
         }
 

@@ -15,7 +15,6 @@ namespace MsDev.Taskschd.Helpers
         private static string ImageSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/images/search";
         private static string AutoSuggestionEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/suggestions";
         private static string NewsSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/news/search";
-
         private static HttpClient autoSuggestionClient { get; set; }
         private static HttpClient searchClient { get; set; }
 

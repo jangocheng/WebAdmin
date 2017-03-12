@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MsDev.DataAgent.EnumTypes;
-using MsDev.DataAgent.Models;
+using MSDev.DataAgent.Models;
 using MsDev.DataAgent.Repositories;
 using MsDev.Taskschd.Helpers;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace MsDev.Taskschd.Tasks
 {
@@ -27,7 +28,7 @@ namespace MsDev.Taskschd.Tasks
                 Title = x.Title,
                 Author = x.Author,
                 Description = x.Description,
-                Categories = x.Categories,
+                Categories = JsonConvert.SerializeObject(x.Categories),
                 CreateTime = x.CreateTime,
                 LastUpdateTime = x.LastUpdateTime,
                 Link = x.Link,

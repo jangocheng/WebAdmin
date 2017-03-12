@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using MsDev.DataAgent.Repositories;
 using MSDev.DataAgent.Agents;
+using System.IO;
 
 namespace MsDev.Taskschd
 {
@@ -22,7 +23,13 @@ namespace MsDev.Taskschd
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             // 加载配置文件
-            var config = new ConfigurationBuilder().AddJsonFile("config.json").Build();
+            var builder = new ConfigurationBuilder()
+                  .SetBasePath(Directory.GetCurrentDirectory())
+                  .AddJsonFile("config.json");
+
+            var config = builder.Build();
+
+
 
             services.AddLogging();
 
@@ -31,8 +38,9 @@ namespace MsDev.Taskschd
 
             services.AddSingleton(factory);
 
+            //连接字符串使用config.json中自定义的替换
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(config.GetConnectionString("cnConnection")));
 
             services.AddScoped<IBingNewsRepository, BingNewsAgent>();
             services.AddScoped<BingNewsTask>();
@@ -42,6 +50,7 @@ namespace MsDev.Taskschd
             //dbContext.Database.Migrate();
 
             //Console.ReadLine();
+            Run();
             Thread.Sleep(1000 * 10);
         }
 
