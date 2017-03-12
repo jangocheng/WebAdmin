@@ -40,7 +40,7 @@ namespace MsDev.Taskschd
 
             //连接字符串使用config.json中自定义的替换
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("cnConnection")));
+                options.UseSqlServer(config.GetConnectionString("localSqlServer")));
 
             services.AddScoped<IBingNewsRepository, BingNewsAgent>();
             services.AddScoped<BingNewsTask>();
