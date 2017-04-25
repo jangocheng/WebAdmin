@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using MsDev.Taskschd.Entities;
+using MSDev.Taskschd.Entities;
 using System;
 
-namespace MsDev.Taskschd.Helpers
+namespace MSDev.Taskschd.Helpers
 {
     public class BingSearchCrawler
     {

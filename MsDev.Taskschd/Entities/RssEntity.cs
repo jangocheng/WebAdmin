@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MsDev.Taskschd.Entities
+namespace MSDev.Taskschd.Entities
 {
     public class RssEntity
     {

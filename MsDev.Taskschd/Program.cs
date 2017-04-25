@@ -2,16 +2,16 @@ using System;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
 using MSDev.DataAgent;
-using MsDev.Taskschd.Tasks;
+using MSDev.Taskschd.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 using Microsoft.Extensions.Logging;
-using MsDev.DataAgent.Repositories;
+using MSDev.DataAgent.Repositories;
 using MSDev.DataAgent.Agents;
 using System.IO;
 
-namespace MsDev.Taskschd
+namespace MSDev.Taskschd
 {
     public static class Program
     {

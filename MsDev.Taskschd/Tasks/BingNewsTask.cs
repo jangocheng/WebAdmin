@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MsDev.Taskschd.Entities;
-using MsDev.Taskschd.Helpers;
+using MSDev.Taskschd.Entities;
+using MSDev.Taskschd.Helpers;
 using Microsoft.AspNetCore.WebUtilities;
-using MsDev.DataAgent.Repositories;
+using MSDev.DataAgent.Repositories;
 using MSDev.Core.Tools;
 using MSDev.DataAgent.Models;
 
-namespace MsDev.Taskschd.Tasks
+namespace MSDev.Taskschd.Tasks
 {
     public class BingNewsTask
     {

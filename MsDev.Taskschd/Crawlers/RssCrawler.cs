@@ -1,4 +1,4 @@
-﻿using MsDev.Taskschd.Entities;
+﻿using MSDev.Taskschd.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -8,7 +8,7 @@ using System.Xml;
 using System.IO;
 using System;
 
-namespace MsDev.Taskschd.Helpers
+namespace MSDev.Taskschd.Helpers
 {
     public static class RssCrawler
     {

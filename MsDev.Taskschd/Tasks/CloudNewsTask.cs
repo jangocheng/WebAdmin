@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MsDev.DataAgent.EnumTypes;
+using MSDev.DataAgent.EnumTypes;
 using MSDev.DataAgent.Models;
-using MsDev.DataAgent.Repositories;
-using MsDev.Taskschd.Helpers;
+using MSDev.DataAgent.Repositories;
+using MSDev.Taskschd.Helpers;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace MsDev.Taskschd.Tasks
+namespace MSDev.Taskschd.Tasks
 {
     public class CloudNewsTask
     {
