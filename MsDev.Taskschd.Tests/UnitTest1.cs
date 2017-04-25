@@ -1,9 +1,9 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MsDev.Taskschd.Helpers;
+using MSDev.Taskschd.Helpers;
 using System.Linq;
 
-namespace MsDev.Taskschd.Tests
+namespace MSDev.Taskschd.Tests
 {
     [TestClass]
     public class UnitTest1
