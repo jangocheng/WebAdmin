@@ -29,7 +29,7 @@ namespace TestSocket
 
         while (true)
         {
-          Console.Write("Waiting for a connection... ");
+          Console.WriteLine("Waiting for a connection... ");
 
           TcpClient client = server.AcceptTcpClientAsync().Result;
           Console.WriteLine("Connected!");
@@ -48,12 +48,10 @@ namespace TestSocket
             data = data.ToUpper();
 
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-
             stream.Write(msg, 0, msg.Length);
-            Console.WriteLine("Sent: {0}", data);
           }
 
-          //client.Dispose();
+          client.Dispose();
         }
       } catch (SocketException e)
       {
