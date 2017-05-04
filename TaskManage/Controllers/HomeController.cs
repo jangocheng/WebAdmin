@@ -15,10 +15,10 @@ namespace TaskManage.Controllers
       return View();
     }
 
-    public async Task About()
+    public void About()
     {
       TaskRunner runner = new TaskRunner();
-      await runner.RunAsync("ping", HttpContext);
+      runner.Run("ping msdev.cc", HttpContext);
 
     }
 

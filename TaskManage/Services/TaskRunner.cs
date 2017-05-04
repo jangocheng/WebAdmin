@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
@@ -17,7 +18,7 @@ namespace TaskManage.Services
 
     }
 
-    public async Task RunAsync(string command, HttpContext context)
+    public void Run(string command, HttpContext context)
     {
       Process myProcess = new Process();
       command = String.IsNullOrEmpty(command) ? "ls" : command;
@@ -34,7 +35,7 @@ namespace TaskManage.Services
 
         myProcess.StartInfo.CreateNoWindow = false;
         myProcess.StartInfo.RedirectStandardOutput = true;
-        myProcess.StartInfo.StandardOutputEncoding = System.Text.Encoding.UTF8;
+        myProcess.StartInfo.StandardOutputEncoding = Encoding.UTF8;
 
         myProcess.Start();
 
@@ -43,7 +44,10 @@ namespace TaskManage.Services
 
         while (line != null)
         {
-          await context.Response.WriteAsync(line);
+          context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(line+"\r\n"),0,line.Length);
+          context.Response.Body.FlushAsync();
+          
+          Console.WriteLine(line);
           line = reader.ReadLine();
         }
 
