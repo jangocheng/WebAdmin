@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 
@@ -9,7 +11,39 @@ namespace TestSocket
     public static void Main(string[] args)
     {
 
-      StartServer();
+      Process myProcess = new Process();
+      try
+      {
+        myProcess.StartInfo.UseShellExecute = false;
+        // You can start any process, HelloWorld is a do-nothing example.
+        myProcess.StartInfo.FileName = "powershell.exe";
+        myProcess.StartInfo.Arguments = @"dotnet C:\Users\zpty\Source\Repos\github\TaskQueue\TestClient\bin\Debug\netcoreapp1.1\TestClient.dll";
+        myProcess.StartInfo.UseShellExecute = false;
+        myProcess.StartInfo.CreateNoWindow = true;
+        myProcess.StartInfo.RedirectStandardOutput = true;
+        myProcess.StartInfo.StandardOutputEncoding = System.Text.Encoding.UTF8;
+
+        myProcess.Start();
+
+        StreamReader reader = myProcess.StandardOutput;
+        string line = reader.ReadLine();
+       
+        while (line!=null)
+        {
+          Console.WriteLine(line);
+          line = reader.ReadLine();
+        }
+
+        myProcess.WaitForExit();
+        myProcess.Dispose();
+        // This code assumes the process you are starting will terminate itself. 
+        // Given that is is started without a window so you cannot terminate it 
+        // on the desktop, it must terminate itself or you can do it programmatically
+        // from this application using the Kill method.
+      } catch (Exception e)
+      {
+        Console.WriteLine(e.Message);
+      }
     }
 
     static void StartServer()
