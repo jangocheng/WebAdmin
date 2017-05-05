@@ -47,6 +47,7 @@ namespace TaskManage
       }
       app.UseStaticFiles();
 
+      app.UseWebSockets();
       app.UseMvc(routes => {
         routes.MapRoute(
             name: "default",
