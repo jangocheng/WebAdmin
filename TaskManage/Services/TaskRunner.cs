@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.WebSockets;
@@ -16,15 +17,20 @@ namespace TaskManage.Services
   public class TaskRunner
   {
     private readonly WebSocket _webSocket;
+
+    private readonly Dictionary<String, String> _taskMap = new Dictionary<String, String>();
+
     public TaskRunner(WebSocket webSocket)
     {
       _webSocket = webSocket;
+      _taskMap.Add("bingnews", "cd /var/task/queue;sudo dotnet MSDev.Taskschd.dll");
     }
 
-    public void Run(String command)
+    public async Task Run(String command)
     {
+      Console.WriteLine(command);
       Process myProcess = new Process();
-      command = String.IsNullOrEmpty(command) ? "ls" : command;
+      command = _taskMap.ContainsKey(command) ? _taskMap[command] : "ls";
       try
       {
         myProcess.StartInfo.UseShellExecute = false;
@@ -47,13 +53,11 @@ namespace TaskManage.Services
 
         while (line != null)
         {
-          Echo(line);
-
+          await Echo(line);
           Console.WriteLine(line);
           line = reader.ReadLine();
         }
 
-        Echo("CLOSE_WEBSOCKET");
         myProcess.WaitForExit();
         myProcess.Dispose();
 
@@ -62,19 +66,10 @@ namespace TaskManage.Services
         Console.WriteLine(e.Message);
       }
     }
-    private async void Echo(Object message)
+    private async Task Echo(String message)
     {
-      String reply = JsonConvert.SerializeObject(message);
-
-      if (message.ToString().Equals("CLOSE_WEBSOCKET"))
-      {
-        await _webSocket.SendAsync(
-          new ArraySegment<Byte>(Encoding.UTF8.GetBytes(reply), 0, reply.Length), WebSocketMessageType.Text, true, CancellationToken.None);
-      }
-
-
       await _webSocket.SendAsync(
-        new ArraySegment<Byte>(Encoding.UTF8.GetBytes(reply), 0, reply.Length), WebSocketMessageType.Text, true, CancellationToken.None);
+        new ArraySegment<Byte>(Encoding.UTF8.GetBytes(message), 0, message.Length), WebSocketMessageType.Text, true, CancellationToken.None);
     }
   }
 }

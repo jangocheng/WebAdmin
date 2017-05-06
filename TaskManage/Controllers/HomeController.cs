@@ -19,31 +19,7 @@ namespace TaskManage.Controllers
       return View();
     }
 
-    public async Task RunTask()
-    {
-      if (HttpContext.WebSockets.IsWebSocketRequest)
-      {
 
-        WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
-        Byte[] buffer = new Byte[1024 * 4];
-        WebSocketReceiveResult result = await webSocket.ReceiveAsync(
-          new ArraySegment<Byte>(buffer), CancellationToken.None);
-        TaskRunner runner = new TaskRunner(webSocket);
-
-        while (!result.CloseStatus.HasValue)
-        {
-          String msg = buffer.ToString();
-          if (msg == null) continue;
-
-          runner.Run("");
-          result = await webSocket.ReceiveAsync(
-            new ArraySegment<Byte>(buffer), CancellationToken.None);
-        }
-        await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
-
-        //await Echo(webSocket, "1231");
-      }
-    }
 
     public IActionResult Contact()
     {
