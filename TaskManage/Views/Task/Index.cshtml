@@ -2,23 +2,31 @@
   ViewBag.Title = "任务";
 
 }
+<head>
+  <style>
+    .consoleWindow {
+      max-height: 480px;
+      overflow-y: scroll;
+    }
+  </style>
+</head>
 
 <div>
   <h4>任务列表:</h4>
   <button class="btn btn-default"
-          data-bind="click:runTask.bind($data,'test')">
-    必应新闻
+          data-bind="click:runTask.bind($data,'bingnews')">
+    刷新必应新闻
   </button>
 
 </div>
 
 <div>
   <h4>执行输出:</h4>
-  <div class="panel">
 
-    <pre><code data-bind="html:consoleInformation" class=""></code>
-</pre>
+  <div class="panel" >
+    <pre><code data-bind="html:consoleInformation" class="consoleWindow"></code></pre>
   </div>
+
 </div>
 
 @section Scripts
@@ -26,17 +34,16 @@
   <script src="~/js/highlight.js"></script>
   <script>
 
-    $(document).ready(function () {
+    $(document).ready(function() {
       const scheme = document.location.protocol === "https:" ? "wss" : "ws";
       const port = document.location.port ? (`:${document.location.port}`) : "";
       const url = `${scheme}://${document.location.hostname}${port}/task/runtask`;
       var socket = new WebSocket(url);
       let consolemsg = "";
 
-
       var viewModel = {
         consoleInformation: ko.observable(),
-        runTask: function (type) {
+        runTask: function(type) {
 
           consolemsg = "";
           if (!socket || socket.readyState !== WebSocket.OPEN) {
@@ -48,16 +55,13 @@
       }
       ko.applyBindings(viewModel);
 
-      socket.onmessage = function (e) {
+      socket.onmessage = function(e) {
         consolemsg += e.data + '\r';
         viewModel.consoleInformation(consolemsg);
-        $("pre code").each(function (i, block) {
+        $("pre code").each(function(i, block) {
           hljs.highlightBlock(block);
-
         });
-        console.log(e.data);
       }
-
 
     });
 

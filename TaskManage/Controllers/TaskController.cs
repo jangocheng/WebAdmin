@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net.WebSockets;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +31,8 @@ namespace TaskManage.Controllers
 
         while (!result.CloseStatus.HasValue)
         {
-          String msg = buffer.ToString();
+          
+          String msg = Encoding.UTF8.GetString(buffer).TrimEnd('\0');
           if (msg == null)
             continue;
           await runner.Run(msg);

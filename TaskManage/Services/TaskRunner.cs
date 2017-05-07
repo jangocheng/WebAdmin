@@ -6,8 +6,6 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 
 namespace TaskManage.Services
 {
@@ -17,30 +15,40 @@ namespace TaskManage.Services
   public class TaskRunner
   {
     private readonly WebSocket _webSocket;
-
-    private readonly Dictionary<String, String> _taskMap = new Dictionary<String, String>();
+    readonly Dictionary<String, String> taskMap = new Dictionary<String, String>()
+    {
+      ["bingnews"] = "cd /var/task/queue;sudo dotnet MSDev.Taskschd.dll"
+    };
 
     public TaskRunner(WebSocket webSocket)
     {
       _webSocket = webSocket;
-      _taskMap.Add("bingnews", "cd /var/task/queue;sudo dotnet MSDev.Taskschd.dll");
     }
 
     public async Task Run(String command)
     {
-      Console.WriteLine(command);
       Process myProcess = new Process();
-      command = _taskMap.ContainsKey(command) ? _taskMap[command] : "ls";
+
+      if (taskMap.TryGetValue(command, out String value))
+      {
+        Console.WriteLine(value);
+        command = value;
+      }
+
+      Console.WriteLine("command is :" + command);
+
       try
       {
         myProcess.StartInfo.UseShellExecute = false;
         //linux
-        //myProcess.StartInfo.FileName = "bash";
-        //myProcess.StartInfo.Arguments = "-c \"" + command + "\"";
+        myProcess.StartInfo.FileName = "bash";
+        myProcess.StartInfo.Arguments = "-c \"" + command + "\"";
 
         //windows
-        myProcess.StartInfo.FileName = "powershell.exe";
-        myProcess.StartInfo.Arguments = command;
+        //myProcess.StartInfo.FileName = "powershell.exe";
+        //myProcess.StartInfo.Arguments = command;
+
+        Console.WriteLine("command is :"+command);
 
         myProcess.StartInfo.CreateNoWindow = false;
         myProcess.StartInfo.RedirectStandardOutput = true;
