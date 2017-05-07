@@ -1,0 +1,19 @@
+{
+  "MicrosoftAzureStorage": {
+    "msdev_AzureStorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=msdev;AccountKey=7UYvX212TbhkE5kpx/S95hvvnOLD/WzAh7mMFvStzonoVN6ipwkE95m43ZeINElop128VIJwPrnyxGERvKkxXA=="
+  },
+  "ConnectionStrings": {
+    "PostgreSql": "User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=smbloh",
+    "localSqlServer": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MSDev;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+
+    "cnConnection": "Server=tcp:msdev.database.chinacloudapi.cn,1433;Initial Catalog=msdev;Persist Security Info=False;User ID=niltor;Password=n0th1ngisNULL;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  },
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information"
+    }
+  }
+}

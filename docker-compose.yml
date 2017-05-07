@@ -1,8 +1,0 @@
-version: '2'
-
-services:
-  msdev.taskschd:
-    image: msdev.taskschd
-    build:
-      context: ./MsDev.Taskschd
-      dockerfile: Dockerfile

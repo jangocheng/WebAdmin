@@ -10,6 +10,9 @@
     <OutputType>Exe</OutputType>
     <PackageId>TaskQueue</PackageId>
     <RootNamespace>MSDev.Taskschd</RootNamespace>
+    <Authors>MSDev.Task</Authors>
+    <Company>MSDev.Task</Company>
+    <Product>MSDev.Task</Product>
 
   </PropertyGroup>
 
@@ -37,9 +40,6 @@
     <PackageReference Include="Microsoft.Web.WebJobs.Publish" Version="1.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.3.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataAgent\DataAgent\MSDev.DataAgent.csproj" />
   </ItemGroup>
 
 </Project>

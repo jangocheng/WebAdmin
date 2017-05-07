@@ -15,7 +15,7 @@ namespace TaskManage.Services
   public class TaskRunner
   {
     private readonly WebSocket _webSocket;
-    readonly Dictionary<String, String> taskMap = new Dictionary<String, String>()
+    readonly Dictionary<String, String> _taskMap = new Dictionary<String, String>()
     {
       ["bingnews"] = "cd /var/task/queue;sudo dotnet MSDev.Taskschd.dll"
     };
@@ -29,7 +29,7 @@ namespace TaskManage.Services
     {
       Process myProcess = new Process();
 
-      if (taskMap.TryGetValue(command, out String value))
+      if (_taskMap.TryGetValue(command, out String value))
       {
         Console.WriteLine(value);
         command = value;
