@@ -1,47 +1,38 @@
 using System;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
-using MSDev.DataAgent;
-using MSDev.Taskschd.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 using Microsoft.Extensions.Logging;
-using MSDev.DataAgent.Repositories;
-using MSDev.DataAgent.Agents;
 using System.IO;
+using System.Net.Http;
+using MSDev.Task.Tasks;
 
-namespace MSDev.Taskschd
+namespace MSDev.Task
 {
   public static class Program
   {
-    private static IServiceCollection services = new ServiceCollection();
+    private static readonly IServiceCollection Services = new ServiceCollection();
 
-    public static void Main(string[] args)
+    public static void Main(String[] args)
     {
       Console.OutputEncoding = Encoding.UTF8;
       Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
       // 加载配置文件
-      var builder = new ConfigurationBuilder()
+      IConfigurationBuilder builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("config.json");
 
-      var config = builder.Build();
+      IConfigurationRoot config = builder.Build();
 
-      services.AddLogging();
+      Services.AddLogging();
 
       ILoggerFactory factory = new LoggerFactory();
       factory.AddConsole();
 
-      services.AddSingleton(factory);
-
-      //连接字符串使用config.json中自定义的替换
-      services.AddDbContext<AppDbContext>(options =>
-          options.UseSqlServer(config.GetConnectionString("localSqlServer")));
-
-      services.AddScoped<IBingNewsRepository, BingNewsAgent>();
-      services.AddScoped<BingNewsTask>();
+      Services.AddSingleton(factory);
 
       ////确保数据库建立
       //var dbContext = new AppDbContext();
@@ -56,13 +47,13 @@ namespace MSDev.Taskschd
     /// 运行服务
     /// </summary>
     /// <param name="serviceName">服务名称</param>
-    public static async void Run(string serviceName)
+    public static async void Run(String serviceName)
     {
       serviceName = serviceName.ToLower();
       switch (serviceName)
       {
         case "bingnews":
-          var task = services.BuildServiceProvider().GetService<BingNewsTask>();
+          BingNewsTask task = Services.BuildServiceProvider().GetService<BingNewsTask>();
           await task.GetNews("微软");
           Console.WriteLine("Done");
           break;

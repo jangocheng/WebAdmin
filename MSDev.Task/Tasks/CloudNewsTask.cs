@@ -2,12 +2,12 @@
 using MSDev.DataAgent.EnumTypes;
 using MSDev.DataAgent.Models;
 using MSDev.DataAgent.Repositories;
-using MSDev.Taskschd.Helpers;
 using System.Linq;
 using System.Threading.Tasks;
+using MSDev.Task.Helpers;
 using Newtonsoft.Json;
 
-namespace MSDev.Taskschd.Tasks
+namespace MSDev.Task.Tasks
 {
     public class CloudNewsTask
     {
@@ -21,7 +21,7 @@ namespace MSDev.Taskschd.Tasks
 
         public async Task<bool> GetNews()
         {
-            var blogs = await RssCrawler.GetRss(CloudNewsFeedsLink);
+            var blogs = await RssHelper.GetRss(CloudNewsFeedsLink);
             var lastNews = await repository.DbSet.Where(x => x.Type == NewsTypes.Cloud).LastOrDefaultAsync();
             var _RssNews = blogs.Where(x => x.PublishId > lastNews.PublishId).OrderBy(x => x.PublishId).Select(x => new RssNews
             {

@@ -2,11 +2,6 @@
   "MicrosoftAzureStorage": {
     "msdev_AzureStorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=msdev;AccountKey=7UYvX212TbhkE5kpx/S95hvvnOLD/WzAh7mMFvStzonoVN6ipwkE95m43ZeINElop128VIJwPrnyxGERvKkxXA=="
   },
-  "ConnectionStrings": {
-    "PostgreSql": "User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=smbloh",
-    "localSqlServer": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
-    "cnConnection": ""
-  },
   "Logging": {
     "IncludeScopes": false,
     "LogLevel": {

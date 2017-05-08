@@ -1,4 +1,3 @@
-﻿using MSDev.Taskschd.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -7,17 +6,18 @@ using System.Xml.Linq;
 using System.Xml;
 using System.IO;
 using System;
+using MSDev.Task.Entities;
 
-namespace MSDev.Taskschd.Helpers
+namespace MSDev.Task.Helpers
 {
-    public static class RssCrawler
+    public static class RssHelper
     {
         private readonly static HttpClient httpClient;
 
         private const string devBlogsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
         private const string cloudFeedsLink = "https://sxp.microsoft.com/feeds/3.0/cloud";
 
-        static RssCrawler()
+        static RssHelper()
         {
             if (httpClient == null)
                 httpClient = new HttpClient();
