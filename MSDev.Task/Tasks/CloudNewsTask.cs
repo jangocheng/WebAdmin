@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MSDev.DataAgent.EnumTypes;
+using System;
+using System.Collections.Generic;
 using MSDev.DataAgent.Models;
-using MSDev.DataAgent.Repositories;
 using System.Linq;
 using System.Threading.Tasks;
+using MSDev.Task.Entities;
 using MSDev.Task.Helpers;
 using Newtonsoft.Json;
 
@@ -12,16 +12,16 @@ namespace MSDev.Task.Tasks
     public class CloudNewsTask
     {
         private IRssRepository repository = null;
-        private const string CloudNewsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
+        private const String CloudNewsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
 
         public CloudNewsTask(IRssRepository repository)
         {
             this.repository = repository;
         }
 
-        public async Task<bool> GetNews()
+        public async Task<Boolean> GetNews()
         {
-            var blogs = await RssHelper.GetRss(CloudNewsFeedsLink);
+            ICollection<RssEntity> blogs = await RssHelper.GetRss(CloudNewsFeedsLink);
             var lastNews = await repository.DbSet.Where(x => x.Type == NewsTypes.Cloud).LastOrDefaultAsync();
             var _RssNews = blogs.Where(x => x.PublishId > lastNews.PublishId).OrderBy(x => x.PublishId).Select(x => new RssNews
             {

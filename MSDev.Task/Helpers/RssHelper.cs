@@ -14,8 +14,8 @@ namespace MSDev.Task.Helpers
     {
         private readonly static HttpClient httpClient;
 
-        private const string devBlogsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
-        private const string cloudFeedsLink = "https://sxp.microsoft.com/feeds/3.0/cloud";
+        private const String devBlogsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
+        private const String cloudFeedsLink = "https://sxp.microsoft.com/feeds/3.0/cloud";
 
         static RssHelper()
         {
@@ -23,13 +23,13 @@ namespace MSDev.Task.Helpers
                 httpClient = new HttpClient();
         }
 
-        public static async Task<ICollection<RssEntity>> GetRss(string url)
+        public static async Task<ICollection<RssEntity>> GetRss(String url)
         {
-            var blogs = new List<RssEntity>();
-            var xml = await httpClient.GetStringAsync(url);
-            if (!string.IsNullOrEmpty(xml))
+            List<RssEntity> blogs = new List<RssEntity>();
+            String xml = await httpClient.GetStringAsync(url);
+            if (!String.IsNullOrEmpty(xml))
             {
-                using (var reader = XmlReader.Create(new StringReader(xml.Replace("sxp:", "sxp_"))))
+                using (XmlReader reader = XmlReader.Create(new StringReader(xml.Replace("sxp:", "sxp_"))))
                 {
                     reader.MoveToElement();
                     XDocument xRoot = XDocument.Load(reader, LoadOptions.SetLineInfo);
@@ -45,7 +45,7 @@ namespace MSDev.Task.Helpers
                             LastUpdateTime = DateTime.Parse(x.Element("sxp_LastUpdated").Value),
                             Link = x.Element("link").Value,
                             MobileContent = x.Element("sxp_MobileContent").Value,
-                            PublishId = int.Parse(x.Element("sxp_PublishId").Value)
+                            PublishId = Int32.Parse(x.Element("sxp_PublishId").Value)
                         })
                         .ToList();
                 }

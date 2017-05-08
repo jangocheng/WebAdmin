@@ -1,33 +1,32 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using MSDev.Taskschd.Entities;
-using MSDev.Taskschd.Helpers;
 using Microsoft.AspNetCore.WebUtilities;
-using MSDev.DataAgent.Repositories;
+using Microsoft.Extensions.Primitives;
 using MSDev.Core.Tools;
 using MSDev.DataAgent.Models;
+using MSDev.Task.Entities;
+using MSDev.Task.Helpers;
 
-namespace MSDev.Taskschd.Tasks
+namespace MSDev.Task.Tasks
 {
   public class BingNewsTask
   {
     private const String BingSearchKey = "2dd3ac889c7e42d4934d017abf80cae3";
     private const String Domain = "http://msdev.cc/";//TODO: [域名]读取配置
     private const Double Similarity = 0.5;//定义相似度
-    private IBingNewsRepository repository;
+    private readonly ApiHelper _apiHelper;
 
-    public BingNewsTask(IBingNewsRepository repository)
+    public BingNewsTask(ApiHelper apiHelper)
     {
-      this.repository = repository;
+      _apiHelper = apiHelper;
     }
 
     public async Task<List<BingNewsEntity>> GetNews(String query, String freshness = "Day")
     {
       //获取新闻
-      BingSearchCrawler.SearchApiKey = BingSearchKey;
-      var newNews = await BingSearchCrawler.GetNewsSearchResults(query);
+      BingSearchHelper.SearchApiKey = BingSearchKey;
+      List<BingNewsEntity> newNews = await BingSearchHelper.GetNewsSearchResults(query);
       if (newNews == null)
         throw new ArgumentNullException(nameof(newNews));
 
@@ -57,59 +56,63 @@ namespace MSDev.Taskschd.Tasks
         for (Int32 j = i + 1; j < newNews.Count; j++)
         {
           //重复过滤
-          if (StringTools.Similarity(newNews[i].Title, newNews[j].Title) > Similarity)
-          {
-            Console.WriteLine("repeat:" + newNews[i].Title);
-            newNews[i].Title = String.Empty;
-          }
+          if (!(StringTools.Similarity(newNews[i].Title, newNews[j].Title) > Similarity)) continue;
+          Console.WriteLine("repeat:" + newNews[i].Title);
+          newNews[i].Title = String.Empty;
         }
       }
 
       //查询库中内容并去重
-      HttpClient httpClient = new HttpClient();
-      httpClient.GetStringAsync();
+      JsonResult<List<String>> resultData = await _apiHelper.Get<List<String>>("/BingNews/GetRecentTitles");
 
-      var oldTitles = await repository.GetRecentTitlesAsync(7);
-      for (var i = 0; i < newNews.Count; i++)
+      if (resultData.ErrorCode == 0)
       {
-        if (String.IsNullOrEmpty(newNews[i].Title))
-          continue;
-        foreach (String oldTitle in oldTitles)
+        List<String> oldTitles = resultData.Data;
+        for (Int32 i = 0; i < newNews.Count; i++)
         {
-          if (StringTools.Similarity(newNews[i].Title, oldTitle) > Similarity)
+          if (String.IsNullOrEmpty(newNews[i].Title))
+            continue;
+          foreach (String oldTitle in oldTitles)
           {
-            Console.WriteLine("repeat:" + newNews[i].Title);
-            newNews[i].Title = String.Empty;
-            break;
+            if (StringTools.Similarity(newNews[i].Title, oldTitle) > Similarity)
+            {
+              Console.WriteLine("repeat:" + newNews[i].Title);
+              newNews[i].Title = String.Empty;
+              break;
+            }
           }
         }
-      }
-      //去重后的内容
-      var newsTBA = new List<BingNews>();
-      foreach (var item in newNews)
-      {
-        if (String.IsNullOrEmpty(item.Title))
-          continue;
-        Uri uri = new Uri(item.Url);
-        var queryDictionary = QueryHelpers.ParseQuery(uri.Query);
-        String targetUrl = queryDictionary["r"];
-        targetUrl = Domain + "?r=" + targetUrl;
+        //去重后的内容
+        var newsTBA = new List<BingNews>();
+        foreach (BingNewsEntity item in newNews)
+        {
+          if (String.IsNullOrEmpty(item.Title))
+            continue;
+          Uri uri = new Uri(item.Url);
+          Dictionary<String, StringValues> queryDictionary = QueryHelpers.ParseQuery(uri.Query);
+          String targetUrl = queryDictionary["r"];
+          targetUrl = Domain + "?r=" + targetUrl;
 
-        var news = new BingNews {
-          Title = item.Title,
-          Description = item.Description,
-          Url = targetUrl,
-          ThumbnailUrl = item.ThumbnailUrl,
-          Status = 0,
-          Tags = query,
-          Provider = item.Provider,
-          CreatedTime = item.DatePublished,
-          UpdatedTime = DateTime.Now
-        };
-        newsTBA.Add(news);
+          var news = new BingNews
+          {
+            Title = item.Title,
+            Description = item.Description,
+            Url = targetUrl,
+            ThumbnailUrl = item.ThumbnailUrl,
+            Status = 0,
+            Tags = query,
+            Provider = item.Provider,
+            CreatedTime = item.DatePublished,
+            UpdatedTime = DateTime.Now
+          };
+          newsTBA.Add(news);
+        }
+        JsonResult<Int32> re =await _apiHelper.Post<Int32>("/BingNews/AddBingNews", newsTBA);
+        if (re.ErrorCode != 0)
+        {
+          Console.WriteLine(re.Data);
+        }
       }
-      var re = repository.AddRange(newsTBA);
-
       return newNews;
     }
   }

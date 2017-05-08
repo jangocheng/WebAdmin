@@ -10,32 +10,34 @@ namespace MSDev.Task.Helpers
   public class ApiHelper
   {
     private const String Daemon = "https://api.msdev.cc/api/";
-    private static String _url = "";
 
-    public ApiHelper(String url)
+    public ApiHelper()
     {
-      _url = Daemon + url;
+
     }
 
-    public async Task<JsonResult<T>> Get<T>()
+    public async Task<JsonResult<T>> Get<T>(String url)
     {
+
       using (HttpClient httpClient = new HttpClient())
       {
-        String jsonResult = await httpClient.GetStringAsync(_url);
+        httpClient.BaseAddress = new Uri(Daemon);
+        String jsonResult = await httpClient.GetStringAsync(url);
         JsonResult<T> result = JsonConvert.DeserializeObject<JsonResult<T>>(jsonResult);
         return result;
       }
     }
 
-    public async Task<JsonResult<T>> Post<T>(Object item)
+    public async Task<JsonResult<T>> Post<T>(String url, Object item)
     {
       using (HttpClient httpClient = new HttpClient())
       {
+        httpClient.BaseAddress = new Uri(Daemon);
 
         String stringContent = JsonConvert.SerializeObject(item);
         HttpContent content = new StringContent(stringContent, Encoding.UTF8, "application/json");
 
-        HttpResponseMessage responseMessage = await httpClient.PostAsync(_url, content);
+        HttpResponseMessage responseMessage = await httpClient.PostAsync(url, content);
         String jsonResult = await responseMessage.Content.ReadAsStringAsync();
         JsonResult<T> result = JsonConvert.DeserializeObject<JsonResult<T>>(jsonResult);
         return result;
@@ -43,15 +45,16 @@ namespace MSDev.Task.Helpers
 
     }
 
-    public async Task<JsonResult<T>> Put<T>(Object item)
+    public async Task<JsonResult<T>> Put<T>(String url, Object item)
     {
       using (HttpClient httpClient = new HttpClient())
       {
+        httpClient.BaseAddress = new Uri(Daemon);
 
         String stringContent = JsonConvert.SerializeObject(item);
         HttpContent content = new StringContent(stringContent, Encoding.UTF8, "application/json");
 
-        HttpResponseMessage responseMessage = await httpClient.PutAsync(_url, content);
+        HttpResponseMessage responseMessage = await httpClient.PutAsync(url, content);
         String jsonResult = await responseMessage.Content.ReadAsStringAsync();
         JsonResult<T> result = JsonConvert.DeserializeObject<JsonResult<T>>(jsonResult);
         return result;
@@ -59,11 +62,13 @@ namespace MSDev.Task.Helpers
 
     }
 
-    public async Task<JsonResult<T>> Delete<T>()
+    public async Task<JsonResult<T>> Delete<T>(String url)
     {
       using (HttpClient httpClient = new HttpClient())
       {
-        HttpResponseMessage responseMessage = await httpClient.DeleteAsync(_url);
+        httpClient.BaseAddress = new Uri(Daemon);
+
+        HttpResponseMessage responseMessage = await httpClient.DeleteAsync(url);
         String jsonResult = await responseMessage.Content.ReadAsStringAsync();
         JsonResult<T> result = JsonConvert.DeserializeObject<JsonResult<T>>(jsonResult);
         return result;

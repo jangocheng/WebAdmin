@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Net.Http;
+using MSDev.Task.Helpers;
 using MSDev.Task.Tasks;
 
 namespace MSDev.Task
@@ -31,6 +32,8 @@ namespace MSDev.Task
 
       ILoggerFactory factory = new LoggerFactory();
       factory.AddConsole();
+
+      Services.AddTransient(typeof(ApiHelper));
 
       Services.AddSingleton(factory);
 
