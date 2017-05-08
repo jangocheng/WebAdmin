@@ -65,53 +65,48 @@ namespace MSDev.Task.Tasks
       //查询库中内容并去重
       JsonResult<List<String>> resultData = await _apiHelper.Get<List<String>>("/BingNews/GetRecentTitles");
 
-      if (resultData.ErrorCode == 0)
+      if (resultData.ErrorCode != 0) return newNews;
+      List<String> oldTitles = resultData.Data;
+      foreach (BingNewsEntity t in newNews) {
+        if (String.IsNullOrEmpty(t.Title))
+          continue;
+        foreach (String oldTitle in oldTitles)
+        {
+          if (!(StringTools.Similarity(t.Title, oldTitle) > Similarity)) continue;
+          Console.WriteLine("repeat:" + t.Title);
+          t.Title = String.Empty;
+          break;
+        }
+      }
+      //去重后的内容
+      List<BingNews> newsTBA = new List<BingNews>();
+      foreach (BingNewsEntity item in newNews)
       {
-        List<String> oldTitles = resultData.Data;
-        for (Int32 i = 0; i < newNews.Count; i++)
-        {
-          if (String.IsNullOrEmpty(newNews[i].Title))
-            continue;
-          foreach (String oldTitle in oldTitles)
-          {
-            if (StringTools.Similarity(newNews[i].Title, oldTitle) > Similarity)
-            {
-              Console.WriteLine("repeat:" + newNews[i].Title);
-              newNews[i].Title = String.Empty;
-              break;
-            }
-          }
-        }
-        //去重后的内容
-        var newsTBA = new List<BingNews>();
-        foreach (BingNewsEntity item in newNews)
-        {
-          if (String.IsNullOrEmpty(item.Title))
-            continue;
-          Uri uri = new Uri(item.Url);
-          Dictionary<String, StringValues> queryDictionary = QueryHelpers.ParseQuery(uri.Query);
-          String targetUrl = queryDictionary["r"];
-          targetUrl = Domain + "?r=" + targetUrl;
+        if (String.IsNullOrEmpty(item.Title))
+          continue;
+        Uri uri = new Uri(item.Url);
+        Dictionary<String, StringValues> queryDictionary = QueryHelpers.ParseQuery(uri.Query);
+        String targetUrl = queryDictionary["r"];
+        targetUrl = Domain + "?r=" + targetUrl;
 
-          var news = new BingNews
-          {
-            Title = item.Title,
-            Description = item.Description,
-            Url = targetUrl,
-            ThumbnailUrl = item.ThumbnailUrl,
-            Status = 0,
-            Tags = query,
-            Provider = item.Provider,
-            CreatedTime = item.DatePublished,
-            UpdatedTime = DateTime.Now
-          };
-          newsTBA.Add(news);
-        }
-        JsonResult<Int32> re =await _apiHelper.Post<Int32>("/BingNews/AddBingNews", newsTBA);
-        if (re.ErrorCode != 0)
+        BingNews news = new BingNews
         {
-          Console.WriteLine(re.Data);
-        }
+          Title = item.Title,
+          Description = item.Description,
+          Url = targetUrl,
+          ThumbnailUrl = item.ThumbnailUrl,
+          Status = 0,
+          Tags = query,
+          Provider = item.Provider,
+          CreatedTime = item.DatePublished,
+          UpdatedTime = DateTime.Now
+        };
+        newsTBA.Add(news);
+      }
+      JsonResult<Int32> re =await _apiHelper.Post<Int32>("/BingNews/AddBingNews", newsTBA);
+      if (re.ErrorCode != 0)
+      {
+        Console.WriteLine(re.Data);
       }
       return newNews;
     }
