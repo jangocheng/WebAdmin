@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
-using MSDev.Core.Tools;
-using MSDev.DataAgent.Models;
 using MSDev.Task.Entities;
 using MSDev.Task.Helpers;
+using MSDev.Task.Models;
+using MSDev.Task.Tools;
+using Newtonsoft.Json;
 
 namespace MSDev.Task.Tasks
 {
@@ -39,7 +40,7 @@ namespace MSDev.Task.Tasks
         //来源过滤
         if (Array.Exists(providerFilter, provider => provider == newNews[i].Provider))
         {
-          Console.WriteLine("filter:" + newNews[i].Provider + ":" + newNews[i].Title);
+          Console.WriteLine("filter:" + newNews[i].Provider + newNews[i].Title);
           newNews[i].Title = String.Empty;
           continue;
         }
@@ -52,21 +53,21 @@ namespace MSDev.Task.Tasks
         }
 
         //TODO: 语义分词重复过滤
-
         for (Int32 j = i + 1; j < newNews.Count; j++)
         {
           //重复过滤
           if (!(StringTools.Similarity(newNews[i].Title, newNews[j].Title) > Similarity)) continue;
-          Console.WriteLine("repeat:" + newNews[i].Title);
+          Console.WriteLine("repeat" + newNews[i].Title);
           newNews[i].Title = String.Empty;
         }
       }
 
       //查询库中内容并去重
-      JsonResult<List<String>> resultData = await _apiHelper.Get<List<String>>("/BingNews/GetRecentTitles");
+      JsonResult<List<String>> resultData = await _apiHelper.Get<List<String>>("api/manage/BingNews/GetRecentTitles/7");
 
       if (resultData.ErrorCode != 0) return newNews;
       List<String> oldTitles = resultData.Data;
+
       foreach (BingNewsEntity t in newNews) {
         if (String.IsNullOrEmpty(t.Title))
           continue;
@@ -78,17 +79,20 @@ namespace MSDev.Task.Tasks
           break;
         }
       }
+
+      
       //去重后的内容
-      List<BingNews> newsTBA = new List<BingNews>();
+      List<BingNews> newsTba = new List<BingNews>();
       foreach (BingNewsEntity item in newNews)
       {
         if (String.IsNullOrEmpty(item.Title))
           continue;
+        Console.WriteLine("New News:" + item.Title);
+
         Uri uri = new Uri(item.Url);
         Dictionary<String, StringValues> queryDictionary = QueryHelpers.ParseQuery(uri.Query);
         String targetUrl = queryDictionary["r"];
         targetUrl = Domain + "?r=" + targetUrl;
-
         BingNews news = new BingNews
         {
           Title = item.Title,
@@ -101,13 +105,11 @@ namespace MSDev.Task.Tasks
           CreatedTime = item.DatePublished,
           UpdatedTime = DateTime.Now
         };
-        newsTBA.Add(news);
+        newsTba.Add(news);
       }
-      JsonResult<Int32> re =await _apiHelper.Post<Int32>("/BingNews/AddBingNews", newsTBA);
-      if (re.ErrorCode != 0)
-      {
-        Console.WriteLine(re.Data);
-      }
+
+      JsonResult<Int32> re =await _apiHelper.Post<Int32>("api/manage/BingNews/AddBingNews", newsTba);
+      Console.WriteLine($"Update {re.Data} news!");
       return newNews;
     }
   }

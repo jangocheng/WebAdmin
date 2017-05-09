@@ -1,6 +1,6 @@
 using System;
 
-namespace MSDev.Core.Tools
+namespace MSDev.Task.Tools
 {
     public class StringTools
     {

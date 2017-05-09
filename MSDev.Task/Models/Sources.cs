@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace MSDev.DataAgent.Models
+namespace MSDev.Task.Models
 {
     //资源来源/下载点
     public class Sources : Model

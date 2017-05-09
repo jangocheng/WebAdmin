@@ -1,7 +1,7 @@
-using MSDev.DataAgent.EnumTypes;
 using System;
+using MSDev.Task.EnumTypes;
 
-namespace MSDev.DataAgent.Models
+namespace MSDev.Task.Models
 {
     public class RssNews
     {

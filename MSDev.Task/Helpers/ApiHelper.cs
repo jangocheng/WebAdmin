@@ -9,7 +9,9 @@ namespace MSDev.Task.Helpers
 {
   public class ApiHelper
   {
-    private const String Daemon = "https://api.msdev.cc/api/";
+    //private const String BaseDaemon = "https://api.msdev.cc";
+    private const String BaseDaemon = "http://localhost:5000";
+
 
     public ApiHelper()
     {
@@ -21,9 +23,9 @@ namespace MSDev.Task.Helpers
 
       using (HttpClient httpClient = new HttpClient())
       {
-        httpClient.BaseAddress = new Uri(Daemon);
+        httpClient.BaseAddress = new Uri(BaseDaemon);
         String jsonResult = await httpClient.GetStringAsync(url);
-        JsonResult<T> result = JsonConvert.DeserializeObject<JsonResult<T>>(jsonResult);
+         JsonResult<T> result = JsonConvert.DeserializeObject<JsonResult<T>>(jsonResult);
         return result;
       }
     }
@@ -32,13 +34,14 @@ namespace MSDev.Task.Helpers
     {
       using (HttpClient httpClient = new HttpClient())
       {
-        httpClient.BaseAddress = new Uri(Daemon);
+        httpClient.BaseAddress = new Uri(BaseDaemon);
 
         String stringContent = JsonConvert.SerializeObject(item);
         HttpContent content = new StringContent(stringContent, Encoding.UTF8, "application/json");
 
         HttpResponseMessage responseMessage = await httpClient.PostAsync(url, content);
         String jsonResult = await responseMessage.Content.ReadAsStringAsync();
+
         JsonResult<T> result = JsonConvert.DeserializeObject<JsonResult<T>>(jsonResult);
         return result;
       }
@@ -49,7 +52,7 @@ namespace MSDev.Task.Helpers
     {
       using (HttpClient httpClient = new HttpClient())
       {
-        httpClient.BaseAddress = new Uri(Daemon);
+        httpClient.BaseAddress = new Uri(BaseDaemon);
 
         String stringContent = JsonConvert.SerializeObject(item);
         HttpContent content = new StringContent(stringContent, Encoding.UTF8, "application/json");
@@ -66,7 +69,7 @@ namespace MSDev.Task.Helpers
     {
       using (HttpClient httpClient = new HttpClient())
       {
-        httpClient.BaseAddress = new Uri(Daemon);
+        httpClient.BaseAddress = new Uri(BaseDaemon);
 
         HttpResponseMessage responseMessage = await httpClient.DeleteAsync(url);
         String jsonResult = await responseMessage.Content.ReadAsStringAsync();

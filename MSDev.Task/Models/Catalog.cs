@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace MSDev.DataAgent.Models
+namespace MSDev.Task.Models
 {
     /// <summary>
     /// 各种类型的目录

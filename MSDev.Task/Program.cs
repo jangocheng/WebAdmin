@@ -1,14 +1,13 @@
 using System;
-using System.Threading;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using System.IO;
-using System.Net.Http;
+using System.Threading.Tasks;
 using MSDev.Task.Helpers;
 using MSDev.Task.Tasks;
+
 
 namespace MSDev.Task
 {
@@ -34,23 +33,25 @@ namespace MSDev.Task
       factory.AddConsole();
 
       Services.AddTransient(typeof(ApiHelper));
-
+      Services.AddScoped(typeof(BingNewsTask));
       Services.AddSingleton(factory);
 
       ////确保数据库建立
       //var dbContext = new AppDbContext();
       //dbContext.Database.Migrate();
-
       //Console.ReadLine();
-      Run("bingnews");
-      Thread.Sleep(1000 * 10);
+
+      if (Run("bingnews").Result)
+      {
+        Console.WriteLine("BingNews finish!");
+      }
     }
 
     /// <summary>
     /// 运行服务
     /// </summary>
     /// <param name="serviceName">服务名称</param>
-    public static async void Run(String serviceName)
+    public static async Task<Boolean> Run(String serviceName)
     {
       serviceName = serviceName.ToLower();
       switch (serviceName)
@@ -58,12 +59,11 @@ namespace MSDev.Task
         case "bingnews":
           BingNewsTask task = Services.BuildServiceProvider().GetService<BingNewsTask>();
           await task.GetNews("微软");
-          Console.WriteLine("Done");
           break;
         default:
           break;
       }
-
+      return true;
     }
   }
 }

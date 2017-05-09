@@ -1,6 +1,6 @@
 using System;
 
-namespace MSDev.DataAgent.Models
+namespace MSDev.Task.Models
 {
     public class BingNews : Model
     {

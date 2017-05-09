@@ -1,6 +1,6 @@
 using System;
 
-namespace MSDev.DataAgent
+namespace MSDev.Task.Models
 {
     public class Model
     {
