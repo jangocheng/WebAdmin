@@ -11,7 +11,7 @@ namespace MSDev.Task.Models
         /// <summary>
         /// 状态值
         /// </summary>
-        public Int32 Status { get; set; }
+        public int Status { get; set; }
 
 
         /// <summary>

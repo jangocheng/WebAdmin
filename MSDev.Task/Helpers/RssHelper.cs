@@ -10,57 +10,84 @@ using MSDev.Task.Entities;
 
 namespace MSDev.Task.Helpers
 {
-    public static class RssHelper
-    {
-        private readonly static HttpClient httpClient;
+	public static class RssHelper
+	{
+		private readonly static HttpClient httpClient;
 
-        private const String devBlogsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
-        private const String cloudFeedsLink = "https://sxp.microsoft.com/feeds/3.0/cloud";
+		private const string devBlogsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
+		private const string cloudFeedsLink = "https://sxp.microsoft.com/feeds/3.0/cloud";
 
-        static RssHelper()
-        {
-            if (httpClient == null)
-                httpClient = new HttpClient();
-        }
+		static RssHelper()
+		{
+			if (httpClient == null)
+			{
+				httpClient = new HttpClient();
+			}
+		}
 
-        public static async Task<ICollection<RssEntity>> GetRss(String url)
-        {
-            List<RssEntity> blogs = new List<RssEntity>();
-            String xml = await httpClient.GetStringAsync(url);
-            if (!String.IsNullOrEmpty(xml))
-            {
-                using (XmlReader reader = XmlReader.Create(new StringReader(xml.Replace("sxp:", "sxp_"))))
-                {
-                    reader.MoveToElement();
-                    XDocument xRoot = XDocument.Load(reader, LoadOptions.SetLineInfo);
+		public static async Task<ICollection<RssEntity>> GetRss(string url)
+		{
+			var blogs = new List<RssEntity>();
+			string xmlString = await httpClient.GetStringAsync(url);
+			if (!String.IsNullOrEmpty(xmlString))
+			{
+				var xmlDoc = XDocument.Parse(xmlString);
 
-                    blogs = xRoot.Document.Element("rss").Element("channel").Elements().Where(x => x.Name == "item")
-                        .Select(x => new RssEntity
-                        {
-                            Title = x.Element("title").Value,
-                            Categories = x.Elements().Where(n => n.Name == "category").Select(n => n.Value).ToList(),
-                            Description = x.Element("description").Value,
-                            CreateTime = DateTime.Parse(x.Element("pubDate").Value),
-                            Author = x.Element("sxp_Author").Value,
-                            LastUpdateTime = DateTime.Parse(x.Element("sxp_LastUpdated").Value),
-                            Link = x.Element("link").Value,
-                            MobileContent = x.Element("sxp_MobileContent").Value,
-                            PublishId = Int32.Parse(x.Element("sxp_PublishId").Value)
-                        })
-                        .ToList();
-                }
-            }
-            return blogs;
-        }
+				XNamespace nspc = "http://sxpdata.microsoft.com/metadata";
+				IEnumerable<XElement> xmlList = xmlDoc.Root.Element("channel")?.Elements("item");
+				//TODO:根据作者进行筛选
+				string[] authorfilter = new string[] { "[MSFT]", "Team", "Microsoft", "Visual", "Office", "Blog" };
 
-        public static async Task<ICollection<RssEntity>> GetDevBlogs()
-        {
-            return await GetRss(devBlogsFeedsLink);
-        }
 
-        public static async Task<ICollection<RssEntity>> GetCloudNews()
-        {
-            return await GetRss(cloudFeedsLink);
-        }
-    }
+				blogs = xmlList?.Where(x => x.Name == "item")
+				.Where(x => IsContainKey(authorfilter, x.Element("author").Value))
+					.Select(x =>
+					{
+						DateTime createTime = DateTime.Now;
+
+						string createTimeString = x.Element("pubDate")?.Value;
+						if (!String.IsNullOrEmpty(createTimeString))
+						{
+							createTime = DateTime.Parse(createTimeString);
+						}
+
+						return new RssEntity
+						{
+							Title = x.Element("title")?.Value,
+							Description = x.Element("description")?.Value,
+							CreateTime = createTime,
+							Author = x.Element("author")?.Value,
+							Link = x.Element("link")?.Value,
+							Categories = x.Element("source")?.Value,
+							LastUpdateTime = createTime,
+							//MobileContent = x.Element("sxp_MobileContent")?.Value
+						};
+					})
+					.ToList();
+			}
+			return blogs;
+		}
+
+		public static bool IsContainKey(string[] strArray, string key)
+		{
+			foreach (string item in strArray)
+			{
+				if (key.Contains(item))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static async Task<ICollection<RssEntity>> GetDevBlogs()
+		{
+			return await GetRss(devBlogsFeedsLink);
+		}
+
+		public static async Task<ICollection<RssEntity>> GetCloudNews()
+		{
+			return await GetRss(cloudFeedsLink);
+		}
+	}
 }

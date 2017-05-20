@@ -11,59 +11,58 @@ using MSDev.Task.Tasks;
 
 namespace MSDev.Task
 {
-  public static class Program
-  {
-    private static readonly IServiceCollection Services = new ServiceCollection();
+	public static class Program
+	{
+		private static readonly IServiceCollection Services = new ServiceCollection();
 
-    public static void Main(String[] args)
-    {
-      Console.OutputEncoding = Encoding.UTF8;
-      Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+		public static void Main(string[] args)
+		{
+			Console.OutputEncoding = Encoding.UTF8;
+			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-      // 加载配置文件
-      IConfigurationBuilder builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("config.json");
+			// 加载配置文件
+			IConfigurationBuilder builder = new ConfigurationBuilder()
+				  .SetBasePath(Directory.GetCurrentDirectory())
+				  .AddJsonFile("config.json");
 
-      IConfigurationRoot config = builder.Build();
+			IConfigurationRoot config = builder.Build();
 
-      Services.AddLogging();
+			Services.AddLogging();
 
-      ILoggerFactory factory = new LoggerFactory();
-      factory.AddConsole();
+			ILoggerFactory factory = new LoggerFactory();
+			factory.AddConsole();
 
-      Services.AddTransient(typeof(ApiHelper));
-      Services.AddScoped(typeof(BingNewsTask));
-      Services.AddSingleton(factory);
+			Services.AddTransient(typeof(ApiHelper));
+			Services.AddScoped(typeof(BingNewsTask));
+			Services.AddScoped(typeof(DevBlogsTask));
 
-      ////确保数据库建立
-      //var dbContext = new AppDbContext();
-      //dbContext.Database.Migrate();
-      //Console.ReadLine();
+			Services.AddSingleton(factory);
 
-      if (Run("bingnews").Result)
-      {
-        Console.WriteLine("BingNews finish!");
-      }
-    }
+			////确保数据库建立
+			//var dbContext = new AppDbContext();
+			//dbContext.Database.Migrate();
+			//Console.ReadLine();
 
-    /// <summary>
-    /// 运行服务
-    /// </summary>
-    /// <param name="serviceName">服务名称</param>
-    public static async Task<Boolean> Run(String serviceName)
-    {
-      serviceName = serviceName.ToLower();
-      switch (serviceName)
-      {
-        case "bingnews":
-          BingNewsTask task = Services.BuildServiceProvider().GetService<BingNewsTask>();
-          await task.GetNews("微软");
-          break;
-        default:
-          break;
-      }
-      return true;
-    }
-  }
+			//BingNewsTask task = GetService<BingNewsTask>();
+			//task.GetNews("微软");
+
+			DevBlogsTask blogTask = GetService<DevBlogsTask>();
+
+			if(blogTask.GetNewsAsync().Result){
+
+				Console.WriteLine("blogtask done");
+			}
+
+
+			Console.ReadLine();
+
+		}
+
+
+		public static T GetService<T>()
+		{
+			return Services.BuildServiceProvider().GetService<T>();
+		}
+
+	}
 }

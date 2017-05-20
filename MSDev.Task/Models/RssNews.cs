@@ -5,22 +5,22 @@ namespace MSDev.Task.Models
 {
     public class RssNews
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
         public NewsTypes Type { get; set; }
-        public String Categories { get; set; }
+        public string Categories { get; set; }
 
-        public String Title { get; set; }
+        public string Title { get; set; }
 
-        public String Description { get; set; }
+        public string Description { get; set; }
 
-        public String MobileContent { get; set; }
+        public string MobileContent { get; set; }
 
-        public String Link { get; set; }
+        public string Link { get; set; }
 
-        public String Author { get; set; }
+        public string Author { get; set; }
 
-        public Int32 PublishId { get; set; }
+        public int PublishId { get; set; }
 
         public DateTime LastUpdateTime { get; set; }
 

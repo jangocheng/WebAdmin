@@ -12,20 +12,20 @@ namespace MSDev.Task.Helpers
   {
     #region Define Attributes
 
-    private const String ImageSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/images/search";
-    private const String AutoSuggestionEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/suggestions";
-    private const String NewsSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/news/search";
+    private const string ImageSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/images/search";
+    private const string AutoSuggestionEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/suggestions";
+    private const string NewsSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/news/search";
     private static HttpClient AutoSuggestionClient { get; set; }
     private static HttpClient SearchClient { get; set; }
 
-    private static String _autoSuggestionApiKey;
+    private static string _autoSuggestionApiKey;
 
-    public static String AutoSuggestionApiKey
+    public static string AutoSuggestionApiKey
     {
       get => _autoSuggestionApiKey;
 
       set {
-        Boolean changed = _autoSuggestionApiKey != value;
+				bool changed = _autoSuggestionApiKey != value;
 
         _autoSuggestionApiKey = value;
 
@@ -36,14 +36,14 @@ namespace MSDev.Task.Helpers
       }
     }
 
-    private static String _searchApiKey;
+    private static string _searchApiKey;
 
-    public static String SearchApiKey
+    public static string SearchApiKey
     {
       get => _searchApiKey;
 
       set {
-        Boolean changed = _searchApiKey != value;
+				bool changed = _searchApiKey != value;
 
         _searchApiKey = value;
 
@@ -65,38 +65,44 @@ namespace MSDev.Task.Helpers
       SearchClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", SearchApiKey);
     }
 
-    public static async Task<IEnumerable<String>> GetImageSearchResults(String query, String imageContent = "Face", Int32 count = 20, Int32 offset = 0)
+    public static async Task<IEnumerable<string>> GetImageSearchResults(string query, string imageContent = "Face", int count = 20, int offset = 0)
     {
-      List<String> urls = new List<String>();
+      var urls = new List<string>();
 
       HttpResponseMessage result = await SearchClient.GetAsync(
         $"{ImageSearchEndPoint}?q={WebUtility.UrlEncode(query)}&safeSearch=Strict&imageType=Photo&color=ColorOnly&count={count}&offset={offset}{(String.IsNullOrEmpty(imageContent) ? "" : "&imageContent=" + imageContent)}");
 
       result.EnsureSuccessStatusCode();
-      String json = await result.Content.ReadAsStringAsync();
+			string json = await result.Content.ReadAsStringAsync();
       dynamic data = JObject.Parse(json);
       if (data.value == null || data.value.Count <= 0)
-        return urls;
-      for (Int32 i = 0; i < data.value.Count; i++)
+			{
+				return urls;
+			}
+
+			for (int i = 0; i < data.value.Count; i++)
       {
         urls.Add(data.value[i].contentUrl.Value);
       }
       return urls;
     }
 
-    public static async Task<IEnumerable<String>> GetAutoSuggestResults(String query, String market = "en-US")
+    public static async Task<IEnumerable<string>> GetAutoSuggestResults(string query, string market = "en-US")
     {
-      List<String> suggestions = new List<String>();
+      var suggestions = new List<string>();
       HttpResponseMessage result = await AutoSuggestionClient.GetAsync(String.Format("{0}/?q={1}&mkt={2}", AutoSuggestionEndPoint, WebUtility.UrlEncode(query), market));
 
       result.EnsureSuccessStatusCode();
 
-      String json = await result.Content.ReadAsStringAsync();
+			string json = await result.Content.ReadAsStringAsync();
       dynamic data = JObject.Parse(json);
       if (data.suggestionGroups == null || data.suggestionGroups.Count <= 0 ||
           data.suggestionGroups[0].searchSuggestions == null)
-        return suggestions;
-      for (Int32 i = 0; i < data.suggestionGroups[0].searchSuggestions.Count; i++)
+			{
+				return suggestions;
+			}
+
+			for (int i = 0; i < data.suggestionGroups[0].searchSuggestions.Count; i++)
       {
         suggestions.Add(data.suggestionGroups[0].searchSuggestions[i].displayText.Value);
       }
@@ -112,20 +118,24 @@ namespace MSDev.Task.Helpers
     /// <param name="market">地区</param>
     /// <param name="freshness">时间频率</param>
     /// <returns></returns>
-    public static async Task<List<BingNewsEntity>> GetNewsSearchResults(String query, Int32 count = 20, Int32 offset = 0, String market = "zh-CN", String freshness = "Day")
+    public static async Task<List<BingNewsEntity>> GetNewsSearchResults(string query, int count = 20, int offset = 0, string market = "zh-CN", string freshness = "Day")
     {
-      List<BingNewsEntity> articles = new List<BingNewsEntity>();
+      var articles = new List<BingNewsEntity>();
       HttpResponseMessage result = await SearchClient.GetAsync(
         $"{NewsSearchEndPoint}/?q={WebUtility.UrlEncode(query)}&count={count}&offset={offset}&mkt={market}&freshness={freshness}");
 
       result.EnsureSuccessStatusCode();
-      String json = await result.Content.ReadAsStringAsync();
+			string json = await result.Content.ReadAsStringAsync();
       dynamic data = JObject.Parse(json);
 
-      if (data.value == null || data.value.Count <= 0) return articles;
-      for (Int32 i = 0; i < data.value.Count; i++)
+      if (data.value == null || data.value.Count <= 0)
+			{
+				return articles;
+			}
+
+			for (int i = 0; i < data.value.Count; i++)
       {
-        BingNewsEntity news = new BingNewsEntity {
+        var news = new BingNewsEntity {
           Title = data.value[i].name,
           Url = data.value[i].url,
           Description = data.value[i].description,

@@ -14,13 +14,13 @@ namespace MSDev.Task.Models
         /// </summary>
         [Required]
         [MaxLength(128)]
-        public String Name { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// 说明及描述
         /// </summary>
         /// 
         [MaxLength(1024)]
-        public String Description { get; set; }
+        public string Description { get; set; }
         /// <summary>
         /// 资源类型
         /// 0 文档;1 视频;2 软件;3 代码
@@ -38,18 +38,18 @@ namespace MSDev.Task.Models
         /// </summary>
         /// 
         [MaxLength(256)]
-        public String IMGUrl { get; set; }
+        public string IMGUrl { get; set; }
         /// <summary>
         /// 相对地址
         /// </summary>
         [MaxLength(128)]
-        public String Path { get; set; }
+        public string Path { get; set; }
 
         /// <summary>
         /// 绝对地址
         /// </summary>
         [MaxLength(256)]
-        public String AbsolutePath { get; set; }
+        public string AbsolutePath { get; set; }
 
         /// <summary>
         /// 分类
