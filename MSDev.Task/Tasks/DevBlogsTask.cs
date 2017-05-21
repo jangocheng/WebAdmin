@@ -10,21 +10,21 @@ using Newtonsoft.Json;
 
 namespace MSDev.Task.Tasks
 {
-    public class DevBlogsTask
-    {
-        private readonly ApiHelper _apiHelper;
-        private const string devBlogsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
+	public class DevBlogsTask
+	{
+		private readonly ApiHelper _apiHelper;
+		private const string devBlogsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
 
-        public DevBlogsTask(ApiHelper apiHelper)
-        {
-          _apiHelper = apiHelper;
-        }
+		public DevBlogsTask(ApiHelper apiHelper)
+		{
+			_apiHelper = apiHelper;
+		}
 
 		public async Task<bool> GetNewsAsync()
 		{
 			ICollection<RssEntity> blogs = await RssHelper.GetRss(devBlogsFeedsLink);
 			//var lastNews = await repository.DbSet.Where(x => x.Type == NewsTypes.DevBlog).LastOrDefaultAsync();
-			IEnumerable<RssNews> _RssNews = blogs.OrderBy(x => x.PublishId).Select(x => new RssNews
+			IEnumerable<RssNews> rssnews = blogs.OrderBy(x => x.PublishId).Select(x => new RssNews
 			{
 				Title = x.Title,
 				Author = x.Author,
@@ -39,9 +39,16 @@ namespace MSDev.Task.Tasks
 				Status = ItemStatus.正常
 			});
 
-			Console.WriteLine(JsonConvert.SerializeObject(_RssNews));
+			var re = await _apiHelper.Post<int>("/api/manage/rssnews", rssnews);
 
-			return true;
+
+			if(re.ErrorCode==0){
+				return true;
+			}
+			// 插入错误
+			Console.WriteLine(re.Msg);
+			return false;
+
 			//return await repository.AddRangeAsync(_RssNews) == _RssNews.Count();
 		}
 	}

@@ -30,7 +30,7 @@ namespace MSDev.Task.Helpers
 			}
 		}
 
-		public async Task<JsonResult<T>> Post<T>(string url, Object item)
+		public async Task<JsonResult<T>> Post<T>(string url, object item)
 		{
 			using (var httpClient = new HttpClient())
 			{
@@ -48,7 +48,7 @@ namespace MSDev.Task.Helpers
 
 		}
 
-		public async Task<JsonResult<T>> Put<T>(string url, Object item)
+		public async Task<JsonResult<T>> Put<T>(string url, object item)
 		{
 			using (var httpClient = new HttpClient())
 			{
