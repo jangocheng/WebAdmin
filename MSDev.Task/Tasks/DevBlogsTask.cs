@@ -39,9 +39,7 @@ namespace MSDev.Task.Tasks
 				Status = ItemStatus.正常
 			});
 
-			var re = await _apiHelper.Post<int>("/api/manage/rssnews", rssnews);
-
-
+			JsonResult<int> re = await _apiHelper.Post<int>("/api/manage/rssnews", rssnews);
 			if(re.ErrorCode==0){
 				return true;
 			}
