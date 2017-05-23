@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace TaskManage
 {
@@ -25,6 +26,7 @@ namespace TaskManage
 		{
 			// Add framework services.
 			services.AddMvc();
+
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -41,6 +43,15 @@ namespace TaskManage
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
+
+			var cookieOption = new CookieAuthenticationOptions() {
+				AuthenticationScheme = "MSDevAdmin",
+				LoginPath = new PathString("/Auth/Login/"),
+				AccessDeniedPath = new PathString("/Auth/Forbidden/"),
+				AutomaticAuthenticate = true,
+				AutomaticChallenge = true
+			};
+			app.UseCookieAuthentication(cookieOption);
 			app.UseStaticFiles();
 			var webSocketOptions = new WebSocketOptions()
 			{
