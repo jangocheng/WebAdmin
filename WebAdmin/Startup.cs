@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using MSDev.Task.Helpers;
 
 namespace WebAdmin
 {
@@ -27,6 +28,8 @@ namespace WebAdmin
 			// Add framework services.
 			services.AddMvc();
 			services.AddAuthorization(options => options.AddPolicy("admin",policy=>policy.RequireRole("admin")));
+
+			services.AddScoped(typeof(ApiHelper));
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -49,7 +52,8 @@ namespace WebAdmin
 				LoginPath = new PathString("/Auth/Login/"),
 				AccessDeniedPath = new PathString("/Auth/Forbidden/"),
 				AutomaticAuthenticate = true,
-				AutomaticChallenge = true
+				AutomaticChallenge = true,
+				ExpireTimeSpan = TimeSpan.FromDays(1)
 			};
 			app.UseCookieAuthentication(cookieOption);
 			app.UseStaticFiles();

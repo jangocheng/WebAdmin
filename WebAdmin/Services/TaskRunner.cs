@@ -1,7 +1,8 @@
+using MSDev.Task.Entities;
+using MSDev.Task.Helpers;
+using MSDev.Task.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
@@ -9,75 +10,58 @@ using System.Threading.Tasks;
 
 namespace WebAdmin.Services
 {
-  /// <summary>
-  /// Use with Websocket
-  /// </summary>
-  public class TaskRunner
-  {
-    private readonly WebSocket _webSocket;
-    readonly Dictionary<string, string> _taskMap = new Dictionary<string, string>()
-    {
-      ["bingnews"] = "cd /var/task/queue;sudo dotnet MSDev.Taskschd.dll"
-    };
+	/// <summary>
+	/// Use with Websocket
+	/// </summary>
+	public class TaskRunner
+	{
+		private readonly WebSocket _webSocket;
+		private readonly ApiHelper _apiHelper;
+		private WebSocket webSocket;
 
-    public TaskRunner(WebSocket webSocket)
-    {
-      _webSocket = webSocket;
-    }
+		public TaskRunner(WebSocket webSocket)
+		{
+			this.webSocket = webSocket;
+		}
 
-    public async Task Run(string command)
-    {
-      var myProcess = new Process();
+		public TaskRunner(WebSocket webSocket, ApiHelper apiHelper)
+		{
+			_webSocket = webSocket;
+			_apiHelper = apiHelper;
+		}
 
-      if (_taskMap.TryGetValue(command, out string value))
-      {
-        Console.WriteLine(value);
-        command = value;
-      }
+		public async Task Run(string command)
+		{
 
-      Console.WriteLine("command is :" + command);
+			Console.WriteLine("command is :" + command);
+			try
+			{
 
-      try
-      {
-        myProcess.StartInfo.UseShellExecute = false;
-        //linux
-        myProcess.StartInfo.FileName = "bash";
-        myProcess.StartInfo.Arguments = "-c \"" + command + "\"";
+				//var task = new BingNewsTask(_apiHelper);
+				//List<BingNewsEntity> bingNewsList = await task.GetNews("微软");
 
-        //windows
-        //myProcess.StartInfo.FileName = "powershell.exe";
-        //myProcess.StartInfo.Arguments = command;
+				//foreach (BingNewsEntity bingNews in bingNewsList)
+				//{
+				//	await Echo(bingNews.Title);
+				//}
+				await Echo("adsa测试中文");
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+			}
+		}
+		private async Task Echo(string message)
+		{
 
-        Console.WriteLine("command is :"+command);
+			if (!String.IsNullOrEmpty(message))
+			{
 
-        myProcess.StartInfo.CreateNoWindow = false;
-        myProcess.StartInfo.RedirectStandardOutput = true;
-        myProcess.StartInfo.StandardOutputEncoding = Encoding.UTF8;
+				byte[] bytes = Encoding.UTF8.GetBytes(message);
+				await _webSocket.SendAsync(
+				  new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
+			}
 
-        myProcess.Start();
-
-        StreamReader reader = myProcess.StandardOutput;
-				string line = reader.ReadLine();
-
-        while (line != null)
-        {
-          await Echo(line);
-          Console.WriteLine(line);
-          line = reader.ReadLine();
-        }
-
-        myProcess.WaitForExit();
-        myProcess.Dispose();
-
-      } catch (Exception e)
-      {
-        Console.WriteLine(e.Message);
-      }
-    }
-    private async Task Echo(string message)
-    {
-      await _webSocket.SendAsync(
-        new ArraySegment<byte>(Encoding.UTF8.GetBytes(message), 0, message.Length), WebSocketMessageType.Text, true, CancellationToken.None);
-    }
-  }
+		}
+	}
 }

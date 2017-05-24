@@ -1,71 +1,75 @@
 @{
-  ViewBag.Title = "任务";
+	ViewBag.Title = "任务";
 
 }
 <head>
-  <style>
-    .consoleWindow {
-      max-height: 480px;
-      overflow-y: scroll;
-    }
-  </style>
+	<style>
+		.consoleWindow {
+			max-height: 480px;
+			overflow-y: scroll;
+		}
+	</style>
 </head>
 
 <div>
-  <h4>任务列表:</h4>
-  <button class="btn btn-default"
-          data-bind="click:runTask.bind($data,'bingnews')">
-    刷新必应新闻
-  </button>
+	<h4>任务列表:</h4>
+	<button class="btn btn-default"
+			data-bind="click:runTask.bind($data,'bingnews')">
+		刷新必应新闻
+	</button>
 
 </div>
 
 <div>
-  <h4>执行输出:</h4>
+	<h4>执行输出:</h4>
 
-  <div class="panel" >
-    <pre><code data-bind="html:consoleInformation" class="consoleWindow"></code></pre>
-  </div>
+	<div class="panel">
+		<pre><code data-bind="html:consoleInformation" class="consoleWindow"></code></pre>
+	</div>
 
 </div>
 
 @section Scripts
 {
-  <script src="~/js/highlight.js"></script>
-  <script>
+	<script src="~/js/highlight.js"></script>
+	<script>
 
-    $(document).ready(function() {
-      const scheme = document.location.protocol === "https:" ? "wss" : "ws";
-      const port = document.location.port ? (`:${document.location.port}`) : "";
-      const url = `${scheme}://${document.location.hostname}${port}/task/runtask`;
-      var socket = new WebSocket(url);
-      let consolemsg = "";
+		$(document).ready(function () {
+			const scheme = document.location.protocol === "https:" ? "wss" : "ws";
+			const port = document.location.port ? (`:${document.location.port}`) : "";
+			const url = `${scheme}://${document.location.hostname}${port}/task/runtask`;
+			var socket = new WebSocket(url);
+			let consolemsg = "";
 
-      var viewModel = {
-        consoleInformation: ko.observable(),
-        runTask: function(type) {
+			var viewModel = {
+				consoleInformation: ko.observable(),
+				runTask: function (type) {
 
-          consolemsg = "";
-          if (!socket || socket.readyState !== WebSocket.OPEN) {
-            socket = new WebSocket(url);
-          }
-          socket.send(type);
-          //socket.close(1000, "Closing from client");
-        }
-      }
-      ko.applyBindings(viewModel);
+					consolemsg = "";
+					if (!socket || socket.readyState !== WebSocket.OPEN) {
+						socket = new WebSocket(url);
+					}
 
-      socket.onmessage = function(e) {
-        consolemsg += e.data + '\r';
-        viewModel.consoleInformation(consolemsg);
-        $("pre code").each(function(i, block) {
-          hljs.highlightBlock(block);
-        });
-      }
+					console.log(type);
+					socket.send(type);
+					//socket.close(1000, "Closing from client");
+				}
+			}
+			ko.applyBindings(viewModel);
 
-    });
+			socket.onmessage = function (e) {
+				consolemsg += e.data + '\r';
 
-  </script>
+				console.log(e.data);
+				viewModel.consoleInformation(consolemsg);
+				$("pre code").each(function (i, block) {
+					hljs.highlightBlock(block);
+				});
+			}
+
+		});
+
+	</script>
 }
 
 

@@ -1,0 +1,19 @@
+<ul class="nav navbar-nav navbar-right">
+
+	@{
+
+			var username = User.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+			if (!String.IsNullOrEmpty(username))
+			{
+			<li>
+				<a href="#">@username</a>
+
+			</li>
+			<li>
+				<a asp-controller="Auth" asp-action="Logout">登出</a>
+
+			</li>
+			}
+	}
+
+</ul>
