@@ -40,7 +40,7 @@ namespace WebAdmin.Controllers
 			}
 			else
 			{
-				ModelState.AddModelError("","Wrong username or password");
+				ViewBag.Error = "Wrong username or password";
 			}
 			return View();
 		}

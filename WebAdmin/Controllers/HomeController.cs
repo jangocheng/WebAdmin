@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TaskManage.Controllers
+namespace WebAdmin.Controllers
 {
-	public class HomeController : Controller
+	public class HomeController : BaseController
 	{
 		public IActionResult Index()
 		{

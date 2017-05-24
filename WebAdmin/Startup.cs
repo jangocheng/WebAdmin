@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 
-namespace TaskManage
+namespace WebAdmin
 {
 	public class Startup
 	{
@@ -26,7 +26,7 @@ namespace TaskManage
 		{
 			// Add framework services.
 			services.AddMvc();
-
+			services.AddAuthorization(options => options.AddPolicy("admin",policy=>policy.RequireRole("admin")));
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
