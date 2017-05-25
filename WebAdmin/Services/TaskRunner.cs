@@ -37,14 +37,14 @@ namespace WebAdmin.Services
 			try
 			{
 
-				//var task = new BingNewsTask(_apiHelper);
-				//List<BingNewsEntity> bingNewsList = await task.GetNews("微软");
+				var task = new BingNewsTask(_apiHelper);
+				List<BingNewsEntity> bingNewsList = await task.GetNews("微软");
 
-				//foreach (BingNewsEntity bingNews in bingNewsList)
-				//{
-				//	await Echo(bingNews.Title);
-				//}
-				await Echo("adsa测试中文");
+				foreach (BingNewsEntity bingNews in bingNewsList)
+				{
+					await Echo(bingNews.Title);
+				}
+
 			}
 			catch (Exception e)
 			{
