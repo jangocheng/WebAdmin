@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WebAdmin.Controllers
 {
 	[Authorize(Policy = "admin")]
-	public class BaseController:Controller
+	public class BaseController : Controller
 	{
 		protected ApiHelper _aipHelper;
 
