@@ -15,19 +15,19 @@
 	</thead>
 	<tbody>
 		@{
-			foreach (BingNews news in (List<BingNews>) ViewBag.ListData)
+			foreach (BingNews news in (List<BingNews>)ViewBag.ListData)
 			{
-				<tr>
-					<td>@news.Title</td>
-					<td>@news.Provider</td>
-					<td>@news.CreatedTime</td>
-					<td>
-						<button class="btn btn-sm btn-danger">删除</button>
-					</td>
-				</tr>
+			<tr>
+				<td>@news.Title</td>
+				<td>@news.Provider</td>
+				<td>@string.Format("{0:yyyy-MM-dd HH:mm}",@news.CreatedTime)</td>
+				<td>
+					<button class="btn btn-sm btn-danger">删除</button>
+				</td>
+			</tr>
 			}
-
-			@ViewBag.Page
 		}
 	</tbody>
+
 </table>
+<pager pager-option="ViewBag.Pager as PagerOption"></pager>
