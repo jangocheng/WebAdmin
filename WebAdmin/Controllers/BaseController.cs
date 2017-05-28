@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace WebAdmin.Controllers
 {
-	[Route("[controller]")]
 	[Authorize(Policy = "admin")]
 	public class BaseController : Controller
 	{

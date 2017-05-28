@@ -51,12 +51,13 @@ namespace WebAdmin.Helpers
 					}
 					default:
 					{
+					// TODO:前后整体跳转调整 及总数等
 						#region 默认样式
 
 						sbPage.Append("<nav>");
 						sbPage.Append("  <ul class=\"pagination\">");
 						// 前一页
-						sbPage.AppendFormat("       <li><a href=\"{0}/{1}\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>",
+						sbPage.AppendFormat("       <li><a href=\"{0}?p={1}\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>",
 							PagerOption.RouteUrl,
 							PagerOption.CurrentPage - 1 <= 0 ? 1 : PagerOption.CurrentPage - 1);
 
@@ -65,7 +66,7 @@ namespace WebAdmin.Helpers
 						for (int i = PagerOption.CurrentPage; i < endPage; i++)
 						{
 
-							sbPage.AppendFormat("       <li {1}><a href=\"{2}/{0}\">{0}</a></li>",
+							sbPage.AppendFormat("       <li {1}><a href=\"{2}?p={0}\">{0}</a></li>",
 								i,
 								i == PagerOption.CurrentPage ? "class=\"active\"" : "",
 								PagerOption.RouteUrl);
@@ -74,7 +75,7 @@ namespace WebAdmin.Helpers
 						sbPage.Append("       <li>");
 
 						// 后一页
-						sbPage.AppendFormat("         <a href=\"{0}/{1}\" aria-label=\"Next\">",
+						sbPage.AppendFormat("         <a href=\"{0}?p={1}\" aria-label=\"Next\">",
 							PagerOption.RouteUrl,
 							PagerOption.CurrentPage + maxPage > totalPage ? PagerOption.CurrentPage : PagerOption.CurrentPage + maxPage);
 						sbPage.Append("               <span aria-hidden=\"true\">&raquo;</span>");

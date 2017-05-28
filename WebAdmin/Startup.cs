@@ -27,7 +27,7 @@ namespace WebAdmin
 		{
 			// Add framework services.
 			services.AddMvc();
-			services.AddAuthorization(options => options.AddPolicy("admin",policy=>policy.RequireRole("admin")));
+			services.AddAuthorization(options => options.AddPolicy("admin", policy => policy.RequireRole("admin")));
 
 			services.AddScoped(typeof(ApiHelper));
 		}
@@ -47,7 +47,8 @@ namespace WebAdmin
 				app.UseExceptionHandler("/Home/Error");
 			}
 
-			var cookieOption = new CookieAuthenticationOptions() {
+			var cookieOption = new CookieAuthenticationOptions()
+			{
 				AuthenticationScheme = "MSDevAdmin",
 				LoginPath = new PathString("/Auth/Login/"),
 				AccessDeniedPath = new PathString("/Auth/Forbidden/"),
@@ -68,7 +69,7 @@ namespace WebAdmin
 			{
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Home}/{action=Index}");
+					template: "{controller=Home}/{action=Index}/{id?}");
 			});
 		}
 	}

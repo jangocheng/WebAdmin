@@ -21,10 +21,10 @@ namespace WebAdmin.Controllers
 			return View();
 		}
 
-		[HttpGet("{id}")]
-		public async Task<IActionResult> BingNews(int id)
+		[HttpGet]
+		public async Task<IActionResult> BingNews(int p = 1)
 		{
-			JsonResult<List<BingNews>> re = await _apiHelper.Get<List<BingNews>>($"/api/manage/bingnews/pagelist?p={id}");
+			JsonResult<List<BingNews>> re = await _apiHelper.Get<List<BingNews>>($"/api/manage/bingnews/pagelist?p={p}");
 			if (re.ErrorCode == 0)
 			{
 				ViewBag.ListData = re.Data;
