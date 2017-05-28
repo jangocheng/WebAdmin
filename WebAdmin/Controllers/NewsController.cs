@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 namespace WebAdmin.Controllers
 {
+
 	public class NewsController : BaseController
 	{
 		readonly ApiHelper _apiHelper;
@@ -20,10 +21,10 @@ namespace WebAdmin.Controllers
 			return View();
 		}
 
-		[HttpGet]
-		public async Task<IActionResult> BingNews()
+		[HttpGet("{id}")]
+		public async Task<IActionResult> BingNews(int id)
 		{
-			JsonResult<List<BingNews>> re = await _apiHelper.Get<List<BingNews>>("/api/manage/bingnews/pagelist");
+			JsonResult<List<BingNews>> re = await _apiHelper.Get<List<BingNews>>($"/api/manage/bingnews/pagelist?p={id}");
 			if (re.ErrorCode == 0)
 			{
 				ViewBag.ListData = re.Data;

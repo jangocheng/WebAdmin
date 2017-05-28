@@ -69,7 +69,6 @@ namespace WebAdmin.Helpers
 								i,
 								i == PagerOption.CurrentPage ? "class=\"active\"" : "",
 								PagerOption.RouteUrl);
-
 						}
 
 						sbPage.Append("       <li>");
