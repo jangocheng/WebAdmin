@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace WebAdmin.Controllers
 {
+	[Route("[controller]")]
 	[Authorize(Policy = "admin")]
-	[Route("[controller]/[action]")]
 	public class BaseController : Controller
 	{
 		protected ApiHelper _aipHelper;
