@@ -3,7 +3,6 @@
 	ViewBag.Title = "title";
 	Layout = "_NewsLayout";
 }
-
 <table class="table table-hover table-striped">
 	<thead>
 		<tr>
@@ -38,10 +37,14 @@
 		$.post('DelNews', { id: id }, function (data) {
 
 			if (data.errorCode == 0) {
+				Toast.Success("删除成功");
+				location.reload();
 
+			} else {
+				Toast.Error(data.msg);
+				console.log(data);
 
 			}
-			console.log(data);
 		})
 	}
 </script>
