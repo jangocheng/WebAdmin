@@ -11,7 +11,7 @@ namespace WebAdmin.Helpers
 		/// <summary>
 		/// 最多显示页数
 		/// </summary>
-		public int maxPage = 10;
+		public int maxPage = 5;
 
 		public override void Process(TagHelperContext context, TagHelperOutput output)
 		{
@@ -51,7 +51,7 @@ namespace WebAdmin.Helpers
 					}
 					default:
 					{
-					// TODO:前后整体跳转调整 及总数等
+						// TODO:前后整体跳转调整 及总数等
 						#region 默认样式
 
 						sbPage.Append("<nav>");
@@ -59,7 +59,7 @@ namespace WebAdmin.Helpers
 						// 前一页
 						sbPage.AppendFormat("       <li><a href=\"{0}?p={1}\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>",
 							PagerOption.RouteUrl,
-							PagerOption.CurrentPage - 1 <= 0 ? 1 : PagerOption.CurrentPage - 1);
+							PagerOption.CurrentPage - maxPage <= 0 ? 1 : PagerOption.CurrentPage - maxPage);
 
 						// 构造页数
 						int endPage = PagerOption.CurrentPage + maxPage > totalPage ? totalPage : PagerOption.CurrentPage + maxPage;
@@ -81,8 +81,22 @@ namespace WebAdmin.Helpers
 						sbPage.Append("               <span aria-hidden=\"true\">&raquo;</span>");
 						sbPage.Append("         </a>");
 						sbPage.Append("       </li>");
-						sbPage.Append("   </ul>");
+
+						sbPage.Append("<li><span>");
+
+						sbPage.Append("<input type='number' id='totalPage' style='width:50px;padding:0;margin:-2px 4px;'/>");
+						sbPage.Append("<a href='javascript:gotoPage()' id='gotoPage' onclick='gotoPage'>跳转</a>");
+						sbPage.Append($" 共:{totalPage}页</span>");
+						sbPage.Append("</li>");
+						sbPage.Append("</ul>");
 						sbPage.Append("</nav>");
+						sbPage.Append(@"
+							<script>
+								function gotoPage() {
+									var page = document.getElementById('totalPage').value;
+									window.location.href = '" + PagerOption.RouteUrl + @"?p='+page;
+								}
+							</script>");
 						#endregion
 					}
 					break;

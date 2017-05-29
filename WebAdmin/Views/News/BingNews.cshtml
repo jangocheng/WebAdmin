@@ -20,9 +20,9 @@
 			<tr>
 				<td>@news.Title</td>
 				<td>@news.Provider</td>
-				<td>@string.Format("{0:yyyy-MM-dd HH:mm}",@news.CreatedTime)</td>
+				<td>@string.Format("{0:yyyy-MM-dd HH:mm}", @news.CreatedTime)</td>
 				<td>
-					<input type="hidden" value="@news.Id"/>
+					<input type="hidden" value="@news.Id" />
 					<a class="label label-danger" data-bind="delNews">删除</a>
 				</td>
 			</tr>
@@ -31,3 +31,4 @@
 	</tbody>
 </table>
 <pager pager-option="ViewBag.Pager as PagerOption"></pager>
+
