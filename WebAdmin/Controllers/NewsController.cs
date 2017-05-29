@@ -34,5 +34,13 @@ namespace WebAdmin.Controllers
 			}
 			return View();
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> DelNews(string id)
+		{
+			JsonResult<string> re = await _apiHelper.Delete<string>($"/api/manage/bingnews?id={id}");
+
+			return Json(re);
+		}
 	}
 }

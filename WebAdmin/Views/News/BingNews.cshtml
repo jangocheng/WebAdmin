@@ -18,12 +18,12 @@
 			foreach (BingNews news in (List<BingNews>)ViewBag.ListData)
 			{
 			<tr>
-				<td>@news.Title</td>
+				<td><a href="@news.Url" target="_blank">@news.Title</a></td>
 				<td>@news.Provider</td>
 				<td>@string.Format("{0:yyyy-MM-dd HH:mm}", @news.CreatedTime)</td>
 				<td>
 					<input type="hidden" value="@news.Id" />
-					<a class="label label-danger" data-bind="delNews">删除</a>
+					<a class="label label-danger" onclick="delNews('@news.Id')">删除</a>
 				</td>
 			</tr>
 			}
@@ -32,3 +32,16 @@
 </table>
 <pager pager-option="ViewBag.Pager as PagerOption"></pager>
 
+<script>
+
+	function delNews(id) {
+		$.post('DelNews', { id: id }, function (data) {
+
+			if (data.errorCode == 0) {
+
+
+			}
+			console.log(data);
+		})
+	}
+</script>
