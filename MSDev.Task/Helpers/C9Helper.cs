@@ -16,7 +16,6 @@ namespace MSDev.Task.Helpers
 		{
 
 		}
-
 		/// <summary>
 		/// 获取视频列表
 		/// </summary>
@@ -51,12 +50,6 @@ namespace MSDev.Task.Helpers
 						 }
 					)
 					.ToList();
-
-
-					foreach (var item in articleList)
-					{
-						Console.WriteLine(item.SourceUrl);
-					}
 
 				}
 			}
