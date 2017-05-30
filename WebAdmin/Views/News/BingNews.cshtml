@@ -16,8 +16,12 @@
 		@{
 			foreach (BingNews news in (List<BingNews>)ViewBag.ListData)
 			{
+				var queryDic = QueryHelpers.ParseQuery(new Uri(news.Url).Query);
+				var url = queryDic["r"][0];
+		
+
 			<tr>
-				<td><a href="@news.Url" target="_blank">@news.Title</a></td>
+				<td><a href="@url" target="_blank">@news.Title</a></td>
 				<td>@news.Provider</td>
 				<td>@string.Format("{0:yyyy-MM-dd HH:mm}", @news.CreatedTime)</td>
 				<td>

@@ -36,14 +36,18 @@ namespace WebAdmin.Services
 			Console.WriteLine("command is :" + command);
 			try
 			{
-
-				var task = new BingNewsTask(_apiHelper);
-				List<BingNewsEntity> bingNewsList = await task.GetNews("微软");
-
-				foreach (BingNewsEntity bingNews in bingNewsList)
+				if (command.Equals("bingnews"))
 				{
-					await Echo(bingNews.Title);
+					var task = new BingNewsTask(_apiHelper);
+					List<BingNewsEntity> bingNewsList = await task.GetNews("微软");
+
+					foreach (BingNewsEntity bingNews in bingNewsList)
+					{
+						await Echo(bingNews.Title);
+					}
+					await Echo("Done");
 				}
+
 
 			}
 			catch (Exception e)

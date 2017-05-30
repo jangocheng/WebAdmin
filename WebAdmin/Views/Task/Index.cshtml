@@ -47,22 +47,22 @@
 					if (!socket || socket.readyState !== WebSocket.OPEN) {
 						socket = new WebSocket(url);
 					}
-
 					console.log(type);
 					socket.send(type);
-					//socket.close(1000, "Closing from client");
+					consolemsg = "Task running..." + '\r';
+					this.consoleInformation(consolemsg);
+
 				}
 			}
 			ko.applyBindings(viewModel);
 
 			socket.onmessage = function (e) {
+				if (e.data == "Done") {
+					socket.close(1000, "done");
+				}
 				consolemsg += e.data + '\r';
-
 				console.log(e.data);
 				viewModel.consoleInformation(consolemsg);
-				$("pre code").each(function (i, block) {
-					hljs.highlightBlock(block);
-				});
 			}
 
 		});

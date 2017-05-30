@@ -28,6 +28,7 @@ namespace WebAdmin.Controllers
 			if (re.ErrorCode == 0)
 			{
 				ViewBag.ListData = re.Data;
+
 				re.PageOption.RouteUrl = "/news/bingnews";
 				ViewBag.Pager = re.PageOption;
 				Console.WriteLine(JsonConvert.SerializeObject(re.PageOption));
