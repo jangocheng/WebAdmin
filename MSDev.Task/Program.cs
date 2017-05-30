@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using System.IO;
-using System.Threading.Tasks;
 using MSDev.Task.Helpers;
 using MSDev.Task.Tasks;
 
@@ -46,14 +45,17 @@ namespace MSDev.Task
 			//BingNewsTask task = GetService<BingNewsTask>();
 			//task.GetNews("微软");
 
-			DevBlogsTask blogTask = GetService<DevBlogsTask>();
+			//DevBlogsTask blogTask = GetService<DevBlogsTask>();
 
-			if(blogTask.GetNewsAsync().Result){
+			//if(blogTask.GetNewsAsync().Result){
 
-				Console.WriteLine("blogtask done");
+			//	Console.WriteLine("blogtask done");
+			//}
+
+			var c9Helper = new C9Helper();
+			if(c9Helper.GetArticleListAsync().Result){
+				Console.WriteLine("done");
 			}
-
-
 			Console.ReadLine();
 
 		}

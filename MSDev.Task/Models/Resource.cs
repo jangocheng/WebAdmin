@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MSDev.Task.Models
 {
-    /// <summary>
-    /// 资源对象
-    /// </summary>
-    public class Resource : Model
+	/// <summary>
+	/// 资源对象
+	/// </summary>
+	public class Resource : Model
     {
         /// <summary>
         /// 资源名称

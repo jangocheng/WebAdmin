@@ -3,8 +3,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using System.Xml;
-using System.IO;
 using System;
 using MSDev.Task.Entities;
 
@@ -40,7 +38,7 @@ namespace MSDev.Task.Helpers
 
 
 				blogs = xmlList?.Where(x => x.Name == "item")
-				.Where(x => IsContainKey(authorfilter, x.Element("author").Value))
+					.Where(x => IsContainKey(authorfilter, x.Element("author").Value))
 					.Select(x =>
 					{
 						DateTime createTime = DateTime.Now;

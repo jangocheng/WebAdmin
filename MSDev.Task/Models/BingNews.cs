@@ -1,8 +1,6 @@
-using System;
-
 namespace MSDev.Task.Models
 {
-    public class BingNews : Model
+	public class BingNews : Model
     {
         /// <summary>
         /// 标题

@@ -7,7 +7,6 @@ using MSDev.Task.Entities;
 using MSDev.Task.Helpers;
 using MSDev.Task.Models;
 using MSDev.Task.Tools;
-using Newtonsoft.Json;
 
 namespace MSDev.Task.Tasks
 {

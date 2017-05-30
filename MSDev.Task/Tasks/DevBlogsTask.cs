@@ -6,7 +6,6 @@ using MSDev.Task.Entities;
 using MSDev.Task.EnumTypes;
 using MSDev.Task.Helpers;
 using MSDev.Task.Models;
-using Newtonsoft.Json;
 
 namespace MSDev.Task.Tasks
 {

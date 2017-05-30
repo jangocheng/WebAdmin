@@ -1,10 +1,9 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MSDev.Task.Models
 {
-    //资源来源/下载点
-    public class Sources : Model
+	//资源来源/下载点
+	public class Sources : Model
     {
         [MaxLength(128)]
         public string Name { get; set; }

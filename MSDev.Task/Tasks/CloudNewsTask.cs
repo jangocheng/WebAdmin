@@ -1,16 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MSDev.Task.Entities;
-using MSDev.Task.EnumTypes;
-using MSDev.Task.Helpers;
-using MSDev.Task.Models;
-using Newtonsoft.Json;
-
 namespace MSDev.Task.Tasks
 {
-    public class CloudNewsTask
+	public class CloudNewsTask
     {
         //private IRssRepository repository = null;
         //private const String CloudNewsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";

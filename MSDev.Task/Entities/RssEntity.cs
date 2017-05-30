@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MSDev.Task.Entities
 {
-    public class RssEntity
+	public class RssEntity
     {
         public string Categories { get; set; }
 

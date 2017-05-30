@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MSDev.Task.Models
 {
-    /// <summary>
-    /// 各种类型的目录
-    /// </summary>
-    public class Catalog : Model
+	/// <summary>
+	/// 各种类型的目录
+	/// </summary>
+	public class Catalog : Model
     {
         /// <summary>
         /// 显示名称
