@@ -4,8 +4,14 @@ using Microsoft.Extensions.Configuration;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using System.Linq;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design.Internal;
+using MSDev.DB;
 using MSDev.Task.Helpers;
 using MSDev.Task.Tasks;
+using Newtonsoft.Json;
 
 
 namespace MSDev.Task
@@ -13,7 +19,6 @@ namespace MSDev.Task
 	public static class Program
 	{
 		private static readonly IServiceCollection Services = new ServiceCollection();
-
 		public static void Main(string[] args)
 		{
 			Console.OutputEncoding = Encoding.UTF8;
@@ -22,7 +27,8 @@ namespace MSDev.Task
 			// 加载配置文件
 			IConfigurationBuilder builder = new ConfigurationBuilder()
 				  .SetBasePath(Directory.GetCurrentDirectory())
-				  .AddJsonFile("config.json");
+				  .AddJsonFile("config.json")
+				  .AddJsonFile($"config.Development.json");
 
 			IConfigurationRoot config = builder.Build();
 
@@ -36,26 +42,15 @@ namespace MSDev.Task
 			Services.AddScoped(typeof(DevBlogsTask));
 			Services.AddScoped(typeof(Channel9Task));
 
+			Services.AddDbContext<AppDbContext>(
+				option => option.UseSqlServer(
+					config.GetConnectionString("DefaultConnection")
+				)
+			);
 
 			Services.AddSingleton(factory);
-
-			////确保数据库建立
-			//var dbContext = new AppDbContext();
-			//dbContext.Database.Migrate();
-			//Console.ReadLine();
-
-			//BingNewsTask task = GetService<BingNewsTask>();
-			//task.GetNews("微软");
-
-			//DevBlogsTask blogTask = GetService<DevBlogsTask>();
-
-			//if(blogTask.GetNewsAsync().Result){
-
-			//	Console.WriteLine("blogtask done");
-			//}
-
-			var task = GetService<Channel9Task>();
-			task.Start();
+			//var task = GetService<Channel9Task>();
+			//task.Start();
 
 			Console.ReadLine();
 

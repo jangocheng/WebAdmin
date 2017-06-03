@@ -4,12 +4,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace MSDev.Task.Helpers
+/*
+namespace WebAdmin.Helpers
 {
 	public class ApiHelper
 	{
-		private const string BaseDaemon = "https://api.msdev.cc";
-		//private const string BaseDaemon = "http://localhost:3672";
+		//private const string BaseDaemon = "https://api.msdev.cc";
+		private const string BaseDaemon = "http://localhost:3672";
 
 
 		public ApiHelper()
@@ -135,3 +136,4 @@ namespace MSDev.Task.Helpers
 	}
 
 }
+*/

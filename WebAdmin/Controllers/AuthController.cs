@@ -53,7 +53,7 @@ namespace WebAdmin.Controllers
 
 		public IActionResult Forbidden()
 		{
-			return View();
+			return Content("");
 		}
 	}
 }

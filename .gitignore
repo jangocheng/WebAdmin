@@ -5,6 +5,8 @@
 
 **/wwwroot/lib
 **/appsettings.*.json
+**/config.*.json
+
 
 MsDev.Taskschd/config.json
 
