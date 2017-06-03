@@ -27,7 +27,7 @@ namespace MSDev.Task.Helpers
 		{
 			var blogs = new List<RssEntity>();
 			string xmlString = await httpClient.GetStringAsync(url);
-			if (!String.IsNullOrEmpty(xmlString))
+			if (!string.IsNullOrEmpty(xmlString))
 			{
 				var xmlDoc = XDocument.Parse(xmlString);
 
@@ -44,7 +44,7 @@ namespace MSDev.Task.Helpers
 						DateTime createTime = DateTime.Now;
 
 						string createTimeString = x.Element("pubDate")?.Value;
-						if (!String.IsNullOrEmpty(createTimeString))
+						if (!string.IsNullOrEmpty(createTimeString))
 						{
 							createTime = DateTime.Parse(createTimeString);
 						}

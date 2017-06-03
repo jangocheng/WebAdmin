@@ -34,6 +34,8 @@ namespace MSDev.Task
 			Services.AddTransient(typeof(ApiHelper));
 			Services.AddScoped(typeof(BingNewsTask));
 			Services.AddScoped(typeof(DevBlogsTask));
+			Services.AddScoped(typeof(Channel9Task));
+
 
 			Services.AddSingleton(factory);
 
@@ -52,10 +54,9 @@ namespace MSDev.Task
 			//	Console.WriteLine("blogtask done");
 			//}
 
-			var c9Helper = new C9Helper();
-			if(c9Helper.GetArticleListAsync().Result){
-				Console.WriteLine("done");
-			}
+			var task = GetService<Channel9Task>();
+			task.Start();
+
 			Console.ReadLine();
 
 		}

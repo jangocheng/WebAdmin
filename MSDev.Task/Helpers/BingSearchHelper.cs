@@ -70,7 +70,7 @@ namespace MSDev.Task.Helpers
 			var urls = new List<string>();
 
 			HttpResponseMessage result = await SearchClient.GetAsync(
-			  $"{ImageSearchEndPoint}?q={WebUtility.UrlEncode(query)}&safeSearch=Strict&imageType=Photo&color=ColorOnly&count={count}&offset={offset}{(String.IsNullOrEmpty(imageContent) ? "" : "&imageContent=" + imageContent)}");
+			  $"{ImageSearchEndPoint}?q={WebUtility.UrlEncode(query)}&safeSearch=Strict&imageType=Photo&color=ColorOnly&count={count}&offset={offset}{(string.IsNullOrEmpty(imageContent) ? "" : "&imageContent=" + imageContent)}");
 
 			result.EnsureSuccessStatusCode();
 			string json = await result.Content.ReadAsStringAsync();
@@ -90,7 +90,7 @@ namespace MSDev.Task.Helpers
 		public static async Task<IEnumerable<string>> GetAutoSuggestResults(string query, string market = "en-US")
 		{
 			var suggestions = new List<string>();
-			HttpResponseMessage result = await AutoSuggestionClient.GetAsync(String.Format("{0}/?q={1}&mkt={2}", AutoSuggestionEndPoint, WebUtility.UrlEncode(query), market));
+			HttpResponseMessage result = await AutoSuggestionClient.GetAsync(string.Format("{0}/?q={1}&mkt={2}", AutoSuggestionEndPoint, WebUtility.UrlEncode(query), market));
 
 			result.EnsureSuccessStatusCode();
 
@@ -145,7 +145,7 @@ namespace MSDev.Task.Helpers
 					DatePublished = data.value[i].datePublished,
 					CateGory = data.value[i].category
 				};
-				if (!String.IsNullOrEmpty(news.ThumbnailUrl))
+				if (!string.IsNullOrEmpty(news.ThumbnailUrl))
 				{
 					articles.Add(news);
 				}

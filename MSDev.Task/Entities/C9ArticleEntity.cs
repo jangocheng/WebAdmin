@@ -1,3 +1,5 @@
+using System;
+
 namespace MSDev.Task.Entities
 {
 	public class C9ArticleEntity
@@ -28,6 +30,14 @@ namespace MSDev.Task.Entities
 		/// 视频时长
 		/// </summary>
 		public string Duration { get; set; }
+
+		/// <summary>
+		/// 状态 新
+		/// </summary>
+		public int? Status { get; set; }
+
+		public DateTime UpdatedTime { get; set; }
+		public DateTime CreatedTime { get; set; }
 
 	}
 }

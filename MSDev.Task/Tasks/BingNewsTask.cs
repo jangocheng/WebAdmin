@@ -32,7 +32,7 @@ namespace MSDev.Task.Tasks
 				throw new ArgumentNullException(nameof(newNews));
 			}
 
-			//todo:获取过滤来源名单
+			//TODO:获取过滤来源名单
 			string[] providerFilter = { "中金在线", "安卓网资讯专区", "中国通信网", "中国网", "华商网", "A5站长网", "东方财富网 股票", "秦巴在线", "ITBEAR科技资讯", "京华网", "TechWeb", "四海网" };
 
 			//数据预处理

@@ -8,8 +8,8 @@ namespace MSDev.Task.Helpers
 {
 	public class ApiHelper
 	{
-		private const string BaseDaemon = "https://api.msdev.cc";
-		//private const string BaseDaemon = "http://localhost:5000";
+		//private const string BaseDaemon = "https://api.msdev.cc";
+		private const string BaseDaemon = "http://localhost:3672";
 
 
 		public ApiHelper()
@@ -38,11 +38,20 @@ namespace MSDev.Task.Helpers
 				string stringContent = JsonConvert.SerializeObject(item);
 				HttpContent content = new StringContent(stringContent, Encoding.UTF8, "application/json");
 
-				HttpResponseMessage responseMessage = await httpClient.PostAsync(url, content);
-				string jsonResult = await responseMessage.Content.ReadAsStringAsync();
+				try
+				{
+					HttpResponseMessage responseMessage = await httpClient.PostAsync(url, content);
+					string jsonResult = await responseMessage.Content.ReadAsStringAsync();
 
-				JsonResult<T> result = JsonConvert.DeserializeObject<JsonResult<T>>(jsonResult);
-				return result;
+					var result = JsonConvert.DeserializeObject<JsonResult<T>>(jsonResult);
+					return result;
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine(e.Source + e.Message);
+					throw;
+				}
+
 			}
 
 		}
