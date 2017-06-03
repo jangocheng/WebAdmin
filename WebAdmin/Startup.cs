@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using MSDev.DB;
 using MSDev.Task.Helpers;
 
 namespace WebAdmin
@@ -28,6 +30,14 @@ namespace WebAdmin
 			// Add framework services.
 			services.AddMvc();
 			services.AddAuthorization(options => options.AddPolicy("admin", policy => policy.RequireRole("admin")));
+
+			services.AddDbContext<AppDbContext>(
+				option => option.UseSqlServer(
+					Configuration.GetConnectionString("DefaultConnection"),
+					b => b.MigrationsAssembly("WebAdmin")
+				)
+			);
+
 
 			services.AddScoped(typeof(ApiHelper));
 		}

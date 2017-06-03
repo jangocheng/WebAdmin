@@ -41,5 +41,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.3.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MSDeb.DB\MSDev.DB.csproj" />
+  </ItemGroup>
 
 </Project>
