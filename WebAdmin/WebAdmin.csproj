@@ -30,7 +30,7 @@
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MSDeb.DB\MSDev.DB.csproj" />
+    <ProjectReference Include="..\MSDev.DB\MSDev.DB.csproj" />
     <ProjectReference Include="..\MSDev.Task\MSDev.Task.csproj" />
   </ItemGroup>
   <ItemGroup>

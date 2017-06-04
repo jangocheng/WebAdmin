@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSDev.Task", "MSDev.Task\MS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAdmin", "WebAdmin\WebAdmin.csproj", "{CE89EE4A-D3D2-4FC8-84E5-6DB3DD32BC75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDev.DB", "MSDeb.DB\MSDev.DB.csproj", "{9D2360B8-D2F0-4295-8C75-21C0823A1A65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDev.DB", "MSDev.DB\MSDev.DB.csproj", "{9D2360B8-D2F0-4295-8C75-21C0823A1A65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

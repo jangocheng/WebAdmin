@@ -14,48 +14,46 @@ using MSDev.Task.Tasks;
 using Newtonsoft.Json;
 
 
-namespace MSDev.Task
+namespace MSDev.Task.Tasks
 {
-	public static class Program
+	public class MSDTask
 	{
 		private static readonly IServiceCollection Services = new ServiceCollection();
-		public static void Main(string[] args)
+
+		protected readonly AppDbContext Context;
+		public MSDTask()
+		{
+			StartUp();
+			Context = GetService<AppDbContext>();
+		}
+
+		public MSDTask(AppDbContext context)
+		{
+			Context = context;
+		}
+		public static void StartUp()
 		{
 			Console.OutputEncoding = Encoding.UTF8;
-			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
 			// 加载配置文件
 			IConfigurationBuilder builder = new ConfigurationBuilder()
 				  .SetBasePath(Directory.GetCurrentDirectory())
-				  .AddJsonFile("config.json")
-				  .AddJsonFile($"config.Development.json");
-
+				  .AddJsonFile("appsettings.json")
+				  .AddJsonFile($"appsettings.Development.json")
+				  .AddJsonFile($"appsettings.Production.json");
 			IConfigurationRoot config = builder.Build();
-
-			Services.AddLogging();
 
 			ILoggerFactory factory = new LoggerFactory();
 			factory.AddConsole();
 
-			Services.AddTransient(typeof(ApiHelper));
-			Services.AddScoped(typeof(BingNewsTask));
-			Services.AddScoped(typeof(DevBlogsTask));
-			Services.AddScoped(typeof(Channel9Task));
+			Services.AddLogging();
+			Services.AddSingleton(factory);
 
 			Services.AddDbContext<AppDbContext>(
 				option => option.UseSqlServer(
 					config.GetConnectionString("DefaultConnection")
 				)
 			);
-
-			Services.AddSingleton(factory);
-			//var task = GetService<Channel9Task>();
-			//task.Start();
-
-			Console.ReadLine();
-
 		}
-
 
 		public static T GetService<T>()
 		{

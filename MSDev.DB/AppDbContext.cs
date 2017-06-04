@@ -11,7 +11,7 @@ namespace MSDev.DB
 		{
 
 		}
-		//TODO:更改成指定更新的字段
+		//TODO:更改成指定更新的字
 		public void AutoSave(object model, string[] includeAttributions)
 		{
 			Attach(model);
