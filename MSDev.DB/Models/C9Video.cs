@@ -33,6 +33,11 @@ namespace MSDev.DB.Models
 		[MaxLength(16)]
 		public string Language { get; set; }
 
+		public override string ToString()
+		{
+			return $"Author: {Author}, Description: {Description}, Duration: {Duration}, Language: {Language}, Mp3Url: {Mp3Url}, Mp4HigUrl: {Mp4HigUrl}, Mp4LowUrl: {Mp4LowUrl}, Mp4MidUrl: {Mp4MidUrl}, SeriesTitle: {SeriesTitle}, SeriesTitleUrl: {SeriesTitleUrl}, SourceUrl: {SourceUrl}, Tags: {Tags}, ThumbnailUrl: {ThumbnailUrl}, Title: {Title}, Views: {Views}";
+		}
+
 		/// <summary>
 		/// mp3 资源地址
 		/// </summary>

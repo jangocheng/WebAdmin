@@ -88,12 +88,21 @@ namespace MSDev.Task.Helpers
 
 		public C9Video GetPageVideo(C9Article article)
 		{
-			var video = new C9Video();
-
-
+			var video = new C9Video
+			{
+				Duration = article.Duration,
+				SeriesTitle = article.SeriesTitle,
+				SeriesTitleUrl = article.SeriesTitleUrl,
+				SourceUrl = article.SourceUrl,
+				Title = article.Title,
+				ThumbnailUrl = article.ThumbnailUrl
+			};
 
 			string url = C9Daemon + article.SourceUrl;
 			var hw = new HtmlWeb();
+			// option获取InnerText，需要加以下设置
+			HtmlAgilityPack.HtmlNode.ElementsFlags.Remove("option");
+
 			HtmlDocument htmlDoc = hw.Load(url);
 			HtmlNode mainNode = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']");
 
@@ -106,7 +115,42 @@ namespace MSDev.Task.Helpers
 			video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")
 				.InnerHtml;
 
+			var downloadUrls = mainNode.SelectNodes(".//div[@class='download']//select/option")
+				.Select(s => new
+				{
+					text = s.InnerHtml,
+					value = s.Attributes["value"].Value
+				}).ToList();
 
+			foreach (var downloadUrl in downloadUrls)
+			{
+				switch (downloadUrl.text.Trim())
+				{
+					case "MP3":
+					video.Mp3Url = downloadUrl.value;
+					break;
+					case "Low Quality MP4":
+					video.Mp4LowUrl = downloadUrl.value;
+					break;
+					case "Mid Quality MP4":
+					video.Mp4MidUrl = downloadUrl.value;
+					break;
+					case "High Quality MP4":
+					video.Mp4HigUrl = downloadUrl.value;
+					break;
+					default:
+					break;
+				}
+			}
+
+			video.Tags = mainNode
+				.SelectNodes(".//section[@class='ch9tab description']//div[@class='ch9tabContent']//div[@class='tags']//a")
+				.Select(s => s.InnerText).ToArray().Join();
+			video.Views = 0;
+			video.CreatedTime = DateTime.Parse(mainNode.SelectSingleNode(".//time[@class='timeHelper']")?
+				.GetAttributeValue("datetime", Empty));
+
+			video.UpdatedTime = video.CreatedTime;
 
 
 			return video;

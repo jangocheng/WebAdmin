@@ -9,6 +9,11 @@ namespace WebAdmin
     {
         public static void Main(string[] args)
         {
+
+
+            //var task = new Channel9Task();
+            //task.SavePageVideos();
+
             IWebHost host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
@@ -17,6 +22,7 @@ namespace WebAdmin
                 .UseApplicationInsights()
                 .Build();
             host.Run();
+
         }
 
 

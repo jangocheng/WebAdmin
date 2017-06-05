@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,28 +19,33 @@ namespace MSDev.Task.Tasks
 		{
 			_helper = new C9Helper();
 		}
-
-		public async void Start()
+		/// <summary>
+		/// 开始执行任务
+		/// </summary>
+		public void Start()
 		{
 
-			int pageNumber = await _helper.GetTotalPage();
-			Run(2866, pageNumber);
 
 		}
 
 
-		public async void Run(int currentPage, int total)
+		/// <summary>
+		/// 抓取单面视频内容
+		/// </summary>
+		public void SavePageVideos()
 		{
-			for (int i = currentPage; i <= total; i++)
-			{
-				bool re = await SaveArticles(i);
-				if (re) continue;
+			C9Article c9Article = Context.C9Articles.First();
+			C9Video re = _helper.GetPageVideo(c9Article);
+			Console.WriteLine(re.ToString());
 
-				return;
-			}
 		}
 
 
+		/// <summary>
+		/// C9 AllContent的抓取入库
+		/// </summary>
+		/// <param name="page"></param>
+		/// <returns></returns>
 		public async Task<bool> SaveArticles(int page)
 		{
 			try
@@ -49,7 +55,7 @@ namespace MSDev.Task.Tasks
 				{
 					return false;
 				}
-
+				//TODO:去重操作
 				Context.C9Articles.AddRange(articlielList);
 				int re = Context.SaveChanges();
 				Console.WriteLine(re <= 0 ? "save failed" : $"task:{page} finish!");
