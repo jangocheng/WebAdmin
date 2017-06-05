@@ -30,11 +30,43 @@ namespace MSDev.DB.Models
 
 
 		/// <summary>
+		/// mp3 资源地址
+		/// </summary>
+		[MaxLength(128)]
+		public string Mp3Url { get; set; }
+		/// <summary>
+		/// mp4 低画质 地址
+		/// </summary>
+		[MaxLength(128)]
+		public string Mp4LowUrl { get; set; }
+		/// <summary>
+		/// mp4 中画质 地址
+		/// </summary>
+		[MaxLength(128)]
+		public string Mp4MidUrl { get; set; }
+
+		/// <summary>
+		/// mp4 高画质 地址
+		/// </summary>
+		[MaxLength(128)]
+		public string Mp4HigUrl { get; set; }
+
+		/// <summary>
 		/// 系列地址
 		/// </summary>
 		[MaxLength(128)]
 		public string SeriesTitleUrl { get; set; }
+		/// <summary>
+		/// 介绍说明
+		/// </summary>
+		[MaxLength(4000)]
+		public string Description { get; set; }
 
+		/// <summary>
+		/// 标签
+		/// </summary>
+		[MaxLength(128)]
+		public string Tags { get; set; }
 		/// <summary>
 		/// 后三位尺寸 100/220/512/960
 		/// </summary>
