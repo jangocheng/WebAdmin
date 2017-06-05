@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using Microsoft.EntityFrameworkCore.Internal;
 using MSDev.DB.Models;
 using MSDev.Task.Entities;
 using Newtonsoft.Json;
@@ -15,13 +16,17 @@ namespace MSDev.Task.Helpers
 	{
 		private static string _beginUrl = "https://channel9.msdn.com/Browse/AllContent?lang=en&lang=zh-cn&lang=zh-tw";
 
+		private const string C9Daemon = "https://channel9.msdn.com/";
 
 		private static readonly HttpClient HttpClient = new HttpClient();
 		public C9Helper()
 		{
 		}
 
-
+		/// <summary>
+		/// 获取 列表分页总数
+		/// </summary>
+		/// <returns></returns>
 		public async Task<int> GetTotalPage()
 		{
 
@@ -38,31 +43,6 @@ namespace MSDev.Task.Helpers
 				.InnerText; //总页数
 			pageNumber = int.Parse(totalPage);
 			return pageNumber;
-		}
-
-
-		public async Task<List<C9Article>> GetTest(int page = 1)
-		{
-			var articleList = new List<C9Article>();
-
-			using (var hc = new HttpClient())
-			{
-				_beginUrl = _beginUrl + "?page=" + page;
-				try
-				{
-					string htmlString = await hc.GetStringAsync("https://api.msdev.cc/api/manage/BingNews/PageList");
-					if (!IsNullOrEmpty(htmlString))
-					{
-
-					}
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine(ex.Source + ex.Message);
-				}
-			}
-
-			return articleList;
 		}
 
 		/// <summary>
@@ -103,6 +83,34 @@ namespace MSDev.Task.Helpers
 				Console.WriteLine(ex.Source + ex.Message);
 			}
 			return articleList;
+		}
+
+
+		public C9Video GetPageVideo(C9Article article)
+		{
+			var video = new C9Video();
+
+
+
+			string url = C9Daemon + article.SourceUrl;
+			var hw = new HtmlWeb();
+			HtmlDocument htmlDoc = hw.Load(url);
+			HtmlNode mainNode = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']");
+
+			video.Author = mainNode.SelectSingleNode(".//div[@class='authors']")?.Descendants("a")?.Select(s => s.InnerText)
+				.ToArray().Join();
+
+
+			video.Language = mainNode.SelectSingleNode(".//div[@class='itemHead holder' and @dir='ltr']")?
+				.GetAttributeValue("lang", Empty);
+			video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")
+				.InnerHtml;
+
+
+
+
+			return video;
+
 		}
 	}
 }

@@ -27,7 +27,11 @@ namespace MSDev.DB.Models
 		/// 浏览量
 		/// </summary>
 		public int? Views { get; set; }
-
+		/// <summary>
+		/// 语言
+		/// </summary>
+		[MaxLength(16)]
+		public string Language { get; set; }
 
 		/// <summary>
 		/// mp3 资源地址
@@ -59,9 +63,8 @@ namespace MSDev.DB.Models
 		/// <summary>
 		/// 介绍说明
 		/// </summary>
-		[MaxLength(4000)]
+		[MaxLength(4096)]
 		public string Description { get; set; }
-
 		/// <summary>
 		/// 标签
 		/// </summary>
