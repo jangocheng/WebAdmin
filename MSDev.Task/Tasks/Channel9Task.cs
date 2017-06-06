@@ -56,6 +56,9 @@ namespace MSDev.Task.Tasks
 					return false;
 				}
 				//TODO:去重操作
+
+
+
 				Context.C9Articles.AddRange(articlielList);
 				int re = Context.SaveChanges();
 				Console.WriteLine(re <= 0 ? "save failed" : $"task:{page} finish!");

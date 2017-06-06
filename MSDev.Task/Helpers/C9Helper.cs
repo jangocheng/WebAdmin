@@ -85,7 +85,11 @@ namespace MSDev.Task.Helpers
 			return articleList;
 		}
 
-
+		/// <summary>
+		/// 抓取单页视频内容
+		/// </summary>
+		/// <param name="article"></param>
+		/// <returns></returns>
 		public C9Video GetPageVideo(C9Article article)
 		{
 			var video = new C9Video

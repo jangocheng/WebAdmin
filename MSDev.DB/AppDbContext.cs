@@ -11,7 +11,6 @@ namespace MSDev.DB
 		{
 
 		}
-		//TODO:更改成指定更新的字
 		public void AutoSave(object model, string[] includeAttributions)
 		{
 			Attach(model);
@@ -21,22 +20,47 @@ namespace MSDev.DB
 			}
 		}
 
-		protected override void OnModelCreating(ModelBuilder builder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			builder.Entity<BingNews>()
+			#region 添加索引:Add Index
+
+			modelBuilder.Entity<BingNews>()
 				.HasIndex(m => m.Title)
 				.IsUnique();
-			builder.Entity<Resource>()
+			modelBuilder.Entity<BingNews>()
+				.HasIndex(m => m.UpdatedTime);
+			modelBuilder.Entity<Resource>()
 				.HasIndex(m => m.Name)
 				.IsUnique();
-			builder.Entity<Catalog>()
+			modelBuilder.Entity<Catalog>()
 				.HasIndex(m => m.Value)
 				.IsUnique();
 
-			base.OnModelCreating(builder);
+			modelBuilder.Entity<C9Article>()
+				.HasIndex(m => m.UpdatedTime);
+
+			modelBuilder.Entity<C9Article>()
+				.HasIndex(m => m.Title);
+			modelBuilder.Entity<C9Article>()
+				.HasIndex(m => m.SeriesTitle);
+
+			modelBuilder.Entity<C9Video>()
+				.HasIndex(m => m.UpdatedTime);
+			modelBuilder.Entity<C9Video>()
+				.HasIndex(m => m.Title);
+			modelBuilder.Entity<C9Video>()
+				.HasIndex(m => m.SeriesTitle);
+			modelBuilder.Entity<C9Video>()
+				.HasIndex(m => m.Language);
+			base.OnModelCreating(modelBuilder);
+
+			#endregion
+
 		}
 
 		public DbSet<C9Article> C9Articles { get; set; }
+		public DbSet<C9Video> C9Videos { get; set; }
+
 		public DbSet<RssNews> RssNews { get; set; }
 		public DbSet<BingNews> BingNews { get; set; }
 

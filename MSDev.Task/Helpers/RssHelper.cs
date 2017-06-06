@@ -34,7 +34,7 @@ namespace MSDev.Task.Helpers
 				XNamespace nspc = "http://sxpdata.microsoft.com/metadata";
 				IEnumerable<XElement> xmlList = xmlDoc.Root.Element("channel")?.Elements("item");
 				//TODO:根据作者进行筛选
-				string[] authorfilter = new string[] { "[MSFT]", "Team", "Microsoft", "Visual", "Office", "Blog" };
+				string[] authorfilter = { "[MSFT]", "Team", "Microsoft", "Visual", "Office", "Blog" };
 
 
 				blogs = xmlList?.Where(x => x.Name == "item")

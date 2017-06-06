@@ -33,7 +33,7 @@ namespace WebAdmin
 
 			services.AddDbContext<AppDbContext>(
 				option => option.UseSqlServer(
-					Configuration.GetConnectionString("OnlineConnection"),
+					Configuration.GetConnectionString("DefaultConnection"),
 					b => b.MigrationsAssembly("WebAdmin")
 				)
 			);

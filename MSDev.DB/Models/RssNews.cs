@@ -7,7 +7,7 @@ namespace MSDev.DB.Models
     {
         public int Id { get; set; }
 
-        public NewsTypes Type { get; set; }
+        public int Type { get; set; }
         public string Categories { get; set; }
 
         public string Title { get; set; }
@@ -26,6 +26,6 @@ namespace MSDev.DB.Models
 
         public DateTime CreateTime { get; set; }
 
-        public ItemStatus Status { get; set; }
+        public int Status { get; set; }
     }
 }
