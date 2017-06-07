@@ -46,29 +46,47 @@ namespace MSDev.Task.Tasks
 		/// </summary>
 		/// <param name="page"></param>
 		/// <returns></returns>
-		public async Task<bool> SaveArticles(int page)
+		public async Task<List<C9Article>> SaveArticles(int page)
 		{
 			try
 			{
+				var reList = new List<C9Article>();
+
 				List<C9Article> articlielList = await _helper.GetArticleListAsync(page);
-				if (articlielList.Count < 1)
-				{
-					return false;
-				}
+				reList = articlielList.ToList();
+
 				//TODO:去重操作
+				var lastAritles = Context.C9Articles
+					.OrderByDescending(m => m.UpdatedTime)
+					.Take(12 * 5)
+					.ToList();
 
+				foreach (C9Article article in articlielList)
+				{
+					foreach (C9Article lastAritle in lastAritles)
+					{
+						if (article.SourceUrl == lastAritle.SourceUrl)
+						{
+							reList.Remove(article);
+							Console.WriteLine(article.Title);
+							break;
+						}
+					}
+				}
 
+				if (reList.Count > 0)
+				{
+					Context.C9Articles.AddRange(reList);
+					int re = Context.SaveChanges();
+					Console.WriteLine(re <= 0 ? "save failed" : $"task:{page} finish!");
+				}
 
-				Context.C9Articles.AddRange(articlielList);
-				int re = Context.SaveChanges();
-				Console.WriteLine(re <= 0 ? "save failed" : $"task:{page} finish!");
-				if (re > 0) return true;
-				return false;
+				return reList;
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
-				return false;
+				return null;
 			}
 		}
 
