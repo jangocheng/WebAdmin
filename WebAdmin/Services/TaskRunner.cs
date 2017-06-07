@@ -7,6 +7,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MSDev.DB.Models;
 
 namespace WebAdmin.Services
 {
@@ -47,8 +48,36 @@ namespace WebAdmin.Services
 					}
 					await Echo("Done");
 				}
+				if (command.Equals("c9article"))
+				{
+					var task = new Channel9Task();
+					for (int i = 1; i < 5; i++)
+					{
+						List<C9Article> re = await task.SaveArticles(i);
+						if (re == null) continue;
+						foreach (C9Article c9Article in re)
+						{
+							await Echo(c9Article.Title);
+						}
+					}
+					await Echo("Done");
+				}
+				if (command.Equals("c9video"))
+				{
+					var task = new Channel9Task();
 
-
+					task.SavePageVideosAsync();
+					for (int i = 1; i < 5; i++)
+					{
+						List<C9Article> re = await task.SaveArticles(i);
+						if (re == null) continue;
+						foreach (C9Article c9Article in re)
+						{
+							await Echo(c9Article.Title);
+						}
+					}
+					await Echo("Done");
+				}
 			}
 			catch (Exception e)
 			{
