@@ -25,6 +25,7 @@ namespace MSDev.Task.Tasks
 		{
 			StartUp();
 			Context = GetService<AppDbContext>();
+
 		}
 
 		public MSDTask(AppDbContext context)
@@ -36,10 +37,10 @@ namespace MSDev.Task.Tasks
 			Console.OutputEncoding = Encoding.UTF8;
 			// 加载配置文件
 			IConfigurationBuilder builder = new ConfigurationBuilder()
-				  .SetBasePath(Directory.GetCurrentDirectory())
-				  .AddJsonFile("appsettings.json")
-				  .AddJsonFile($"appsettings.Development.json")
-				  .AddJsonFile($"appsettings.Production.json");
+				.SetBasePath(Directory.GetCurrentDirectory())
+				.AddJsonFile("appsettings.json")
+				.AddJsonFile($"appsettings.Development.json");
+				  //.AddJsonFile($"appsettings.Production.json");
 			IConfigurationRoot config = builder.Build();
 
 			ILoggerFactory factory = new LoggerFactory();

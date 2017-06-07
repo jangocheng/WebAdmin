@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -106,59 +108,72 @@ namespace MSDev.Task.Helpers
 			var hw = new HtmlWeb();
 			// option获取InnerText，需要加以下设置
 			HtmlAgilityPack.HtmlNode.ElementsFlags.Remove("option");
-
-			HtmlDocument htmlDoc = hw.Load(url);
-			HtmlNode mainNode = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']");
-
-			video.Author = mainNode.SelectSingleNode(".//div[@class='authors']")?.Descendants("a")?.Select(s => s.InnerText)
-				.ToArray().Join();
-
-
-			video.Language = mainNode.SelectSingleNode(".//div[@class='itemHead holder' and @dir='ltr']")?
-				.GetAttributeValue("lang", Empty);
-			video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")
-				.InnerHtml;
-
-			var downloadUrls = mainNode.SelectNodes(".//div[@class='download']//select/option")
-				.Select(s => new
-				{
-					text = s.InnerHtml,
-					value = s.Attributes["value"].Value
-				}).ToList();
-
-			foreach (var downloadUrl in downloadUrls)
+			try
 			{
-				switch (downloadUrl.text.Trim())
+				HtmlDocument htmlDoc = hw.Load(url);
+				HtmlNode mainNode = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']");
+
+				video.Author = mainNode.SelectSingleNode(".//div[@class='authors']")?.Descendants("a")?.Select(s => s.InnerText)
+					.ToArray().Join();
+
+
+				video.Language = mainNode.SelectSingleNode(".//div[@class='itemHead holder' and @dir='ltr']")?
+					.GetAttributeValue("lang", Empty);
+				video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")
+					.InnerHtml;
+
+				var downloadUrls = mainNode.SelectNodes(".//div[@class='download']//select/option")
+					.Select(s => new
+					{
+						text = s.InnerHtml,
+						value = s.Attributes["value"]?.Value
+					}).ToList();
+
+				foreach (var downloadUrl in downloadUrls)
 				{
-					case "MP3":
-					video.Mp3Url = downloadUrl.value;
-					break;
-					case "Low Quality MP4":
-					video.Mp4LowUrl = downloadUrl.value;
-					break;
-					case "Mid Quality MP4":
-					video.Mp4MidUrl = downloadUrl.value;
-					break;
-					case "High Quality MP4":
-					video.Mp4HigUrl = downloadUrl.value;
-					break;
-					default:
-					break;
+					switch (downloadUrl.text.Trim())
+					{
+						case "MP3":
+						video.Mp3Url = downloadUrl.value;
+						break;
+						case "Low Quality MP4":
+						video.Mp4LowUrl = downloadUrl.value;
+						break;
+						case "Mid Quality MP4":
+						video.Mp4MidUrl = downloadUrl.value;
+						break;
+						case "High Quality MP4":
+						video.Mp4HigUrl = downloadUrl.value;
+						break;
+						default:
+						break;
+					}
 				}
+
+				video.Tags = mainNode
+					.SelectNodes(".//section[@class='ch9tab description']//div[@class='ch9tabContent']//div[@class='tags']//a")
+					.Select(s => s.InnerText).ToArray().Join();
+				video.Views = 0;
+				video.CreatedTime = DateTime.Parse(mainNode.SelectSingleNode(".//time[@class='timeHelper']")?
+					.GetAttributeValue("datetime", Empty));
+
+				video.UpdatedTime = video.CreatedTime;
 			}
+			catch (Exception e)
+			{
+				var file = new FileInfo("output.txt");
+				using (var stream = file.OpenWrite())
+				{
+					var byteurl = Encoding.UTF8.GetBytes(url+";");
+					stream.Write(byteurl,0,byteurl.Length);
+				}
+				Console.WriteLine($"The Error:{url}");
+				Console.WriteLine(e);
 
-			video.Tags = mainNode
-				.SelectNodes(".//section[@class='ch9tab description']//div[@class='ch9tabContent']//div[@class='tags']//a")
-				.Select(s => s.InnerText).ToArray().Join();
-			video.Views = 0;
-			video.CreatedTime = DateTime.Parse(mainNode.SelectSingleNode(".//time[@class='timeHelper']")?
-				.GetAttributeValue("datetime", Empty));
-
-			video.UpdatedTime = video.CreatedTime;
+			}
 
 
 			return video;
-
 		}
 	}
 }

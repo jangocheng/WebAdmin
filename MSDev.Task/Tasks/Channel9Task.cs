@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MSDev.DB.Models;
 using MSDev.Task.Entities;
@@ -32,12 +34,50 @@ namespace MSDev.Task.Tasks
 		/// <summary>
 		/// 抓取单面视频内容
 		/// </summary>
-		public void SavePageVideos()
+		public async Task<bool> SavePageVideosAsync()
 		{
-			C9Article c9Article = Context.C9Articles.First();
-			C9Video re = _helper.GetPageVideo(c9Article);
-			Console.WriteLine(re.ToString());
+			var totalNumber = Context.C9Articles.Count();
+			for (int i = 0; i < 20; i++)
+			{
+				SaveOneVideoAsync(i);
+				//Thread.Sleep(400);
+			}
+			return true;
+		}
 
+		/// <summary>
+		/// 插入一条视频数据
+		/// </summary>
+		/// <param name="i"></param>
+		/// <returns></returns>
+		public bool SaveOneVideoAsync(int i)
+		{
+			Console.WriteLine($"start:{i}");
+			var C9Articles = Context.C9Articles
+				.OrderByDescending(m => m.UpdatedTime)
+				.Skip(i).Take(1).First();
+
+			var C9Article = C9Articles;
+
+			//过滤非视频数据
+			if (C9Article.Duration == null)
+			{
+				Console.WriteLine("Not Video" + C9Article.Title);
+				return false;
+			}
+
+			C9Video re = _helper.GetPageVideo(C9Article);
+			if (Context.C9Videos.Any(m => m.Title == re.Title))
+			{
+				Console.WriteLine($"Exist:{re.Title}");
+				return false;
+			}
+
+			re.Id = Guid.NewGuid();
+			Context.C9Videos.Add(re);
+			Context.SaveChanges();
+			Console.WriteLine($"end:{i},{C9Article.Title}");
+			return true;
 		}
 
 
@@ -68,7 +108,7 @@ namespace MSDev.Task.Tasks
 						if (article.SourceUrl == lastAritle.SourceUrl)
 						{
 							reList.Remove(article);
-							Console.WriteLine(article.Title);
+							Console.WriteLine($"repeat:{article.Title}");
 							break;
 						}
 					}
