@@ -22,7 +22,7 @@ namespace MSDev.DB.Models
 		/// <summary>
 		/// 系列地址
 		/// </summary>
-		[MaxLength(128)]
+		[MaxLength(256)]
 		public string SeriesTitleUrl { get; set; }
 
 		/// <summary>
@@ -33,7 +33,7 @@ namespace MSDev.DB.Models
 		/// <summary>
 		/// 链接
 		/// </summary>
-		[MaxLength(128)]
+		[MaxLength(256)]
 		public string SourceUrl { get; set; }
 		/// <summary>
 		/// 视频时长

@@ -9,6 +9,7 @@ using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore.Internal;
 using MSDev.DB.Models;
 using MSDev.Task.Entities;
+using MSDev.Task.Tools;
 using Newtonsoft.Json;
 using static System.String;
 
@@ -16,7 +17,7 @@ namespace MSDev.Task.Helpers
 {
 	public class C9Helper
 	{
-		private static string _beginUrl = "https://channel9.msdn.com/Browse/AllContent?lang=en&lang=zh-cn&lang=zh-tw";
+		private const string BeginUrl = "https://channel9.msdn.com/Browse/AllContent?lang=en&lang=zh-cn&lang=zh-tw";
 
 		private const string C9Daemon = "https://channel9.msdn.com/";
 
@@ -34,7 +35,7 @@ namespace MSDev.Task.Helpers
 
 			int pageNumber = 0;
 			var hc = new HttpClient();
-			string htmlString = await hc.GetStringAsync(_beginUrl);
+			string htmlString = await hc.GetStringAsync(BeginUrl);
 			if (IsNullOrEmpty(htmlString)) return pageNumber;
 			var htmlDoc = new HtmlDocument();
 			htmlDoc.LoadHtml(htmlString);
@@ -53,10 +54,11 @@ namespace MSDev.Task.Helpers
 		public async Task<List<C9Article>> GetArticleListAsync(int page = 1)
 		{
 			var articleList = new List<C9Article>();
-			_beginUrl = _beginUrl + "?page=" + page;
 			try
 			{
-				string htmlString = await HttpClient.GetStringAsync(_beginUrl);
+				var url = BeginUrl + "&page=" + page.ToString();
+				Log.Write(url);
+				string htmlString = await HttpClient.GetStringAsync(url);
 				if (!IsNullOrEmpty(htmlString))
 				{
 					var htmlDoc = new HtmlDocument();
@@ -161,17 +163,10 @@ namespace MSDev.Task.Helpers
 			}
 			catch (Exception e)
 			{
-				var file = new FileInfo("output.txt");
-				using (var stream = file.OpenWrite())
-				{
-					var byteurl = Encoding.UTF8.GetBytes(url+";");
-					stream.Write(byteurl,0,byteurl.Length);
-				}
+
+				Log.Write("c9videoError.txt", url);
 				Console.WriteLine($"The Error:{url}");
-				Console.WriteLine(e);
-
 			}
-
 
 			return video;
 		}

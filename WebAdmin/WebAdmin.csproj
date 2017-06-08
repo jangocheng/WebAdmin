@@ -34,14 +34,7 @@
     <ProjectReference Include="..\MSDev.DB\MSDev.DB.csproj" />
     <ProjectReference Include="..\MSDev.Task\MSDev.Task.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\js\" />
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <ItemGroup>

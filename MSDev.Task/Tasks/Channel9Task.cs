@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using MSDev.DB.Models;
-using MSDev.Task.Entities;
 using MSDev.Task.Helpers;
+using MSDev.Task.Tools;
 using Newtonsoft.Json;
 
 namespace MSDev.Task.Tasks
@@ -37,10 +33,9 @@ namespace MSDev.Task.Tasks
 		public async Task<bool> SavePageVideosAsync()
 		{
 			var totalNumber = Context.C9Articles.Count();
-			for (int i = 0; i < 20; i++)
+			for (int i = 693; i < totalNumber; i = i + 10)
 			{
-				SaveOneVideoAsync(i);
-				//Thread.Sleep(400);
+				await SaveOneVideoAsync(i);
 			}
 			return true;
 		}
@@ -50,33 +45,45 @@ namespace MSDev.Task.Tasks
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public bool SaveOneVideoAsync(int i)
+		public async Task<bool> SaveOneVideoAsync(int i)
 		{
 			Console.WriteLine($"start:{i}");
 			var C9Articles = Context.C9Articles
 				.OrderByDescending(m => m.UpdatedTime)
-				.Skip(i).Take(1).First();
+				.Skip(i).Take(10).ToList();
 
-			var C9Article = C9Articles;
 
-			//过滤非视频数据
-			if (C9Article.Duration == null)
+			foreach (C9Article C9Article in C9Articles)
 			{
-				Console.WriteLine("Not Video" + C9Article.Title);
-				return false;
+				//过滤非视频数据
+				if (C9Article.Duration == null)
+				{
+					Console.WriteLine("Not Video" + C9Article.Title);
+					return false;
+				}
+
+				//if (Context.C9Videos.Any(m => m.Title == re.Title))
+				//{
+				//	Console.WriteLine($"Exist:{re.Title}");
+				//	return false;
+				//}
+				C9Video re = _helper.GetPageVideo(C9Article);
+
+				re.Id = Guid.NewGuid();
+				Context.C9Videos.Add(re);
+				Log.Write("c9videoSuccess.txt", re.SourceUrl);
+
 			}
 
-			C9Video re = _helper.GetPageVideo(C9Article);
-			if (Context.C9Videos.Any(m => m.Title == re.Title))
+			try
 			{
-				Console.WriteLine($"Exist:{re.Title}");
-				return false;
+				await Context.SaveChangesAsync();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
 			}
 
-			re.Id = Guid.NewGuid();
-			Context.C9Videos.Add(re);
-			Context.SaveChanges();
-			Console.WriteLine($"end:{i},{C9Article.Title}");
 			return true;
 		}
 
@@ -88,10 +95,9 @@ namespace MSDev.Task.Tasks
 		/// <returns></returns>
 		public async Task<List<C9Article>> SaveArticles(int page)
 		{
+			var reList = new List<C9Article>();
 			try
 			{
-				var reList = new List<C9Article>();
-
 				List<C9Article> articlielList = await _helper.GetArticleListAsync(page);
 				reList = articlielList.ToList();
 
@@ -126,6 +132,9 @@ namespace MSDev.Task.Tasks
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
+				Console.WriteLine(JsonConvert.SerializeObject(reList));
+				Console.WriteLine("当前:" + page);
+				throw;
 				return null;
 			}
 		}

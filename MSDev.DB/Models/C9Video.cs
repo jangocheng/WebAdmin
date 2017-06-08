@@ -16,12 +16,12 @@ namespace MSDev.DB.Models
 		/// <summary>
 		/// 系列名称
 		/// </summary>
-		[MaxLength(128)]
+		[MaxLength(256)]
 		public string SeriesTitle { get; set; }
 		/// <summary>
 		/// 作者
 		/// </summary>
-		[MaxLength(64)]
+		[MaxLength(128)]
 		public string Author { get; set; }
 		/// <summary>
 		/// 浏览量
@@ -41,39 +41,38 @@ namespace MSDev.DB.Models
 		/// <summary>
 		/// mp3 资源地址
 		/// </summary>
-		[MaxLength(128)]
+		[MaxLength(256)]
 		public string Mp3Url { get; set; }
 		/// <summary>
 		/// mp4 低画质 地址
 		/// </summary>
-		[MaxLength(128)]
+		[MaxLength(256)]
 		public string Mp4LowUrl { get; set; }
 		/// <summary>
 		/// mp4 中画质 地址
 		/// </summary>
-		[MaxLength(128)]
+		[MaxLength(256)]
 		public string Mp4MidUrl { get; set; }
 
 		/// <summary>
 		/// mp4 高画质 地址
 		/// </summary>
-		[MaxLength(128)]
+		[MaxLength(256)]
 		public string Mp4HigUrl { get; set; }
 
 		/// <summary>
 		/// 系列地址
 		/// </summary>
-		[MaxLength(128)]
+		[MaxLength(256)]
 		public string SeriesTitleUrl { get; set; }
 		/// <summary>
 		/// 介绍说明
 		/// </summary>
-		[MaxLength(4096)]
 		public string Description { get; set; }
 		/// <summary>
 		/// 标签
 		/// </summary>
-		[MaxLength(128)]
+		[MaxLength(256)]
 		public string Tags { get; set; }
 		/// <summary>
 		/// 后三位尺寸 100/220/512/960
@@ -83,7 +82,7 @@ namespace MSDev.DB.Models
 		/// <summary>
 		/// 链接
 		/// </summary>
-		[MaxLength(128)]
+		[MaxLength(256)]
 		public string SourceUrl { get; set; }
 		/// <summary>
 		/// 视频时长
