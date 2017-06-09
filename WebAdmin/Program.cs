@@ -11,21 +11,21 @@ namespace WebAdmin
 		public static void Main(string[] args)
 		{
 
-			//IWebHost host = new WebHostBuilder()
-			//	.UseKestrel()
-			//	.UseContentRoot(Directory.GetCurrentDirectory())
-			//	.UseIISIntegration()
-			//	.UseStartup<Startup>()
-			//	.UseApplicationInsights()
-			//	.Build();
-			//host.Run();
+			IWebHost host = new WebHostBuilder()
+				.UseKestrel()
+				.UseContentRoot(Directory.GetCurrentDirectory())
+				.UseIISIntegration()
+				.UseStartup<Startup>()
+				.UseApplicationInsights()
+				.Build();
+			host.Run();
 
 
-			var task = new Channel9Task();
+			// var task = new Channel9Task();
 
-			task.SavePageVideosAsync().Wait();
+			// task.SavePageVideosAsync().Wait();
 
-			Console.ReadLine();
+			// Console.ReadLine();
 
 		}
 
