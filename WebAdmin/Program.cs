@@ -20,7 +20,8 @@ namespace WebAdmin
 				.UseApplicationInsights()
 				.Build();
 			host.Run();
-
+			//var task=new MvaTask();
+			//bool result = task.Start().Result;
 		}
 	}
 }

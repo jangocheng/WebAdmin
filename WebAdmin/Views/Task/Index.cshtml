@@ -65,8 +65,9 @@
 			ko.applyBindings(viewModel);
 
 			socket.onmessage = function (e) {
-				if (e.data == "Done") {
+				if (e.data === "Done") {
 					socket.close(1000, "done");
+					console.log("close");
 				}
 				consolemsg += e.data + '\r';
 				console.log(e.data);

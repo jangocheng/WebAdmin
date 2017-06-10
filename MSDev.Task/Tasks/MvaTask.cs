@@ -57,19 +57,24 @@ namespace MSDev.Task.Tasks
 		public async Task<List<MvaVideo>> SaveMvaVideo()
 		{
 			var lastVideo = Context.MvaVideos
-				.OrderByDescending(m => m.UpdatedTime)
-				.Take(30)
+				.OrderByDescending(m => m.CreatedTime)
+				.Skip(0).Take(30)
 				.ToList();
-			List<MvaVideo> mvaList = await _helper.GetMvaVideos(1, 30);
+			List<MvaVideo> mvaList = await _helper.GetMvaVideos(0, 30);
 			var toBeAddMcList = mvaList.ToList();
 
 			foreach (MvaVideo mvaVideo in mvaList)
 			{
-				if (lastVideo.Any(m => m.Title == mvaVideo.Title))
+				foreach (MvaVideo video in lastVideo)
 				{
-					toBeAddMcList.Remove(mvaVideo);
-					continue;
+					if (video.Title == mvaVideo.Title)
+					{
+						Console.WriteLine("repeat:" + mvaVideo.Title);
+						toBeAddMcList.Remove(mvaVideo);
+						break;
+					}
 				}
+
 			}
 			Context.MvaVideos.AddRange(toBeAddMcList);
 			Context.SaveChanges();

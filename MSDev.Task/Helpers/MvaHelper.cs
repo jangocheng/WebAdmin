@@ -18,7 +18,7 @@ namespace MSDev.Task.Helpers
 
 		private const string MvaDaemon = "https://mva.microsoft.com/";
 		// 请求json字符串
-		private const string ReqStr = @"{""SelectCriteria"":[{""SelectOnField"":""LCID"",""SelectTerm"":""1033"",""SelectMatchOption"":2}],""DisplayFields"":[],""SortOptions"":[{""SortOnField"":""PublishedTime"",""SortOrder"":1}],""SearchKeyword"":"""",""UILangaugeCode"":2052,""UserLanguageCode"":2052}";
+		private const string ReqStr = @"{""SelectCriteria"":[{""SelectOnField"":""LCID"",""SelectTerm"":""1033"",""SelectMatchOption"":2},{""SelectOnField"":""LCID"",""SelectTerm"":""1028"",""SelectMatchOption"":2},{""SelectOnField"":""LCID"",""SelectTerm"":""2052"",""SelectMatchOption"":2}],""DisplayFields"":[],""SortOptions"":[{""SortOnField"":""PublishedTime"",""SortOrder"":1}],""SearchKeyword"":"""",""UILangaugeCode"":2052,""UserLanguageCode"":2052}";
 
 
 
