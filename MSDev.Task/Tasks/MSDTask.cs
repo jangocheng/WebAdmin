@@ -29,12 +29,16 @@ namespace MSDev.Task.Tasks
 		public static void StartUp()
 		{
 			Console.OutputEncoding = Encoding.UTF8;
+
+
+			string env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 			// 加载配置文件
 			IConfigurationBuilder builder = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json")
-				.AddJsonFile($"appsettings.Development.json")
-				  .AddJsonFile($"appsettings.Production.json");
+				.AddJsonFile($"appsettings.{env}.json");
+
+
 			IConfigurationRoot config = builder.Build();
 
 			ILoggerFactory factory = new LoggerFactory();
