@@ -33,8 +33,8 @@ namespace MSDev.Task.Tasks
 			IConfigurationBuilder builder = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json")
-				.AddJsonFile($"appsettings.Development.json");
-				  //.AddJsonFile($"appsettings.Production.json");
+				.AddJsonFile($"appsettings.Development.json")
+				  .AddJsonFile($"appsettings.Production.json");
 			IConfigurationRoot config = builder.Build();
 
 			ILoggerFactory factory = new LoggerFactory();
