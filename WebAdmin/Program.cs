@@ -12,17 +12,15 @@ namespace WebAdmin
 		public static void Main(string[] args)
 		{
 
-			//IWebHost host = new WebHostBuilder()
-			//	.UseKestrel()
-			//	.UseContentRoot(Directory.GetCurrentDirectory())
-			//	.UseIISIntegration()
-			//	.UseStartup<Startup>()
-			//	.UseApplicationInsights()
-			//	.Build();
-			//host.Run();
+			IWebHost host = new WebHostBuilder()
+				.UseKestrel()
+				.UseContentRoot(Directory.GetCurrentDirectory())
+				.UseIISIntegration()
+				.UseStartup<Startup>()
+				.UseApplicationInsights()
+				.Build();
+			host.Run();
 
-			var task = new MvaTask();
-			var re = task.Start().Result;
 		}
 
 

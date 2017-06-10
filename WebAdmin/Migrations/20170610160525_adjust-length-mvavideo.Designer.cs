@@ -8,9 +8,10 @@ using MSDev.DB;
 namespace WebAdmin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170610160525_adjust-length-mvavideo")]
+    partial class adjustlengthmvavideo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -230,13 +231,13 @@ namespace WebAdmin.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Author")
-                        .HasMaxLength(768);
+                        .HasMaxLength(384);
 
                     b.Property<string>("AuthorCompany")
                         .HasMaxLength(384);
 
                     b.Property<string>("AuthorJobTitle")
-                        .HasMaxLength(1024);
+                        .HasMaxLength(384);
 
                     b.Property<string>("CourseDuration")
                         .HasMaxLength(32);
@@ -256,7 +257,7 @@ namespace WebAdmin.Migrations
                     b.Property<DateTime>("CreatedTime");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(4000);
+                        .HasColumnType("ntext");
 
                     b.Property<string>("LanguageCode")
                         .HasMaxLength(16);

@@ -8,9 +8,10 @@ using MSDev.DB;
 namespace WebAdmin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170610154115_mvaVideo")]
+    partial class mvaVideo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -230,13 +231,13 @@ namespace WebAdmin.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Author")
-                        .HasMaxLength(768);
+                        .HasMaxLength(256);
 
                     b.Property<string>("AuthorCompany")
-                        .HasMaxLength(384);
+                        .HasMaxLength(256);
 
                     b.Property<string>("AuthorJobTitle")
-                        .HasMaxLength(1024);
+                        .HasMaxLength(256);
 
                     b.Property<string>("CourseDuration")
                         .HasMaxLength(32);
@@ -248,7 +249,7 @@ namespace WebAdmin.Migrations
                         .HasMaxLength(32);
 
                     b.Property<string>("CourseNumber")
-                        .HasMaxLength(128);
+                        .HasMaxLength(256);
 
                     b.Property<string>("CourseStatus")
                         .HasMaxLength(32);
@@ -271,10 +272,10 @@ namespace WebAdmin.Migrations
                     b.Property<int?>("Status");
 
                     b.Property<string>("Tags")
-                        .HasMaxLength(384);
+                        .HasMaxLength(256);
 
                     b.Property<string>("Technologies")
-                        .HasMaxLength(384);
+                        .HasMaxLength(256);
 
                     b.Property<string>("Title")
                         .HasMaxLength(256);

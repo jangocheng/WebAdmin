@@ -4,14 +4,8 @@ using Microsoft.Extensions.Configuration;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design.Internal;
 using MSDev.DB;
-using MSDev.Task.Helpers;
-using MSDev.Task.Tasks;
-using Newtonsoft.Json;
 
 
 namespace MSDev.Task.Tasks

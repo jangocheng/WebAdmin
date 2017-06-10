@@ -58,6 +58,7 @@ namespace MSDev.DB
 
 		}
 
+		public DbSet<MvaVideo> MvaVideos { get; set; }
 		public DbSet<C9Article> C9Articles { get; set; }
 		public DbSet<C9Video> C9Videos { get; set; }
 
