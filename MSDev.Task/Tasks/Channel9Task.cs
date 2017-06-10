@@ -46,7 +46,7 @@ namespace MSDev.Task.Tasks
 		/// </summary>
 		public void SaveVideoByUrl()
 		{
-			var file = new FileInfo("c9videoErrorout.txt");
+			var file = new FileInfo("c9videoGetErrors.txt");
 			StreamReader stream = file.OpenText();
 
 			string url = stream.ReadLine();
@@ -58,6 +58,12 @@ namespace MSDev.Task.Tasks
 					url = url.Trim();
 					C9Video re = _helper.GetPageVideoByUrl(url);
 
+
+					if (Context.C9Videos.Any(m => m.SourceUrl == re.SourceUrl))
+					{
+						url = stream.ReadLine();
+						continue;
+					}
 					re.Id = Guid.NewGuid();
 					Context.C9Videos.Add(re);
 					try

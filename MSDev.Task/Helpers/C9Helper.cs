@@ -89,7 +89,7 @@ namespace MSDev.Task.Helpers
 			return articleList;
 		}
 
-
+		// 临时补充遗漏
 		public C9Video GetPageVideoByUrl(string fullUrl)
 		{
 			C9Video video = new C9Video();
@@ -102,16 +102,22 @@ namespace MSDev.Task.Helpers
 				HtmlNode mainNode = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']");
 				video.Duration = mainNode.SelectSingleNode(".//div[@class='playerContainer']//time[@class='caption']")?
 					.Attributes["datetime"]?.Value;
+				// 非视频,返回
+				if (video.Duration == null)
+				{
+					return video;
+				}
 				video.SeriesTitle = mainNode.SelectSingleNode(".//div[@class='seriesTitle']//a")?.InnerText;
 				video.SeriesTitleUrl = mainNode.SelectSingleNode(".//div[@class='seriesTitle']//a")?.Attributes["href"]?.Value;
 				video.SourceUrl = fullUrl;
 				video.Title = mainNode.SelectSingleNode(".//div[@class='itemHead holder']//div[@class='container']//h1")?.InnerText;
 				video.ThumbnailUrl = mainNode.SelectSingleNode(".//div[@class='playerContainer']//a[@class='video']")
-					?.Attributes["style"].Value;
-
-				Regex regex = new Regex(@".+\((.+)\);");
-				video.ThumbnailUrl = regex.Match(video.ThumbnailUrl).Groups[1].Value;
-
+					?.Attributes["style"]?.Value;
+				if (!IsNullOrEmpty(video.ThumbnailUrl))
+				{
+					Regex regex = new Regex(@".+\((.+)\);");
+					video.ThumbnailUrl = regex.Match(video.ThumbnailUrl).Groups[1].Value;
+				}
 				video.Author = mainNode.SelectSingleNode(".//div[@class='authors']")?.Descendants("a")?.Select(s => s.InnerText)
 					.ToArray().Join();
 
@@ -120,33 +126,37 @@ namespace MSDev.Task.Helpers
 				video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")
 					.InnerHtml;
 
-				var downloadUrls = mainNode.SelectNodes(".//div[@class='download']//select/option")
+				var downloadUrls = mainNode.SelectNodes(".//div[@class='download']//select/option")?
 					.Select(s => new
 					{
 						text = s.InnerHtml,
 						value = s.Attributes["value"]?.Value
 					}).ToList();
 
-				foreach (var downloadUrl in downloadUrls)
+				if (downloadUrls != null)
 				{
-					switch (downloadUrl.text.Trim())
+					foreach (var downloadUrl in downloadUrls)
 					{
-						case "MP3":
-						video.Mp3Url = downloadUrl.value;
-						break;
-						case "Low Quality MP4":
-						video.Mp4LowUrl = downloadUrl.value;
-						break;
-						case "Mid Quality MP4":
-						video.Mp4MidUrl = downloadUrl.value;
-						break;
-						case "High Quality MP4":
-						video.Mp4HigUrl = downloadUrl.value;
-						break;
-						default:
-						break;
+						switch (downloadUrl.text.Trim())
+						{
+							case "MP3":
+								video.Mp3Url = downloadUrl.value;
+								break;
+							case "Low Quality MP4":
+								video.Mp4LowUrl = downloadUrl.value;
+								break;
+							case "Mid Quality MP4":
+								video.Mp4MidUrl = downloadUrl.value;
+								break;
+							case "High Quality MP4":
+								video.Mp4HigUrl = downloadUrl.value;
+								break;
+							default:
+								break;
+						}
 					}
 				}
+
 
 				video.Tags = mainNode
 					.SelectNodes(".//section[@class='ch9tab description']//div[@class='ch9tabContent']//div[@class='tags']//a")?
