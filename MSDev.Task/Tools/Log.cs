@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace MSDev.Task.Tools
 {
-	public static class  Log
+	public static class Log
 	{
+		private static readonly ReaderWriterLockSlim Lock = new ReaderWriterLockSlim();
+
 		public static void Write(string row)
 		{
 			var file = new FileInfo("c9article.txt");
@@ -17,12 +20,24 @@ namespace MSDev.Task.Tools
 		}
 
 
-		public static void Write(string filePath,string row)
+		public static void Write(string filePath, string row)
 		{
 			var file = new FileInfo(filePath);
+			Lock.EnterWriteLock();
 			using (StreamWriter stream = file.AppendText())
 			{
-				stream.WriteLine(row + "\n");
+				try
+				{
+					stream.WriteLine(row);
+				}
+				catch
+				{
+					Console.WriteLine(row);
+				}
+				finally
+				{
+					Lock.ExitWriteLock();
+				}
 			}
 		}
 	}

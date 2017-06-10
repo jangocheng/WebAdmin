@@ -51,29 +51,23 @@ namespace WebAdmin.Services
 				if (command.Equals("c9article"))
 				{
 					var task = new Channel9Task();
-					for (int i = 1; i < 5; i++)
+					//获取最近5页articles
+					for (int i = 5; i >= 1; i--)
 					{
-						List<C9Article> re = await task.SaveArticles(i);
-						if (re == null) continue;
-						foreach (C9Article c9Article in re)
+						List<C9Article> articles = await task.SaveArticles(i);
+						if (articles == null) continue;
+						foreach (C9Article c9Article in articles)
 						{
-							await Echo(c9Article.Title);
+							await Echo("article:" + c9Article.Title);
 						}
 					}
-					await Echo("Done");
-				}
-				if (command.Equals("c9video"))
-				{
-					var task = new Channel9Task();
-
-					task.SavePageVideosAsync();
-					for (int i = 1; i < 5; i++)
+					// 更新视频页内容
+					var videos = await task.SaveVideosAsync(0, 60);
+					if (videos != null)
 					{
-						List<C9Article> re = await task.SaveArticles(i);
-						if (re == null) continue;
-						foreach (C9Article c9Article in re)
+						foreach (C9Video video in videos)
 						{
-							await Echo(c9Article.Title);
+							await Echo("video:" + video.Title);
 						}
 					}
 					await Echo("Done");

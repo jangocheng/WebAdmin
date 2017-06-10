@@ -8,9 +8,10 @@ using MSDev.DB;
 namespace WebAdmin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170609192446_c9Video-des")]
+    partial class c9Videodes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -95,7 +96,7 @@ namespace WebAdmin.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Author")
-                        .HasMaxLength(256);
+                        .HasMaxLength(128);
 
                     b.Property<DateTime>("CreatedTime");
 
@@ -106,39 +107,39 @@ namespace WebAdmin.Migrations
                         .HasMaxLength(32);
 
                     b.Property<string>("Language")
-                        .HasMaxLength(32);
+                        .HasMaxLength(16);
 
                     b.Property<string>("Mp3Url")
-                        .HasMaxLength(512);
+                        .HasMaxLength(256);
 
                     b.Property<string>("Mp4HigUrl")
-                        .HasMaxLength(512);
+                        .HasMaxLength(256);
 
                     b.Property<string>("Mp4LowUrl")
-                        .HasMaxLength(512);
+                        .HasMaxLength(256);
 
                     b.Property<string>("Mp4MidUrl")
-                        .HasMaxLength(512);
+                        .HasMaxLength(256);
 
                     b.Property<string>("SeriesTitle")
                         .HasMaxLength(256);
 
                     b.Property<string>("SeriesTitleUrl")
-                        .HasMaxLength(512);
+                        .HasMaxLength(256);
 
                     b.Property<string>("SourceUrl")
-                        .HasMaxLength(512);
+                        .HasMaxLength(256);
 
                     b.Property<int?>("Status");
 
                     b.Property<string>("Tags")
-                        .HasMaxLength(512);
+                        .HasMaxLength(256);
 
                     b.Property<string>("ThumbnailUrl")
-                        .HasMaxLength(512);
+                        .HasMaxLength(256);
 
                     b.Property<string>("Title")
-                        .HasMaxLength(512);
+                        .HasMaxLength(256);
 
                     b.Property<DateTime>("UpdatedTime");
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using MSDev.DB.Models;
 using MSDev.Task.Helpers;
 using MSDev.Task.Tools;
 using Newtonsoft.Json;
+using static System.String;
 
 namespace MSDev.Task.Tasks
 {
@@ -20,9 +22,8 @@ namespace MSDev.Task.Tasks
 		/// <summary>
 		/// 开始执行任务
 		/// </summary>
-		public void Start()
+		public void StartAsync()
 		{
-
 
 		}
 
@@ -32,59 +33,95 @@ namespace MSDev.Task.Tasks
 		/// </summary>
 		public async Task<bool> SavePageVideosAsync()
 		{
-			var totalNumber = Context.C9Articles.Count();
-			for (int i = 693; i < totalNumber; i = i + 10)
+			int totalNumber = Context.C9Articles.Count();
+			for (int i = 27800; i <= totalNumber; i = i + 100)
 			{
-				await SaveOneVideoAsync(i);
+				await SaveVideosAsync(i);
 			}
 			return true;
 		}
 
 		/// <summary>
-		/// 插入一条视频数据
+		/// 根据url抓取video内容
 		/// </summary>
-		/// <param name="i"></param>
-		/// <returns></returns>
-		public async Task<bool> SaveOneVideoAsync(int i)
+		public void SaveVideoByUrl()
 		{
-			Console.WriteLine($"start:{i}");
-			var C9Articles = Context.C9Articles
-				.OrderByDescending(m => m.UpdatedTime)
-				.Skip(i).Take(10).ToList();
+			var file = new FileInfo("c9videoErrorout.txt");
+			StreamReader stream = file.OpenText();
 
-
-			foreach (C9Article C9Article in C9Articles)
+			string url = stream.ReadLine();
+			int i = 1;
+			while (!stream.EndOfStream)
 			{
-				//过滤非视频数据
-				if (C9Article.Duration == null)
+				if (!IsNullOrEmpty(url))
 				{
-					Console.WriteLine("Not Video" + C9Article.Title);
-					return false;
+					url = url.Trim();
+					C9Video re = _helper.GetPageVideoByUrl(url);
+
+					re.Id = Guid.NewGuid();
+					Context.C9Videos.Add(re);
+					try
+					{
+						Context.SaveChanges();
+						Console.WriteLine($"strat:{i}");
+						i++;
+					}
+					catch (Exception e)
+					{
+						Log.Write("C9Video.error.txt", url);
+					}
 				}
 
-				//if (Context.C9Videos.Any(m => m.Title == re.Title))
-				//{
-				//	Console.WriteLine($"Exist:{re.Title}");
-				//	return false;
-				//}
-				C9Video re = _helper.GetPageVideo(C9Article);
-
-				re.Id = Guid.NewGuid();
-				Context.C9Videos.Add(re);
-				Log.Write("c9videoSuccess.txt", re.SourceUrl);
-
+				url = stream.ReadLine();
 			}
+			Console.WriteLine("Done");
+		}
 
+		/// <summary>
+		/// 根据C9Article 抓取视频数据
+		/// </summary>
+		/// <param name="skip">领衔量</param>
+		/// <param name="number">数量</param>
+		/// <returns></returns>
+		public async Task<List<C9Video>> SaveVideosAsync(int skip = 0, int number = 100)
+		{
+			Console.WriteLine($"start:{skip}");
+			var C9Articles = Context.C9Articles
+				.OrderByDescending(m => m.UpdatedTime)
+				.Skip(skip).Take(number).ToList();
+
+			var videoList = new List<C9Video>();
+			var lastVideo = Context.C9Videos.OrderByDescending(m => m.UpdatedTime).Take(60).ToList();
+			Parallel.ForEach(C9Articles, a =>
+			{
+				// 过滤非视频数据
+				if (a.Duration == null)
+				{
+					Console.WriteLine("Not Video" + a.Title);
+					return;
+				}
+				// 数据库去重
+				if (lastVideo.Any(m => m.SourceUrl == a.SourceUrl))
+				{
+					return;
+				}
+
+				C9Video re = _helper.GetPageVideo(a).Result;
+				re.Id = Guid.NewGuid();
+				videoList.Add(re);
+			});
 			try
 			{
+				Context.AddRange(videoList);
 				await Context.SaveChangesAsync();
+				return videoList;
 			}
 			catch (Exception e)
 			{
+				Log.Write("C9VideoSaveError.txt", e.Message);
 				Console.WriteLine(e);
 			}
-
-			return true;
+			return videoList;
 		}
 
 
@@ -126,16 +163,12 @@ namespace MSDev.Task.Tasks
 					int re = Context.SaveChanges();
 					Console.WriteLine(re <= 0 ? "save failed" : $"task:{page} finish!");
 				}
-
 				return reList;
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
-				Console.WriteLine(JsonConvert.SerializeObject(reList));
-				Console.WriteLine("当前:" + page);
-				throw;
-				return null;
+				return reList;
 			}
 		}
 

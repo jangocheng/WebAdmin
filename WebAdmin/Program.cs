@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using MSDev.Task.Tasks;
@@ -20,12 +21,6 @@ namespace WebAdmin
 				.Build();
 			host.Run();
 
-
-			// var task = new Channel9Task();
-
-			// task.SavePageVideosAsync().Wait();
-
-			// Console.ReadLine();
 
 		}
 
