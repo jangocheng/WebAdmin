@@ -183,6 +183,7 @@ namespace MSDev.Task.Helpers
 		/// 抓取单页视频内容
 		/// </summary>
 		/// <param name="article"></param>
+		/// <param name="fullUrl"></param>
 		/// <returns></returns>
 		public async Task<C9Video> GetPageVideo(C9Article article, string fullUrl = null)
 		{
@@ -251,7 +252,7 @@ namespace MSDev.Task.Helpers
 
 				video.UpdatedTime = video.CreatedTime;
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				Log.Write("c9videoGetErrors.txt", url);
 				Console.WriteLine($"The Error:{url}");

@@ -49,5 +49,31 @@ namespace MSDev.Task.Tasks
 			}
 			return true;
 		}
+
+		/// <summary>
+		/// 日常更新Mva
+		/// </summary>
+		/// <returns></returns>
+		public async Task<List<MvaVideo>> SaveMvaVideo()
+		{
+			var lastVideo = Context.MvaVideos
+				.OrderByDescending(m => m.UpdatedTime)
+				.Take(30)
+				.ToList();
+			List<MvaVideo> mvaList = await _helper.GetMvaVideos(1, 30);
+			var toBeAddMcList = mvaList.ToList();
+
+			foreach (MvaVideo mvaVideo in mvaList)
+			{
+				if (lastVideo.Any(m => m.Title == mvaVideo.Title))
+				{
+					toBeAddMcList.Remove(mvaVideo);
+					continue;
+				}
+			}
+			Context.MvaVideos.AddRange(toBeAddMcList);
+			Context.SaveChanges();
+			return toBeAddMcList;
+		}
 	}
 }

@@ -72,6 +72,16 @@ namespace WebAdmin.Services
 					}
 					await Echo("Done");
 				}
+				if (command.Equals("mvavideos"))
+				{
+					var task = new MvaTask();
+					List<MvaVideo> re=await task.SaveMvaVideo();
+					foreach (MvaVideo video in re)
+					{
+						await Echo("video:" + video.Title);
+					}
+					await Echo("Done");
+				}
 			}
 			catch (Exception e)
 			{

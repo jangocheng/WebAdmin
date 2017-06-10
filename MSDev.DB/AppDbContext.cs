@@ -52,10 +52,14 @@ namespace MSDev.DB
 				.HasIndex(m => m.SeriesTitle);
 			modelBuilder.Entity<C9Video>()
 				.HasIndex(m => m.Language);
+			modelBuilder.Entity<MvaVideo>()
+				.HasIndex(m => m.Title);
+			modelBuilder.Entity<MvaVideo>()
+				.HasIndex(m => m.UpdatedTime);
+			modelBuilder.Entity<MvaVideo>()
+				.HasIndex(m => m.LanguageCode);
 			base.OnModelCreating(modelBuilder);
-
 			#endregion
-
 		}
 
 		public DbSet<MvaVideo> MvaVideos { get; set; }

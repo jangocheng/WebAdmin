@@ -72,7 +72,7 @@ namespace MSDev.Task.Tasks
 						Console.WriteLine($"strat:{i}");
 						i++;
 					}
-					catch (Exception e)
+					catch (Exception)
 					{
 						Log.Write("C9Video.error.txt", url);
 					}
