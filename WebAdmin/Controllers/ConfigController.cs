@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
@@ -35,9 +36,11 @@ namespace WebAdmin.Controllers
 		[HttpGet]
 		public IActionResult Catalog()
 		{
-			//获取枯级分类
-			var topCatalogs = _context.CataLog.Where(m => m.IsTop == 1).ToList();
-			ViewBag.TopCatalogs = topCatalogs;
+			//获取所有目录
+			var catalogs = _context.CataLog.ToList();
+
+
+			ViewBag.Catalogs = catalogs;
 			return View();
 		}
 
@@ -46,7 +49,11 @@ namespace WebAdmin.Controllers
 		{
 			return View();
 		}
-
+		/// <summary>
+		/// 添加目录
+		/// </summary>
+		/// <param name="catalogForm"></param>
+		/// <returns></returns>
 		[HttpPost]
 		public IActionResult AddCatalog(CatalogForm catalogForm)
 		{
