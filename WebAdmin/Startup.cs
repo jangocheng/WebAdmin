@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,12 +31,8 @@ namespace WebAdmin
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			IFileProvider physicalProvider = _hostingEnvironment.ContentRootFileProvider;
-			services.AddSingleton(physicalProvider);
 
 			services.AddSingleton(Configuration);
-
-
 			// Add framework services.
 			services.AddMvc();
 			services.AddAuthorization(options => options.AddPolicy("admin", policy => policy.RequireRole("admin")));
@@ -47,13 +44,13 @@ namespace WebAdmin
 				)
 			);
 			services.AddScoped(typeof(ApiHelper));
+			services.AddAutoMapper();
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
-
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();

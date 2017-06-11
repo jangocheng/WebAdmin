@@ -33,6 +33,9 @@
     <ProjectReference Include="..\MSDev.DB\MSDev.DB.csproj" />
     <ProjectReference Include="..\MSDev.Task\MSDev.Task.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Config\" />
+  </ItemGroup>
 
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
