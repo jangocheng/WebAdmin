@@ -1,13 +1,13 @@
 using System;
 using System.Text;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using MSDev.Task.Helpers;
+using static System.String;
 
 namespace WebAdmin.Helpers
 {
 	public class PagerTagHelper : TagHelper
 	{
-		public PagerOption PagerOption { get; set; }
+		public MyPagerOption PagerOption { get; set; }
 		/// <summary>
 		/// 最多显示页数
 		/// </summary>
@@ -26,11 +26,11 @@ namespace WebAdmin.Helpers
 			int totalPage = PagerOption.Total / PagerOption.PageSize + (PagerOption.Total % PagerOption.PageSize > 0 ? 1 : 0);
 			if (totalPage <= 0) { return; }
 			//当前路由地址
-			if (String.IsNullOrEmpty(PagerOption.RouteUrl))
+			if (IsNullOrEmpty(PagerOption.RouteUrl))
 			{
 
 				//PagerOption.RouteUrl = helper.ViewContext.HttpContext.Request.RawUrl;
-				if (!String.IsNullOrEmpty(PagerOption.RouteUrl))
+				if (!IsNullOrEmpty(PagerOption.RouteUrl))
 				{
 
 					int lastIndex = PagerOption.RouteUrl.LastIndexOf("/", StringComparison.Ordinal);
@@ -42,7 +42,7 @@ namespace WebAdmin.Helpers
 			//构造分页样式
 			if (PagerOption.Total > PagerOption.PageSize)
 			{
-				var sbPage = new StringBuilder(String.Empty);
+				var sbPage = new StringBuilder(Empty);
 				switch (PagerOption.StyleNum)
 				{
 					case 2:
@@ -51,19 +51,21 @@ namespace WebAdmin.Helpers
 					}
 					default:
 					{
-
 						#region 默认样式
+
+						int startPage = (PagerOption.CurrentPage / maxPage) * maxPage + 1;
+						int endPage = startPage + maxPage > totalPage + 1 ? totalPage + 1 : startPage + maxPage;
 
 						sbPage.Append("<nav>");
 						sbPage.Append("  <ul class=\"pagination\">");
 						// 前一页
 						sbPage.AppendFormat("       <li><a href=\"{0}?p={1}\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>",
 							PagerOption.RouteUrl,
-							PagerOption.CurrentPage - maxPage <= 0 ? 1 : PagerOption.CurrentPage - maxPage);
+							startPage - maxPage <= 0 ? 1 : startPage - maxPage);
 
 						// 构造页数
-						int endPage = PagerOption.CurrentPage + maxPage > totalPage ? totalPage : PagerOption.CurrentPage + maxPage;
-						for (int i = PagerOption.CurrentPage; i < endPage; i++)
+
+						for (int i = startPage; i < endPage; i++)
 						{
 
 							sbPage.AppendFormat("       <li {1}><a href=\"{2}?p={0}\">{0}</a></li>",
@@ -77,7 +79,7 @@ namespace WebAdmin.Helpers
 						// 后一页
 						sbPage.AppendFormat("         <a href=\"{0}?p={1}\" aria-label=\"Next\">",
 							PagerOption.RouteUrl,
-							PagerOption.CurrentPage + maxPage > totalPage ? PagerOption.CurrentPage : PagerOption.CurrentPage + maxPage);
+							endPage + maxPage > totalPage ? PagerOption.CurrentPage : endPage + maxPage);
 						sbPage.Append("               <span aria-hidden=\"true\">&raquo;</span>");
 						sbPage.Append("         </a>");
 						sbPage.Append("       </li>");

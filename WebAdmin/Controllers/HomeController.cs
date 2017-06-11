@@ -18,10 +18,8 @@ namespace WebAdmin.Controllers
 		public IActionResult Index()
 		{
 
-
 			ViewBag.TaskEnv = MSDTask.GetTaskEnv();
 			ViewBag.HostEnv = _configuration.GetConnectionString("DefaultConnection");
-
 			return View();
 		}
 

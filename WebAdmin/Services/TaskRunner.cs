@@ -17,18 +17,11 @@ namespace WebAdmin.Services
 	public class TaskRunner
 	{
 		private readonly WebSocket _webSocket;
-		private readonly ApiHelper _apiHelper;
 		private WebSocket webSocket;
 
 		public TaskRunner(WebSocket webSocket)
 		{
 			this.webSocket = webSocket;
-		}
-
-		public TaskRunner(WebSocket webSocket, ApiHelper apiHelper)
-		{
-			_webSocket = webSocket;
-			_apiHelper = apiHelper;
 		}
 
 		public async Task Run(string command)
@@ -39,7 +32,7 @@ namespace WebAdmin.Services
 			{
 				if (command.Equals("bingnews"))
 				{
-					var task = new BingNewsTask(_apiHelper);
+					var task = new BingNewsTask();
 					List<BingNewsEntity> bingNewsList = await task.GetNews("微软");
 
 					foreach (BingNewsEntity bingNews in bingNewsList)

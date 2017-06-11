@@ -1,20 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using MSDev.DB;
+using MSDev.DB.Models;
 using MSDev.Task.Helpers;
 using MSDev.Task.Models;
 using Newtonsoft.Json;
+using WebAdmin.Helpers;
 
 namespace WebAdmin.Controllers
 {
 
 	public class NewsController : BaseController
 	{
-		readonly ApiHelper _apiHelper;
-		public NewsController(ApiHelper apiHelper)
+		private AppDbContext _context;
+		public NewsController(AppDbContext context)
 		{
-			_apiHelper = apiHelper;
+			_context = context;
 		}
 		public IActionResult Index()
 		{
@@ -22,25 +27,35 @@ namespace WebAdmin.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> BingNews(int p = 1)
+		public IActionResult BingNews(int p = 1)
 		{
-			JsonResult<List<BingNews>> re = await _apiHelper.Get<List<BingNews>>($"/api/manage/bingnews/pagelist?p={p}");
-			if (re.ErrorCode == 0)
-			{
-				ViewBag.ListData = re.Data;
 
-				re.PageOption.RouteUrl = "/news/bingnews";
-				ViewBag.Pager = re.PageOption;
-				Console.WriteLine(JsonConvert.SerializeObject(re.PageOption));
-			}
+			int pageSize = 15;
+			var newsList = _context.BingNews
+				.OrderByDescending(m => m.UpdatedTime)
+				.Skip((p - 1) * pageSize).Take(pageSize)
+				.ToList();
+			int totalNumber = _context.BingNews.Count();
+
+			ViewBag.ListData = newsList;
+
+			var pageOption = new MyPagerOption()
+			{
+				CurrentPage = p,
+				PageSize = pageSize,
+				RouteUrl = "/News/BingNews",
+				Total = totalNumber
+			};
+			ViewBag.Pager = pageOption;
+
 			return View();
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> DelNews(string id)
+		public IActionResult DelNews(string id)
 		{
-			JsonResult<string> re = await _apiHelper.Delete<string>($"/api/manage/bingnews?id={id}");
-
+			BingNews news = _context.BingNews.Find(Guid.Parse(id));
+			EntityEntry<BingNews> re = _context.BingNews.Remove(news);
 			return Json(re);
 		}
 	}

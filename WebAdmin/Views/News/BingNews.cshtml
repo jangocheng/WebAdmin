@@ -1,4 +1,4 @@
-@using MSDev.Task.Models
+@using MSDev.DB.Models
 @{
 	ViewBag.Title = "title";
 	Layout = "_NewsLayout";
@@ -18,7 +18,6 @@
 			{
 				var queryDic = QueryHelpers.ParseQuery(new Uri(news.Url).Query);
 				var url = queryDic["r"][0];
-		
 
 			<tr>
 				<td><a href="@url" target="_blank">@news.Title</a></td>
@@ -33,7 +32,7 @@
 		}
 	</tbody>
 </table>
-<pager pager-option="ViewBag.Pager as PagerOption"></pager>
+<pager pager-option="ViewBag.Pager as MyPagerOption"></pager>
 
 <script>
 

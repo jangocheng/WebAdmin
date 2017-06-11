@@ -32,16 +32,16 @@ namespace WebAdmin.Controllers
 			if (HttpContext.WebSockets.IsWebSocketRequest)
 			{
 
-				WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
-				byte[] buffer = new byte[1024 * 4];
-				WebSocketReceiveResult result = await webSocket.ReceiveAsync(
+				var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
+				var buffer = new byte[1024 * 4];
+				var result = await webSocket.ReceiveAsync(
 				  new ArraySegment<byte>(buffer), CancellationToken.None);
-				var runner = new TaskRunner(webSocket,_aipHelper);
+				var runner = new TaskRunner(webSocket);
 
 				while (!result.CloseStatus.HasValue)
 				{
 
-					string msg = Encoding.UTF8.GetString(buffer).TrimEnd('\0');
+					var msg = Encoding.UTF8.GetString(buffer).TrimEnd('\0');
 					if (msg == null)
 					{
 						continue;
