@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MSDev.DB.Models;
 using MSDev.Task.Entities;
 using MSDev.Task.EnumTypes;
 using MSDev.Task.Helpers;
-using MSDev.Task.Models;
 
 namespace MSDev.Task.Tasks
 {
@@ -34,8 +34,8 @@ namespace MSDev.Task.Tasks
 				Link = x.Link,
 				PublishId = x.PublishId,
 				MobileContent = x.MobileContent,
-				Type = NewsTypes.DevBlog,
-				Status = ItemStatus.正常
+				Type = 1,
+				Status = 1
 			});
 
 			JsonResult<int> re = await _apiHelper.Post<int>("/api/manage/rssnews", rssnews);
