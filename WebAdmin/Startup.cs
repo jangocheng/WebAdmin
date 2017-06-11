@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using MSDev.DB;
 using MSDev.Task.Helpers;
 
@@ -13,6 +14,9 @@ namespace WebAdmin
 {
 	public class Startup
 	{
+		private readonly IHostingEnvironment _hostingEnvironment;
+
+		public IConfigurationRoot Configuration { get; }
 		public Startup(IHostingEnvironment env)
 		{
 			IConfigurationBuilder builder = new ConfigurationBuilder()
@@ -21,12 +25,17 @@ namespace WebAdmin
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
 				.AddEnvironmentVariables();
 			Configuration = builder.Build();
+			_hostingEnvironment = env;
 		}
-
-		public IConfigurationRoot Configuration { get; }
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			IFileProvider physicalProvider = _hostingEnvironment.ContentRootFileProvider;
+			services.AddSingleton(physicalProvider);
+
+			services.AddSingleton(Configuration);
+
+
 			// Add framework services.
 			services.AddMvc();
 			services.AddAuthorization(options => options.AddPolicy("admin", policy => policy.RequireRole("admin")));
@@ -37,8 +46,6 @@ namespace WebAdmin
 					b => b.MigrationsAssembly("WebAdmin")
 				)
 			);
-
-
 			services.AddScoped(typeof(ApiHelper));
 		}
 

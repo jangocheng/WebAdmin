@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System.Text;
@@ -26,10 +27,32 @@ namespace MSDev.Task.Tasks
 		{
 			Context = context;
 		}
+
+
+		public static List<(string name, string value)> GetTaskEnv()
+		{
+			var re = new List<(string name, string value)>();
+
+			string env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+			IConfigurationBuilder builder = new ConfigurationBuilder()
+				.SetBasePath(Directory.GetCurrentDirectory())
+				.AddJsonFile("appsettings.json", false, true)
+				.AddJsonFile($"appsettings.{env}.json", true);
+			IConfigurationRoot config = builder.Build();
+			re.Add(("环境",env));
+			re.Add(("数据库", config.GetConnectionString("DefaultConnection")));
+
+			return re;
+
+		}
+
+		/// <summary>
+		/// 读取配置
+		/// </summary>
 		public static void StartUp()
 		{
 			Console.OutputEncoding = Encoding.UTF8;
-
 
 			string env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 			// 加载配置文件
@@ -37,7 +60,6 @@ namespace MSDev.Task.Tasks
 				.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json")
 				.AddJsonFile($"appsettings.{env}.json");
-
 
 			IConfigurationRoot config = builder.Build();
 
