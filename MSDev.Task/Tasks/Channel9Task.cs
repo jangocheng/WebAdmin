@@ -126,8 +126,8 @@ namespace MSDev.Task.Tasks
 			{
 				Log.Write("C9VideoSaveError.txt", e.Message);
 				Console.WriteLine(e);
+				return null;
 			}
-			return videoList;
 		}
 
 

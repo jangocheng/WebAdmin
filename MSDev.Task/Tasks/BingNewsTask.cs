@@ -1,25 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
+using MSDev.DB.Models;
 using MSDev.Task.Entities;
 using MSDev.Task.Helpers;
 using MSDev.Task.Models;
 using MSDev.Task.Tools;
+using static System.String;
 
 namespace MSDev.Task.Tasks
 {
-	public class BingNewsTask
+	public class BingNewsTask : MSDTask
 	{
 		private const string BingSearchKey = "2dd3ac889c7e42d4934d017abf80cae3";
 		private const string Domain = "http://msdev.cc/";//TODO: [域名]读取配置
 		private const double Similarity = 0.5;//定义相似度
-		private readonly ApiHelper _apiHelper;
 
-		public BingNewsTask(ApiHelper apiHelper)
+		public BingNewsTask()
 		{
-			_apiHelper = apiHelper;
 		}
 
 		public async Task<List<BingNewsEntity>> GetNews(string query, string freshness = "Day")
@@ -33,7 +34,7 @@ namespace MSDev.Task.Tasks
 			}
 
 			//TODO:获取过滤来源名单
-			string[] providerFilter = { "中金在线", "安卓网资讯专区", "中国通信网", "中国网", "华商网", "A5站长网", "东方财富网 股票", "秦巴在线", "ITBEAR科技资讯", "京华网", "TechWeb", "四海网" };
+			string[] providerFilter = { "大连天健网", "中金在线", "安卓网资讯专区", "中国通信网", "中国网", "华商网", "A5站长网", "东方财富网 股票", "秦巴在线", "ITBEAR科技资讯", "京华网", "TechWeb", "四海网" };
 
 			//数据预处理
 			for (int i = 0; i < newNews.Count; i++)
@@ -42,14 +43,14 @@ namespace MSDev.Task.Tasks
 				if (Array.Exists(providerFilter, provider => provider == newNews[i].Provider))
 				{
 					Console.WriteLine("filter:" + newNews[i].Provider + newNews[i].Title);
-					newNews[i].Title = String.Empty;
+					newNews[i].Title = Empty;
 					continue;
 				}
 				//无缩略图过滤
-				if (String.IsNullOrEmpty(newNews[i].ThumbnailUrl))
+				if (IsNullOrEmpty(newNews[i].ThumbnailUrl))
 				{
 					Console.WriteLine("noPic:" + newNews[i].Title);
-					newNews[i].Title = String.Empty;
+					newNews[i].Title = Empty;
 					continue;
 				}
 
@@ -63,23 +64,21 @@ namespace MSDev.Task.Tasks
 					}
 
 					Console.WriteLine("repeat" + newNews[i].Title);
-					newNews[i].Title = String.Empty;
+					newNews[i].Title = Empty;
 				}
 			}
 
 			//查询库中内容并去重
-			JsonResult<List<string>> resultData = await _apiHelper.Get<List<string>>("api/manage/BingNews/GetRecentTitles/7");
 
-			if (resultData.ErrorCode != 0)
-			{
-				return newNews;
-			}
-
-			List<string> oldTitles = resultData.Data;
+			var oldTitles = Context.BingNews
+				.OrderByDescending(m => m.UpdatedTime)
+				.Select(m => m.Title)
+				.Take(50)
+				.ToList();
 
 			foreach (BingNewsEntity t in newNews)
 			{
-				if (String.IsNullOrEmpty(t.Title))
+				if (IsNullOrEmpty(t.Title))
 				{
 					continue;
 				}
@@ -92,17 +91,16 @@ namespace MSDev.Task.Tasks
 					}
 
 					Console.WriteLine("repeat:" + t.Title);
-					t.Title = String.Empty;
+					t.Title = Empty;
 					break;
 				}
 			}
-
 
 			//去重后的内容
 			var newsTba = new List<BingNews>();
 			foreach (BingNewsEntity item in newNews)
 			{
-				if (String.IsNullOrEmpty(item.Title))
+				if (IsNullOrEmpty(item.Title))
 				{
 					continue;
 				}
@@ -128,8 +126,9 @@ namespace MSDev.Task.Tasks
 				newsTba.Add(news);
 			}
 
-			JsonResult<int> re = await _apiHelper.Post<int>("api/manage/BingNews/AddBingNews", newsTba);
-			Console.WriteLine($"Update {re.Data} news!");
+			Context.AddRange(newsTba);
+			int re = Context.SaveChanges();
+			Console.WriteLine($"Update {re} news!");
 			return newNews;
 		}
 	}
