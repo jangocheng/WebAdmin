@@ -22,7 +22,7 @@ namespace MSDev.Task.Tasks
 		{
 		}
 
-		public async Task<List<BingNewsEntity>> GetNews(string query, string freshness = "Day")
+		public async Task<List<BingNews>> GetNews(string query, string freshness = "Day")
 		{
 			//获取新闻
 			BingSearchHelper.SearchApiKey = BingSearchKey;
@@ -128,7 +128,7 @@ namespace MSDev.Task.Tasks
 			Context.AddRange(newsTba);
 			int re = Context.SaveChanges();
 			Console.WriteLine($"Update {re} news!");
-			return newNews;
+			return newsTba;
 		}
 	}
 }

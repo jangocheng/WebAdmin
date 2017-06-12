@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MSDev.DB.Models;
+using static System.String;
 
 namespace WebAdmin.Services
 {
@@ -17,11 +18,10 @@ namespace WebAdmin.Services
 	public class TaskRunner
 	{
 		private readonly WebSocket _webSocket;
-		private WebSocket webSocket;
 
 		public TaskRunner(WebSocket webSocket)
 		{
-			this.webSocket = webSocket;
+			_webSocket = webSocket;
 		}
 
 		public async Task Run(string command)
@@ -33,9 +33,10 @@ namespace WebAdmin.Services
 				if (command.Equals("bingnews"))
 				{
 					var task = new BingNewsTask();
-					List<BingNewsEntity> bingNewsList = await task.GetNews("微软");
+					List<BingNews> bingNewsList = await task.GetNews("微软");
 
-					foreach (BingNewsEntity bingNews in bingNewsList)
+					Console.WriteLine(bingNewsList.Count);
+					foreach (BingNews bingNews in bingNewsList)
 					{
 						await Echo(bingNews.Title);
 					}
@@ -68,7 +69,7 @@ namespace WebAdmin.Services
 				if (command.Equals("mvavideos"))
 				{
 					var task = new MvaTask();
-					List<MvaVideo> re=await task.SaveMvaVideo();
+					List<MvaVideo> re = await task.SaveMvaVideo();
 					foreach (MvaVideo video in re)
 					{
 						await Echo("video:" + video.Title);
@@ -84,10 +85,9 @@ namespace WebAdmin.Services
 		private async Task Echo(string message)
 		{
 
-			if (!String.IsNullOrEmpty(message))
+			if (!IsNullOrEmpty(message))
 			{
-
-				byte[] bytes = Encoding.UTF8.GetBytes(message);
+				var bytes = Encoding.UTF8.GetBytes(message);
 				await _webSocket.SendAsync(
 				  new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
 			}

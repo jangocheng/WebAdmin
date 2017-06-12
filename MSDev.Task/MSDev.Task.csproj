@@ -46,5 +46,8 @@
   <ItemGroup>
     <ProjectReference Include="..\MSDev.DB\MSDev.DB.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
 
 </Project>
