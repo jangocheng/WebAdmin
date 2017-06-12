@@ -23,6 +23,10 @@ namespace MSDev.Task.Tools
 		public static void Write(string filePath, string row)
 		{
 			var file = new FileInfo(filePath);
+			if (!file.Directory.Exists)
+			{
+				file.Directory.Create();
+			}
 			Lock.EnterWriteLock();
 			using (StreamWriter stream = file.AppendText())
 			{
