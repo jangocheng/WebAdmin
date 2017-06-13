@@ -7,6 +7,10 @@ body {
     border-radius:0 !important;
 }
 
+.cursor-point {
+    cursor: pointer;
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;

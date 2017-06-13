@@ -14,6 +14,7 @@ using Newtonsoft.Json.Serialization;
 using WebAdmin.FormModels.Catalog;
 using AutoMapper;
 using MSDev.DB;
+using WebAdmin.FormModels.Config;
 using static System.String;
 
 namespace WebAdmin.Controllers
@@ -44,11 +45,6 @@ namespace WebAdmin.Controllers
 			return View();
 		}
 
-		[HttpGet]
-		public IActionResult BingNews()
-		{
-			return View();
-		}
 		/// <summary>
 		/// 添加目录
 		/// </summary>
@@ -87,6 +83,34 @@ namespace WebAdmin.Controllers
 				_context.SaveChanges();
 			}
 			return RedirectToAction("Catalog", catalogForm);
+		}
+
+		[HttpGet]
+		public IActionResult Config()
+		{
+			ViewBag.Configs = _context.Config.ToList();
+			return View();
+		}
+
+
+		[HttpPost]
+		public IActionResult AddConfig(ConfigForm configForm)
+		{
+			if (ModelState.IsValid)
+			{
+				var config = new Config()
+				{
+					Name = configForm.Name,
+					Type = configForm.Type,
+					Value = configForm.Value,
+					Id = Guid.NewGuid()
+				};
+
+				_context.Config.Add(config);
+				_context.SaveChanges();
+
+			}
+			return RedirectToAction("Config", configForm);
 		}
 	}
 

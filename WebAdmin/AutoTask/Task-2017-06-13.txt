@@ -1,0 +1,133 @@
+BingNewsTask Start!
+	微软小冰成诗人 但李笛想让“诗人小冰”成为真正的人
+	后 PC 时代，微软如何扛起生态大旗？
+	微软小冰发布首个MV《好想你》：马来西亚女神献唱
+	微软Xbox one X 11月上市售价499美元 42款新作来袭
+	微软发布Xbox One X为什么VR缺席？重点在PC VR
+	微软Xbox One X游戏机不支持虚拟现实技术
+	微软一招制服索尼：Xbox One X将向下兼容
+	微软高管：XBX专为玩家设计 对价格感到骄傲
+	微软高通联手让Windows 10支持ARM 英特尔生气了
+	微软最强游戏主机卖499美元 你愿意掏腰包吗
+BingNewsTask End!
+
+Channel9Task Start!
+	Introduction to Tag&#160;Helpers
+	Creating your own Tag&#160;Helpers
+	Azure SQL Database Disaster&#160;Recovery
+	Tuesdays with Corey: The Magic of Scheduled&#160;Maintenance
+	Mattias Karlsson -&#160;Cake
+	Diferences between Direct Query and Import in Power&#160;BI
+	微软人工智能概览
+	Starting with&#160;CosmosDB
+	Cross Cutting&#160;Crossover
+	Pay-As-You-Go Plan for Informatica Cloud Services on Microsoft Azure Fast-Tracks&#160;Data&#8230;
+	Diferences between Direct Query and Import in Power&#160;BI
+	Cross Cutting&#160;Crossover
+	Mattias Karlsson -&#160;Cake
+	Tuesdays with Corey: The Magic of Scheduled&#160;Maintenance
+	Starting with&#160;CosmosDB
+	Azure SQL Database Disaster&#160;Recovery
+	微软人工智能概览
+	Creating your own Tag&#160;Helpers
+	Introduction to Tag&#160;Helpers
+Channel9Task End!
+
+MVATask Start!
+	微软人工智能－ 数据分析平台
+MVATask End!
+
+BingNewsTask Start!
+BingNewsTask End!
+
+Channel9Task Start!
+	微软人工智能服务和API概览最新更新
+	微软对话即平台及会话机器人框架 Bot Framework -&#160;Part2
+	微软对话即平台及会话机器人框架 Bot Framework -&#160;Part1
+	微软认知服务 -&#160;语义及语音API
+	微软认知服务 –&#160;视觉API
+	微软&#160;R服务
+	微软 Azure&#160;机器学习服务
+	Defrag: Windows 10 Creators Update Updating, Fixing a Win10 Homegroup, Star Trek VR&#160;and&#8230;
+	Introduction to WordPress using Azure&#160;PaaS
+	Cognitive Toolkit 框架以及 Azure 上 DSVM&#160;虚拟机模板
+	Azure GPU 助力基于 TensorFlow&#160;框架的深度学习
+	深度学习概览
+	Kinect to Joints... Rotations that&#160;is...
+	Office 365 Update: June&#160;2017
+	数据分析平台概览
+	Azure Data Factory makes it even easier and convenient to uncover insights from data&#160;when&#8230;
+	Handbrake&#160;Malware
+Channel9Task End!
+
+MVATask Start!
+MVATask End!
+
+BingNewsTask Start!
+BingNewsTask End!
+
+Channel9Task Start!
+	學習如何玩創世神教育版（二）
+	學習如何玩創世神教育版&#160;（一）
+	Surviving Denial of Service&#160;Attacks
+	The Making of Project&#160;Sangam
+	Behind the Scenes: (Part 1) How to bring your existing apps and games to the Windows&#160;Store&#8230;
+	Tuesdays with Corey: Rendering the next blockbuster on&#160;Azure
+	Episode 476: Boris Hristov on Technical&#160;Presentations
+	Episode 24: Xamarin Live&#160;Player
+	Leveling Up with MonoGame and&#160;XML
+	PLATINUM activity group file-transfer method using Intel AMT&#160;SOL
+BingNewsTask Start!
+BingNewsTask End!
+
+Channel9Task Start!
+	Building a Pet Recognition Door Using Windows 10 IoT&#160;Core
+BingNewsTask Start!
+BingNewsTask End!
+
+Channel9Task Start!
+Channel9Task End!
+
+MVATask Start!
+MVATask End!
+
+BingNewsTask Start!
+BingNewsTask End!
+
+Channel9Task Start!
+Channel9Task End!
+
+MVATask Start!
+MVATask End!
+
+BingNewsTask Start!
+BingNewsTask End!
+
+Channel9Task Start!
+Channel9Task End!
+
+MVATask Start!
+MVATask End!
+
+BingNewsTask Start!
+BingNewsTask Start!
+BingNewsTask Start!
+BingNewsTask End!
+
+Channel9Task Start!
+Channel9Task End!
+
+MVATask Start!
+BingNewsTask Start!
+MVATask End!
+
+BingNewsTask Start!
+BingNewsTask End!
+
+Channel9Task Start!
+	#MSBuild 2017 Revisited:&#160;AI/ML
+Channel9Task End!
+
+MVATask Start!
+MVATask End!
+
