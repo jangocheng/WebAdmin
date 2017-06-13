@@ -7,7 +7,6 @@ namespace WebAdmin.Controllers
 	[Authorize(Policy = "admin")]
 	public class BaseController : Controller
 	{
-
 		public BaseController()
 		{
 

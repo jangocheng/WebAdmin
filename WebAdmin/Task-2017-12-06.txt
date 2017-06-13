@@ -1,23 +1,0 @@
-BingNewsTask Start!
-东方明珠结盟微软、腾讯
-BBC：Xbox One X很强大，但微软产品策略有败笔
-微软推广原生应用内广告 提振开发者营收
-微软正式发布新一代游戏主机Xbox One X
-微软Build Tour北京，和IT之家的朋友们（多图）
-BingNewsTask End!
-Channel9Task Start!
-CodeChat 066 - Welcome Back to&#160;CodeChat!
-CodeMaid Gets Some VB Loving and&#160;more...
-Defrag Tools #179 - Manually Generating a Crash&#160;Dump
-Last Week on Channel 9: June 5th - June 11th,&#160;2017
-最佳实践：基于 Azure 和 Caffe&#160;框架的深度学习
-如何透過程式碼取得LUIS的語句分析結果
-使用LUIS讓電腦知道你說的意思
-如何透過程式碼取得LUIS的語句分析結果
-使用LUIS讓電腦知道你說的意思
-最佳实践：基于 Azure 和 Caffe&#160;框架的深度学习
-Defrag Tools #179 - Manually Generating a Crash&#160;Dump
-CodeChat 066 - Welcome Back to&#160;CodeChat!
-Channel9Task End!
-MVATask Start!
-MVATask End!
