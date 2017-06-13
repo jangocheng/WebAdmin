@@ -24,6 +24,9 @@ namespace MSDev.DB
 		{
 			#region 添加索引:Add Index
 
+			modelBuilder.Entity<Config>()
+				.HasIndex(m => m.Type);
+
 			modelBuilder.Entity<BingNews>()
 				.HasIndex(m => m.Title)
 				.IsUnique();
@@ -62,6 +65,8 @@ namespace MSDev.DB
 			#endregion
 		}
 
+
+		public DbSet<Config> Config { set; get; }
 		public DbSet<MvaVideo> MvaVideos { get; set; }
 		public DbSet<C9Article> C9Articles { get; set; }
 		public DbSet<C9Video> C9Videos { get; set; }
