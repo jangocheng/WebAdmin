@@ -31,7 +31,6 @@ namespace WebAdmin
 			//bool result = task.Start().Result;
 		}
 
-
 		/// <summary>
 		/// 自动执行任务
 		/// </summary>
@@ -41,7 +40,7 @@ namespace WebAdmin
 			while (true)
 			{
 				int hour = DateTime.Now.ToLocalTime().Hour;
-				if (hour != 8 && hour != 23) continue;
+				if (hour != 8 && hour != 18 && hour != 12) continue;
 				string fileName = "./AutoTask/Task-" + DateTime.Now.ToLocalTime().Date.ToString("yyyy-MM-dd") + ".txt";
 
 				Log.Write(fileName, "BingNewsTask Start!");
