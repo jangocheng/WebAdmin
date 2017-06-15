@@ -22,6 +22,16 @@ namespace WebAdmin.Controllers
 		{
 			return View();
 		}
+
+		/// <summary>
+		/// 下载管理页面
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
+		public IActionResult Download()
+		{
+			return View();
+		}
 	}
 
 }
