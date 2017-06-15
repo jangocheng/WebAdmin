@@ -63,7 +63,7 @@
 					<td>@config.Name</td>
 					<td>@config.Value</td>
 					<td>
-						<label class="label label-danger">删除</label>
+						<a asp-action="DelConfig" asp-route-id="@config.Id" class="label label-danger cursor-point">删除</a>
 					</td>
 				</tr>
 			}

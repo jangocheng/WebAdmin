@@ -112,6 +112,18 @@ namespace WebAdmin.Controllers
 			}
 			return RedirectToAction("Config", configForm);
 		}
+
+		/// <summary>
+		/// 删除一条配置
+		/// </summary>
+		/// <returns></returns>
+		public IActionResult DelConfig([FromRoute]string id)
+		{
+			var config = _context.Config.Find(Guid.Parse(id));
+			_context.Config.Remove(config);
+			_context.SaveChanges();
+			return RedirectToAction("Config");
+		}
 	}
 
 }
