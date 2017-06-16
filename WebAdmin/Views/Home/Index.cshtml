@@ -30,7 +30,11 @@
 	<ul>
 		<li>
 			<p>
-				<span>数据库:</span>
+				<span class="text-primary">当前时间:</span>
+				<span>@DateTime.Now.ToLocalTime()</span>
+			</p>
+			<p>
+				<span class="text-primary">数据库:</span>
 				<span>@ViewBag.HostEnv</span>
 			</p>
 		</li>
