@@ -1,0 +1,90 @@
+BingNewsTask Start!
+	微软经理称苹果的iPad Pro跟风Surface
+	微软再谈Surface Phone：不像手机的手机不只一款
+	微软：XBOX肯定支持VR 无线VR头显与主机是理想搭配
+	技术改变了微软、也改变着中国的创业者和未来
+	微软Surface硬件不断拓版图 负责人称将来推手机也不奇怪
+	微软Pix相机应用升级 魔性滤镜把普通照片变成艺术品
+	微软认知服务拼智能 提前10年预测患病风险
+	微软新键盘现身微软商城：包含指纹识别模块
+	微软新专利曝光:360°可折叠Windows 10设备
+	微软今日曝光的漏洞被称为“震网三代”，牵扯出一段间谍往事
+	微软小冰进军演艺圈 与女神朱主爱合唱"好想你"
+	2017E3场馆精彩游戏大盘点：微软Xbox篇
+	微软都来了 南沙自贸区那些闪耀的名字
+	微软没骗人：外媒对比测试攒出One X性能的PC价格
+BingNewsTask End!
+
+Channel9Task Start!
+	Azure IoT Hubs&#160;Intro
+	Azure Functions&#160;Intro
+	Cognitive Services&#160;Intro
+	Kinect to Zen&#160;Meditation
+	Enabling Azure SQL Database Auto-Tuning at Scale for Microsoft&#160;IT
+	Episode 25: Unity Game Development with Visual Studio for Mac with Jb&#160;Evain
+	From 0 to 100 with this ASP.NET Core/AngularX Project&#160;Template
+	微软人工智能概览
+	(Part 1) Hybrid Cloud for Small&#160;Businesses
+	Useful Plugins for Xamarin&#160;Forms
+	Video Abstract: Microsoft Cognitive Toolkit (CNTK) for Deep&#160;Learning
+	Video Abstract: AI for&#160;Earth
+	Video Abstract: Provable Algorithms for ML/AI&#160;problems
+	Video Abstract: Learnings from Human&#160;Perception
+	Video Abstract: From Visual Sensing to Visual&#160;Intelligence
+	Video Abstract: Machine Reading Using Neural&#160;Machines
+	Video Abstract: Conversational Systems in the Era of Deep Learning and Big&#160;Data
+	Video Abstract: AI for Accessibility: Augmenting Sensory Capabilities with&#160;Intelligent&#8230;
+	Video Abstract:&#160;Integrative-AI
+	Interview with Cindy Alvarez, Author and Design Researcher at&#160;Microsoft
+	TPC-H Benchmarking with SQL Server on&#160;Linux
+	#MSBuild 2017 Revisited:&#160;Bots
+	Episode 157: Microsoft Graph with Yina&#160;Arenas
+	First Tech is migrating to the Microsoft Cloud as fast as it&#160;can
+	One Dev Question with Raymond Chen - What does a Blue Screen Message Really&#160;Mean?
+	Getting Started with Duality – Part&#160;1
+	Raspberry Pi Online Simulator and Azure&#160;IoT
+	Azure DB for&#160;MySQL
+	Video Abstract: Panel: Emotionally Intelligent AI and&#160;Agents
+	Video Abstract: Towards Socio-Culturally Aware&#160;AI
+	Video Abstract: Challenges and Opportunities in Human-Machine&#160;Partnership
+	Video Abstract: Transforming Machine Learning and Optimization through Quantum&#160;Computing
+	Video Abstract: AI and&#160;Security
+	Surface Laptop with Windows 10 S and the New Surface Pro Available&#160;Today
+	Video Abstract: AI and&#160;Security
+	Cognitive Services&#160;Intro
+	Video Abstract:&#160;Integrative-AI
+	Surface Laptop with Windows 10 S and the New Surface Pro Available&#160;Today
+	Azure IoT Hubs&#160;Intro
+	Video Abstract: AI for Accessibility: Augmenting Sensory Capabilities with&#160;Intelligent&#8230;
+	Video Abstract: Transforming Machine Learning and Optimization through Quantum&#160;Computing
+	Azure Functions&#160;Intro
+	Video Abstract: Learnings from Human&#160;Perception
+	Video Abstract: Conversational Systems in the Era of Deep Learning and Big&#160;Data
+	(Part 1) Hybrid Cloud for Small&#160;Businesses
+	Video Abstract: Challenges and Opportunities in Human-Machine&#160;Partnership
+	Video Abstract: Provable Algorithms for ML/AI&#160;problems
+	Video Abstract: Microsoft Cognitive Toolkit (CNTK) for Deep&#160;Learning
+	微软人工智能概览
+	Video Abstract: Machine Reading Using Neural&#160;Machines
+	Video Abstract: AI for&#160;Earth
+	Video Abstract: From Visual Sensing to Visual&#160;Intelligence
+	Video Abstract: Towards Socio-Culturally Aware&#160;AI
+	Useful Plugins for Xamarin&#160;Forms
+	Video Abstract: Panel: Emotionally Intelligent AI and&#160;Agents
+	Episode 25: Unity Game Development with Visual Studio for Mac with Jb&#160;Evain
+	Azure DB for&#160;MySQL
+	Enabling Azure SQL Database Auto-Tuning at Scale for Microsoft&#160;IT
+	Getting Started with Duality – Part&#160;1
+	One Dev Question with Raymond Chen - What does a Blue Screen Message Really&#160;Mean?
+	First Tech is migrating to the Microsoft Cloud as fast as it&#160;can
+	Episode 157: Microsoft Graph with Yina&#160;Arenas
+	TPC-H Benchmarking with SQL Server on&#160;Linux
+	Interview with Cindy Alvarez, Author and Design Researcher at&#160;Microsoft
+Channel9Task End!
+
+MVATask Start!
+	微软人工智能概览
+	微软人工智能－ 深度学习框架
+	微软人工智能－服务和 API
+MVATask End!
+
