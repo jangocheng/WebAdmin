@@ -53,7 +53,7 @@ namespace MSDev.DB.Models
         public string AbsolutePath { get; set; }
 
         /// <summary>
-        /// 分类
+        /// 分类:下载
         /// </summary>
         public Catalog Catalog { get; set; }
 
@@ -62,18 +62,5 @@ namespace MSDev.DB.Models
         /// </summary>
         public List<Sources> SourcesUrls { get; set; }
 
-        public enum ResourceType
-        {
-            ALL,
-            DOCUMENT,
-            VIDEO,
-            SOFTWARE,
-            CODE
-        }
-        public enum LanuageType
-        {
-            CHINESE,
-            ENGLISH
-        }
     }
 }

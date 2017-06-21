@@ -88,3 +88,29 @@ MVATask Start!
 	微软人工智能－服务和 API
 MVATask End!
 
+BingNewsTask Start!
+	微软独占3A级大作疑遭曝光 风格类似PS4独占大作《地平线：黎明时分
+	微软美国商店所有解锁版Lumia手机均已下架
+	微软/高通发力！骁龙835 Win10电脑性能爆发：Intel再见
+	携手微软 华夏基金智能投资引入“黑科技”
+	实在贵?855元!微软推Surface键盘指纹识别版
+BingNewsTask End!
+
+Channel9Task Start!
+	TWC9: Build Touring in Beijing, Xbox at E3, Holographic Cortana and&#160;more...
+	How does data insight drive business value in&#160;manufacturing?
+	Microsoft Networking Academy&#160;6/9/2017
+	Getting started with Mixer Interactivity in&#160;Unity
+	Azure Functions&#160;overview
+	iBeacons and&#160;UWP
+	Microsoft Bot Framework Skype for Business Integration - Outbound Messaging to Skype&#160;for&#8230;
+	Virtual Data&#160;Center
+	How C# is Developed In The Open with Mads&#160;Torgersen
+	C# 7 Features with Mads&#160;Torgersen
+	CodeChat 066 - Welcome Back to&#160;CodeChat!
+	CodeMaid Gets Some VB Loving and&#160;more...
+Channel9Task End!
+
+MVATask Start!
+MVATask End!
+

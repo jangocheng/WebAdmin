@@ -7,61 +7,85 @@ using MSDev.DB.Models;
 
 namespace WebAdmin.Controllers
 {
-	/// <summary>
-	/// 资源管理,如下载资源
-	/// </summary>
-	public class SourceController : BaseController
-	{
-		private readonly AppDbContext _context;
-		private readonly IMapper _mapper;
-		public SourceController(IMapper mapper, AppDbContext context)
-		{
-			_mapper = mapper;
-			_context = context;
-		}
+    /// <summary>
+    /// 资源管理,如下载资源
+    /// </summary>
+    public class SourceController : BaseController
+    {
+        private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
+        public SourceController(IMapper mapper, AppDbContext context)
+        {
+            _mapper = mapper;
+            _context = context;
+        }
 
-		[HttpGet]
-		public IActionResult Index()
-		{
-			return View();
-		}
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-		/// <summary>
-		/// 下载管理页面
-		/// </summary>
-		/// <returns></returns>
-		[HttpGet]
-		public IActionResult Download()
-		{
+        /// <summary>
+        /// 下载管理页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Download()
+        {
 
-			ViewBag.Downloads = _context.Resource
-				.Where(m => m.Catalog.Name.Equals("下载"))
-				.ToList();
+            ViewBag.Downloads = _context.Resource
+                .Where(m => m.Catalog.Type.Equals("下载"))
+                .ToList();
 
-			return View();
-		}
+            ViewBag.Catalogs = _context.CataLog.Where(m => m.Type == "下载").ToList();
+
+            return View();
+        }
 
 
-		/// <summary>
-		/// 添加下载资源
-		/// </summary>
-		/// <param name="resource"></param>
-		/// <returns></returns>
-		[HttpPost]
-		public IActionResult AddDownload(Resource resource)
-		{
-			if (ModelState.IsValid)
-			{
-				resource.Id = Guid.NewGuid();
-				resource.CreatedTime = DateTime.Now;
-				resource.UpdatedTime = DateTime.Now;
-				_context.Resource.Add(resource);
+        /// <summary>
+        /// 添加下载资源
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult AddDownload(Resource resource)
+        {
 
-				_context.SaveChanges();
+            return JumpPage("123");
+            if (ModelState.IsValid)
+            {
+                if (_context.Resource.Any(m => m.Name == resource.Name))
+                {
+                    ModelState.TryAddModelError("", "已存在");
+                    return JsonFailed();
+                }
+                resource.Id = Guid.NewGuid();
+                resource.CreatedTime = DateTime.Now;
+                resource.UpdatedTime = DateTime.Now;
+                _context.Resource.Add(resource);
+                _context.SaveChanges();
+                return JsonOk(resource);
+            }
 
-			}
-			return RedirectToAction("Download", resource);
-		}
-	}
+            return JsonFailed();
+        }
+
+
+        [HttpGet]
+        public IActionResult DelDownload([FromRoute]string id)
+        {
+            var resource = _context.Resource.Find(Guid.Parse(id));
+            if (resource != null)
+            {
+                _context.Resource.Remove(resource);
+                _context.SaveChangesAsync();
+            }
+
+            return RedirectToActionPermanent("Download");
+        }
+
+    }
 
 }
