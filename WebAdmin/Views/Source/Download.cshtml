@@ -109,14 +109,18 @@
             </tr>
         </thead>
         <tbody>
-            @{foreach (var download in (List<Resource>)ViewBag.Downloads)
+            @{
+
+                string[] types = { "文档", "视频", "软件", "代码" };
+                string[] languages = { "中文", "英文" };
+                foreach (var download in (List<Resource>)ViewBag.Downloads)
                 {
 
                     <tr>
 
                         <td>@download.Name</td>
-                        <td>@download.Type</td>
-                        <td>@download.Language</td>
+                        <td>@types[download.Type]</td>
+                        <td>@languages[download.Language]</td>
                         <td>@download.Description</td>
                         <td>
                             <a asp-action="DelDownload" asp-route-id="@download.Id" class="label label-danger">删除</a>
@@ -126,7 +130,6 @@
             }
 
         </tbody>
-
     </table>
 </div>
 @section Scripts{
