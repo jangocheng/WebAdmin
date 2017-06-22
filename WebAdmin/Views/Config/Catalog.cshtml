@@ -3,113 +3,108 @@
 @model WebAdmin.FormModels.Catalog.CatalogForm
 
 @{
-	ViewBag.Title = "资源目录";
-	Layout = "_PageLayout";
+    ViewBag.Title = "资源目录";
+    Layout = "_PageLayout";
 }
 @section LeftNav
 {
-	@Html.Partial("_LeftNav");
+    @Html.Partial("_LeftNav");
 }
 
 
 @{
-	var catalogs = ViewBag.Catalogs as List<Catalog>;
-	var types = catalogs.Select(m => m.Type).Distinct().ToList();
-	var topCatalogs = catalogs.Where(m => m.IsTop == 1).ToList();
+    var catalogs = ViewBag.Catalogs as List<Catalog>;
+    var types = catalogs.Select(m => m.Type).Distinct().ToList();
+    var topCatalogs = catalogs.Where(m => m.IsTop == 1).ToList();
 }
 <h4>添加目录</h4>
 <!--添加目录表彰-->
 <form asp-action="AddCatalog" class="form-inline">
-	<div class="form-group">
-		<select asp-for="Type" class="form-control">
-			@{
-				foreach (string type in types)
-				{
-				<option value="@type">@type</option>
-				}
-			}
-		</select>
+    <div class="form-group">
+        <select asp-for="Type" class="form-control">
+            <option value="下载">下载</option>
+            <option value="文档">文档</option>
+            <option value="视频">视频</option>
+        </select>
 
-		<!--查询获取顶级分类-->
-		<select asp-for="TopCatalog" class="form-control">
-			<option value="">选择主目录</option>
-			@{
-				foreach (Catalog catalog in topCatalogs)
-				{
-				<option value="@catalog.Id" data-type="@catalog.Type">@catalog.Name</option>
-				}
-			}
-		</select>
+        <!--查询获取顶级分类-->
+        <select asp-for="TopCatalog" class="form-control">
+            <option value="">选择主目录</option>
+            @{foreach (Catalog catalog in topCatalogs)
+                {
+                    <option value="@catalog.Id" data-type="@catalog.Type">@catalog.Name</option>
+                }
+            }
+        </select>
 
-		<input asp-for="Name" class="form-control" placeholder="显示名称" />
-		<input asp-for="Value" class="form-control" placeholder="标识值" />
-		<button type="submit" class="btn btn-sm btn-primary">添加</button>
-	</div>
+        <input asp-for="Name" class="form-control" placeholder="显示名称" />
+        <input asp-for="Value" class="form-control" placeholder="标识值" />
+        <button type="submit" class="btn btn-sm btn-primary">添加</button>
+    </div>
 </form>
 <hr />
 <h4>目录列表</h4>
 <!--目录列表-->
 <table class="table table-hover table-responsive table-condensed table-bordered">
-	<thead>
-		<tr>
-			<th>顶级分类</th>
-			<th>分类</th>
-			<th>名称</th>
-			<th>路径值</th>
-			<th>操作</th>
-		</tr>
-	</thead>
-	<tbody>
-		@{
-			Debug.Assert(catalogs != null, "catalogs != null");
-			foreach (Catalog topCatalog in topCatalogs)
-			{
-			<tr class="bg-info">
-				<td>是</td>
-				<td>@topCatalog.Type</td>
-				<td>@topCatalog.Name</td>
-				<td>@topCatalog.Value</td>
-				<td>
-					<label class="label label-danger">删除</label>
-				</td>
-			</tr>
-				var childCatalogs = catalogs.Where(m => m.TopCatalog == topCatalog).ToList();
+    <thead>
+        <tr>
+            <th>顶级分类</th>
+            <th>分类</th>
+            <th>名称</th>
+            <th>路径值</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            Debug.Assert(catalogs != null, "catalogs != null");
+            foreach (Catalog topCatalog in topCatalogs)
+            {
+                <tr class="bg-info">
+                    <td>是</td>
+                    <td>@topCatalog.Type</td>
+                    <td>@topCatalog.Name</td>
+                    <td>@topCatalog.Value</td>
+                    <td>
+                        <label class="label label-danger">删除</label>
+                    </td>
+                </tr>var childCatalogs = catalogs.Where(m => m.TopCatalog == topCatalog).ToList();
 
-				foreach (Catalog childCatalog in childCatalogs)
-				{
-				<tr>
-					<td>否</td>
-					<td>@topCatalog.Type</td>
-					<td>@childCatalog.Name</td>
-					<td>@childCatalog.Value</td>
-					<td>
-						<label class="label label-danger">删除</label>
-					</td>
-				</tr>
-				}
-			}
-		}
-	</tbody>
+                foreach (Catalog childCatalog in childCatalogs)
+                {
+                    <tr>
+                        <td>否</td>
+                        <td>@topCatalog.Type</td>
+                        <td>@childCatalog.Name</td>
+                        <td>@childCatalog.Value</td>
+                        <td>
+                            <label class="label label-danger">删除</label>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
 </table>
 
 @section Scripts{
-	<script>
-		$(document).ready(function () {
-			freshTopSelect();
-			$("#Type").change(function () {
-				freshTopSelect();
-			});
-		});
+    <script>
+        $(document).ready(function () {
+            freshTopSelect();
+            $("#Type").change(function () {
+                freshTopSelect();
+            });
+        });
 
-		function freshTopSelect() {
-			var type = $("#Type").val();
-			$("#TopCatalog>option").each(function (index, data) {
-				if ($(this).data("type") === type) {
-					$(this).show();
-				} else {
-					$(this).hide();
-				}
-			});
-		}
-	</script>
+        function freshTopSelect() {
+            var type = $("#Type").val();
+            $("#TopCatalog>option").each(function (index, data) {
+                if ($(this).data("type") === type) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    </script>
 }

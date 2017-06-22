@@ -36,7 +36,6 @@ namespace WebAdmin
 		/// </summary>
 		public static void StartAutoTask()
 		{
-
 			while (true)
 			{
 				int hour = DateTime.Now.ToLocalTime().Hour;
@@ -52,7 +51,6 @@ namespace WebAdmin
 					Log.Write(fileName, "\t" + bingNews.Title);
 				}
 				Log.Write(fileName, "BingNewsTask End!\n");
-
 
 				Log.Write(fileName, "Channel9Task Start!");
 				var task1 = new Channel9Task();

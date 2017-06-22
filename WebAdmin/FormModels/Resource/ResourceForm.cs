@@ -53,6 +53,7 @@ namespace WebAdmin.FormModels.Resource
         /// <summary>
         /// 分类:下载
         /// </summary>
+        [Required]
         public string Catalog { get; set; }
 
     }

@@ -1,16 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebAdmin.Services;
-using Microsoft.AspNetCore.Authorization;
 using MSDev.DB.Models;
-using MSDev.Task.Helpers;
-using Newtonsoft.Json.Serialization;
 using WebAdmin.FormModels.Catalog;
 using AutoMapper;
 using MSDev.DB;
@@ -19,7 +10,7 @@ using static System.String;
 
 namespace WebAdmin.Controllers
 {
-	public class ConfigController : BaseController
+    public class ConfigController : BaseController
 	{
 		private readonly AppDbContext _context;
 		private readonly IMapper _mapper;
@@ -39,8 +30,6 @@ namespace WebAdmin.Controllers
 		{
 			//获取所有目录
 			var catalogs = _context.CataLog.ToList();
-
-
 			ViewBag.Catalogs = catalogs;
 			return View();
 		}
@@ -58,11 +47,11 @@ namespace WebAdmin.Controllers
 				Catalog topCatalog = null;
 				if (IsNullOrEmpty(catalogForm.TopCatalog))
 				{
-					catalogForm.IsTop = 0;
+					catalogForm.IsTop = 1;
 				}
 				else
 				{
-					catalogForm.IsTop = 1;
+					catalogForm.IsTop = 0;
 					topCatalog = _context.CataLog.Find(Guid.Parse(catalogForm.TopCatalog));
 				}
 

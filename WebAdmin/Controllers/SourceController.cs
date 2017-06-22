@@ -60,7 +60,23 @@ namespace WebAdmin.Controllers
                     return JumpPage("该名称已存在");
                 }
 
-                _context.Add<Resource>(resourceForm);
+                var resource = new Resource
+                {
+                    AbsolutePath = resourceForm.AbsolutePath,
+                    Catalog = _context.CataLog.Find(Guid.Parse(resourceForm.Catalog)),
+                    Description = resourceForm.Description,
+                    CreatedTime = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    IMGUrl = resourceForm.IMGUrl,
+                    Language = resourceForm.Language,
+                    Name = resourceForm.Name,
+                    Path = resourceForm.Path,
+                    Status = 0,
+                    Type = resourceForm.Type,
+                    UpdatedTime = DateTime.Now
+                };
+
+                _context.Add<Resource>(resource);
                 _context.SaveChanges();
                 return RedirectToAction("Download");
             }
@@ -68,7 +84,11 @@ namespace WebAdmin.Controllers
             return JumpPage();
         }
 
-
+        /// <summary>
+        /// 删除下载资源
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult DelDownload([FromRoute]string id)
         {
@@ -79,7 +99,7 @@ namespace WebAdmin.Controllers
                 _context.SaveChangesAsync();
             }
 
-            return RedirectToActionPermanent("Download");
+            return RedirectToAction("Download");
         }
 
     }

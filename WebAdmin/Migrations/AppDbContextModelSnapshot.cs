@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -349,6 +349,8 @@ namespace WebAdmin.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CatalogId");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("Resource");
                 });

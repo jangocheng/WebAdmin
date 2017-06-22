@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebAdmin.Helpers
 {
-    public class TypeHelper
+    public class EnumTypeHelper
     {
 
 	    public enum LanguageType
@@ -19,7 +19,7 @@ namespace WebAdmin.Helpers
 			Doucment,
 			Video,
 			Software,
-			Code
+			CodeN
 	    }
 
 

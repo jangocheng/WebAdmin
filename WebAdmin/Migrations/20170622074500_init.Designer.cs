@@ -8,8 +8,8 @@ using MSDev.DB;
 namespace WebAdmin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20170609192446_c9Video-des")]
-    partial class c9Videodes
+    [Migration("20170622074500_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,7 +96,7 @@ namespace WebAdmin.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Author")
-                        .HasMaxLength(128);
+                        .HasMaxLength(256);
 
                     b.Property<DateTime>("CreatedTime");
 
@@ -107,39 +107,39 @@ namespace WebAdmin.Migrations
                         .HasMaxLength(32);
 
                     b.Property<string>("Language")
-                        .HasMaxLength(16);
+                        .HasMaxLength(32);
 
                     b.Property<string>("Mp3Url")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<string>("Mp4HigUrl")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<string>("Mp4LowUrl")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<string>("Mp4MidUrl")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<string>("SeriesTitle")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<string>("SeriesTitleUrl")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<string>("SourceUrl")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<int?>("Status");
 
                     b.Property<string>("Tags")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<string>("ThumbnailUrl")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<string>("Title")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<DateTime>("UpdatedTime");
 
@@ -190,6 +190,27 @@ namespace WebAdmin.Migrations
                     b.ToTable("CataLog");
                 });
 
+            modelBuilder.Entity("MSDev.DB.Models.Config", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(32);
+
+                    b.Property<string>("Type")
+                        .HasMaxLength(32);
+
+                    b.Property<string>("Value")
+                        .HasMaxLength(4000);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Type");
+
+                    b.ToTable("Config");
+                });
+
             modelBuilder.Entity("MSDev.DB.Models.DevBlog", b =>
                 {
                     b.Property<Guid>("Id")
@@ -223,6 +244,74 @@ namespace WebAdmin.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DevBlogs");
+                });
+
+            modelBuilder.Entity("MSDev.DB.Models.MvaVideo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Author")
+                        .HasMaxLength(768);
+
+                    b.Property<string>("AuthorCompany")
+                        .HasMaxLength(384);
+
+                    b.Property<string>("AuthorJobTitle")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("CourseDuration")
+                        .HasMaxLength(32);
+
+                    b.Property<string>("CourseImage")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("CourseLevel")
+                        .HasMaxLength(32);
+
+                    b.Property<string>("CourseNumber")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("CourseStatus")
+                        .HasMaxLength(32);
+
+                    b.Property<DateTime>("CreatedTime");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000);
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(16);
+
+                    b.Property<int?>("MvaId");
+
+                    b.Property<int?>("ProductPackageVersionId");
+
+                    b.Property<string>("SourceUrl")
+                        .HasMaxLength(512);
+
+                    b.Property<int?>("Status");
+
+                    b.Property<string>("Tags")
+                        .HasMaxLength(384);
+
+                    b.Property<string>("Technologies")
+                        .HasMaxLength(384);
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedTime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("Title");
+
+                    b.HasIndex("UpdatedTime");
+
+                    b.ToTable("MvaVideos");
                 });
 
             modelBuilder.Entity("MSDev.DB.Models.Resource", b =>
@@ -262,8 +351,7 @@ namespace WebAdmin.Migrations
 
                     b.HasIndex("CatalogId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     b.ToTable("Resource");
                 });
