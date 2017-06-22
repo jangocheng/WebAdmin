@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using MSDev.DB;
 using MSDev.DB.Models;
+using WebAdmin.FormModels.Resource;
 
 namespace WebAdmin.Controllers
 {
@@ -47,29 +48,24 @@ namespace WebAdmin.Controllers
         /// <summary>
         /// 添加下载资源
         /// </summary>
-        /// <param name="resource"></param>
+        /// <param name="resourceForm"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddDownload(Resource resource)
+        public IActionResult AddDownload(ResourceForm resourceForm)
         {
-
-            return JumpPage("123");
             if (ModelState.IsValid)
             {
-                if (_context.Resource.Any(m => m.Name == resource.Name))
+                if (_context.Resource.Any(m => m.Name == resourceForm.Name && m.Catalog.Id.ToString() == resourceForm.Catalog))
                 {
-                    ModelState.TryAddModelError("", "已存在");
-                    return JsonFailed();
+                    return JumpPage("该名称已存在");
                 }
-                resource.Id = Guid.NewGuid();
-                resource.CreatedTime = DateTime.Now;
-                resource.UpdatedTime = DateTime.Now;
-                _context.Resource.Add(resource);
+
+                _context.Add<Resource>(resourceForm);
                 _context.SaveChanges();
-                return JsonOk(resource);
+                return RedirectToAction("Download");
             }
 
-            return JsonFailed();
+            return JumpPage();
         }
 
 

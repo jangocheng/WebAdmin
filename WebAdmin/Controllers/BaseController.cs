@@ -55,8 +55,12 @@ namespace WebAdmin.Controllers
         }
 
 
-        protected IActionResult JumpPage(string msg)
+        protected IActionResult JumpPage(string msg=null)
         {
+            if (String.IsNullOrEmpty(msg))
+            {
+                msg = ModelState.Values.FirstOrDefault().Errors.FirstOrDefault().ErrorMessage;
+            }
             ViewBag.Referer = Request.Headers["Referer"];
             ViewBag.RedirectMsg = msg;
             return View("Redirect");
