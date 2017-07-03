@@ -84,7 +84,6 @@ namespace WebAdmin.Services
 		}
 		private async Task Echo(string message)
 		{
-
 			if (!IsNullOrEmpty(message))
 			{
 				var bytes = Encoding.UTF8.GetBytes(message);

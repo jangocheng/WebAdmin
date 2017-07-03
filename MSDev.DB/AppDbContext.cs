@@ -56,8 +56,8 @@ namespace MSDev.DB
             modelBuilder.Entity<BingNews>()
                 .HasIndex(m => m.UpdatedTime);
             modelBuilder.Entity<Resource>()
-                .HasIndex(m => m.Name)
-                .IsUnique();
+                .HasIndex(m => m.Name);
+
             modelBuilder.Entity<Catalog>()
                 .HasIndex(m => m.Value)
                 .IsUnique();
