@@ -4,7 +4,6 @@ namespace MSDev.Task.Tools
 {
     public class StringTools
     {
-
         /// <summary>
         /// 计算两字符串相似度
         /// <param name="source">原字符串</param>
@@ -92,6 +91,35 @@ namespace MSDev.Task.Tools
             }
 
             return distance[sourceWordCount, targetWordCount];
+        }
+
+        public static double GetSimilar(string source,string target)
+        {
+            string longerString,shorterString;
+            if (source.Length > target.Length)
+            {
+                longerString = source;
+                shorterString = target;
+            }
+            else
+            {
+                longerString = target;
+                shorterString = source;
+            }
+
+            int sameNum = 0;
+            for (int i = 0; i < shorterString.Length; i++)
+            {
+                foreach (var item in longerString)
+                {
+                    if (shorterString[i] == item)
+                    {
+                        sameNum++;
+                        break;
+                    }
+                }
+            }
+            return sameNum / shorterString.Length;
         }
     }
 }

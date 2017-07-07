@@ -52,7 +52,7 @@ namespace WebAdmin.Services
 						if (articles == null) continue;
 						foreach (C9Article c9Article in articles)
 						{
-							await Echo("article:" + c9Article.Title);
+							await Echo("article:" + c9Article?.Title);
 						}
 					}
 					// 更新视频页内容
@@ -61,7 +61,7 @@ namespace WebAdmin.Services
 					{
 						foreach (C9Video video in videos)
 						{
-							await Echo("video:" + video.Title);
+							await Echo("video:" + video?.Title);
 						}
 					}
 					await Echo("Done");
@@ -72,7 +72,7 @@ namespace WebAdmin.Services
 					List<MvaVideo> re = await task.SaveMvaVideo();
 					foreach (MvaVideo video in re)
 					{
-						await Echo("video:" + video.Title);
+						await Echo("video:" + video?.Title);
 					}
 					await Echo("Done");
 				}
