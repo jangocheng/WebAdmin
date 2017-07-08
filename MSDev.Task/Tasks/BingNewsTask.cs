@@ -57,7 +57,7 @@ namespace MSDev.Task.Tasks
                 for (int j = i + 1; j < newNews.Count; j++)
                 {
                     //重复过滤
-                    if (!(StringTools.Similarity(newNews[i].Title, newNews[j].Title) > Similarity) && StringTools.GetSimilar(newNews[i].Title, newNews[j].Title) < Similarity)
+                    if (!(StringTools.Similarity(newNews[i].Title, newNews[j].Title) > Similarity))
                     {
                         continue;
                     }

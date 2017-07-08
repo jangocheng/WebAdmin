@@ -16,7 +16,10 @@ namespace WebAdmin
         public static void Main(string[] args)
         {
 
-            var t = new Thread(StartAutoTask);
+            var t = new Thread(StartAutoTask)
+            {
+                IsBackground = true
+            };
             t.Start();
 
             IWebHost host = new WebHostBuilder()
@@ -37,7 +40,7 @@ namespace WebAdmin
             while (true)
             {
                 int hour = DateTime.Now.ToLocalTime().Hour;
-                if (hour != 8 && hour != 18 && hour != 12 )
+                if (hour != 8 && hour != 18 && hour != 13)
                 {
                     Thread.Sleep(60 * 60 * 1000);
                     continue;
@@ -46,6 +49,7 @@ namespace WebAdmin
 
                 try
                 {
+                    Console.WriteLine("start ");
 
                     Log.Write(fileName, "BingNewsTask Start!");
                     var task = new BingNewsTask();
@@ -88,12 +92,14 @@ namespace WebAdmin
                         Log.Write(fileName, "\t" + video?.Title);
                     }
                     Log.Write(fileName, "MVATask End!\n");
+                    Task.WaitAll();
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine(e.Source + e.Message + e.InnerException);
                     Log.Write(fileName, e.Source + e.Message);
                 }
-             
+                Thread.Sleep(60 * 60 * 1000);
             }
         }
     }
