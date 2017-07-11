@@ -21,11 +21,7 @@ namespace WebAdmin.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-
-            var re=_context.AspNetUsers.ToList();
-
-            return Json(re);
-            //return View();
+            return View();
         }
 
         [HttpPost]
