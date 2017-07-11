@@ -103,7 +103,6 @@ namespace MSDev.Task.Helpers
             {
                 return suggestions;
             }
-
             for (int i = 0; i < data.suggestionGroups[0].searchSuggestions.Count; i++)
             {
                 suggestions.Add(data.suggestionGroups[0].searchSuggestions[i].displayText.Value);
