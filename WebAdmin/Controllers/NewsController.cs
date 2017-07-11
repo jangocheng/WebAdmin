@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MSDev.DB;
-using MSDev.DB.Models;
+using MSDev.DB.Entities;
 using WebAdmin.Helpers;
 
 namespace WebAdmin.Controllers

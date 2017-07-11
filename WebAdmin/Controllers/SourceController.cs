@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using MSDev.DB;
-using MSDev.DB.Models;
+using MSDev.DB.Entities;
 using WebAdmin.FormModels.Resource;
 
 namespace WebAdmin.Controllers
@@ -39,7 +39,7 @@ namespace WebAdmin.Controllers
                 .Where(m => m.Catalog.Type.Equals("下载"))
                 .ToList();
 
-            ViewBag.Catalogs = _context.CataLog.Where(m => m.Type == "下载").ToList();
+            ViewBag.Catalogs = _context.Catalog.Where(m => m.Type == "下载").ToList();
 
             return View();
         }
@@ -63,11 +63,11 @@ namespace WebAdmin.Controllers
                 var resource = new Resource
                 {
                     AbsolutePath = resourceForm.AbsolutePath,
-                    Catalog = _context.CataLog.Find(Guid.Parse(resourceForm.Catalog)),
+                    Catalog = _context.Catalog.Find(Guid.Parse(resourceForm.Catalog)),
                     Description = resourceForm.Description,
                     CreatedTime = DateTime.Now,
                     Id = Guid.NewGuid(),
-                    IMGUrl = resourceForm.IMGUrl,
+                    Imgurl = resourceForm.IMGUrl,
                     Language = resourceForm.Language,
                     Name = resourceForm.Name,
                     Path = resourceForm.Path,

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using MSDev.DB.Models;
+using MSDev.DB.Entities;
 using MSDev.Task.Tasks;
 using MSDev.Task.Tools;
 
@@ -64,7 +64,7 @@ namespace WebAdmin
                     {
                         var articles = task1.SaveArticles(i).Result;
                         if (articles == null) continue;
-                        foreach (C9Article c9Article in articles)
+                        foreach (C9Articles c9Article in articles)
                         {
                             Log.Write(fileName, "\t" + c9Article?.Title);
                         }
@@ -73,7 +73,7 @@ namespace WebAdmin
                     var videos = task1.SaveVideosAsync(0, 60).Result;
                     if (videos != null)
                     {
-                        foreach (C9Video video in videos)
+                        foreach (C9Videos video in videos)
                         {
                             Log.Write(fileName, "\t" + video?.Title);
                         }
@@ -83,7 +83,7 @@ namespace WebAdmin
                     Log.Write(fileName, "MVATask Start!");
                     var task2 = new MvaTask();
                     var re = task2.SaveMvaVideo().Result;
-                    foreach (MvaVideo video in re)
+                    foreach (MvaVideos video in re)
                     {
                         Log.Write(fileName, "\t" + video?.Title);
                     }

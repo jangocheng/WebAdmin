@@ -7,7 +7,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MSDev.DB.Models;
+using MSDev.DB.Entities;
 using static System.String;
 
 namespace WebAdmin.Services
@@ -48,9 +48,9 @@ namespace WebAdmin.Services
 					//获取最近5页articles
 					for (int i = 5; i >= 1; i--)
 					{
-						List<C9Article> articles = await task.SaveArticles(i);
+						List<C9Articles> articles = await task.SaveArticles(i);
 						if (articles == null) continue;
-						foreach (C9Article c9Article in articles)
+						foreach (C9Articles c9Article in articles)
 						{
 							await Echo("article:" + c9Article?.Title);
 						}
@@ -59,7 +59,7 @@ namespace WebAdmin.Services
 					var videos = await task.SaveVideosAsync(0, 60);
 					if (videos != null)
 					{
-						foreach (C9Video video in videos)
+						foreach (C9Videos video in videos)
 						{
 							await Echo("video:" + video?.Title);
 						}
@@ -69,8 +69,8 @@ namespace WebAdmin.Services
 				if (command.Equals("mvavideos"))
 				{
 					var task = new MvaTask();
-					List<MvaVideo> re = await task.SaveMvaVideo();
-					foreach (MvaVideo video in re)
+					List<MvaVideos> re = await task.SaveMvaVideo();
+					foreach (MvaVideos video in re)
 					{
 						await Echo("video:" + video?.Title);
 					}

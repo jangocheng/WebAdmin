@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using MSDev.DB.Models;
+using MSDev.DB.Entities;
 using WebAdmin.FormModels.Catalog;
 using AutoMapper;
 using MSDev.DB;
@@ -29,7 +29,7 @@ namespace WebAdmin.Controllers
 		public IActionResult Catalog()
 		{
 			//获取所有目录
-			var catalogs = _context.CataLog.ToList();
+			var catalogs = _context.Catalog.ToList();
 			ViewBag.Catalogs = catalogs;
 			return View();
 		}
@@ -52,7 +52,7 @@ namespace WebAdmin.Controllers
 				else
 				{
 					catalogForm.IsTop = 0;
-					topCatalog = _context.CataLog.Find(Guid.Parse(catalogForm.TopCatalog));
+					topCatalog = _context.Catalog.Find(Guid.Parse(catalogForm.TopCatalog));
 				}
 
 				var catalog = new Catalog()
@@ -68,7 +68,7 @@ namespace WebAdmin.Controllers
 					Value = catalogForm.Value
 				};
 
-				_context.CataLog.Add(catalog);
+				_context.Catalog.Add(catalog);
 				_context.SaveChanges();
 			}
 			return RedirectToAction("Catalog", catalogForm);

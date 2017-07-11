@@ -1,59 +1,75 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MSDev.DB;
+using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using WebAdmin.Helpers;
 
 namespace WebAdmin.Controllers
 {
-	public class AuthController : Controller
-	{
-
-		public AuthController()
-		{
-
-		}
-
-		[HttpGet]
-		public IActionResult Login()
-		{
+    public class AuthController : Controller
+    {
 
 
-			return View();
-		}
+        readonly AppDbContext _context;
+        public AuthController(AppDbContext context)
+        {
+            _context = context;
+        }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
 
-		[HttpPost]
-		public IActionResult Login(string username, string password)
-		{
+            var re=_context.AspNetUsers.ToList();
 
-			if (username == "admin" && password == "MSDev.cc")
-			{
-				var identity = new ClaimsIdentity("admin");
-				identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
-				identity.AddClaim(new Claim(ClaimTypes.Name, "admin"));
+            return Json(re);
+            //return View();
+        }
 
-				var principal = new ClaimsPrincipal(identity);
-				HttpContext.Authentication.SignInAsync("MSDevAdmin", principal);
+        [HttpPost]
+        public IActionResult Login(string username, string password)
+        {
+            var user = _context.AspNetUsers.Where(m => m.Email.Equals(username)).FirstOrDefault();
+            if (user == null)
+            {
+                ViewBag.Error = "Not Found";
+            }
+            else
+            {
+                var userRole = _context.AspNetUserRoles.Where(m => m.UserId == user.Id).Include(m => m.Role).FirstOrDefault();
+                if(userRole?.Role.Name=="admin" && PasswordHelper.VerifyHashedPassword(user.PasswordHash, password))
+                {
+                    var identity = new ClaimsIdentity("admin");
+                    identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, "admin"));
 
-				HttpContext.Items["username"] = username;
-				return RedirectToAction("Index", "Home");
-			}
-			else
-			{
-				ViewBag.Error = "Wrong username or password";
-			}
-			return View();
-		}
+                    var principal = new ClaimsPrincipal(identity);
+                    HttpContext.Authentication.SignInAsync("MSDevAdmin", principal);
 
-		public IActionResult Logout()
-		{
-			HttpContext.Authentication.SignOutAsync("MSDevAdmin");
-			HttpContext.Items.Clear();
-			return RedirectToAction("Index", "Home");
+                    HttpContext.Items["username"] = username;
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.Error = "Wrong username or password";
+                }
+            }
+            return View();
+        }
 
-		}
+        public IActionResult Logout()
+        {
+            HttpContext.Authentication.SignOutAsync("MSDevAdmin");
+            HttpContext.Items.Clear();
+            return RedirectToAction("Index", "Home");
 
-		public IActionResult Forbidden()
-		{
-			return Content("");
-		}
-	}
+        }
+
+        public IActionResult Forbidden()
+        {
+            return Content("");
+        }
+    }
 }
