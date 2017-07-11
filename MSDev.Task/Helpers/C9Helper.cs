@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore.Internal;
-using MSDev.DB.Models;
+using MSDev.DB.Entities;
 using MSDev.Task.Entities;
 using MSDev.Task.Tools;
 using Newtonsoft.Json;
@@ -52,9 +52,9 @@ namespace MSDev.Task.Helpers
 		/// <summary>
 		/// 获取视频列表
 		/// </summary>
-		public async Task<List<C9Article>> GetArticleListAsync(int page = 1)
+		public async Task<List<C9Articles>> GetArticleListAsync(int page = 1)
 		{
-			var articleList = new List<C9Article>();
+			var articleList = new List<C9Articles>();
 			try
 			{
 				string url = BeginUrl + "&page=" + page;
@@ -66,7 +66,7 @@ namespace MSDev.Task.Helpers
 					// 解析获取内容列表
 					articleList = htmlDoc.DocumentNode.Descendants("article")
 						.Where(n => n.Attributes.Contains("data-api"))
-						.Select(n => new C9Article
+						.Select(n => new C9Articles
 						{
 							Id = Guid.NewGuid(),
 							SeriesTitle = n.SelectSingleNode(".//div[@class='seriesTitle']/a")?.InnerText,
@@ -90,9 +90,9 @@ namespace MSDev.Task.Helpers
 		}
 
 		// 临时补充遗漏
-		public C9Video GetPageVideoByUrl(string fullUrl)
+		public C9Videos GetPageVideoByUrl(string fullUrl)
 		{
-			C9Video video = new C9Video();
+			C9Videos video = new C9Videos();
 			try
 			{
 				var hw = new HtmlWeb();
@@ -185,9 +185,9 @@ namespace MSDev.Task.Helpers
 		/// <param name="article"></param>
 		/// <param name="fullUrl"></param>
 		/// <returns></returns>
-		public async Task<C9Video> GetPageVideo(C9Article article, string fullUrl = null)
+		public async Task<C9Videos> GetPageVideo(C9Articles article, string fullUrl = null)
 		{
-			var video = new C9Video
+			var video = new C9Videos
 			{
 				Duration = article.Duration,
 				SeriesTitle = article.SeriesTitle,

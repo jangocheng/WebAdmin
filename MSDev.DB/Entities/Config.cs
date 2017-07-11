@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace MSDev.DB.Models
+namespace MSDev.DB.Entities
 {
 	/// <summary>
 	/// 存储常用配置

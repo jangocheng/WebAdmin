@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MSDev.DB.Models;
+using MSDev.DB.Entities;
 using MSDev.Task.Helpers;
 using MSDev.Task.Tools;
 using Newtonsoft.Json;
@@ -31,7 +31,7 @@ namespace MSDev.Task.Tasks
 			for (int i = 0; i < totalNum; i = i + 100)
 			{
 				Console.WriteLine($"start:{i}");
-				List<MvaVideo> mvaList = await _helper.GetMvaVideos(i, 100);
+				List<MvaVideos> mvaList = await _helper.GetMvaVideos(i, 100);
 				Context.MvaVideos.AddRange(mvaList);
 				try
 				{
@@ -39,7 +39,7 @@ namespace MSDev.Task.Tasks
 				}
 				catch (Exception e)
 				{
-					foreach (MvaVideo video in mvaList)
+					foreach (MvaVideos video in mvaList)
 					{
 						Log.Write("MvaError.txt", JsonConvert.SerializeObject(video));
 					}
@@ -54,18 +54,18 @@ namespace MSDev.Task.Tasks
 		/// 日常更新Mva
 		/// </summary>
 		/// <returns></returns>
-		public async Task<List<MvaVideo>> SaveMvaVideo()
+		public async Task<List<MvaVideos>> SaveMvaVideo()
 		{
 			var lastVideo = Context.MvaVideos
 				.OrderByDescending(m => m.CreatedTime)
 				.Skip(0).Take(30)
 				.ToList();
-			List<MvaVideo> mvaList = await _helper.GetMvaVideos(0, 30);
+			List<MvaVideos> mvaList = await _helper.GetMvaVideos(0, 30);
 			var toBeAddMcList = mvaList.ToList();
 
-			foreach (MvaVideo mvaVideo in mvaList)
+			foreach (MvaVideos mvaVideo in mvaList)
 			{
-				foreach (MvaVideo video in lastVideo)
+				foreach (MvaVideos video in lastVideo)
 				{
 					if (video.Title == mvaVideo.Title)
 					{

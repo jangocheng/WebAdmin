@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Internal;
-using MSDev.DB.Models;
+using MSDev.DB.Entities;
 using MSDev.Task.Entities;
 using Newtonsoft.Json;
 
@@ -48,9 +48,9 @@ namespace MSDev.Task.Helpers
 		/// <param name="skip">偏移量</param>
 		/// <param name="number">总数</param>
 		/// <returns></returns>
-		public async Task<List<MvaVideo>> GetMvaVideos(int skip = 0, int number = 100)
+		public async Task<List<MvaVideos>> GetMvaVideos(int skip = 0, int number = 100)
 		{
-			var list = new List<MvaVideo>();
+			var list = new List<MvaVideos>();
 			HttpResponseMessage result =
 				await HttpClient.PostAsync(BeginUrl + $"?$skip={skip}&$top={number}", new StringContent(ReqStr, Encoding.UTF8, "application/json"));
 			string jsonResult = await result.Content.ReadAsStringAsync();
@@ -64,7 +64,7 @@ namespace MSDev.Task.Helpers
 					sourceUrl = sourceUrl.Replace(" ", "-");
 					sourceUrl += "-" + mvaEntity.Id;
 					sourceUrl = MvaDaemon + mvaEntity.LanguageCode + "/training-courses/" + sourceUrl;
-					var mvaVideo = new MvaVideo()
+					var mvaVideo = new MvaVideos()
 					{
 						MvaId = mvaEntity.Id,
 						SourceUrl = sourceUrl,

@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MSDev.DB.Models
+namespace MSDev.DB.Entities
+
 {
     public class Model
     {

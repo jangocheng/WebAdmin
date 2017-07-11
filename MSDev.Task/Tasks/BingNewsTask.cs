@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
-using MSDev.DB.Models;
+using MSDev.DB.Entities;
 using MSDev.Task.Entities;
 using MSDev.Task.Helpers;
 using MSDev.Task.Tools;

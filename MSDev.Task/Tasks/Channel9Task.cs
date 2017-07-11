@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MSDev.DB.Models;
+using MSDev.DB.Entities;
 using MSDev.Task.Helpers;
 using MSDev.Task.Tools;
 using Newtonsoft.Json;
@@ -56,7 +56,7 @@ namespace MSDev.Task.Tasks
 				if (!IsNullOrEmpty(url))
 				{
 					url = url.Trim();
-					C9Video re = _helper.GetPageVideoByUrl(url);
+					C9Videos re = _helper.GetPageVideoByUrl(url);
 
 
 					if (Context.C9Videos.Any(m => m.SourceUrl == re.SourceUrl))
@@ -89,14 +89,14 @@ namespace MSDev.Task.Tasks
 		/// <param name="skip">领衔量</param>
 		/// <param name="number">数量</param>
 		/// <returns></returns>
-		public async Task<List<C9Video>> SaveVideosAsync(int skip = 0, int number = 100)
+		public async Task<List<C9Videos>> SaveVideosAsync(int skip = 0, int number = 100)
 		{
 			Console.WriteLine($"start:{skip}");
 			var C9Articles = Context.C9Articles
 				.OrderByDescending(m => m.UpdatedTime)
 				.Skip(skip).Take(number).ToList();
 
-			var videoList = new List<C9Video>();
+			var videoList = new List<C9Videos>();
 			var lastVideo = Context.C9Videos.OrderByDescending(m => m.UpdatedTime).Take(60).ToList();
 			Parallel.ForEach(C9Articles, a =>
 			{
@@ -112,7 +112,7 @@ namespace MSDev.Task.Tasks
 					return;
 				}
 
-				C9Video re = _helper.GetPageVideo(a).Result;
+				C9Videos re = _helper.GetPageVideo(a).Result;
 				re.Id = Guid.NewGuid();
 				videoList.Add(re);
 			});
@@ -136,12 +136,12 @@ namespace MSDev.Task.Tasks
 		/// </summary>
 		/// <param name="page"></param>
 		/// <returns></returns>
-		public async Task<List<C9Article>> SaveArticles(int page)
+		public async Task<List<C9Articles>> SaveArticles(int page)
 		{
-			var reList = new List<C9Article>();
+			var reList = new List<C9Articles>();
 			try
 			{
-				List<C9Article> articlielList = await _helper.GetArticleListAsync(page);
+				List<C9Articles> articlielList = await _helper.GetArticleListAsync(page);
 				reList = articlielList.ToList();
 
 				//TODO:去重操作
@@ -150,9 +150,9 @@ namespace MSDev.Task.Tasks
 					.Take(12 * 5)
 					.ToList();
 
-				foreach (C9Article article in articlielList)
+				foreach (C9Articles article in articlielList)
 				{
-					foreach (C9Article lastAritle in lastAritles)
+					foreach (C9Articles lastAritle in lastAritles)
 					{
 						if (article.SourceUrl == lastAritle.SourceUrl)
 						{
