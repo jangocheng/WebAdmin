@@ -6,8 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using MSDev.DB.Entities;
+using MSDev.Task.Helpers;
 using MSDev.Task.Tasks;
 using MSDev.Task.Tools;
+using Newtonsoft.Json;
 
 namespace WebAdmin
 {
@@ -15,7 +17,6 @@ namespace WebAdmin
     {
         public static void Main(string[] args)
         {
-
             var t = new Thread(StartAutoTask)
             {
                 IsBackground = true
@@ -61,29 +62,29 @@ namespace WebAdmin
                     }
                     Log.Write(fileName, "BingNewsTask End!\n");
 
-                    //TODO:处理登录
-                    //Log.Write(fileName, "Channel9Task Start!");
-                    //var task1 = new Channel9Task();
-                    ////获取最近5页articles
-                    //for (int i = 5; i >= 1; i--)
-                    //{
-                    //    var articles = task1.SaveArticles(i).Result;
-                    //    if (articles == null) continue;
-                    //    foreach (C9Articles c9Article in articles)
-                    //    {
-                    //        Log.Write(fileName, "\t" + c9Article?.Title);
-                    //    }
-                    //}
-                    //// 更新视频页内容
-                    //var videos = task1.SaveVideosAsync(0, 60).Result;
-                    //if (videos != null)
-                    //{
-                    //    foreach (C9Videos video in videos)
-                    //    {
-                    //        Log.Write(fileName, "\t" + video?.Title);
-                    //    }
-                    //}
-                    //Log.Write(fileName, "Channel9Task End!\n");
+                    //TODO: 处理登录
+                    Log.Write(fileName, "Channel9Task Start!");
+                    var task1 = new Channel9Task();
+                    //获取最近5页articles
+                    for (int i = 5; i >= 1; i--)
+                    {
+                        var articles = task1.SaveArticles(i).Result;
+                        if (articles == null) continue;
+                        foreach (C9Articles c9Article in articles)
+                        {
+                            Log.Write(fileName, "\t" + c9Article?.Title);
+                        }
+                    }
+                    // 更新视频页内容
+                    var videos = task1.SaveVideosAsync(0, 60).Result;
+                    if (videos != null)
+                    {
+                        foreach (C9Videos video in videos)
+                        {
+                            Log.Write(fileName, "\t" + video?.Title);
+                        }
+                    }
+                    Log.Write(fileName, "Channel9Task End!\n");
 
                     Log.Write(fileName, "MVATask Start!");
                     var task2 = new MvaTask();

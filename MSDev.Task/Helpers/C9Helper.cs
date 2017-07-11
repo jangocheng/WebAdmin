@@ -125,35 +125,32 @@ namespace MSDev.Task.Helpers
                     .GetAttributeValue("lang", Empty);
                 video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")
                     .InnerHtml;
-
-                var downloadUrls = mainNode.SelectNodes(".//div[@class='download']//select/option")?
-                    .Select(s => new
-                    {
-                        text = s.InnerHtml,
-                        value = s.Attributes["value"]?.Value
-                    }).ToList();
-
-                if (downloadUrls != null)
+                var downloadUrls = mainNode.SelectNodes(".//section[@class='ch9tab download']//div[@class='download']//ul//li")?
+                .Select(s => new
                 {
-                    foreach (var downloadUrl in downloadUrls)
+                    text = s.Element("a").Attributes["download"]?.Value,
+                    value = s.Element("a").Attributes["href"]?.Value
+                }).ToList();
+
+                Console.WriteLine(JsonConvert.SerializeObject(downloadUrls));
+                foreach (var downloadUrl in downloadUrls)
+                {
+                    var downloadType = downloadUrl.text.ToLower().Trim();
+                    if (downloadType.Contains(".mp3"))
                     {
-                        switch (downloadUrl.text.Trim())
-                        {
-                            case "MP3":
-                                video.Mp3Url = downloadUrl.value;
-                                break;
-                            case "Low Quality MP4":
-                                video.Mp4LowUrl = downloadUrl.value;
-                                break;
-                            case "Mid Quality MP4":
-                                video.Mp4MidUrl = downloadUrl.value;
-                                break;
-                            case "High Quality MP4":
-                                video.Mp4HigUrl = downloadUrl.value;
-                                break;
-                            default:
-                                break;
-                        }
+                        video.Mp3Url = downloadUrl.value;
+                    }
+                    else if (downloadType.Contains("low.mp4"))
+                    {
+                        video.Mp4LowUrl = downloadUrl.value;
+                    }
+                    else if (downloadType.Contains("mid.mp4"))
+                    {
+                        video.Mp4MidUrl = downloadUrl.value;
+                    }
+                    else if (downloadType.Contains("high.mp4"))
+                    {
+                        video.Mp4HigUrl = downloadUrl.value;
                     }
                 }
 
@@ -214,32 +211,32 @@ namespace MSDev.Task.Helpers
                     .GetAttributeValue("lang", Empty);
                 video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")
                     .InnerHtml;
-
-                var downloadUrls = mainNode.SelectNodes(".//div[@class='download']//select/option")?
-                    .Select(s => new
-                    {
-                        text = s.InnerHtml,
-                        value = s.Attributes["value"]?.Value
-                    }).ToList();
+                var downloadUrls = mainNode.SelectNodes(".//section[@class='ch9tab download']//div[@class='download']//ul//li")?
+                     .Select(s => new
+                     {
+                         text = s.Element("a").Attributes["download"]?.Value,
+                         value = s.Element("a").Attributes["href"]?.Value
+                     }).ToList();
 
                 foreach (var downloadUrl in downloadUrls)
                 {
-                    switch (downloadUrl.text.Trim())
+
+                    var downloadType = downloadUrl.text.ToLower().Trim();
+                    if (downloadType.Contains(".mp3"))
                     {
-                        case "MP3":
-                            video.Mp3Url = downloadUrl.value;
-                            break;
-                        case "Low Quality MP4":
-                            video.Mp4LowUrl = downloadUrl.value;
-                            break;
-                        case "Mid Quality MP4":
-                            video.Mp4MidUrl = downloadUrl.value;
-                            break;
-                        case "High Quality MP4":
-                            video.Mp4HigUrl = downloadUrl.value;
-                            break;
-                        default:
-                            break;
+                        video.Mp3Url = downloadUrl.value;
+                    }
+                    else if (downloadType.Contains("low.mp4"))
+                    {
+                        video.Mp4LowUrl = downloadUrl.value;
+                    }
+                    else if (downloadType.Contains("mid.mp4"))
+                    {
+                        video.Mp4MidUrl = downloadUrl.value;
+                    }
+                    else if (downloadType.Contains("high.mp4"))
+                    {
+                        video.Mp4HigUrl = downloadUrl.value;
                     }
                 }
 
