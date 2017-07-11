@@ -8,149 +8,159 @@ using MSDev.Task.Entities;
 
 namespace MSDev.Task.Helpers
 {
-	public class BingSearchHelper
-	{
-		#region Define Attributes
+    public class BingSearchHelper
+    {
+        #region Define Attributes
 
-		private const string ImageSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/images/search";
-		private const string AutoSuggestionEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/suggestions";
-		private const string NewsSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/news/search";
-		private static HttpClient AutoSuggestionClient { get; set; }
-		private static HttpClient SearchClient { get; set; }
+        private const string ImageSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/images/search";
+        private const string AutoSuggestionEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/suggestions";
+        private const string NewsSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/news/search";
+        private static HttpClient AutoSuggestionClient { get; set; }
+        private static HttpClient SearchClient { get; set; }
 
-		private static string _autoSuggestionApiKey;
+        private static string _autoSuggestionApiKey;
 
-		public static string AutoSuggestionApiKey
-		{
-			get => _autoSuggestionApiKey;
+        public static string AutoSuggestionApiKey
+        {
+            get => _autoSuggestionApiKey;
 
-			set {
-				bool changed = _autoSuggestionApiKey != value;
+            set
+            {
+                bool changed = _autoSuggestionApiKey != value;
 
-				_autoSuggestionApiKey = value;
+                _autoSuggestionApiKey = value;
 
-				if (changed)
-				{
-					InitializeBingClients();
-				}
-			}
-		}
+                if (changed)
+                {
+                    InitializeBingClients();
+                }
+            }
+        }
 
-		private static string _searchApiKey;
+        private static string _searchApiKey;
 
-		public static string SearchApiKey
-		{
-			get => _searchApiKey;
+        public static string SearchApiKey
+        {
+            get => _searchApiKey;
 
-			set {
-				bool changed = _searchApiKey != value;
+            set
+            {
+                bool changed = _searchApiKey != value;
 
-				_searchApiKey = value;
+                _searchApiKey = value;
 
-				if (changed)
+                if (changed)
 
-				{
-					InitializeBingClients();
-				}
-			}
-		}
+                {
+                    InitializeBingClients();
+                }
+            }
+        }
 
-		#endregion Define Attributes
+        #endregion Define Attributes
 
-		private static void InitializeBingClients()
-		{
-			AutoSuggestionClient = new HttpClient();
-			AutoSuggestionClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", AutoSuggestionApiKey);
-			SearchClient = new HttpClient();
-			SearchClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", SearchApiKey);
-		}
+        private static void InitializeBingClients()
+        {
+            AutoSuggestionClient = new HttpClient();
+            AutoSuggestionClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", AutoSuggestionApiKey);
+            SearchClient = new HttpClient();
+            SearchClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", SearchApiKey);
+        }
 
-		public static async Task<IEnumerable<string>> GetImageSearchResults(string query, string imageContent = "Face", int count = 20, int offset = 0)
-		{
-			var urls = new List<string>();
+        public static async Task<IEnumerable<string>> GetImageSearchResults(string query, string imageContent = "Face", int count = 20, int offset = 0)
+        {
+            var urls = new List<string>();
 
-			HttpResponseMessage result = await SearchClient.GetAsync(
-			  $"{ImageSearchEndPoint}?q={WebUtility.UrlEncode(query)}&safeSearch=Strict&imageType=Photo&color=ColorOnly&count={count}&offset={offset}{(string.IsNullOrEmpty(imageContent) ? "" : "&imageContent=" + imageContent)}");
+            HttpResponseMessage result = await SearchClient.GetAsync(
+              $"{ImageSearchEndPoint}?q={WebUtility.UrlEncode(query)}&safeSearch=Strict&imageType=Photo&color=ColorOnly&count={count}&offset={offset}{(string.IsNullOrEmpty(imageContent) ? "" : "&imageContent=" + imageContent)}");
 
-			result.EnsureSuccessStatusCode();
-			string json = await result.Content.ReadAsStringAsync();
-			dynamic data = JObject.Parse(json);
-			if (data.value == null || data.value.Count <= 0)
-			{
-				return urls;
-			}
+            result.EnsureSuccessStatusCode();
+            string json = await result.Content.ReadAsStringAsync();
+            dynamic data = JObject.Parse(json);
+            if (data.value == null || data.value.Count <= 0)
+            {
+                return urls;
+            }
 
-			for (int i = 0; i < data.value.Count; i++)
-			{
-				urls.Add(data.value[i].contentUrl.Value);
-			}
-			return urls;
-		}
+            for (int i = 0; i < data.value.Count; i++)
+            {
+                urls.Add(data.value[i].contentUrl.Value);
+            }
+            return urls;
+        }
 
-		public static async Task<IEnumerable<string>> GetAutoSuggestResults(string query, string market = "en-US")
-		{
-			var suggestions = new List<string>();
-			HttpResponseMessage result = await AutoSuggestionClient.GetAsync(string.Format("{0}/?q={1}&mkt={2}", AutoSuggestionEndPoint, WebUtility.UrlEncode(query), market));
+        public static async Task<IEnumerable<string>> GetAutoSuggestResults(string query, string market = "en-US")
+        {
+            var suggestions = new List<string>();
+            HttpResponseMessage result = await AutoSuggestionClient.GetAsync(string.Format("{0}/?q={1}&mkt={2}", AutoSuggestionEndPoint, WebUtility.UrlEncode(query), market));
 
-			result.EnsureSuccessStatusCode();
+            result.EnsureSuccessStatusCode();
 
-			string json = await result.Content.ReadAsStringAsync();
-			dynamic data = JObject.Parse(json);
-			if (data.suggestionGroups == null || data.suggestionGroups.Count <= 0 ||
-				data.suggestionGroups[0].searchSuggestions == null)
-			{
-				return suggestions;
-			}
+            string json = await result.Content.ReadAsStringAsync();
+            dynamic data = JObject.Parse(json);
+            if (data.suggestionGroups == null || data.suggestionGroups.Count <= 0 ||
+                data.suggestionGroups[0].searchSuggestions == null)
+            {
+                return suggestions;
+            }
 
-			for (int i = 0; i < data.suggestionGroups[0].searchSuggestions.Count; i++)
-			{
-				suggestions.Add(data.suggestionGroups[0].searchSuggestions[i].displayText.Value);
-			}
-			return suggestions;
-		}
+            for (int i = 0; i < data.suggestionGroups[0].searchSuggestions.Count; i++)
+            {
+                suggestions.Add(data.suggestionGroups[0].searchSuggestions[i].displayText.Value);
+            }
+            return suggestions;
+        }
 
-		/// <summary>
-		/// 获取必应新闻列表
-		/// </summary>
-		/// <param name="query">搜索关键词</param>
-		/// <param name="count">数量</param>
-		/// <param name="offset">偏移量</param>
-		/// <param name="market">地区</param>
-		/// <param name="freshness">时间频率</param>
-		/// <returns></returns>
-		public static async Task<List<BingNewsEntity>> GetNewsSearchResults(string query, int count = 20, int offset = 0, string market = "zh-CN", string freshness = "Day")
-		{
-			var articles = new List<BingNewsEntity>();
-			HttpResponseMessage result = await SearchClient.GetAsync(
-			  $"{NewsSearchEndPoint}/?q={WebUtility.UrlEncode(query)}&count={count}&offset={offset}&mkt={market}&freshness={freshness}");
+        /// <summary>
+        /// 获取必应新闻列表
+        /// </summary>
+        /// <param name="query">搜索关键词</param>
+        /// <param name="count">数量</param>
+        /// <param name="offset">偏移量</param>
+        /// <param name="market">地区</param>
+        /// <param name="freshness">时间频率</param>
+        /// <returns></returns>
+        public static async Task<List<BingNewsEntity>> GetNewsSearchResults(string query, int count = 20, int offset = 0, string market = "zh-CN", string freshness = "Day")
+        {
+            var articles = new List<BingNewsEntity>();
+            try
+            {
+                HttpResponseMessage result = await SearchClient.GetAsync(
+              $"{NewsSearchEndPoint}/?q={WebUtility.UrlEncode(query)}&count={count}&offset={offset}&mkt={market}&freshness={freshness}");
 
-			result.EnsureSuccessStatusCode();
-			string json = await result.Content.ReadAsStringAsync();
-			dynamic data = JObject.Parse(json);
+                result.EnsureSuccessStatusCode();
+                string json = await result.Content.ReadAsStringAsync();
+                dynamic data = JObject.Parse(json);
 
-			if (data.value == null || data.value.Count <= 0)
-			{
-				return articles;
-			}
+                if (data.value == null || data.value.Count <= 0)
+                {
+                    return articles;
+                }
 
-			for (int i = 0; i < data.value.Count; i++)
-			{
-				var news = new BingNewsEntity
-				{
-					Title = data.value[i].name,
-					Url = data.value[i].url,
-					Description = data.value[i].description,
-					ThumbnailUrl = data.value[i].image?.thumbnail?.contentUrl,
-					Provider = data.value[i].provider?[0].name,
-					DatePublished = data.value[i].datePublished,
-					CateGory = data.value[i].category
-				};
-				if (!string.IsNullOrEmpty(news.ThumbnailUrl))
-				{
-					articles.Add(news);
-				}
-			}
-			return articles;
-		}
-	}
+                for (int i = 0; i < data.value.Count; i++)
+                {
+                    var news = new BingNewsEntity
+                    {
+                        Title = data.value[i].name,
+                        Url = data.value[i].url,
+                        Description = data.value[i].description,
+                        ThumbnailUrl = data.value[i].image?.thumbnail?.contentUrl,
+                        Provider = data.value[i].provider?[0].name,
+                        DatePublished = data.value[i].datePublished,
+                        CateGory = data.value[i].category
+                    };
+                    if (!string.IsNullOrEmpty(news.ThumbnailUrl))
+                    {
+                        articles.Add(news);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Source + e.Message);
+            }
+
+            return articles;
+        }
+    }
 }
