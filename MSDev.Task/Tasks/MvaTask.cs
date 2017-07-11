@@ -74,10 +74,16 @@ namespace MSDev.Task.Tasks
 						break;
 					}
 				}
-
 			}
-			Context.MvaVideos.AddRange(toBeAddMcList);
-			Context.SaveChanges();
+            try
+            {
+                Context.MvaVideos.AddRange(toBeAddMcList);
+                Context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Source+e.Message);
+            }
 			return toBeAddMcList;
 		}
 	}

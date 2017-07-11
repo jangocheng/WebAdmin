@@ -64,8 +64,9 @@ namespace MSDev.Task.Helpers
 					sourceUrl = sourceUrl.Replace(" ", "-");
 					sourceUrl += "-" + mvaEntity.Id;
 					sourceUrl = MvaDaemon + mvaEntity.LanguageCode + "/training-courses/" + sourceUrl;
-					var mvaVideo = new MvaVideos()
-					{
+                    var mvaVideo = new MvaVideos()
+                    {
+                        Id = Guid.NewGuid(),
 						MvaId = mvaEntity.Id,
 						SourceUrl = sourceUrl,
 						Title = mvaEntity.CourseName,

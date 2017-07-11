@@ -41,7 +41,7 @@ namespace WebAdmin
             while (true)
             {
                 int hour = DateTime.Now.ToLocalTime().Hour;
-                if (hour != 8 && hour != 18 && hour != 13)
+                if (hour != 8 && hour != 18 && hour != 23)
                 {
                     Thread.Sleep(60 * 60 * 1000);
                     continue;
