@@ -31,7 +31,6 @@ namespace MSDev.Task.Tasks
             {
                 throw new ArgumentNullException(nameof(newNews));
             }
-
             //TODO:获取过滤来源名单
             string[] providerFilter = { "大连天健网", "中金在线", "安卓网资讯专区", "中国通信网", "中国网", "华商网", "A5站长网", "东方财富网 股票", "秦巴在线", "ITBEAR科技资讯", "京华网", "TechWeb", "四海网" };
 
@@ -67,9 +66,7 @@ namespace MSDev.Task.Tasks
 
 
             }
-
             //查询库中内容并去重
-
             var oldTitles = Context.BingNews
                 .OrderByDescending(m => m.UpdatedTime)
                 .Select(m => m.Title)
@@ -113,6 +110,7 @@ namespace MSDev.Task.Tasks
                 targetUrl = Domain + "?r=" + targetUrl;
                 var news = new BingNews
                 {
+                    Id = Guid.NewGuid(),
                     Title = item.Title,
                     Description = item.Description,
                     Url = targetUrl,
@@ -125,7 +123,6 @@ namespace MSDev.Task.Tasks
                 };
                 newsTba.Add(news);
             }
-
             Context.AddRange(newsTba);
             int re = Context.SaveChanges();
             Console.WriteLine($"Update {re} news!");
