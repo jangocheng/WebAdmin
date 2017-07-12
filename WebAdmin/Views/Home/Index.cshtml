@@ -15,7 +15,7 @@
 					<span class="text-primary">
 						@values.Item1 :
 					</span>
-					<span>@values.Item2</span>
+					<span>@values.Item2.Substring(0,20)</span>
 				</p>
 
 			</li>
@@ -25,8 +25,11 @@
 </section>
 
 <section name="TaskNav" class="col-md-6">
+    @{ 
+        var connection = ViewBag.HostEnv as string;
+
+    }
 	<h4>HostEnv</h4>
-	@ViewBag.Con
 	<ul>
 		<li>
 			<p>
@@ -35,7 +38,7 @@
 			</p>
 			<p>
 				<span class="text-primary">数据库:</span>
-				<span>@ViewBag.HostEnv</span>
+				<span>@connection.Substring(1.20)</span>
 			</p>
 		</li>
 	</ul>

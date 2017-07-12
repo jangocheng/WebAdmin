@@ -73,10 +73,6 @@
             <span asp-validation-for="AbsolutePath"></span>
         </div>
         <div class="form-group">
-            <input asp-for="SourcesUrls" class="form-control" placeholder="来源地址" />
-            <span asp-validation-for="SourcesUrls"></span>
-        </div>
-        <div class="form-group">
             <input asp-for="Catalog" class="form-control" placeholder="分类" value="下载" type="hidden" />
         </div>
         <div class="form-group">
@@ -84,8 +80,8 @@
             <span asp-validation-for="Description"></span>
         </div>
         <div class="form-group">
-            <input asp-for="IMGUrl" class="form-control" placeholder="图片地址" />
-            <span asp-validation-for="IMGUrl"></span>
+            <input asp-for="Imgurl" class="form-control" placeholder="图片地址" />
+            <span asp-validation-for="Imgurl"></span>
         </div>
 
         <div class="form-group">
@@ -110,7 +106,7 @@
         </thead>
         <tbody>
             @{
-
+                //TODO: 使用类型帮助类
                 string[] types = { "文档", "视频", "软件", "代码" };
                 string[] languages = { "中文", "英文" };
                 foreach (var download in (List<Resource>)ViewBag.Downloads)
@@ -153,6 +149,5 @@
                 }
             });
         }
-
     </script>
 }
