@@ -5,6 +5,7 @@ using AutoMapper;
 using MSDev.DB;
 using MSDev.DB.Entities;
 using WebAdmin.FormModels.Resource;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAdmin.Controllers
 {
@@ -34,12 +35,34 @@ namespace WebAdmin.Controllers
         [HttpGet]
         public IActionResult Download()
         {
-
             ViewBag.Downloads = _context.Resource
                 .Where(m => m.Catalog.Type.Equals("下载"))
                 .ToList();
 
             ViewBag.Catalogs = _context.Catalog.Where(m => m.Type == "下载").ToList();
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult EditDownload(string id)
+        {
+            ViewBag.Downloads = _context.Resource
+                .Where(m => m.Catalog.Type.Equals("下载"))
+                .ToList();
+
+            var resource = _context.Resource
+                .Include(m => m.Catalog)
+                .SingleOrDefault(m => m.Id == Guid.Parse(id));
+            return Json(resource);
+            return View(resource);
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateDownload()
+        {
+
 
             return View();
         }
@@ -76,7 +99,7 @@ namespace WebAdmin.Controllers
                     UpdatedTime = DateTime.Now
                 };
 
-                _context.Add<Resource>(resource);
+                _context.Add(resource);
                 _context.SaveChanges();
                 return RedirectToAction("Download");
             }

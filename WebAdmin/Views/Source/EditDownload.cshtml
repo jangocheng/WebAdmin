@@ -1,11 +1,8 @@
-
 @using MSDev.DB.Entities
 @model MSDev.DB.Entities.Resource
 @{
     Layout = "_PageLayout";
-    ViewBag.Title = "下载管理";
-
-    var catalogs = ViewBag.Catalogs as List<Catalog>;
+    ViewBag.Title = "编辑-下载管理";
 
 }
 @section LeftNav
@@ -19,7 +16,7 @@
     <h4 class="text-primary cursor-point" data-toggle="collapse" data-target="#addDownload">
         添加下载 +
     </h4>
-    <form asp-action="AddDownload" class="collapse" id="addDownload">
+    <form asp-action="UpdateDownload" class="collapse" id="updateDownload">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group row">
             <div class="col-md-6">
@@ -120,7 +117,6 @@
                         <td>@download.Description</td>
                         <td>
                             <a asp-action="DelDownload" asp-route-id="@download.Id" class="label label-danger">删除</a>
-                            <a asp-action="EditDownload" asp-route-id="@download.Id" class="label label-success">编辑</a>
                         </td>
                     </tr>
                 }
