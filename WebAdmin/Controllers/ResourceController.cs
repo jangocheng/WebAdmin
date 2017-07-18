@@ -58,11 +58,29 @@ namespace WebAdmin.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateDownload()
+        public IActionResult UpdateDownload(Resource resource)
         {
-
-
-            return View();
+            if (ModelState.IsValid)
+            {
+                if (_context.Resource.Any(m => m.Id == resource.Id))
+                {
+                    resource.UpdatedTime = DateTime.Now;
+                    _context.Resource.Update(resource);
+                    if (_context.SaveChanges() > 0)
+                    {
+                        return RedirectToAction("Download");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "更新失败");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "不存在该元素");
+                }
+            }
+            return View(resource);
         }
 
 
