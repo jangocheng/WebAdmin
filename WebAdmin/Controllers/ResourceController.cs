@@ -6,17 +6,18 @@ using MSDev.DB;
 using MSDev.DB.Entities;
 using WebAdmin.FormModels.Resource;
 using Microsoft.EntityFrameworkCore;
+using WebAdmin.Models.ViewModels;
 
 namespace WebAdmin.Controllers
 {
     /// <summary>
     /// 资源管理,如下载资源
     /// </summary>
-    public class SourceController : BaseController
+    public class ResourceController : BaseController
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
-        public SourceController(IMapper mapper, AppDbContext context)
+        public ResourceController(IMapper mapper, AppDbContext context)
         {
             _mapper = mapper;
             _context = context;
@@ -52,12 +53,9 @@ namespace WebAdmin.Controllers
                 .ToList();
 
             var resource = _context.Resource
-                .Include(m => m.Catalog)
                 .SingleOrDefault(m => m.Id == Guid.Parse(id));
-            return Json(resource);
             return View(resource);
         }
-
 
         [HttpPost]
         public IActionResult UpdateDownload()

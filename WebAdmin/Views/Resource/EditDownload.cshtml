@@ -1,0 +1,95 @@
+@using MSDev.DB.Entities
+@model MSDev.DB.Entities.Resource
+@{
+    Layout = "_PageLayout";
+    ViewBag.Title = "编辑-下载管理";
+    var catalog = Model.Catalog;
+
+
+}
+@section LeftNav
+{
+
+    @Html.Partial("_LeftNav")
+}
+
+<!--修改下载-->
+<div class="col-md-6">
+
+    <h4 class="text-primary cursor-point">
+        修改下载 
+    </h4>
+    <form asp-action="UpdateDownload"  id="updateDownload">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group row">
+            
+        </div>
+
+        <div class="form-group">
+            <input asp-for="Name" class="form-control" placeholder="名称" />
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <select asp-for="Language" class="form-control" value="@Model.Language">
+                    <option value="0">中文</option>
+                    <option value="1">英文</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <select asp-for="Type" class="form-control" value="@Model.Type">
+                    <option value="2">软件</option>
+                    <option value="0">文档</option>
+                    <option value="1">视频</option>
+                    <option value="3">代码</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <input asp-for="AbsolutePath" class="form-control" placeholder="完整地址" />
+            <span asp-validation-for="AbsolutePath"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Catalog" class="form-control" placeholder="分类" value="下载" type="hidden" />
+        </div>
+        <div class="form-group">
+            <textarea asp-for="Description" class="form-control" placeholder="说明" rows="5"></textarea>
+            <span asp-validation-for="Description"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Imgurl" class="form-control" placeholder="图片地址" />
+            <span asp-validation-for="Imgurl"></span>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" type="submit">修改</button>
+        </div>
+
+    </form>
+</div>
+<div class="clearfix"></div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            freshSelect();
+            $("#TopCatalog").change(function () {
+                freshSelect();
+            });
+
+        });
+
+        function freshSelect() {
+            var type = $("#TopCatalog").val();
+            $("#Catalog>option").each(function (index, data) {
+                if ($(this).data("type") === type) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    </script>
+}
