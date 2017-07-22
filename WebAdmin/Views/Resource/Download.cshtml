@@ -9,7 +9,7 @@
 
 }
 @section LeftNav
-{
+    {
 
     @Html.Partial("_LeftNav")
 }
@@ -118,10 +118,17 @@
                 string[] languages = { "中文", "英文" };
                 foreach (var download in (List<Resource>)ViewBag.Downloads)
                 {
-
+                    var style = "";
                     <tr>
-
-                        <td>@download.Name</td>
+                        <td>
+                            @if (@download.IsRecommend)
+                            {
+                                style = "text-primary";
+                            }
+                            <span class="@style">
+                                @download.Name
+                            </span>
+                        </td>
                         <td>@types[download.Type]</td>
                         <td>@languages[download.Language]</td>
                         <td>@download.Description</td>
@@ -132,7 +139,6 @@
                     </tr>
                 }
             }
-
         </tbody>
     </table>
 </div>

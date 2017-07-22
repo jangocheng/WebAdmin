@@ -116,14 +116,23 @@
                 string[] languages = { "中文", "英文" };
                 foreach (var download in (List<Resource>)ViewBag.Downloads)
                 {
+                    var style = "";
                     <tr>
-                        <td>@download.Name</td>
+                        <td>
+                            @if (@download.IsRecommend)
+                            {
+                                style = "text-primary";
+                            }
+                            <span class="@style">
+                                @download.Name
+                            </span>
+                        </td>
                         <td>@types[download.Type]</td>
                         <td>@languages[download.Language]</td>
                         <td>@download.Description</td>
                         <td>
-                            <a asp-action="DelDocument" asp-route-id="@download.Id" class="label label-danger">删除</a>
-                            <a asp-action="EditDocument" asp-route-id="@download.Id" class="label label-success">编辑</a>
+                            <a asp-action="DelDownload" asp-route-id="@download.Id" class="label label-danger">删除</a>
+                            <a asp-action="EditDownload" asp-route-id="@download.Id" class="label label-success">编辑</a>
                         </td>
                     </tr>
                 }
