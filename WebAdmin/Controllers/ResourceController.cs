@@ -151,7 +151,7 @@ namespace WebAdmin.Controllers
         [HttpGet]
         public IActionResult Document()
         {
-            ViewBag.Downloads = _context.Resource
+            ViewBag.Documents = _context.Resource
                 .Where(m => m.Catalog.Type.Equals("文档"))
                 .ToList();
 

@@ -114,25 +114,25 @@
                 //TODO: 使用类型帮助类
                 string[] types = { "文档", "视频", "软件", "代码" };
                 string[] languages = { "中文", "英文" };
-                foreach (var download in (List<Resource>)ViewBag.Downloads)
+                foreach (var document in (List<Resource>)ViewBag.Documents)
                 {
                     var style = "";
                     <tr>
                         <td>
-                            @if (@download.IsRecommend)
+                            @if (@document.IsRecommend)
                             {
                                 style = "text-primary";
                             }
                             <span class="@style">
-                                @download.Name
+                                @document.Name
                             </span>
                         </td>
-                        <td>@types[download.Type]</td>
-                        <td>@languages[download.Language]</td>
-                        <td>@download.Description</td>
+                        <td>@types[document.Type]</td>
+                        <td>@languages[document.Language]</td>
+                        <td>@document.Description</td>
                         <td>
-                            <a asp-action="DelDownload" asp-route-id="@download.Id" class="label label-danger">删除</a>
-                            <a asp-action="EditDownload" asp-route-id="@download.Id" class="label label-success">编辑</a>
+                            <a asp-action="DelDocument" asp-route-id="@document.Id" class="label label-danger">删除</a>
+                            <a asp-action="EditDocument" asp-route-id="@document.Id" class="label label-success">编辑</a>
                         </td>
                     </tr>
                 }
