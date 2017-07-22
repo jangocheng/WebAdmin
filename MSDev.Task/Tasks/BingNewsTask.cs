@@ -9,22 +9,30 @@ using MSDev.Task.Entities;
 using MSDev.Task.Helpers;
 using MSDev.Task.Tools;
 using static System.String;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace MSDev.Task.Tasks
 {
     public class BingNewsTask : MSDTask
     {
-        private const string BingSearchKey = "2dd3ac889c7e42d4934d017abf80cae3";
+        private readonly string BingSearchKey = "";
         private const string Domain = "http://msdev.cc/";//TODO: [域名]读取配置
         private const double Similarity = 0.5;//定义相似度
 
         public BingNewsTask()
         {
+            BingSearchKey = Configuration.GetSection("BingSearchKey")?.Value;
+
         }
 
         public async Task<List<BingNews>> GetNews(string query, string freshness = "Day")
         {
             //获取新闻
+            if (IsNullOrEmpty(BingSearchKey))
+            {
+                return default(List<BingNews>);
+            }
             BingSearchHelper.SearchApiKey = BingSearchKey;
             List<BingNewsEntity> newNews = await BingSearchHelper.GetNewsSearchResults(query);
             if (newNews == null)

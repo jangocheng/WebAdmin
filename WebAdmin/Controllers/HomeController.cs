@@ -9,7 +9,6 @@ namespace WebAdmin.Controllers
 {
 	public class HomeController : BaseController
 	{
-
 		private IConfigurationRoot _configuration;
 		public HomeController(IConfigurationRoot configuration)
 		{

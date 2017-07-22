@@ -15,7 +15,9 @@ namespace MSDev.Task.Tasks
 	{
 		private static readonly IServiceCollection Services = new ServiceCollection();
 
-		protected readonly AppDbContext Context;
+        public static IConfigurationRoot Configuration  { get; set; }
+
+        protected readonly AppDbContext Context;
 		public MSDTask()
 		{
 			StartUp();
@@ -61,7 +63,7 @@ namespace MSDev.Task.Tasks
 				.AddJsonFile("appsettings.json")
 				.AddJsonFile($"appsettings.{env}.json");
 
-			IConfigurationRoot config = builder.Build();
+			 Configuration = builder.Build();
 
 			ILoggerFactory factory = new LoggerFactory();
 			factory.AddConsole();
@@ -71,7 +73,7 @@ namespace MSDev.Task.Tasks
 
 			Services.AddDbContext<AppDbContext>(
 				option => option.UseSqlServer(
-					config.GetConnectionString("DefaultConnection")
+                    Configuration.GetConnectionString("OnlineConnection")
 				)
 			);
 		}

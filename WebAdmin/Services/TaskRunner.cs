@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MSDev.DB.Entities;
 using static System.String;
+using Microsoft.Extensions.Configuration;
 
 namespace WebAdmin.Services
 {
@@ -32,7 +33,8 @@ namespace WebAdmin.Services
 			{
 				if (command.Equals("bingnews"))
 				{
-					var task = new BingNewsTask();
+                   
+                    var task = new BingNewsTask();
 					List<BingNews> bingNewsList = await task.GetNews("微软");
 
 					Console.WriteLine(bingNewsList.Count);
