@@ -25,7 +25,21 @@ namespace WebAdmin.FormModels.Resource
         /// 0 文档;1 视频;2 软件;3 代码
         /// </summary>
         public int Type { get; set; }
+        /// <summary>
+        /// 提供方
+        /// </summary>
+        [MaxLength(128)]
+        public string Provider { get; set; }
 
+        /// <summary>
+        /// 标签
+        /// </summary>
+        [MaxLength(128)]
+        public string Tag { get; set; }
+        /// <summary>
+        /// 是否推荐
+        /// </summary>
+        public int IsRecommend { get; set; }
         /// <summary>
         /// 语言
         /// 0 中文;1 英文

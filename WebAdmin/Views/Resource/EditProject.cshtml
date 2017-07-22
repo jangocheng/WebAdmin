@@ -2,27 +2,27 @@
 @model MSDev.DB.Entities.Resource
 @{
     Layout = "_PageLayout";
-    ViewBag.Title = "编辑-文档管理";
+    ViewBag.Title = "编辑-项目管理";
     var catalog = Model.Catalog;
 
 
 }
 @section LeftNav
-    {
+{
 
     @Html.Partial("_LeftNav")
 }
 
-<!--修改文档-->
-<div class="col-md-8">
+<!--修改项目-->
+<div class="col-md-6">
 
     <h4 class="text-primary cursor-point">
-        修改文档
+        修改项目 
     </h4>
-    <form asp-action="UpdateDocument" id="updateDocument">
+    <form asp-action="UpdateProject"  id="updateProject">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group row">
-            <input type="hidden" asp-for="CatalogId" />
+            <input type="hidden" asp-for="CatalogId"/>
             <input type="hidden" asp-for="Id" />
 
         </div>
@@ -56,7 +56,7 @@
             <span asp-validation-for="AbsolutePath"></span>
         </div>
         <div class="form-group">
-            <input asp-for="Catalog" class="form-control" placeholder="分类" value="文档" type="hidden" />
+            <input asp-for="Catalog" class="form-control" placeholder="分类" value="项目" type="hidden" />
         </div>
         <div class="form-group">
             <textarea asp-for="Description" class="form-control" placeholder="说明" rows="5"></textarea>
@@ -70,7 +70,6 @@
             <input asp-for="Imgurl" class="form-control" placeholder="图片地址" />
             <span asp-validation-for="Imgurl"></span>
         </div>
-
         <div class="form-group">
             <div class="checkbox has-success">
                 <label>

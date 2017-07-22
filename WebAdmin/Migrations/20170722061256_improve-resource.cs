@@ -8,11 +8,11 @@ namespace WebAdmin.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
+            migrationBuilder.AddColumn<bool>(
                 name: "IsRecommend",
                 table: "Resource",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
                 name: "Provider",

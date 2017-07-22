@@ -8,7 +8,7 @@
 
 }
 @section LeftNav
-{
+    {
 
     @Html.Partial("_LeftNav")
 }
@@ -17,12 +17,12 @@
 <div class="col-md-6">
 
     <h4 class="text-primary cursor-point">
-        修改下载 
+        修改下载
     </h4>
-    <form asp-action="UpdateDownload"  id="updateDownload">
+    <form asp-action="UpdateDownload" id="updateDownload">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group row">
-            <input type="hidden" asp-for="CatalogId"/>
+            <input type="hidden" asp-for="CatalogId" />
             <input type="hidden" asp-for="Id" />
 
         </div>
@@ -72,6 +72,12 @@
         </div>
 
         <div class="form-group">
+            <div class="checkbox has-success">
+                <label>
+                    <input type="checkbox" asp-for="IsRecommend">
+                    选择推荐
+                </label>
+            </div>
             <button class="btn btn-sm btn-primary" type="submit">修改</button>
         </div>
 
