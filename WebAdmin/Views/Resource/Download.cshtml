@@ -45,11 +45,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <input asp-for="Name" class="form-control" placeholder="名称" />
-            <span asp-validation-for="Name"></span>
-        </div>
-
         <div class="form-group row">
             <div class="col-md-6">
                 <select asp-for="Language" class="form-control">
@@ -67,10 +62,17 @@
             </div>
 
         </div>
-
         <div class="form-group">
-            <input asp-for="AbsolutePath" class="form-control" placeholder="完整地址" />
+            <input asp-for="Name" class="form-control" placeholder="名称" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="AbsolutePath" class="form-control" placeholder="来源地址" />
             <span asp-validation-for="AbsolutePath"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Provider" class="form-control" placeholder="作者/提供方,以;分隔" />
+            <span asp-validation-for="Provider"></span>
         </div>
         <div class="form-group">
             <input asp-for="Catalog" class="form-control" placeholder="分类" value="下载" type="hidden" />
@@ -79,6 +81,11 @@
             <textarea asp-for="Description" class="form-control" placeholder="说明" rows="5"></textarea>
             <span asp-validation-for="Description"></span>
         </div>
+        <div class="form-group">
+            <input asp-for="Tag" class="form-control" placeholder="标签,以;分隔" />
+            <span asp-validation-for="Tag"></span>
+        </div>
+
         <div class="form-group">
             <input asp-for="Imgurl" class="form-control" placeholder="图片地址" />
             <span asp-validation-for="Imgurl"></span>
@@ -92,7 +99,7 @@
 </div>
 <div class="clearfix"></div>
 <!--下载列表-->
-<div class="col-md-6">
+<div class="col-md-10">
     <h4>下载列表</h4>
     <table class="table table-condensed table-bordered">
         <thead>
