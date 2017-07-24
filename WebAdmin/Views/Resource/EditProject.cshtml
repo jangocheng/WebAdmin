@@ -34,12 +34,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <select asp-for="Type" class="form-control" value="@Model.Type">
-                    <option value="2">软件</option>
-                    <option value="0">文档</option>
-                    <option value="1">视频</option>
-                    <option value="3">代码</option>
-                </select>
+                @Html.Partial("_ResourceTypeOptions", Model)
             </div>
         </div>
 

@@ -51,11 +51,8 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <select asp-for="Type" class="form-control">
-                    @Html.Partial("_ResourceTypeOptions")
-                </select>
+                @Html.Partial("_ResourceTypeOptions", Model)
             </div>
-
         </div>
         <div class="form-group">
             <input asp-for="Name" class="form-control" placeholder="名称" />
