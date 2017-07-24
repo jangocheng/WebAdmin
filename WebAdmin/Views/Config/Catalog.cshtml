@@ -11,7 +11,6 @@
     @Html.Partial("_LeftNav");
 }
 
-
 @{
     var catalogs = ViewBag.Catalogs as List<Catalog>;
     var types = catalogs.Select(m => m.Type).Distinct().ToList();
@@ -24,6 +23,7 @@
         <select asp-for="Type" class="form-control">
             <option value="下载">下载</option>
             <option value="文档">文档</option>
+            <option value="项目">项目</option>
             <option value="视频">视频</option>
         </select>
 

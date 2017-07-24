@@ -1,4 +1,4 @@
-
+download
 @using MSDev.DB.Entities
 @model MSDev.DB.Entities.Resource
 @{
@@ -16,10 +16,10 @@
 
 <!--添加下载-->
 <div class="col-md-6">
-    <h4 class="text-primary cursor-point" data-toggle="collapse" data-target="#addDownload">
+    <h4 class="text-primary cursor-point" data-toggle="collapse" data-target="#addDocument">
         添加文档 +
     </h4>
-    <form asp-action="AddDownload" class="collapse" id="addDownload">
+    <form asp-action="AddDocument" class="collapse" id="addDocument">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group row">
             <div class="col-md-6">
@@ -45,11 +45,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <input asp-for="Name" class="form-control" placeholder="名称" />
-            <span asp-validation-for="Name"></span>
-        </div>
-
         <div class="form-group row">
             <div class="col-md-6">
                 <select asp-for="Language" class="form-control">
@@ -62,9 +57,15 @@
                     @Html.Partial("_ResourceTypeOptions")
                 </select>
             </div>
-
         </div>
-
+        <div class="form-group">
+            <input asp-for="Name" class="form-control" placeholder="名称" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Provider" class="form-control" placeholder="作者/提供方,以;分隔" />
+            <span asp-validation-for="Provider"></span>
+        </div>
         <div class="form-group">
             <input asp-for="AbsolutePath" class="form-control" placeholder="完整地址" />
             <span asp-validation-for="AbsolutePath"></span>
@@ -75,6 +76,10 @@
         <div class="form-group">
             <textarea asp-for="Description" class="form-control" placeholder="说明" rows="5"></textarea>
             <span asp-validation-for="Description"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Tag" class="form-control" placeholder="标签,以;分隔" />
+            <span asp-validation-for="Tag"></span>
         </div>
         <div class="form-group">
             <input asp-for="Imgurl" class="form-control" placeholder="图片地址" />
@@ -89,7 +94,7 @@
 </div>
 <div class="clearfix"></div>
 <!--文档列表-->
-<div class="col-md-6">
+<div class="col-md-8">
     <h4>文档列表</h4>
     <table class="table table-condensed table-bordered">
         <thead>
@@ -103,16 +108,28 @@
         </thead>
         <tbody>
             @{
-                foreach (var download in (List<Resource>)ViewBag.Downloads)
+                foreach (var document in (List<Resource>)ViewBag.Documents)
                 {
+                    var style = "";
                     <tr>
-                        <td>@download.Name</td>
-                        <td>@TypeValueHelper.ResourceType[download.Type]</td>
-                        <td>@TypeValueHelper.Language[download.Language]</td>
-                        <td>@download.Description</td>
                         <td>
-                            <a asp-action="DelDownload" asp-route-id="@download.Id" class="label label-danger">删除</a>
-                            <a asp-action="EditDownload" asp-route-id="@download.Id" class="label label-success">编辑</a>
+                            @if (@document.IsRecommend)
+                            {
+                                style = "text-primary";
+                            }
+                            <span class="@style">
+                                @document.Name
+                            </span>
+                        </td>
+
+                        <td>@document.Description</td>
+                        <td>@document.Name</td>
+                        <td>@TypeValueHelper.ResourceType[document.Type]</td>
+                        <td>@TypeValueHelper.Language[document.Language]</td>
+                        <td>@document.Description</td>
+                        <td>
+                            <a asp-action="DelDocument" asp-route-id="@document.Id" class="label label-danger">删除</a>
+                            <a asp-action="EditDocument" asp-route-id="@document.Id" class="label label-success">编辑</a>
                         </td>
                     </tr>
                 }

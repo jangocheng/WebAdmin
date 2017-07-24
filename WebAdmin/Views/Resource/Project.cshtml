@@ -3,23 +3,23 @@
 @model MSDev.DB.Entities.Resource
 @{
     Layout = "_PageLayout";
-    ViewBag.Title = "下载管理";
+    ViewBag.Title = "项目管理";
 
     var catalogs = ViewBag.Catalogs as List<Catalog>;
 
 }
 @section LeftNav
-    {
+{
 
     @Html.Partial("_LeftNav")
 }
 
-<!--添加下载-->
+<!--添加项目-->
 <div class="col-md-6">
-    <h4 class="text-primary cursor-point" data-toggle="collapse" data-target="#addDownload">
-        添加下载 +
+    <h4 class="text-primary cursor-point" data-toggle="collapse" data-target="#addProject">
+        添加项目 +
     </h4>
-    <form asp-action="AddDownload" class="collapse" id="addDownload">
+    <form asp-action="AddProject" class="collapse" id="addProject">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group row">
             <div class="col-md-6">
@@ -54,9 +54,13 @@
             </div>
             <div class="col-md-6">
                 <select asp-for="Type" class="form-control">
-                    @Html.Partial("_ResourceTypeOptions")
+                    <option value="2">软件</option>
+                    <option value="0">文档</option>
+                    <option value="1">视频</option>
+                    <option value="3">代码</option>
                 </select>
             </div>
+
         </div>
         <div class="form-group">
             <input asp-for="Name" class="form-control" placeholder="名称" />
@@ -71,7 +75,7 @@
             <span asp-validation-for="Provider"></span>
         </div>
         <div class="form-group">
-            <input asp-for="Catalog" class="form-control" placeholder="分类" value="下载" type="hidden" />
+            <input asp-for="Catalog" class="form-control" placeholder="分类" value="项目" type="hidden" />
         </div>
         <div class="form-group">
             <textarea asp-for="Description" class="form-control" placeholder="说明" rows="5"></textarea>
@@ -94,9 +98,9 @@
     </form>
 </div>
 <div class="clearfix"></div>
-<!--下载列表-->
+<!--项目列表-->
 <div class="col-md-10">
-    <h4>下载列表</h4>
+    <h4>项目列表</h4>
     <table class="table table-condensed table-bordered">
         <thead>
             <tr>
@@ -109,32 +113,26 @@
         </thead>
         <tbody>
             @{
-                foreach (var download in (List<Resource>)ViewBag.Downloads)
+                //TODO: 使用类型帮助类
+                string[] types = { "文档", "视频", "软件", "代码" };
+                string[] languages = { "中文", "英文" };
+                foreach (var project in (List<Resource>)ViewBag.Projects)
                 {
-                    var style = "";
+
                     <tr>
 
-                        <td>@download.Name</td>
-                        <td>@TypeValueHelper.ResourceType[download.Type]</td>
-                        <td>@TypeValueHelper.Language[download.Language]</td>
+                        <td>@project.Name</td>
+                        <td>@types[project.Type]</td>
+                        <td>@languages[project.Language]</td>
+                        <td>@project.Description</td>
                         <td>
-                            @if (@download.IsRecommend)
-                            {
-                                style = "text-primary";
-                            }
-                            <span class="@style">
-                                @download.Name
-                            </span>
-                        </td>
-
-                        <td>@download.Description</td>
-                        <td>
-                            <a asp-action="DelDownload" asp-route-id="@download.Id" class="label label-danger">删除</a>
-                            <a asp-action="EditDownload" asp-route-id="@download.Id" class="label label-success">编辑</a>
+                            <a asp-action="DelProject" asp-route-id="@project.Id" class="label label-danger">删除</a>
+                            <a asp-action="EditProject" asp-route-id="@project.Id" class="label label-success">编辑</a>
                         </td>
                     </tr>
                 }
             }
+
         </tbody>
     </table>
 </div>

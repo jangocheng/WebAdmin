@@ -27,6 +27,7 @@ namespace WebAdmin
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+            
             Configuration = builder.Build();
             _hostingEnvironment = env;
         }
@@ -47,6 +48,7 @@ namespace WebAdmin
                     b => b.MigrationsAssembly("WebAdmin")
                 )
             );
+
             services.AddScoped(typeof(ApiHelper));
             services.AddAutoMapper();
         }

@@ -28,7 +28,6 @@ namespace WebAdmin.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Config");
-
         }
     }
 }
