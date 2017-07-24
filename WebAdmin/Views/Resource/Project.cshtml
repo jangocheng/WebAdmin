@@ -10,10 +10,8 @@
 }
 @section LeftNav
 {
-
     @Html.Partial("_LeftNav")
 }
-
 <!--添加项目-->
 <div class="col-md-6">
     <h4 class="text-primary cursor-point" data-toggle="collapse" data-target="#addProject">
@@ -54,10 +52,7 @@
             </div>
             <div class="col-md-6">
                 <select asp-for="Type" class="form-control">
-                    <option value="2">软件</option>
-                    <option value="0">文档</option>
-                    <option value="1">视频</option>
-                    <option value="3">代码</option>
+                    @Html.Partial("_ResourceTypeOptions")
                 </select>
             </div>
 
@@ -114,16 +109,21 @@
         <tbody>
             @{
                 //TODO: 使用类型帮助类
-                string[] types = { "文档", "视频", "软件", "代码" };
-                string[] languages = { "中文", "英文" };
                 foreach (var project in (List<Resource>)ViewBag.Projects)
                 {
-
+                    var style = "";
                     <tr>
-
-                        <td>@project.Name</td>
-                        <td>@types[project.Type]</td>
-                        <td>@languages[project.Language]</td>
+                        <td>
+                            @if (@project.IsRecommend)
+                            {
+                                style = "text-primary";
+                            }
+                            <span class="@style">
+                                @project.Name
+                            </span>
+                        </td>
+                        <td>@TypeValueHelper.ResourceType[project.Type]</td>
+                        <td>@TypeValueHelper.Language[project.Language]</td>
                         <td>@project.Description</td>
                         <td>
                             <a asp-action="DelProject" asp-route-id="@project.Id" class="label label-danger">删除</a>

@@ -113,10 +113,6 @@
                 {
                     var style = "";
                     <tr>
-
-                        <td>@download.Name</td>
-                        <td>@TypeValueHelper.ResourceType[download.Type]</td>
-                        <td>@TypeValueHelper.Language[download.Language]</td>
                         <td>
                             @if (@download.IsRecommend)
                             {
@@ -126,6 +122,9 @@
                                 @download.Name
                             </span>
                         </td>
+                        <td>@TypeValueHelper.ResourceType[download.Type]</td>
+                        <td>@TypeValueHelper.Language[download.Language]</td>
+
 
                         <td>@download.Description</td>
                         <td>
