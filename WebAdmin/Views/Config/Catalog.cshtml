@@ -66,6 +66,7 @@
                     <td>@topCatalog.Name</td>
                     <td>@topCatalog.Value</td>
                     <td>
+                        <a asp-action="EditCatalog" asp-route-id="@topCatalog.Id" class="label label-success">编辑</a>
                         <label class="label label-danger">删除</label>
                     </td>
                 </tr>var childCatalogs = catalogs.Where(m => m.TopCatalog == topCatalog).ToList();
@@ -78,6 +79,7 @@
                         <td>@childCatalog.Name</td>
                         <td>@childCatalog.Value</td>
                         <td>
+                            <a asp-action="EditCatalog" asp-route-id="@childCatalog.Id" class="label label-success">编辑</a>
                             <label class="label label-danger">删除</label>
                         </td>
                     </tr>
