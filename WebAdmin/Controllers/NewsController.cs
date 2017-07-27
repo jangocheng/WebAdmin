@@ -9,49 +9,54 @@ using WebAdmin.Helpers;
 namespace WebAdmin.Controllers
 {
 
-	public class NewsController : BaseController
-	{
-		private AppDbContext _context;
-		public NewsController(AppDbContext context)
-		{
-			_context = context;
-		}
-		public IActionResult Index()
-		{
-			return View();
-		}
+    public class NewsController : BaseController
+    {
+        private AppDbContext _context;
+        public NewsController(AppDbContext context)
+        {
+            _context = context;
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-		[HttpGet]
-		public IActionResult BingNews(int p = 1)
-		{
+        [HttpGet]
+        public IActionResult BingNews(int p = 1)
+        {
 
-			int pageSize = 15;
-			var newsList = _context.BingNews
-				.OrderByDescending(m => m.UpdatedTime)
-				.Skip((p - 1) * pageSize).Take(pageSize)
-				.ToList();
-			int totalNumber = _context.BingNews.Count();
+            int pageSize = 15;
+            var newsList = _context.BingNews
+                .OrderByDescending(m => m.UpdatedTime)
+                .Skip((p - 1) * pageSize).Take(pageSize)
+                .ToList();
+            int totalNumber = _context.BingNews.Count();
 
-			ViewBag.ListData = newsList;
+            ViewBag.ListData = newsList;
 
-			var pageOption = new MyPagerOption()
-			{
-				CurrentPage = p,
-				PageSize = pageSize,
-				RouteUrl = "/News/BingNews",
-				Total = totalNumber
-			};
-			ViewBag.Pager = pageOption;
+            var pageOption = new MyPagerOption()
+            {
+                CurrentPage = p,
+                PageSize = pageSize,
+                RouteUrl = "/News/BingNews",
+                Total = totalNumber
+            };
+            ViewBag.Pager = pageOption;
 
-			return View();
-		}
+            return View();
+        }
 
-		[HttpPost]
-		public IActionResult DelNews(string id)
-		{
-			BingNews news = _context.BingNews.Find(Guid.Parse(id));
-			EntityEntry<BingNews> re = _context.BingNews.Remove(news);
-			return Json(re);
-		}
-	}
+        [HttpPost]
+        public IActionResult DelNews(string id)
+        {
+            BingNews news = _context.BingNews.Find(Guid.Parse(id));
+            _context.BingNews.Remove(news);
+            var re = _context.SaveChanges();
+            if (re > 0)
+            {
+                return JsonOk(re);
+            }
+            return JsonFailed();
+        }
+    }
 }

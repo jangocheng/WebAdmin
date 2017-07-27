@@ -1,4 +1,55 @@
+@using MSDev.DB.Entities
 @{
 	Layout = "_LeftNav";
 }
 
+<table class="table table-hover table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>标题</th>
+            <th>分类</th>
+            <th>时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (MvaVideos video in (List<MvaVideos>)ViewBag.ListData)
+            {
+                <tr>
+                    <td class="col-md-4"><a href="@video.SourceUrl" target="_blank">@video.Title</a></td>
+                    <td class="col-md-5">@video.Technologies</td>
+                    <td class="col-md-2">@string.Format("{0:yyyy-MM-dd HH:mm}", video.UpdatedTime)</td>
+                    <td>
+                        <input type="hidden" value="@video.Id" />
+                        <a class="label label-danger" onclick="del('@video.Id')">删除</a>
+
+                        @if (!video.IsRecommend)
+                        {
+                            <a class="label label-primary" asp-action="RecommendMva" asp-route-id="@video.Id">推荐</a>
+
+                        }
+                     
+                    </td>
+                </tr>}
+        }
+    </tbody>
+</table>
+<pager pager-option="ViewBag.Pager as MyPagerOption"></pager>
+
+<script>
+
+	function del(id) {
+		$.post('DelMvaVideo', { id: id }, function (data) {
+
+			if (data.errorCode == 0) {
+				Toast.Success("删除成功");
+				location.reload();
+
+			} else {
+				Toast.Error(data.msg);
+				console.log(data);
+			}
+		})
+	}
+</script>
