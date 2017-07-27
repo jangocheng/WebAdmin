@@ -8,9 +8,10 @@ using MSDev.DB;
 namespace WebAdmin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170727150713_mva+IsRecommend")]
+    partial class mvaIsRecommend
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -471,9 +472,6 @@ namespace WebAdmin.Migrations
 
                     b.HasIndex("LanguageCode")
                         .HasName("IX_MvaVideos_LanguageCode");
-
-                    b.HasIndex("Technologies")
-                        .HasName("IX_MvaVideos_Technologies");
 
                     b.HasIndex("Title")
                         .HasName("IX_MvaVideos_Title");
