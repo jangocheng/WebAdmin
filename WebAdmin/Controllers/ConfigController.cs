@@ -60,7 +60,7 @@ namespace WebAdmin.Controllers
                     _context.Update(catalog);
                     _context.SaveChanges();
 
-                   return RedirectToAction("Catalog");
+                    return RedirectToAction("Catalog");
                 }
             }
             return View("EditCatalog", catalog);
@@ -104,6 +104,28 @@ namespace WebAdmin.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("Catalog", catalogForm);
+        }
+
+
+        [HttpGet]
+        public IActionResult DelCatalog(string id)
+        {
+            if (IsNullOrEmpty(id))
+            {
+                return View("Catalog");
+            }
+            var catalog=_context.Catalog.Find(Guid.Parse(id));
+            _context.Catalog.Remove(catalog);
+            var re=_context.SaveChanges();
+
+            if (re>0)
+            {
+                return RedirectToAction("catalog");
+            }
+            else
+            {
+                return JumpPage("删除失败");
+            }
         }
 
         [HttpGet]

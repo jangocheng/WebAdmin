@@ -55,7 +55,7 @@ namespace WebAdmin.Controllers
         }
 
 
-        protected IActionResult JumpPage(string msg=null)
+        protected IActionResult JumpPage(string msg = null)
         {
             if (String.IsNullOrEmpty(msg))
             {

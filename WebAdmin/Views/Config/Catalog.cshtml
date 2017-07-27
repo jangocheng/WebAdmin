@@ -67,20 +67,20 @@
                     <td>@topCatalog.Value</td>
                     <td>
                         <a asp-action="EditCatalog" asp-route-id="@topCatalog.Id" class="label label-success">编辑</a>
-                        <label class="label label-danger">删除</label>
+                        <a asp-action="DelCatalog" asp-route-id="@topCatalog.Id" class="label label-danger">删除</a>
                     </td>
                 </tr>var childCatalogs = catalogs.Where(m => m.TopCatalog == topCatalog).ToList();
 
                 foreach (Catalog childCatalog in childCatalogs)
                 {
                     <tr>
-                        <td>否</td>
+                        <td></td>
                         <td>@topCatalog.Type</td>
                         <td>@childCatalog.Name</td>
                         <td>@childCatalog.Value</td>
                         <td>
                             <a asp-action="EditCatalog" asp-route-id="@childCatalog.Id" class="label label-success">编辑</a>
-                            <label class="label label-danger">删除</label>
+                            <a asp-action="DelCatalog" asp-route-id="@childCatalog.Id" class="label label-danger">删除</a>
                         </td>
                     </tr>
                 }
