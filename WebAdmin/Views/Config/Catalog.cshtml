@@ -48,7 +48,6 @@
 <table class="table table-hover table-responsive table-condensed table-bordered">
     <thead>
         <tr>
-            <th>顶级分类</th>
             <th>分类</th>
             <th>名称</th>
             <th>路径值</th>
@@ -61,7 +60,6 @@
             foreach (Catalog topCatalog in topCatalogs)
             {
                 <tr class="bg-info">
-                    <td>是</td>
                     <td>@topCatalog.Type</td>
                     <td>@topCatalog.Name</td>
                     <td>@topCatalog.Value</td>
@@ -75,7 +73,6 @@
                 {
                     <tr>
                         <td></td>
-                        <td>@topCatalog.Type</td>
                         <td>@childCatalog.Name</td>
                         <td>@childCatalog.Value</td>
                         <td>
