@@ -15,13 +15,22 @@ namespace WebAdmin
 {
     public class Program
     {
+
+
+        //private static bool IsTask = true;//是否运行Task
+        private static bool IsTask = false;
+
         public static void Main(string[] args)
         {
-            var t = new Thread(StartAutoTask)
+
+            if (IsTask)
             {
-                IsBackground = true
-            };
-            t.Start();
+                var t = new Thread(StartAutoTask)
+                {
+                    IsBackground = true
+                };
+                t.Start();
+            }
 
             IWebHost host = new WebHostBuilder()
                 .UseKestrel()
@@ -41,7 +50,7 @@ namespace WebAdmin
             while (true)
             {
                 int hour = DateTime.Now.ToLocalTime().Hour;
-                if (hour != 8 && hour != 18 && hour != 23)
+                if (hour != 8 && hour != 18 && hour != 22)
                 {
                     Thread.Sleep(60 * 60 * 1000);
                     continue;
@@ -50,7 +59,16 @@ namespace WebAdmin
 
                 try
                 {
-                    Console.WriteLine("start ");
+                    Console.WriteLine("Task start ");
+
+                    Log.Write(fileName, "rssNews Start!");
+                    var task3= new DevBlogsTask();
+                    var rssnews = task3.GetNewsAsync().Result;
+                    foreach (var news in rssnews)
+                    {
+                        Log.Write(fileName, "\t" + news?.Title);
+                    }
+                    Log.Write(fileName, "rssNews End!\n");
 
                     Log.Write(fileName, "BingNewsTask Start!");
                     var task = new BingNewsTask();
