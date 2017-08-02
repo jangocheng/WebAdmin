@@ -9,44 +9,53 @@ using MSDev.Task.Helpers;
 
 namespace MSDev.Task.Tasks
 {
-	public class DevBlogsTask
-	{
-		private readonly ApiHelper _apiHelper;
-		private const string devBlogsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
+    public class DevBlogsTask : MSDTask
+    {
+        private const string devBlogsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
 
-		public DevBlogsTask(ApiHelper apiHelper)
-		{
-			_apiHelper = apiHelper;
-		}
+        public async Task<List<RssNews>> GetNewsAsync()
+        {
+            ICollection<RssEntity> blogs = await RssHelper.GetRss(devBlogsFeedsLink);
 
-		public async Task<bool> GetNewsAsync()
-		{
-			ICollection<RssEntity> blogs = await RssHelper.GetRss(devBlogsFeedsLink);
-			//var lastNews = await repository.DbSet.Where(x => x.Type == NewsTypes.DevBlog).LastOrDefaultAsync();
-			IEnumerable<RssNews> rssnews = blogs.OrderBy(x => x.PublishId).Select(x => new RssNews
-			{
-				Title = x.Title,
-				Author = x.Author,
-				Description = x.Description,
-				Categories = x.Categories,
-				CreateTime = x.CreateTime,
-				LastUpdateTime = x.LastUpdateTime,
-				Link = x.Link,
-				PublishId = x.PublishId,
-				MobileContent = x.MobileContent,
-				Type = 1,
-				Status = 1
-			});
+            //var lastNews = await repository.DbSet.Where(x => x.Type == NewsTypes.DevBlog).LastOrDefaultAsync();
+            IEnumerable<RssNews> rssnews = blogs.OrderBy(x => x.PublishId).Select(x => new RssNews
+            {
+                Title = x.Title,
+                Author = x.Author,
+                Description = x.Description,
+                Categories = x.Categories,
+                CreateTime = x.CreateTime,
+                LastUpdateTime = x.LastUpdateTime,
+                Link = x.Link,
+                PublishId = x.PublishId,
+                MobileContent = x.MobileContent,
+                Type = 1,
+                Status = 1
+            });
+            List<RssNews> toBeAdd = new List<RssNews>();//待添加数据
 
-			JsonResult<int> re = await _apiHelper.Post<int>("/api/manage/rssnews", rssnews);
-			if(re.ErrorCode==0){
-				return true;
-			}
-			// 插入错误
-			Console.WriteLine(re.Msg);
-			return false;
+            //取最新数据，去重 
+            var oldData =Context.RssNews.OrderByDescending(m => m.LastUpdateTime).Take(20).ToList();
+            foreach (var news in rssnews)
+            {
+                foreach (var data in oldData)
+                {
+                    if (news.Title.Equals(data.Title))
+                    {
+                        news.Title = string.Empty;
+                        break;
+                    }
+                }
 
-			//return await repository.AddRangeAsync(_RssNews) == _RssNews.Count();
-		}
-	}
+                if (!string.IsNullOrEmpty(news.Title))
+                {
+                    toBeAdd.Add(news);
+                }
+            }
+            //插入新数据
+            Context.RssNews.AddRange(toBeAdd);
+            var re = Context.SaveChanges();
+            return toBeAdd;
+        }
+    }
 }

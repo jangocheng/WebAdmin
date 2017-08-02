@@ -279,6 +279,9 @@ namespace MSDev.DB
                 entity.HasIndex(e => e.Title)
                     .HasName("IX_MvaVideos_Title");
 
+                entity.HasIndex(e => e.Technologies)
+                   .HasName("IX_MvaVideos_Technologies");
+
                 entity.HasIndex(e => e.UpdatedTime)
                     .HasName("IX_MvaVideos_UpdatedTime");
 

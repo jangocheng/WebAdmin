@@ -25,6 +25,7 @@ namespace MSDev.DB.Entities
         public string Tags { get; set; }
         public string Technologies { get; set; }
         public string Title { get; set; }
+        public bool IsRecommend { get; set; }
         public DateTime UpdatedTime { get; set; }
     }
 }
