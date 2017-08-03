@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MSDev.DB.Entities
 
 {
     public partial class MvaVideos
     {
+        public List<MvaDetails> Details { get; set; }
+        [MaxLength(4000)]
+        public string  DetailDescription { get; set; }
         public Guid Id { get; set; }
         public string Author { get; set; }
         public string AuthorCompany { get; set; }

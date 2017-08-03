@@ -1,0 +1,2490 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head><title>
+	微软人工智能－服务和 API - Microsoft Virtual Academy
+</title><meta name="msvalidate.01" content="CE6521D277F7B574E4EB0A8A346E2C8F" /><meta id="ctl00_ctl00_metaDescription" name="description" content="微软认知服务包涵的智能API让你仅用几行代码就可以借助强大的算法开发应用程序。它们跨设备，跨平台，不论是 iOS、Android 或者 Windows ，你都可以轻松完成配置。百闻不如一见，来看看认知服务可以怎么玩，真实的应用场景与案例与你分享！" /><meta id="ctl00_ctl00_metaKeywords" name="keywords" content="微软人工智能,人工智能,AI,服务和API" /><meta id="ctl00_ctl00_metaShareDescription" property="og:description" content="" /><meta id="ctl00_ctl00_metaShareImage" property="og:image" content="https://mvastorage.microsoft.com/public/images/MVA-share-logo.png" /><meta id="ctl00_ctl00_metaShareUrl" property="og:url" content="https://mva.microsoft.com/zh-cn/training-courses/-api-17770?l=fcxjws13d_6705192810" /><meta id="ctl00_ctl00_metaShareTitle" property="og:title" content="微软人工智能－服务和 API" /><meta id="ctl00_ctl00_metaShareType" property="og:type" content="website" /><meta id="ctl00_ctl00_metaShareSiteName" property="og:site_name" content="Microsoft Virtual Academy" /><link id="ctl00_ctl00_linkCanonical" rel="canonical" href="https://mva.microsoft.com/zh-cn/training-courses/-api-17770" /><link id="ctl00_ctl00_linkFavicon" type="image/x-icon" rel="icon" href="https://mvastorage.microsoft.com/public/images/favicon.ico?v=2017-07-25-1352" /><meta name="baidu-site-verification" content="h5UNj0VUmU" /><meta name="yandex-verification" content="528a82fab537ec21" /><meta name="y_key" content="89232f31452ab887" /><meta id="ctl00_ctl00_metaTitle" name="title" content="微软人工智能－服务和 API - Microsoft Virtual Academy" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@MSVirtAcademy" />
+        <meta name="twitter:title" content="微软人工智能－服务和 API - Microsoft Virtual Academy" />
+        <meta name="twitter:description" content="微软认知服务包涵的智能API让你仅用几行代码就可以借助强大的算法开发应用程序。它们跨设备，跨平台，不论是 iOS、Android 或者 Windows ，你都可以轻松完成配置。百闻不如一见，来看看认知服务可以怎么玩，真实的应用场景与案例与你分享！" />
+        <meta name="twitter:image:src" content="https://mvastorage.microsoft.com/public/images/MVA-share-logo.png" />
+    
+        <meta name="msvalidate.01" content="3BE6CD44E7505CE29A57BE466E072B73" />
+    
+
+    
+
+    <script src="https://mvastorage.microsoft.com/public/scripts/bundles-v1.js" type="text/javascript"></script>
+    <style>
+        @font-face {
+            font-family: 'MDL2';
+            src: url('/Fonts/mdl2/MDL2.eot');
+            src: url('/Fonts/mdl2/MDL2.eot#iefix') format('embedded-opentype'), url('/Fonts/mdl2/MDL2.ttf') format('truetype'), url('/Fonts/mdl2/MDL2.woff') format('woff'), url('/Fonts/mdl2/MDL2.svg#mdl2') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <script type="text/javascript">
+        (function() {
+            window.mdo = {
+                events: [],
+                pushEvent: function(ea, en, ed) {
+                    this.events.push({
+                        "eventAction": ea,
+                        "eventName": en,
+                        "eventDetails": ed
+                    });
+                }
+            };
+        })(); 
+    </script>
+
+    
+    <link id="ctl00_ctl00_head_linkGeneralStyleSheet" rel="stylesheet" type="text/css" href="https://mvastorage.microsoft.com/public/css/general-2017-07-25-1352.css"></link>
+    
+    
+    
+
+    <!-- In order to make pages without hash fragments crawlable, include a special meta tag in the head of the HTML of your page. 
+     this indicates to the crawler that it should crawl the ugly version of this URL -->
+    <meta name="fragment" content="!">
+
+    <script type="text/javascript" src="//api-mlxprod.microsoft.com/bundleloader"></script>
+    <script>
+        var platformVersion = '635586329471302814';
+        var ResourceStrings = {
+            loadingMessage: '正在加载...',
+            levelCaps: '级别',
+            points: '{0} 分',
+            bonusPoints: '完成课程奖励{0}分',
+            updatedContentBonus: '此课程内容已更新，请查找*符号，可能获得额外积分。',
+            CP_AutoPlayOn: 'AutoPlay on',
+            CP_AutoPlayOn_tooltip: '自动播放开',
+            CP_AutoPlayOff: 'AutoPlay off',
+            CP_AutoPlayOff_tooltip: '自动播放关',
+            HideAll: '全部隐藏',
+            ShowAll: '全部显示',
+            MVA_ServiceUnavailableError: '服务器错误',
+            MVA_ServiceUnavailableErrorHeading: '错误',
+            MVA_ServiceUnavailableClose: '关闭',
+            MVA_API_ServerError: '服务器错误',
+            errorGettingCourseDetails: '加载课程详细信息时出现问题。',
+            errorGettingCourseProgress: '获取课程进度时出现问题。',
+            errorInitializingCourse: '加载当前课程时出现问题。',
+            nextText: '下一步',
+            previousText: '上一步',
+            CP_Published: '发布日期：',
+            CP_AssessmentScore: '得分',
+            courseUpdatedText: '此课程内容已更新，请查找*符号，可能获得额外积分。',
+            Play: 'play',
+            Pause: 'pause',
+            CourseRetirementNotification: '十分抱歉，此课程已停用。',
+            SeeAllCourses: '查看所有课程',
+            ViewNewCourse: '查看新课程',
+            CheckOutReplacementCourse: '查看此建议课程：',
+            NoReplacementCourseAvailable: '此课程暂无替代课程。',
+            HasBeenRetiredUnfortunately: '十分抱歉，此课程已停用，暂未提供替代课程。',
+            ViewHomePage: '查看主页',
+            CP_WillBeRetiredOn: '此课程将于 <span class="retirement-date">{Date}</span> 停用，由以下课程取代： ',
+            CP_WillBeRetiredOnWithoutReplacement: '十分抱歉，此课程将于 <span class="retirement-date">{Date}</span> 停止使用，目前暂无替代课程。',
+            SR_Year: '年',
+            SR_Years: '年',
+            SR_Month: '月',
+            SR_Months: '月',
+            SR_Week: '周',
+            SR_Weeks: '周',
+            SR_Day: '日',
+            SR_Days: '日',
+            SR_Today: '今天',
+            SR_Ago: '之前',
+            FindRelatedCourses: '查找相关课程',
+            CP_Complete: '{0}% 完成',
+            CP_Instructors_Comma: ',',
+            CP_SocialShareText_Facebook: '我正在观看 Microsoft Virtual Academy 的专家讲授的 "{CourseTitle}"。请查看本免费课程 {CourseUrl}',
+            CP_SocialShareText_Twitter: '我正在 @MSVirtAcademy 上观看 {CourseTitle}。您也可以：{CourseUrl}',
+            CP_SocialShareText_LinkedIn: '我正在利用 Microsoft Virtual Academy 专家提供的免费 {CourseTitle} 课程来加强我的专业技能组合。您可以利用免费的开发人员和 IT 专业人员的课程来扩展您的培训：Microsoft Virtual Academy',
+            CP_SocialShareText_Mail: '我正在学习 Microsoft Virtual Academy 专家讲授的免费 "{CourseTitle}" 课程。您可以访问以下网址，在 MVA 上了解并探索有关开发人员和 IT 专业人员的更多专业课程：',
+            SocialShareMailSubject: '了解 Microsoft Virtual Academy',
+            PublishedTimeAgoTemplate: '{N} {Unit} {Text}',
+            Pixels: '像素',
+            Embedded_LogInTo: '此内容仅适用于 Microsoft Virtual Academy (MVA) 网站的注册用户。',
+            CourseLevelBeginner: '初级',
+            CourseLevelIntermediate: '中级',
+            CourseLevelAdvanced: '高级',
+            CourseLevelExpert: '专家',
+            EmbedNoReplacementCourse: 'This course was retired.',
+            EmbedNoReplacementLesson: 'This lesson is part of a course that was retired.',
+            EmbedNoReplacementTitle: 'Check out other available courses on MVA.',
+            EmbedReplacementTitle: 'Check out this suggested course instead:',
+            SuggestedCourse: 'View suggested course',
+            VisitMVAHomePage: 'Visit MVA home page'
+        };
+
+        var mvaConstants = {
+            sortCourseName: 'CourseName',
+            sortPublishedTime: 'PublishedTime',
+            sortRelevance: 'Relevance',
+            sortRating: 'StarRating',
+            lcid: 'LCID',
+            topics: 'Topics',
+            products: 'Technologies',
+            productversion: 'TechnologiesCategory',
+            audiences: 'Audiences',
+            courseId: 'CourseId',
+            courseName: 'CourseName',
+            courseDuration: 'CourseDuration',
+            courseImage: 'CourseImage',
+            courseShortDescription: 'CourseShortDescription',
+            courseLevel: 'CourseLevel',
+            allCourses: 'AllCourses',
+            numberOfStudents: 'TotalStudents',
+            courseFormat: 'Format',
+            eventType: 'EventType',
+            liveEvent: 'Live Event',
+            searchSelectMatchOption: 2,
+            topicCollectionId: 1,
+            productCollectionId: 2,
+            audienceCollectionId: 3,
+            productVersionCollectionId: 4,
+            //8- gets the courses specific to organization i.e mapped to organization offer
+            catalogSourceAll: 8,
+            defaultLanguageLCID: 1033,
+            onTotalScrollOffset: 200,
+            resolution_768x1366: [768, 1366],
+            resolution_1366x768: [1366, 768],
+            tileHeight: 173,
+            tileWidth: 220,
+            minTileContainerHeight: 346,
+            animationDuration: 400,
+            anonymous: 'AnonymousAuthenticated',
+            authorized: 'MVA',
+            dynamicTileCreationDefaultOffsetTop: 140,
+            aspectRatioForVideoPlayer: 1.6, // = 730.0 / 456.0
+            sortLiveEventsByDate: 0,
+            sortLiveEventsByTitle: 1,
+            eventTypeAll: 0,
+            Name: 'Name',
+            LocalizedName: 'LocalizedName',
+            Count: 'Count',
+            facebook: 'facebook',
+            twitter: 'twitter',
+            linkedin: 'linkedin',
+            mail: 'mail',
+            tableOfContents: 'Table of contents',
+            coursePlayer: 'course player',
+            embeddedPlayerTemplate: '<iframe src="https://{Host}/{culture}/training-courses-embed/{trackName}/{lessonName}" width="{WidthIframe}" height="{HeightIframe}" allowFullScreen frameBorder="0"></iframe>',
+            embeddedPlayerLessonNotAvailable: 'lesson not available',
+            forum: 'Forum',
+            embeddedPlayer: 'Embedded player',
+            fullPlayer: 'Full player'
+        }
+
+        var CourseLevels = {
+            Beginner: 100,
+            Intermediate: 200,
+            Advanced: 300,
+            Expert: 400
+        };
+
+        var ProgramType = {
+            Kipi: 'Kipi',
+            LearningPath: 'LearningPath',
+            All: 'All'
+        };
+
+    var Configurations = {
+        mvaApiTargetHostname: 'api-mva.microsoft.com',
+        mlxApiTargetHostname: 'api-mlxprod.microsoft.com',
+        mvaAppId: 'B070D012-336A-491C-BE58-04C64086F1D0',
+        facebookAppId: '114189562003069',
+        userGuid: '',
+        idCountry: '2',
+        countryCode: 'CN',
+        courseID: '17770',
+        courseName: '微软人工智能－服务和 API',
+        languageId: '6',
+        languageCode: 'zh-cn',
+        userFinishedTheCourse: ('False' == 'True') ? true : false,
+        isRegisteredUser: ('False' == 'True') ? true : false,
+        lastLaunchedActivity: '',
+        courseVersion: '1.0.0.1',
+        isCourseUpdated: ('False' == 'True') ? true : false,
+        userPreferredLanguage: 'zh-CN',
+        userAssessments: '{}',
+        audience: 'Developer',
+        audienceDetail: 'Developer - Not Applicable',
+        audienceTheme: 'Cloud',
+        typeOfContent: 'Dev1-Discover',
+        coursePlayerUrlTemplate: 'https://{Host}/{LanguageCode}/training-courses/{FriendlyName}',
+        searchResultsUrlTemplate: 'https://{Host}/Search/SearchResults.aspx',
+        maxFreeActions: parseInt('7'),
+        courseWillBeRetired: ('False' == 'True') ? true : false,
+        registerInMLX: ('True' == 'True') ? true : false,
+        saveUserInformationInDb: ('True' == 'True') ? true : false,
+        CoursePlayerUrlTemplate: 'https://{Host}/{LanguageCode}/training-courses/{FriendlyName}',
+        MyProfileUrlTemplate: 'https://{Host}/MyMVA/MyProfile.aspx',
+        DashboardUrlTemplate: 'https://{Host}/MyMVA/Dashboard.aspx',
+        defaultLearningPlanName: '我的学习计划',
+        retirementDateString: '',
+        facebookSocialShareUrlTemplate: 'http://www.facebook.com/dialog/feed?app_id={Id}&link={Link}&description={Description}&redirect_uri={RedirectUri}&name={Name}',
+        twitterSocialShareUrlTemplate: 'https://twitter.com/intent/tweet?text={Text}&url={Url}',
+        linkedinSocialShareUrlTemplate: 'http://www.linkedin.com/shareArticle?mini=true&url={Url}&title={Title}&summary={Summary}&source={Source}',
+        coursePlayerHostUrl: '',
+        isEmbedPlayer: ('False' == 'True') ? true : false,
+        embeddedPlayerResolutions: [{ width: '426', height: '472', id: 'small' },{ width: '636', height: '480', id: 'default' },{ width: '814', height: '664', id: 'large' }],
+        isKipiActive: ('False' == 'True') ? true : false,
+        hideTranscriptTab: ('False' == 'True') ? true : false,
+        playerType: 'fullCoursePlayer',
+        lessonId: 'fCXjWS13D_6705192810',
+        enableTechrewards: ('False' == 'True') ? true : false,
+        forumsLinkUrl: 'http://trainingsupport.microsoft.com/zh-hans/tcmva/forum/tcmvaazure-course_42702',
+        maxVideoAccumulatedTime: 5,
+        showTutorialViewEmbed: ('False' == 'True') ? true : false,
+    };
+        var UserLearningPlan = {};
+        var SavingProgressRsc = '正在保存进度';
+        var homePageUrl='https://mva.microsoft.com/';
+        var showSocialBar=('False' == 'True') ? true : false;
+    </script>
+
+    <script type="text/javascript" src="//mvastorage.microsoft.com/public/scripts/coursePlayerViewModel-2017-07-25-1352.js"></script>
+
+
+    <script src="https://mvastorage.microsoft.com/public/scripts/general-2017-07-25-1352.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta id="ctl00_ctl00_head_metaTitle" name="title" content=""></meta>
+<link id="ctl00_ctl00_linkHeaderAndFooterStyleSheet" rel="stylesheet" type="text/css" href="https://mvastorage.microsoft.com/public/css/headerandfooter-2017-07-25-1352.css" /><link id="ctl00_ctl00_linkDefaultStyleSheetRegional" rel="stylesheet" type="text/css" href="https://mvastorage.microsoft.com/public/css/general-zh-2017-07-25-1352.css" />
+    <script src="//tags.tiqcdn.com/utag/msft/lex-mva/prod/utag.sync.js" type="text/javascript"></script>
+    <script src="https://mvastorage.microsoft.com/public/scripts/registerprofile-2017-07-25-1352.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+            (function(a, b, c, d) {
+                a = '//tags.tiqcdn.com/utag/msft/lex-mva/prod/utag.js';
+                b = document;
+                c = 'script';
+                d = b.createElement(c);
+                d.src = a;
+                d.type = 'text/java' + c;
+                d.async = true;
+                a = b.getElementsByTagName(c)[0];
+                a.parentNode.insertBefore(d, a);
+            })();
+    </script>
+
+    </head>
+<body class="">
+    <form name="aspnetForm" method="post" action="./-api-17770?l=fCXjWS13D_6705192810" id="aspnetForm">
+<input type="hidden" name="ctl00_ctl00_ScriptManager1_HiddenField" id="ctl00_ctl00_ScriptManager1_HiddenField" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+<script type="text/javascript">
+//<![CDATA[
+var __cultureInfo = {"name":"zh-CN","numberFormat":{"CurrencyDecimalDigits":2,"CurrencyDecimalSeparator":".","IsReadOnly":false,"CurrencyGroupSizes":[3],"NumberGroupSizes":[3],"PercentGroupSizes":[3],"CurrencyGroupSeparator":",","CurrencySymbol":"¥","NaNSymbol":"非数字","CurrencyNegativePattern":2,"NumberNegativePattern":1,"PercentPositivePattern":1,"PercentNegativePattern":1,"NegativeInfinitySymbol":"负无穷大","NegativeSign":"-","NumberDecimalDigits":2,"NumberDecimalSeparator":".","NumberGroupSeparator":",","CurrencyPositivePattern":0,"PositiveInfinitySymbol":"正无穷大","PositiveSign":"+","PercentDecimalDigits":2,"PercentDecimalSeparator":".","PercentGroupSeparator":",","PercentSymbol":"%","PerMilleSymbol":"‰","NativeDigits":["0","1","2","3","4","5","6","7","8","9"],"DigitSubstitution":1},"dateTimeFormat":{"AMDesignator":"上午","Calendar":{"MinSupportedDateTime":"\/Date(-62135596800000)\/","MaxSupportedDateTime":"\/Date(253402300799999)\/","AlgorithmType":1,"CalendarType":1,"Eras":[1],"TwoDigitYearMax":2029,"IsReadOnly":false},"DateSeparator":"/","FirstDayOfWeek":1,"CalendarWeekRule":0,"FullDateTimePattern":"yyyy\u0027年\u0027M\u0027月\u0027d\u0027日\u0027 H:mm:ss","LongDatePattern":"yyyy\u0027年\u0027M\u0027月\u0027d\u0027日\u0027","LongTimePattern":"H:mm:ss","MonthDayPattern":"M\u0027月\u0027d\u0027日\u0027","PMDesignator":"下午","RFC1123Pattern":"ddd, dd MMM yyyy HH\u0027:\u0027mm\u0027:\u0027ss \u0027GMT\u0027","ShortDatePattern":"yyyy/M/d","ShortTimePattern":"H:mm","SortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss","TimeSeparator":":","UniversalSortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd HH\u0027:\u0027mm\u0027:\u0027ss\u0027Z\u0027","YearMonthPattern":"yyyy\u0027年\u0027M\u0027月\u0027","AbbreviatedDayNames":["周日","周一","周二","周三","周四","周五","周六"],"ShortestDayNames":["日","一","二","三","四","五","六"],"DayNames":["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],"AbbreviatedMonthNames":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月",""],"MonthNames":["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月",""],"IsReadOnly":false,"NativeCalendarName":"公历","AbbreviatedMonthGenitiveNames":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月",""],"MonthGenitiveNames":["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月",""]},"eras":[1,"公元",null,0]};//]]>
+</script>
+
+<script src="/ScriptResource.axd?d=dWcwBqoQWBaMnfmeKFw4O9WdDfuo7gnDDIW-amwxlL-ZCa8L9NXLcQPKZeAhceqe8FfmfB3oJ4YEEHmbGjlE4kjV6vWNOt0qJ-Bt3mRgqwgS0_OUxBMvhO0CAcAIz-ygBBt9LZmFhIai11UySjwv7vMtS4e0qfAbi-eCjFrVgrOq5OosPjcEYfOwjSAUWog_6LR2hzYKiBgcwaiyT9dNvfFbAAmO57xjLmxzPL1jAk5bt29WsS9BzlMdr_PH_6Wdv7gI-hzDCnfMOlfHWm9tZJ_WlwMRu3ZVOpldaIpeNZQovuRfMjvecDMYjwqkaT_MnwnBAA2" type="text/javascript"></script>
+<script src="https://mvastorage.microsoft.com/public/scripts/headerandfooter-2017-07-25-1352.js" type="text/javascript"></script>
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="C0F7E88F" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="Jv1/eqyTg7npWftfp0Jyik/jSxMISMTOyALEkcQIWIzac3AGz3M+TWqM3h/XswYB4Tp/Ami/0i2B8876OCEI93vhfQFCyURDQ+t/u89x/+p+MhWs/N4vQ3+JqOdT0piZdbxsnszx0SsEokUzqMq7F3ZCX7KMnX7JfHBSd0SqeOGCgHQ7f3XwCpNb4/FI2YBA6Ju06UzhPGtIedq5Xinc5krRLa3aLbUOGrV6tru83Lbuv2vjG/S9GeO0AKBp5yABOitzUaXmcjvpgATq9Pd3Ni++lkPAs3kIvHOUpbwHt/OLC/CL5fEWw9CrNskBCHHsV2PI/s5RoZhNzrhB8zB1Fmu9MEdWL+hesSR1KeEdlSjkrlhZG+26O8L7Ep0XagmPOe70RJee0FFTgLilvdpsJi0SVJ9tPJNZJm9z0VW1gLkYjKWla8hHLo7zjUzQDdDS9XdsOnTlr2mV15vKnZolQ24wJ9XN2uJ5I2MKyJIagi19jHaMYB7y5ySNUI89TvcHUv3Qf/nN13Nzsr2mQAWbzyxRuDL+AIvbHCd+p49woM1nEFqSxDMbK1DNX2MFx0HGOWgY+9FM30smThAjcklnDLGb+pl5Udho83/Plics8qsXgOH1oOpUR5wICm5h+z9PCt9X5S8S39002dAT1kSimwM5y+dQruczzUjwZPKhX5pMjwZlLoeHj+ORwoDyw5MCgo9KZuerQYhRy0wETD+FJ/GsP1Grk7kQDgggx6/5lyZV8xWjnId/+Bdc7IOxwOiFs/S7PD3MZxdjvr5TIOO7260IIFowGuiKa14dI7ugDUK1WZqjrslXbpojI11r8EylxI6Qb/hJfKnpfrV1jOAW8xSumziI0uhKdyEMjYCMsCfN8btLblE/CHrgjebroOyKLmgtbEyssRig1XNsb3mjqxTjAs31kO4XG6KsLxc5KUazV9/uvG/7fNkebbpjUyYyEaEPwoaWBnDs++/wDyt79SFN6RKSrl7Bll38V7CSCJo/XUdm" />
+        
+        
+        
+        <script type="text/javascript">
+            var IsUserMigrated = false;
+            var TrackPageLoad = true;
+            var PageLoadTrackingOptions = {
+                IsLeaderboardView: false,
+                IsBasicProfileView: false,
+                IsProfileView: false,
+                ShowTrackName: true,
+                PageName: "courses|微软人工智能－服务和 api",
+                SiteSection: "courses",
+                Locale: "china",
+                AgentType: "desktop",
+                OfferName: null,
+                CourseFilter: null,
+                TrackName: true ? TrackingConstants.courseNameTemplate.replace("{idMLX}", "17770").replace("{courseName}", "微软人工智能－服务和 API") : null,
+                TrackProduct: "azure,windows,visual studio,ai platform",
+                TrackTopic: "cloud development,azure for developers,development",
+                Referrer: null,
+                VideoTitle: null,
+                LiveEventName: null,
+                Audience: "developer",
+                AudienceDetail: "developer - not applicable",
+                CourseTheme: "cloud",
+                UserType: 'null',
+                recommendedSearchTerm:''
+            }
+            
+            var RegisterPageConfig = {
+                DefaultCountryCode : 'CN',
+                DefaultLanguageCode : 'zh-cn',
+                HlurlTermsOfUse : 'http://go.microsoft.com/fwlink/?LinkID=206977',
+                HlurlPrivacyStatement : 'https://go.microsoft.com/fwlink/?LinkId=521839',
+                AvailableUILCIDs : [1031,1049,2052,1034,1046,1045,1036,1041,1055,1042,1029,1033,1040,1028],
+                prePopulatedUserCountry: 'china',
+                prePopulatedUserLanguage: 'chinese - simplified',
+                prePopulatedAcceptCommunication: 'no',
+                countryName: 'China'
+            };
+
+            var TechRewardConfig = {
+                AllowRegisterTechRewards:('False' == 'True') ? true : false
+            };
+
+            
+            var searchViewModel = '';
+            var SearchResultsUrlTemplate =  'https://{Host}/Search/SearchResults.aspx';
+            var lcid='2052';
+            var courseViewModel='';
+
+        </script>
+        
+        
+        <div id="ctl00_ctl00_UserControlHeader_ucCookieNotice_upCookieNotice">
+	
+        
+    
+</div>
+
+
+
+<header id="header">
+    <div id="header-content">
+        <div id="header-content-container">
+            <div class="left-menu">
+                
+                <a id="LinkHome" href="https://mva.microsoft.com/" onclick="trackNavigationClick('header:mva', 'o');" class="header-item home text-style">
+                    Microsoft Virtual Academy
+                </a>
+                <nav role="navigation" id="divShowCourses" class="header-item courses text-style pop-menu">
+                    <a id="courses-trigger" class="pop-trigger" aria-owns="header-courses" href="javascript:void(0)">
+                        <span>课程</span>
+                    </a>
+                    <div class="carot pop-content" id="coursesLeftMenuCarot"></div>
+                    <div id="header-courses" class="pop-content" role="menu">
+                        
+                        <div id="courses-left-menu" class="tabs" aria-hidden="true">
+                            <ul class="tab-options">
+                                <li class="btn-container">
+                                    <a class="btn" id="tab-courses-button" href="#tab-courses">
+                                        <div class="sprite coursesIcon"></div>
+                                        <div>课程</div>
+                                    </a>
+                                </li>
+                                 <li class="btn-container">
+                                    <a id="learningtracks"  class="btn kipi" href="#tab-learningtracks">
+                                        <div class="icon-menu-learningpath"></div><div>Learning Paths</div>
+                                        <div class="sprite arrowActive disabled"></div>
+                                    </a>
+                                </li>
+                                <li class="btn-container">
+                                    <a class="btn" id="tab-liveevents-button" href="#tab-liveevents">
+                                        <div class="sprite liveEventsIcon"></div>
+                                        <div>在线课堂</div>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+
+                            <div id="tab-courses" class="courses-tab">
+                                
+                                <div class="list-container topics">
+                                    <span class="topics-title accordian3">按主题</span>
+                                    <ul class="topics-list">
+                                        
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/app-development-topic-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl00_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:App Development&#39;, &#39;o&#39;);">
+                                                        App Development
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/business_intelligence_topic_page_cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl01_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Business Intelligence&#39;, &#39;o&#39;);">
+                                                        Business Intelligence
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/c_topic_page_chs" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl02_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:C# / XAML&#39;, &#39;o&#39;);">
+                                                        C# / XAML
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/cloud-development-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl03_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Cloud Development&#39;, &#39;o&#39;);">
+                                                        Cloud Development
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/collaboration_topic_page_s_cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl04_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Collaboration&#39;, &#39;o&#39;);">
+                                                        Collaboration
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/data-center-cloud-extension-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl05_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Data Center Cloud Extension&#39;, &#39;o&#39;);">
+                                                        Data Center Cloud Extension
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/desktop-devices-management-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl06_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Desktop &amp; Devices Managing &#39;, &#39;o&#39;);">
+                                                        Desktop & Devices Managing 
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/devops-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl07_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:DevOps&#39;, &#39;o&#39;);">
+                                                        DevOps
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/enterprise-security-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl08_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Enterprise Security&#39;, &#39;o&#39;);">
+                                                        Enterprise Security
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/game-development-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl09_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Game Development&#39;, &#39;o&#39;);">
+                                                        Game Development
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/html5_topic_page_cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl10_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:HTML5&#39;, &#39;o&#39;);">
+                                                        HTML5
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/hybrid-cloud-topic-page-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl11_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Hybrid Cloud&#39;, &#39;o&#39;);">
+                                                        Hybrid Cloud
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/hybrid-cloud-automation-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl12_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Hybrid Cloud Automation&#39;, &#39;o&#39;);">
+                                                        Hybrid Cloud Automation
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/identity-and-access-management-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl13_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Identity and Access Management&#39;, &#39;o&#39;);">
+                                                        Identity and Access Management
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/imagine-educator-resources-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl14_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Imagine - Educator Resources&#39;, &#39;o&#39;);">
+                                                        Imagine - Educator Resources
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/imagine-learn-to-code-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl15_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Imagine - Learn to Code&#39;, &#39;o&#39;);">
+                                                        Imagine - Learn to Code
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/imagine-validate-your-skills-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl16_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Imagine - Validate your skills&#39;, &#39;o&#39;);">
+                                                        Imagine - Validate your skills
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/licensing_topic_page_cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl17_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Licensing&#39;, &#39;o&#39;);">
+                                                        Licensing
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/management-security-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl18_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Management &amp; Security&#39;, &#39;o&#39;);">
+                                                        Management & Security
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/mobile-development-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl19_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Mobile Development&#39;, &#39;o&#39;);">
+                                                        Mobile Development
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/mobile-device-management-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl20_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Mobile Device Management&#39;, &#39;o&#39;);">
+                                                        Mobile Device Management
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/private_cloud_topic_page_cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl21_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Private Cloud&#39;, &#39;o&#39;);">
+                                                        Private Cloud
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/quick-start-challenges-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl22_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Quick Start Challenges&#39;, &#39;o&#39;);">
+                                                        Quick Start Challenges
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/server-infrastructure-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl23_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Server Infrastructure&#39;, &#39;o&#39;);">
+                                                        Server Infrastructure
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/virtualization_topic_page_cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl24_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Virtualization&#39;, &#39;o&#39;);">
+                                                        Virtualization
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/training-topics/web-development-cn" id="ctl00_ctl00_UserControlHeader_RepeaterTopicCourses_ctl25_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:topics:Web Development&#39;, &#39;o&#39;);">
+                                                        Web Development
+                                                    </a>
+                                                </li>
+                                            
+                                    </ul>
+                                </div>
+
+                                
+                                <div class="list-container products">
+                                    <span class="topics-title accordian3">按产品</span>
+                                    <ul class="topics-list">
+                                        
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/exchange-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl00_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Exchange&#39;, &#39;o&#39;);">
+                                                        Exchange
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/product-windows-azure-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl01_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Microsoft Azure&#39;, &#39;o&#39;);">
+                                                        Microsoft Azure
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/microsoft-dynamics-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl02_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Microsoft Dynamics&#39;, &#39;o&#39;);">
+                                                        Microsoft Dynamics
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/office-365-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl03_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Office 365&#39;, &#39;o&#39;);">
+                                                        Office 365
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/office-development-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl04_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Office 365 for Developers&#39;, &#39;o&#39;);">
+                                                        Office 365 for Developers
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/office_365_cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl05_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Office 365 for End Users&#39;, &#39;o&#39;);">
+                                                        Office 365 for End Users
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/office-365-for-it-pro-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl06_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Office 365 for IT Pros&#39;, &#39;o&#39;);">
+                                                        Office 365 for IT Pros
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/power-bi-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl07_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Power BI&#39;, &#39;o&#39;);">
+                                                        Power BI
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/sharepoint-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl08_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:SharePoint&#39;, &#39;o&#39;);">
+                                                        SharePoint
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/skype-for-business-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl09_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Skype for Business Courses&#39;, &#39;o&#39;);">
+                                                        Skype for Business Courses
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/product-sql-server-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl10_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:SQL Server&#39;, &#39;o&#39;);">
+                                                        SQL Server
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/product-system-center-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl11_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:System Center&#39;, &#39;o&#39;);">
+                                                        System Center
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/product-visual-studio-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl12_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Visual Studio&#39;, &#39;o&#39;);">
+                                                        Visual Studio
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/windows-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl13_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Windows&#39;, &#39;o&#39;);">
+                                                        Windows
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/windows-phone-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl14_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Windows Phone Development&#39;, &#39;o&#39;);">
+                                                        Windows Phone Development
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/product-windows-server-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl15_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Windows Server&#39;, &#39;o&#39;);">
+                                                        Windows Server
+                                                    </a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a href="https://mva.microsoft.com/product-training/product-windows-store-apps-cn" id="ctl00_ctl00_UserControlHeader_RepeaterProductCourses_ctl16_urlHeaderTopic" class="text-style" onclick="trackNavigationClick(&#39;header:courses:products:Windows Store Apps Development&#39;, &#39;o&#39;);">
+                                                        Windows Store Apps Development
+                                                    </a>
+                                                </li>
+                                            
+                                    </ul>
+                                </div>
+
+                                
+                                
+                                    <div id="divPopularCourses" class="list-container popular">
+                                        <span class="topics-title accordian3">热门课程</span>
+                                        <ul class="topics-list">
+                                            
+                                                    <li>
+                                                        <a href="https://mva.microsoft.com/zh-cn/training-courses/%e9%9d%a2%e5%90%91%e9%9b%b6%e5%9f%ba%e7%a1%80%e6%96%b0%e6%89%8b%e7%9a%84-c-%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86-16169" id="ctl00_ctl00_UserControlHeader_RepeaterPopularCourses_ctl00_courseLink" onclick="trackNavigationClick(&#39;header:popular courses:面向零基础新手的 C# 基础知识&#39;, &#39;o&#39;);">
+                                                            面向零基础新手的 C# 基础知识
+                                                        </a>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <a href="https://mva.microsoft.com/zh-cn/training-courses/%e6%96%b0%e6%89%8b%e5%85%a5%e9%97%a8-c--8295" id="ctl00_ctl00_UserControlHeader_RepeaterPopularCourses_ctl01_courseLink" onclick="trackNavigationClick(&#39;header:popular courses:新手入门 C#&#39;, &#39;o&#39;);">
+                                                            新手入门 C#
+                                                        </a>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <a href="https://mva.microsoft.com/zh-cn/training-courses/%e5%be%ae%e8%bd%af%e4%ba%ba%e5%b7%a5%e6%99%ba%e8%83%bd%e6%a6%82%e8%a7%88-17778" id="ctl00_ctl00_UserControlHeader_RepeaterPopularCourses_ctl02_courseLink" onclick="trackNavigationClick(&#39;header:popular courses:微软人工智能概览&#39;, &#39;o&#39;);">
+                                                            微软人工智能概览
+                                                        </a>
+                                                    </li>
+                                                
+                                        </ul>
+                                    </div>
+                                
+                                <div class="list-container view-all-container">
+                                    <span class="ignore accordian3 ui-accordion-content">
+                                        <a href="https://mva.microsoft.com/search/SearchResults.aspx" id="ctl00_ctl00_UserControlHeader_aAllCourses" class="hlViewAllCourses" onclick="trackNavigationClick(&#39;header:courses:view all&#39;, &#39;o&#39;);">
+                                            <div class="view-all courses callout">
+                                            </div>
+                                            <div class="see-all courses callout">
+                                                查看所有课程
+                                            </div>
+                                            <div class="list-container collapsed">
+                                                查看所有课程
+                                            </div>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div id="tab-liveevents" style="display: none;" class="courses-tab">
+                                
+                                
+
+                                
+                                
+                                    <div class="list-container jumpstarts">
+                                        <span class="topics-title accordian3">在线课堂录播课程</span>
+                                        <ul class="topics-list">
+                                            
+                                                    <li>
+                                                        <a href="https://mva.microsoft.com/training-courses/introduction-to-office-365-development-cn" id="ctl00_ctl00_UserControlHeader_RepeaterJumpstarts_ctl00_courseLink" class="text-style" onclick="trackNavigationClick(&#39;header:live events:on demand:Office 365 开发简介&#39;, &#39;o&#39;);">
+                                                            Office 365 开发简介
+                                                        </a>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <a href="https://mva.microsoft.com/training-courses/hour-of-code-with-touchdevelop-cn" id="ctl00_ctl00_UserControlHeader_RepeaterJumpstarts_ctl01_courseLink" class="text-style" onclick="trackNavigationClick(&#39;header:live events:on demand:使用 TouchDevelop 完成“编程一小时”&#39;, &#39;o&#39;);">
+                                                            使用 TouchDevelop 完成“编程一小时”
+                                                        </a>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <a href="https://mva.microsoft.com/training-courses/querying-microsoft-sql-server-2012-databases-jump-start_chs" id="ctl00_ctl00_UserControlHeader_RepeaterJumpstarts_ctl02_courseLink" class="text-style" onclick="trackNavigationClick(&#39;header:live events:on demand:快速入门 : Microsoft SQL Server 2012 数据库查询&#39;, &#39;o&#39;);">
+                                                            快速入门 : Microsoft SQL Server 2012 数据库查询
+                                                        </a>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <a href="https://mva.microsoft.com/training-courses/793" id="ctl00_ctl00_UserControlHeader_RepeaterJumpstarts_ctl03_courseLink" class="text-style" onclick="trackNavigationClick(&#39;header:live events:on demand:快速入门 : 提升技能，掌握 Windows Server 2012&#39;, &#39;o&#39;);">
+                                                            快速入门 : 提升技能，掌握 Windows Server 2012
+                                                        </a>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <a href="https://mva.microsoft.com/training-courses/getting-started-with-powershell-3-0-jump-start-cn" id="ctl00_ctl00_UserControlHeader_RepeaterJumpstarts_ctl04_courseLink" class="text-style" onclick="trackNavigationClick(&#39;header:live events:on demand:快速入门 : PowerShell 3.0&#39;, &#39;o&#39;);">
+                                                            快速入门 : PowerShell 3.0
+                                                        </a>
+                                                    </li>
+                                                
+                                        </ul>
+                                    </div>
+                                
+                                <div class="list-container view-all-container">
+                                     <span class="ignore accordian3 ui-accordion-content">
+                                        <a href="https://mva.microsoft.com/Live-Training-Events" id="ctl00_ctl00_UserControlHeader_aAllLiveEvents" class="hlViewAllCourses" onclick="trackNavigationClick(&#39;header:live events&#39;, &#39;o&#39;);">
+                                            <div class="view-all liveevents callout">
+                                            </div>
+                                            <div class="see-all liveevents callout">
+                                                查看所有现场活动
+                                            </div>
+                                            <div class="list-container collapsed">
+                                                查看所有现场活动
+                                            </div>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div id="tab-books" style="display: none;" class="courses-tab">
+                                <div class="booksTitle">
+                                    <div class="text">
+                                        Now Available from Microsoft Press
+                                    </div>
+                                </div>
+                                
+                                
+
+                                
+                                
+
+                                
+                                
+                            </div>
+
+                             <div id="tab-learningtracks" class="courses-tab">
+                                
+                                
+                                        <div class="list-container liveevents">
+                                            <span class="topics-title accordian3"> For Developer</span>
+                                            <ul class="topics-list">
+                                                
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/mean-stack-development-5" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl00_RepeaterLearningPaths_ctl00_pathName" class="text-style">
+                                                                MEAN Stack Development
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl00$RepeaterLearningPaths$ctl00$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl00_RepeaterLearningPaths_ctl00_pathId" value="5" />
+                                                    
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/asp-net-core-6" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl00_RepeaterLearningPaths_ctl01_pathName" class="text-style">
+                                                                ASP.NET Core
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl00$RepeaterLearningPaths$ctl01$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl00_RepeaterLearningPaths_ctl01_pathId" value="6" />
+                                                    
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/devops-for-developers-8" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl00_RepeaterLearningPaths_ctl02_pathName" class="text-style">
+                                                                DevOps for Developers
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl00$RepeaterLearningPaths$ctl02$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl00_RepeaterLearningPaths_ctl02_pathId" value="8" />
+                                                    
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/office-365-development-15" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl00_RepeaterLearningPaths_ctl03_pathName" class="text-style">
+                                                                Office 365 Development
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl00$RepeaterLearningPaths$ctl03$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl00_RepeaterLearningPaths_ctl03_pathId" value="15" />
+                                                    
+                                            </ul>
+                                        </div>
+                                    
+                                        <div class="list-container liveevents">
+                                            <span class="topics-title accordian3"> For IT Pros</span>
+                                            <ul class="topics-list">
+                                                
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/security-for-it-pros-4" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl00_pathName" class="text-style">
+                                                                Security for IT Pros
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl01$RepeaterLearningPaths$ctl00$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl00_pathId" value="4" />
+                                                    
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/devops-for-it-pros-7" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl01_pathName" class="text-style">
+                                                                DevOps for IT Pros
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl01$RepeaterLearningPaths$ctl01$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl01_pathId" value="7" />
+                                                    
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/introduction-to-windows-server-2012-r2-9" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl02_pathName" class="text-style">
+                                                                Introduction to Windows Server 2012 R2
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl01$RepeaterLearningPaths$ctl02$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl02_pathId" value="9" />
+                                                    
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/windows-server-2012-r2-security-and-identity-10" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl03_pathName" class="text-style">
+                                                                Windows Server 2012 R2 Security and Identity
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl01$RepeaterLearningPaths$ctl03$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl03_pathId" value="10" />
+                                                    
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/windows-server-2012-r2-compute-11" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl04_pathName" class="text-style">
+                                                                Windows Server 2012 R2 Compute
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl01$RepeaterLearningPaths$ctl04$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl04_pathId" value="11" />
+                                                    
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/powershell-beginner-12" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl05_pathName" class="text-style">
+                                                                PowerShell: Beginner
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl01$RepeaterLearningPaths$ctl05$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl05_pathId" value="12" />
+                                                    
+                                                        <li>
+                                                            <a href="https://mva.microsoft.com/learning-path/powershell-advanced-13" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl06_pathName" class="text-style">
+                                                                PowerShell: Advanced
+                                                            </a>
+                                                        </li>
+                                                        <input name="ctl00$ctl00$UserControlHeader$RepeaterLearningTracks$ctl01$RepeaterLearningPaths$ctl06$pathId" type="hidden" id="ctl00_ctl00_UserControlHeader_RepeaterLearningTracks_ctl01_RepeaterLearningPaths_ctl06_pathId" value="13" />
+                                                    
+                                            </ul>
+                                        </div>
+                                    
+                                <div class="list-container view-all-container">
+                                     <span class="ignore accordian3 ui-accordion-content">
+                                        <a href="https://mva.microsoft.com/LearningPaths.aspx" id="ctl00_ctl00_UserControlHeader_aViewAllLearningTracks" class="hlViewAllCourses" onclick="trackNavigationClick(&#39;header:learningtracks&#39;, &#39;o&#39;);">
+                                            <div class="view-all liveevents callout">
+                                            </div>
+                                            <div class="see-all liveevents callout">
+                                                See all learning paths
+                                            </div>
+                                            <div class="list-container collapsed">
+                                                See all learning paths
+                                            </div>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="courses-left-menu-accordion" class="accordion">
+                            <span class="acc-courses accordian"><div class="sprite coursesIcon"></div><div>课程</div></span>
+                            <span class="acc-learningtracks accordian"><div class="icon-menu-learningpath"></div><div>Learning Paths</div></span>
+                            <span class="acc-liveevents accordian"><div class="sprite liveEventsIcon"></div><div>在线课堂</div></span>
+                            
+                            <span class="ignore ui-accordion-content home-link accordian">
+                                <a id="hlHome" href="https://mva.microsoft.com/" onclick="trackNavigationClick('header:mva', 'o');" class="topics-title">主页</a>
+                            </span>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="pop-menu search">
+                <a class="sprite header-item search-mobile disabled pop-trigger" aria-owns="search-bar" href="javascript:void(0)" title="查找您要查找的课程..." >
+                    <div class="quick-search-carot pop-content" id="searchCarot"></div>
+                </a>
+                
+                <div id="search-bar" class="header-search-box disabled pop-content">
+                    <div id="ctl00_ctl00_UserControlHeader_ucQuickSearchBox_PanelQuickSearch" class="quick-search-box">
+	
+    <div class="search-box-query">
+        <div class="carot pop-content" id="quickSearchBoxCarot"></div>
+        <label for="ctl00_ctl00_UserControlHeader_ucQuickSearchBox_txtQuery" class="sr">搜索所有课程</label>
+        <input name="ctl00$ctl00$UserControlHeader$ucQuickSearchBox$txtQuery" id="ctl00_ctl00_UserControlHeader_ucQuickSearchBox_txtQuery" class="default-text quicksearchbox" type="search" placeholder="搜索所有课程" />
+        <input type="hidden" name="ctl00$ctl00$UserControlHeader$ucQuickSearchBox$HiddenFieldTxtQuery" id="ctl00_ctl00_UserControlHeader_ucQuickSearchBox_HiddenFieldTxtQuery" />
+
+        <button onclick="if($('input[id$=txtQuery]').val().trim()){processSearch();}else{return false;}; __doPostBack('ctl00$ctl00$UserControlHeader$ucQuickSearchBox$btnSearch','')" id="ctl00_ctl00_UserControlHeader_ucQuickSearchBox_btnSearch" class="search-box-image">
+            <span class="sr">搜索</span>
+        </button>
+    </div>
+
+</div>
+                </div>
+            </div>
+
+            
+            <div id="ctl00_ctl00_UserControlHeader_rightMenuTemplate" class="right-menu">
+
+                
+                <div id="rightMenuNotLoggedIn" style="display: none">
+                    <a class="header-item login" id="lbtnButtonLogOn" onclick="mlxSignIn();trackNavigationClick('home:login', 'o');" href="javascript:void(0);">
+                        <span class="text-style">登录</span>
+                        <div class="sprite login"></div>
+                    </a>
+                </div>
+
+
+                
+                <div id="rightMenuLoggedIn" class="pop-menu" style="display: none">
+                    <a id="lnkDashboard" class="header-item dashboard" onclick="trackHeaderNavigation('userDashboard');" href="#">
+                        控制板
+                    </a>
+                    <div class="header-item profileMenu">
+                        <a href="#" class="withCourseArrow pop-trigger">
+                            <span class="text-style" id="userName" data-bind="text: fullName"></span>
+                        </a>
+                    </div>
+                    <nav class="dropDownMenuProfile pop-content">
+                        <ul id="header-profile-menu">
+                            <li>
+                                <div class="carot"></div>
+                            </li>
+                            <li>
+                                <a id="ctl00_ctl00_UserControlHeader_lnkMyProfile" onclick="trackHeaderNavigation(this.title);" title="编辑个人资料" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlHeader$lnkMyProfile&#39;,&#39;&#39;)">
+                                    编辑个人资料
+                                </a>
+                            </li>
+                            <li class="header-profile-separetor"></li>
+                            <li>
+                                <a onclick="mlxSignOut();trackHeaderNavigation('注销');" id="lbtnLogOff" href="#">注销</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        
+        
+        <div class="popupscontainer">
+            
+
+
+<div class="user-migrated" style="display: none;">
+    <div class="top-container">
+        <div class="maintenance-msg">
+            <div class="maintenance-msg-icon"></div>
+            <div class="maintenance-msg-text headline">服务维护计划</div>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="bold-msg">感谢您成为 MVA 成员！我们正在升级系统。</div>
+        <div class="bodyStyle service-unavailable-msg">您仍可以观看视频，但在未来几小时中将不能注册在线课堂、更改个人资料、访问控制板、跟踪课程进度以及评估。</div>
+    </div>
+    <button onclick="disablePopup($('.user-migrated'));saveShownMigrationBannerCookie();" type="button" class="btn-close" title="关闭">关闭</button>
+</div>
+
+
+<div class="user-migrated-loginTo" style="display: none;">
+    <div class="top-container">
+        <div class="maintenance-msg">
+            <div class="carot"></div>
+            <div class="maintenance-msg-icon"></div>
+            <div class="maintenance-msg-text headline">服务维护计划</div>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="bold-msg subHead">欢迎访问 Microsoft Virtual Academy！</div>
+        <div class="upgrading-msg bodyStyle">系统正在升级中，在未来几小时中将会影响您注册和登录。</div>
+        <div class="bodyStyle service-unavailable-msg">您仍可以观看视频，但要充分使用成员权益，请在系统升级完成后重试。</div>
+        <button onclick="disablePopup($('.user-migrated-loginTo'));" type="button" class="btn-close" title="关闭">关闭</button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (Configurations.isMigrationCompleted) {
+            $("[id$='LinkButtonLogOntoAddLearningPlan']").on('click', function (e) {
+                e.preventDefault();
+                mlxSignIn();
+            });
+        }
+    });
+</script>
+
+
+            
+            <div class="popUpLogin popUpLoginToAddLearningPlan" onclick="event.stopPropagation();" role="alertdialog" aria-describedby="popUpLoginToAddLearningPlan">
+                <div class="carot"></div>
+                <div class="banner"></div>
+                <div class="body">
+                    <div class="title fontW300">成为成员</div>
+                    <div class="main-text" id="popUpLoginToAddLearningPlan"><b>希望管理学习计划？</b></div>
+                    <div class="buttons-container not-registered-user">
+                        <div class="left">
+                            <a href="javascript:void(0)" role="button" id="selfAssessmentDismiss" onclick="closeLoginPopup();trackBeforeSignInClick('Maybe Later');" class="btnDeny">
+                                以后再考虑
+                            </a>
+                        </div>
+                        <div class="right">
+                            <a href="javascript:void(0)" role="button" id="LogOntoAddLearningPlan" onclick="trackBeforeSignInClick('Join Now'); mlxSignIn();" class="btnContinue">
+                                立即加入
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    
+    
+
+
+<div class="popUpLogin popUpLoginToViewContent" role="alertdialog" aria-describedby="popUpLoginToViewContent">
+    <div class="carot"></div>
+    <div class="banner"></div>
+    <div class="body">
+        <div class="title fontW300">成为成员</div>
+        <div class="main-text" id="popUpLoginToViewContent"><b>希望访问课程内容？</b><br/>若要使用此功能，请重新登录 Microsoft 虚拟学院</div>
+        <div class="buttons-container registered-user">
+            <div class="left">
+                <a href="javascript:void(0)" role="button" onclick="closeLoginPopup();" class="btnDeny">
+                    以后再考虑
+                </a>
+            </div>
+            <div class="right">
+                <a onclick="trackNavigationClick(&#39;courses:sign in&#39;, &#39;o&#39;);" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_LinkButtonLogOntoTake" class="btnContinue" href="javascript:__doPostBack(&#39;ctl00$ctl00$PopupContainer$PopupContainer$CoursePlayerPopUps$LinkButtonLogOntoTake&#39;,&#39;&#39;)">立即加入</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="popUpLogin popUpLoginToSelfAssessment" role="alertdialog" aria-describedby="popUpLoginToSelfAssessment">
+    <div class="carot"></div>
+    <div class="banner"></div>
+    <div class="body">
+        <div class="title fontW300">成为成员</div>
+        <div class="main-text" id="popUpLoginToSelfAssessment"><b>希望进行自我评估？</b></div>
+        <div class="buttons-container not-registered-user">
+            <div class="left">
+                <a href="javascript:void(0)" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_selfAssessmentDismiss" role="button" onclick="closeLoginPopup();trackBeforeSignInClick(&#39;Maybe Later&#39;);" class="btnDeny">
+                    以后再考虑
+                </a>
+            </div>
+            <div class="right">
+                <a onclick="trackBeforeSignInClick(&#39;Join Now&#39;);" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_LinkButtonSelfAssessmentsFreeActions" class="btnContinue" href="javascript:__doPostBack(&#39;ctl00$ctl00$PopupContainer$PopupContainer$CoursePlayerPopUps$LinkButtonSelfAssessmentsFreeActions&#39;,&#39;&#39;)">立即加入</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="popUpLogin popUpLogInToRate" role="alertdialog" aria-describedby="popUpLogInToRate">
+    <div class="carot"></div>
+    <div class="banner"></div>
+    <div class="body">
+        <div class="title fontW300">成为成员</div>
+        <div class="main-text" id="popUpLogInToRate">是否希望为此课程评分？</div>
+        <div class="buttons-container not-registered-user">
+            <div class="left">
+                <a href="javascript:void(0)" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_ratingDismiss" role="button" onclick="closeLoginPopup();snooze(&#39;mva.microsoft.com&#39;);trackBeforeSignInClick(&#39;Maybe Later&#39;);" class="btnDeny">
+                    以后再考虑
+                </a>
+            </div>
+            <div class="right">
+                <a onclick="trackBeforeSignInClick(&#39;Join Now&#39;);" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_LinkButtonRating" class="btnContinue" href="javascript:__doPostBack(&#39;ctl00$ctl00$PopupContainer$PopupContainer$CoursePlayerPopUps$LinkButtonRating&#39;,&#39;&#39;)">立即加入</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="popUpContent outOfFreeActionsPopUp freeActionsPopUp" role="alertdialog" aria-describedby="outOfFreeActionsPopUp">
+    <div class="popup-content">
+        <div class="body">
+            <div class="title"><b>学习新技能，拓展职业前景！</b>立即注册，即可免费无限访问数百门专家引导的在线课程。</div>
+            <div class="main-text" id="outOfFreeActionsPopUp"><ul>
+<li><b>按照自己的节奏来学习</b>，利用恰当时间完成按需点播课程</li>
+<li>与专家<b>实时交谈</b>，同时体验<b>实时在线学习</b>活动</li>
+<li>访问优质 Microsoft 培训课程的<b>完整资源库</b>，学习<b>最新技术</b></li>
+<li>学习免费课程，准备参加 <b>Microsoft 认证考试</b></li>
+<li>创建自己的<b>学习计划</b>，引导和跟踪学习进度</li>
+</ul></div>
+        </div>
+        <a onclick="trackBeforeSignInClick(&#39;Join Now&#39;);" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_LinkButtonOutOfFreeActions" class="sign-in button" href="javascript:__doPostBack(&#39;ctl00$ctl00$PopupContainer$PopupContainer$CoursePlayerPopUps$LinkButtonOutOfFreeActions&#39;,&#39;&#39;)">是的，我要注册。</a>
+        <a href="javascript:void(0)" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_outOfActionsDismiss" role="button" class="snooze button" onclick="snooze(&#39;mva.microsoft.com&#39;);trackBeforeSignInClick(&#39;Maybe Later&#39;);">不需要，谢谢，以后再考虑</a>
+    </div>
+</div>
+
+
+<div class="popUpContent snoozedFreeActionsPopUp freeActionsPopUp" role="alertdialog" aria-describedby="snoozedFreeActionsPopUp">
+    <div class="popup-content">
+        <div class="body">
+            <div class="title" id="snoozedFreeActionsPopUp"><b>我们知道，您希望学习更多技能，拓展职业前景！</b>立即注册，即可免费无限访问数百门专家引导的在线课程。</div>
+            <div class="main-text"><ul>
+<li><b>按照自己的节奏来学习</b>，利用恰当时间完成按需点播课程</li>
+<li>与专家<b>实时交谈</b>，同时体验<b>实时在线学习</b>活动</li>
+<li>访问优质 Microsoft 培训课程的<b>完整资源库</b>，学习<b>最新技术</b></li>
+<li>学习免费课程，准备参加 <b>Microsoft 认证考试</b></li>
+<li>创建自己的<b>学习计划</b>，引导和跟踪学习进度</li>
+</ul></div>
+        </div>
+        <a onclick="trackBeforeSignInClick(&#39;Join Now&#39;);" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_LinkButtonSnoozedFreeActions" class="sign-in button" href="javascript:__doPostBack(&#39;ctl00$ctl00$PopupContainer$PopupContainer$CoursePlayerPopUps$LinkButtonSnoozedFreeActions&#39;,&#39;&#39;)">是的，我要注册。</a>
+        <a href="javascript:void(0)" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_snoozedActionsDismiss" role="button" class="snooze button" onclick="snooze(&#39;mva.microsoft.com&#39;);trackBeforeSignInClick(&#39;Maybe Later&#39;);">不需要，谢谢，以后再考虑</a>
+    </div>
+</div>
+
+
+<div class="popup-confirm popUpMessageNotDownloadContent" style="width: 270px; height: 130px;" role="alertdialog" aria-describedby="popUpMessageNotDownloadContent">
+    <div class="popup-notification" id="popUpMessageNotDownloadContent">
+        通知
+    </div>
+    <a href="javascript:void(0)" role="button" class="cancelButton-small" title="取消" onclick="disablePopup($('.popUpMessageNotDownloadContent'));">&nbsp;</a>
+    <div class="notification-body">
+        <div class="text-container">请在进入下一段之前，先完成本门课的前段内容</div>
+    </div>
+</div>
+
+
+<div class="popup-confirm popUpMessageNotTakeExam" style="width: 280px; height: 100px;" role="alertdialog" aria-describedby="popUpMessageNotTakeExam">
+    <div class="popup-notification" id="popUpMessageNotTakeExam">
+        通知
+    </div>
+    <a href="javascript:void(0)" role="button" class="cancelButton-small" title="取消" onclick="disablePopup($('.popUpMessageNotTakeExam'));">&nbsp;</a>
+    <div class="notification-body">
+        <div class="text-container">请在进入测试之前先复习一下本段内容</div>
+    </div>
+</div>
+
+
+<div class="popUpLogin popUpFirstTrialSignUp" role="alertdialog" aria-describedby="popUpFirstTrialSignUp">
+    <div class="carot"></div>
+    <div class="banner"></div>
+    <div class="body">
+        <div class="title">成为成员</div>
+        <div class="main-text" id="popUpFirstTrialSignUp">若希望能够无限制访问这些一流内容的更多精彩，外加：<ul><li>管理学习计划</li><li>参加现场活动</li><li>跟踪进度</li><li>进行自我评估</li><li>参与论坛</li><li>获得购书折扣</li></ul>立即免费成为 MVA 成员！</div>
+        <div class="buttons-container">
+            <div class="left">
+                <a href="javascript:void(0)" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_signupFirstTrialDismiss" role="button" class="btnDeny" onclick="snooze(&#39;mva.microsoft.com&#39;);closeLoginPopup();trackBeforeSignInClick(&#39;Maybe Later&#39;);">
+                    以后再考虑
+                </a>
+            </div>
+            <div class="right">
+                <a id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_LinkButton1" class="btnContinue" showupdateprogress="false" href="javascript:__doPostBack(&#39;ctl00$ctl00$PopupContainer$PopupContainer$CoursePlayerPopUps$LinkButton1&#39;,&#39;&#39;)">立即加入</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_upHiddenFields">
+	
+        <input type="hidden" name="ctl00$ctl00$PopupContainer$PopupContainer$CoursePlayerPopUps$HiddenFieldSelectedModuleId" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_HiddenFieldSelectedModuleId" value="0" />
+        <input type="hidden" name="ctl00$ctl00$PopupContainer$PopupContainer$CoursePlayerPopUps$HiddenFieldActivityType" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_HiddenFieldActivityType" value="0" />
+        <input type="hidden" name="ctl00$ctl00$PopupContainer$PopupContainer$CoursePlayerPopUps$HiddenFieldSelectedActivityId" id="ctl00_ctl00_PopupContainer_PopupContainer_CoursePlayerPopUps_HiddenFieldSelectedActivityId" value="0" />
+    
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("[id$='LinkButtonRating']").on('click', function (e) {
+            e.preventDefault();
+            mlxSignIn();
+        });
+        $("[id$='LinkButtonSelfAssessmentsFreeActions']").on('click', function (e) {
+            e.preventDefault();
+            mlxSignIn();
+        });
+        $("[id$='LinkButtonLogOntoTake']").on('click', function (e) {
+            e.preventDefault();
+            mlxSignIn();
+        });
+        $("[id$='LinkButton1']").on('click', function (e) {
+            e.preventDefault();
+            mlxSignIn();
+        });
+    });
+</script>
+
+
+        </div>
+        <main role="main">
+            
+            <section id="container">
+                
+                <div id="content">
+                    
+                    <div id="main_content">
+                        <section id="registration" class="registration-overlay" style="display:none">
+                             <script type="text/javascript">
+                                 var confirmed = false;
+                                 var notificationMsg = '无法保存您的个人资料，因为不允许有 HTML 文本。请删除包含 &lt;&gt; 的所有文本并重试。';
+                             </script>
+               
+                             <div id="overlayreg"></div>
+                
+                         <!-- registraion template UI  -->
+                         <div id="divRegistrationPopUpContainer" class="registration-container registration-popup" style="display:none">
+                            <div class="image-container">
+                                <div class="image"></div>
+                            </div>
+                            <div class="fields-container">
+                                <h1 class="registration-title headline" tabindex="-1">
+                                            您好，{0}，感谢您注册！
+                                </h1>
+                                <p class="registration-subtitle registration-subtitle-margintop subHead subHeadShort">
+                                    <span>  只需要提供更多一点详细信息，我们就可以为您定制 MVA。 </span>
+                                </p>
+
+                                <div class="registration-fields">
+                                    <div class="field job">
+                                        <div class="field-label">
+                                                工作职能
+                                        </div>
+                                        <div class="field-textbox">
+                                            <select id="ddlJobFunction" class="ddl-JobFunction" data-bind="options: jobFunctions,
+    optionsValue: 'JobFunctionId',
+    optionsText: 'JobFunctionName'">        
+                                            </select>
+                                        </div>
+                                    </div>
+                                        <div class="field last-name width380">
+                                        <div class="field-label">
+                                            <span>公司/组织（可选）</span>
+                                        </div>
+                                        <div class="field-textbox width-fix">
+                                            <input type="text" data-bind="attr: { id: 'txtCompanyOrgName', value: companyName }" maxlength="55"/>
+                                        </div>
+                                        </div>
+                                    <div class="field languages">
+                                        <div class="field-label">
+                                                选择您的语言
+                                        </div>
+                                        <div class="field-textbox">
+                                             <select id="ddlLanguage" data-bind="options: languagePreference,
+    optionsValue: 'LanguageCode',
+    value: SelectLanguageCode,
+    optionsText: 'LanguageName'">        
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="field hearfrommicrosoft registration-margintop110">
+                                        <div class="field-label">
+                                            通信喜好设定
+                                        </div>
+                                        <div class="field-textbox chk-hear">
+                                            <input type="checkbox"  id="chkHearFromMicrosoft"/>
+                                            <div class="chk-hear disclaimer">我希望接收来自 Microsoft 的产品、服务和活动相关信息，包括最新的解决方案、技巧和专享优惠。 &nbsp;(可选)</div>
+                                        </div>
+                                            <div class="field-textbox chk-hear registration-width100">
+                                            <input type="checkbox"  id="chkTouPrivacyStatement"/>
+                                            <div class="disclaimer">我同意 
+                                                <a data-bind="attr: { onclick : 'trackNavigationClick(\'footer:terms of use\', \'o\')', href : termsOfUse, target : '_blank' }">使用条款</a> 和
+                                                <a  data-bind="attr: { onclick : 'trackNavigationClick(\'footer:privacy statement\', \'o\')', href : privacyStatement ,target : '_blank' }">隐私与 Cookie</a> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field confirm listitem-lp-course-add-apply apply-button div-bgcolor">
+                                        <input type="button" id="lnkConfirmRegister" class="confirm remove-border registration-disabled remove-outline button-style btn-confirm" value="完成" />
+                                    </div>
+                                </div>
+                              </div>
+                           </div>
+                                                      
+                            <!-- Block registraion for non MVA Users template UI  -->
+                         <div id="divDivertSignInForNonMVAUsersPopUpContainer" class="registration-container registration-popup" style="display:none">
+                            <div class="image-container">
+                                <div class="image"></div>
+                            </div>
+                            <div class="fields-container">
+                                <p id="pGreetings" class="registration-title headline">
+                                            您好, {0}<span>!</span>
+                                </p>
+                                <h1 class="registration-subtitle registration-subtitle-margintop subHead subHeadShort marginB20"  tabindex="-1">
+                                    <span>  You are signed in with the following work or school account: </span> <br />
+                                    <span id="spanEmailAddress" class="bold" data-bind="text: signInEmailAddress"> </span>
+                                </h1>
+                                <p class="registration-subtitle registration-subtitle-margintop subHead subHeadShort marginB20">
+                                    <span>  For the optimal Microsoft Virtual Academy experience and to track your course progress, manage playlists, earn badges, and more, sign in with (or create) a personal Microsoft account. </span>
+                                </p>
+                                <p class="registration-subtitle registration-subtitle-margintop subHead subHeadShort marginB20">
+                                    <span>  To continue on the Microsoft Virtual Academy site without accessing these personalized features, sign out of your current account. Please note that this closes all open sessions, so be sure to save your work before signing out. </span>
+                                </p>
+                                <p class="field confirm listitem-lp-course-add-apply apply-button div-signup-bgcolor floatL">                                     
+                                     <input type="button" onclick="o365SignOut();trackNavigationClick('home:login', 'o');" id="btnSignInWithMicrosoft" class="confirm remove-border-signup remove-outline button-style enable-button padding-border-signup add-new marginR10 btn-signin" value="Sign in with Microsoft account" />
+                                     <input type="button" onclick="mlxSignOut();trackHeaderNavigation('注销');" id="btnSignOut" class="confirm remove-border-signup remove-outline button-style padding-border-signout add-new" value="Sign out of current account" />
+                                </p>
+                                <p class="font11 registration-subtitle registration-subtitle-margintop subHead subHeadShort marginB20">For more information, see
+                                    <a id="aTermsOfUse" target="_blank" data-bind="attr: { onclick : 'trackNavigationClick(\'footer:terms of use\', \'o\')' }">terms of use</a> 和
+                                    <a id="aPrivacyPolicy" class="privacylink" target="_blank" data-bind="attr: { onclick : 'trackNavigationClick(\'footer:privacy statement\', \'o\')' }">privacy policy</a><span>.</span>
+                                </p>                         
+                              </div>
+                           </div>                        
+                        </section>
+                        <section id="registration-loading" style="display:none">
+                            <!-- Overlay div -->
+                            <div id="overlayregloading" style="display: block;"></div>
+                            <div class="register-overlay-loading-wrapper overlay-bgcolor">
+                                <div class="overlay-container">
+                                    <div class="heading--large text-center overlay-heading-loading">正在加载...</div>
+                                </div>
+                            </div>
+                         </section>
+                        
+    
+    
+    <iframe id="APITunnel" name="tunnel" style="display: none; height: 0px; width: 0px;"
+        src="//api-mlxprod.microsoft.com/Partner/Index/B070D012-336A-491C-BE58-04C64086F1D0?r=mva.microsoft.com"></iframe>
+
+
+    <section id="coursePlayer">
+        <!-- ko skipBinding: true -->
+        <section id="course-player-container" role="main" class="show-grid height100 width100 hide">
+            <!-- Course Player View -->
+            <div class="width100" id="course-player-header-container">
+                <div id="course-title-container" class="title-container" itemscope itemtype="http://schema.org/CreativeWork">
+                    <div id="rating-level-container" class="rating-container fontW400">
+                        <span id="course-level" data-bind="text: displayCourseLevel() + ' | '"></span>
+                        <span data-bind="text: ResourceStrings.CP_Published"></span><span itemprop="datePublished" text="14 June 2017">14 June 2017</span>
+                        <span class="rating-mobile-pipe">&nbsp;|&nbsp;</span>
+                    </div>
+                    <div id="course-title" class="course-header">
+                        <h1 itemprop="name"><span title="微软人工智能－服务和 API">微软人工智能－服务和 API</span></h1>
+                    </div>
+                    <div id="instructors">
+                        <!-- ko if: instructors().length > 0 -->
+                        <div id="instructor-links-container" class="instructor-container">
+                            <span id="instructors-label" class="instructorslabel">讲师：</span>                            
+                            <span id="instructors-links" class="fontW600" data-bind="foreach: { data: instructors(), as: 'instructor' }">
+                                <a href="#" target="_blank" class="instructor-link" data-bind="text: instructor.displayName + ($index() == ($parent.instructors().length - 1) ? '' : (ResourceStrings.CP_Instructors_Comma + ' ')), attr: { href: instructor.twitterHandle() && instructor.twitterHandle() != '' ? instructor.twitterHandle() : false }, css: { 'no-twitter': !instructor.twitterHandle() || instructor.twitterHandle() == '' }"></a>
+                            </span>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    
+
+<div class="rate-content" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    <div id="PlaceholderRatingContainer">
+    <div class="rate-details">
+        <meta id="ctl00_ctl00_ContentContainer_ContentContainer_UserControlCourseRating_metaRatingValue" itemprop="ratingValue" content="4"></meta>
+        <meta id="ctl00_ctl00_ContentContainer_ContentContainer_UserControlCourseRating_metaRatingCount" itemprop="ratingCount" content="6"></meta>
+        
+        <div id="PlaceholderRatingNumbers">
+            <div class="rates-number" itemprop="ratingCount" id="divNumberOfRates">
+            </div>
+        </div>
+    </div>
+    <div class="rating" id="et-ratings">
+        <div id="PlaceholderStarRatings">
+            <div class="starsContainer" id="mlxRatings">
+                        <div id="ratingStars" class="search-rating-pane right-pane floatL marginT2">
+                                <div class="search-rating">
+                                    <div class="search-stars search-star-background">
+                                        <div data-bind="attr: { style: 'width:' + starRating() + '%' }" class="search-stars-golden"></div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div id="PlaceholderRate">
+                        <span class="pipe">|&nbsp;</span>
+                        <span class="click">
+                            <input type="button" id="lnkButtonStarsTrigger" class="ratingButton" value="评分" />
+                        </span>
+                    </div>
+        </div>
+    </div>
+    </div>
+
+    <input type="hidden" name="ctl00$ctl00$ContentContainer$ContentContainer$UserControlCourseRating$HiddenFieldRating" id="ctl00_ctl00_ContentContainer_ContentContainer_UserControlCourseRating_HiddenFieldRating" value="0" />
+
+    <!-- POP UP TRACK RATING -->
+    <div id="ratingsPopup" class="popup ratings">
+        <div class="header">
+            <div class="title">
+                <span class="text">
+                    评价此课程:
+                </span>
+                <div class="rate-this">
+                    <input name="rating" id="star0" type="radio" value="0" onselect="setStars(0)" checked="checked" class="hidecatalog"/>
+                  <label for="star0" class="hidecatalog"><span class="sr">1 颗星</span></label>
+                  <input name="rating" id="star1" type="radio" value="1" onselect="setStars(1)"/>
+                  <label for="star1" onclick="setStars(1)"><span class="sr">1 颗星</span></label>
+                  <input name="rating" id="star2" type="radio" value="2" onselect="setStars(2)"/>
+                  <label for="star2" onclick="setStars(2)"><span class="sr">2 颗星</span></label>
+                  <input name="rating" id="star3" type="radio" value="3" onselect="setStars(3)"/>
+                  <label for="star3" onclick="setStars(3)"><span class="sr">3 颗星</span></label>
+                  <input name="rating" id="star4" type="radio" value="4" onselect="setStars(4)"/>
+                  <label for="star4" onclick="setStars(4)"><span class="sr">4 颗星</span></label>
+                  <input name="rating" id="star5" type="radio" value="5" onselect="setStars(5)"/>
+                  <label for="star5" onclick="setStars(5)"><span class="sr">5 颗星</span></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="body">
+            <div class="text-validator">
+                <span id="cvStars" class="regex-comments star-warning">* 请添加评级以完成</span>
+            </div>
+            <div class="text-area">
+                <label class="sr" for="ctl00_ctl00_ContentContainer_ContentContainer_UserControlCourseRating_txtComments">评论</label>
+                <textarea name="ctl00$ctl00$ContentContainer$ContentContainer$UserControlCourseRating$txtComments" rows="2" cols="20" id="ctl00_ctl00_ContentContainer_ContentContainer_UserControlCourseRating_txtComments" onkeyup="descontar(this);" placeholder="请告诉我们更多意见..." style="resize: none;">
+</textarea>
+            </div>
+            <div class="validator">
+                <span id="revComments" class="regex-comments star-warning">*</span>
+                
+            </div>
+            <div class="submit">
+                <div class="chars-remaining">
+                    （<span>1500</span> 个剩余字符）
+                    <input type="hidden" name="ctl00$ctl00$ContentContainer$ContentContainer$UserControlCourseRating$HiddenFieldCharsRemaining" id="ctl00_ctl00_ContentContainer_ContentContainer_UserControlCourseRating_HiddenFieldCharsRemaining" value="1500" />
+                </div>
+
+                <div id="ctl00_ctl00_ContentContainer_ContentContainer_UserControlCourseRating_upRatings">
+	
+                    <a onclick="return submitCourseRating();" id="ctl00_ctl00_ContentContainer_ContentContainer_UserControlCourseRating_LinkButtonSubmit" class="submit-button" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl00$ContentContainer$ContentContainer$UserControlCourseRating$LinkButtonSubmit&quot;, &quot;&quot;, true, &quot;vgRatingComments&quot;, &quot;&quot;, false, true))">发送</a>
+                
+</div>
+
+                <a class="close-rating" title="关闭" href="#" onclick="disableRatingPopup($('.ratings'));">
+                    <span class="sr">关闭</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="popUpContent popUpViewContentToRate" style="width:320px;">
+        <div id="blockeablePanelViewContentToRate" style="width:100%;height:100%;">
+            <div id="ctl00_ctl00_ContentContainer_ContentContainer_UserControlCourseRating_upPopupViewContentToRate">
+	
+                    <table cellpadding="4" width="100%">
+                        <tr height="30">
+                            <td valign="bottom" class="popup-title">
+                                通知
+                            </td>
+                        </tr>
+                        <tr height="60">
+                            <td align="center" valign="middle" class="popup-question">
+                                若要为此课程评分，请先查看内容，然后再告诉我们您的想法。
+                            </td>
+                        </tr>
+                        <tr height="50">
+                            <td align="center">
+                                <div style="padding: 0 0 0 70px;">
+                                    <input type="hidden" name="ctl00$ctl00$ContentContainer$ContentContainer$UserControlCourseRating$HiddenField2" id="ctl00_ctl00_ContentContainer_ContentContainer_UserControlCourseRating_HiddenField2" value="0" />
+                                    <div class="acceptButton" style="margin-left: 26px;" title="接受" onclick="disablePopup($('.popUpViewContentToRate'));">&nbsp;</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>     
+                
+</div>
+        </div>
+    </div>    
+</div>
+                </div>
+                <div id="points-progress-container" class="progress-container">
+                    <div class="progress-learningplan-container">
+                        
+                        <div class="floatR course-progress-container-width" id="course-progress-header-container">
+                            <div id="course-progress-wrapper" class="course-progress-container floatR" aria-hidden="true">
+                                <div id="course-progress" class="progress" data-bind="style: { width: courseProgress() + '%' }"></div>
+                            </div>
+                            <div id="course-progress-percentage" class="progress-percentage floatR">
+                                <span class="progress-percentage-text" aria-live="polite" data-bind="html: ResourceStrings.CP_Complete.format(courseProgress())"></span>
+                            </div>
+                        </div>
+                        <div class="add-learning-plan search-result-right-container playerlp pop-menu">
+                            <a class="learning-plan floatLe pop-trigger" href="#" aria-owns="learningplanpopup" data-bind="css: { 'in-lp': showInLearningPlanIcon(), 'not-in-lp': !(showInLearningPlanIcon()) }">
+                                <div class="learning-plan-left-icon learning-plan-left-icon-check-fltleft">
+                                    <div class="learning-plan-left-icon-check"></div>
+                                </div>
+                                <div class="learning-plan-right-text paddingL3 learning-plan-right-text-fltleft"><span class="sr">添加到您的</span>学习计划</div>
+                             </a>
+                           
+                            <div id="learningplanpopup" class="parent-popup pop-content" style="display:none">
+                                <div class="add-course-dropdown-items course-page-add-dropdown-container add-course-dropdown-items-leftalign">
+                                    <div class="listitem-lp-course-add paddingL10">添加至：</div>
+                                    <div class="lp-list-small-dropdown search-lp-dropdown">
+                                        <ul data-bind="foreach: courseLearningPlans()">
+                                            <li class="listitem-lp-course-add">
+                                                <input type="checkbox" class="chkItems body" data-bind="attr: { id: id, checked: containsCourse ? 'checked' : null, disabled: (!containsCourse && totalCourses >= 10) }, event: { change: function (model, event) { } }" />
+                                                <label data-bind="attr: { for: id }">
+                                                    <span class="marginlpL5 lp-span-text blue" data-bind="text: name, attr: { title: name }"></span><span class="lp-coursecount-text" data-bind="text: '(' + totalCourses + '/10)'"></span>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a href="#" class="listitem-lp-course-add-apply apply-button" data-bind="click: function (model, event) { $root.applyLearningPlan($data) }">确认</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="course-content-details-container">
+                <div id="course-content-container" class="content-container">
+                    <div id="video-player-wrapper">
+                        <div id="iframeWrapper" class="frame-container" @*data-bind="css: { 'video-player': activeContentType() != 'Lab', 'lab-player': activeContentType() == 'Lab' }"*@>
+                            <iframe id="contentFrame" class="frame-container" frameborder="1" scrolling="no" allowtransparency="true" data-bind="tunnel: activeContent" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+                            
+
+<div class="joinPopupCont" style="display: none;">
+    <div class="joinPopup">
+        <div class="joinPopup-banner">
+            <div class="banner-img"></div>
+        </div>
+        <div class="joinPopup-info">
+            <span class="fontSize24">立即加入</span>
+            <p class="messageNotSignedIn">您尚未注册。立即加入便可使用各种炫酷功能，包括:</p>
+            <ul>
+                <li>
+                    <div class="tick-icon"></div>
+                    <div class="infoItem">进行自我评估</div>
+                </li>
+                <li>
+                    <div class="tick-icon"></div>
+                    <div class="infoItem">参与实时活动</div>
+                </li>
+                <li>
+                    <div class="tick-icon"></div>
+                    <div class="infoItem">跟踪进度</div>
+                </li>
+                <li>
+                    <div class="tick-icon"></div>
+                    <div class="infoItem">管理学习计划</div>
+                </li>
+                <li>
+                    <div class="tick-icon"></div>
+                    <div class="infoItem">与社区保持联系</div>
+                </li>
+            </ul>
+            <div class="buttons">
+                <a onclick="trackCoursePlayerSignInClick(&#39;Join Now&#39;);" id="ctl00_ctl00_ContentContainer_ContentContainer_ucCoursePlayerJoinPopup_LinkButtonJoin" class="joinNowButton" href="javascript:__doPostBack(&#39;ctl00$ctl00$ContentContainer$ContentContainer$ucCoursePlayerJoinPopup$LinkButtonJoin&#39;,&#39;&#39;)">立即加入</a>
+                <a id="maybeLater" href="#" class="btnDeny" data-bind="click: hideJoinPopup">以后再考虑</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {        
+        if (Configurations.isEmbedPlayer) {
+            var courseURL = Configurations.coursePlayerUrlTemplate.replace("{Host}", window.location.host)
+                                        .replace("{FriendlyName}", getCoursePlayerFriendlyName(Configurations.courseID, Configurations.courseName))
+                                        .replace('{LanguageCode}', Configurations.languageCode);
+
+            $("[id$='LinkButtonJoin']").attr("href", "https://" + window.location.host + "/PrivateLinkHandler.aspx?l=" + encodeURIComponent(courseURL));
+            $("[id$='LinkButtonJoin']").attr("target", "_blank");
+            $("[id$='LinkButtonJoin']").click(function () {
+                hideJoinPopup();
+            });
+        }
+        else {
+            $("[id$='LinkButtonJoin']").on('click', function (e) {
+                e.preventDefault();
+                mlxSignIn();
+            });
+        }
+    });
+</script>
+                        </div>
+                        <a id="close_btn" href="#" class="close-svg-icon cursor-pointer" data-bind="click: exitFullScreenMode, visible: isFullScreenMode()" title="close">
+                        </a>
+                        <div id="video-navigation" class="positionR" data-bind="visible: !isContentLoading()">
+                            <div id="video-navigation-controls" class="navigation-controls">
+                                <div id="video-navigation-controls-row">
+                                    <div id="nav-next-previous">
+                                        <a id="nav-previous" href="#" class="firstFocusInOverlay nav-previous" role="button" aria-describedby="next-video-text"
+                                            data-bind="attr: { title: previousTopicTitle() == '' ? '' : ResourceStrings.previousText + ' ' + previousTopicTitle() }, event: { click: getPrevResource, focus: showPreviousTitle, mouseover: showPreviousTitle, focusout: showNextTitle, mouseout: showNextTitle }">
+                                            <img src="https://mvastorage.microsoft.com/public/css/content/images/MLX_Icons_v9.svg" width="400" height="480" class="nav-previous-img" />
+                                        </a>
+                                        <a id="nav-next" href="#" class="nav-next" role="button" aria-describedby="next-video-text"
+                                            data-bind="attr: { title: nextTopicTitle() == '' ? '' : ResourceStrings.nextText + ' ' + nextTopicTitle() }, event: { click: getNextResource, mouseover: showNextTitle }">
+                                            <img src="https://mvastorage.microsoft.com/public/css/content/images/MLX_Icons_v9.svg" width="400" height="480" class="nav-next-img" />
+                                        </a>
+                                    </div>
+                                    <div class="next-text-container">
+                                        <div aria-hidden="true" id="next-video-text" class="next-text body cursor-pointer" data-bind="click: getNextResource, visible: displayTopicTitle() != ''">
+                                            <div class="dsp-topic-title">
+                                                <span data-bind="html: indicatorText" class="fontW600"></span>
+                                                <span>|</span>
+                                                <span class="gray" data-bind="html: displayTopicTitle, attr: { title: displayTopicTitle }"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="share-autoplay-container">
+                                <div id="autoplay-container" class="autoplay-share-container">
+                                    <a href="#" id="autoplay-control" class="autoplay" role="button" data-bind="text: coursePlayer.autoPlay() ? ResourceStrings.CP_AutoPlayOn : ResourceStrings.CP_AutoPlayOff, click: toggleAutoPlay, attr: { title: coursePlayer.autoPlay() ? ResourceStrings.CP_AutoPlayOn_tooltip + '    ' : ResourceStrings.CP_AutoPlayOff_tooltip + '    ' }"></a>
+                                </div>
+                                
+                                <a href="#" class="video-fullscreenmode-svg-icon displayInlineBlock floatR cursor-pointer marginL40" data-bind="click: enterFullScreenMode, visible: !isFullScreenMode()" title="全屏模式">
+                                    <img src="https://mvastorage.microsoft.com/public/css/content/images/MLX_Icons_v9.svg" width="500" height="600" class="fullscreen-img" />
+                                </a>
+                                <a href="#" class="video-exitfullscreenmode-svg-icon displayInlineBlock floatR cursor-pointer marginL40" data-bind="click: exitFullScreenMode, visible: isFullScreenMode()" title="退出全屏模式">
+                                    <img src="https://mvastorage.microsoft.com/public/css/content/images/MLX_Icons_v9.svg" width="500" height="600" class="exitfullscreen-img" />
+                                </a>
+                            </div>
+                        </div>
+                        <div id="loading-container" data-bind="visible: isContentLoading()">
+                            <div class="loading-animation" ></div>
+                            <div class="loading-text" role="alert" >正在加载</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="info-tab-outer-container" class="tab-outer-container">
+                    <div id="info-tab-container" class="width100 tab-container border-none">
+                        <div id="tabs" class="info-container">
+                            <ul id="info-tab" class="info-container">
+                                <li id="overview-tab">
+                                    <a href="#overview" title="课程信息">
+                                        <div class="icon-container">
+                                            <div class="icon overview-icon svgSprite35"></div>
+                                        </div>
+                                        <div class="icontab-description">信息</div>
+                                    </a>
+                                </li>
+                                <li id="syllabus-tab">
+                                    <a href="#syllabus" title="目录" >
+                                        <div class="icon-container">
+                                            <div class="icon syllabus-icon svgSprite35"></div>
+                                        </div>
+                                        <div class="icontab-description">目录</div>
+                                    </a>
+                                </li>
+                                <li id="download-tab">
+                                    <a href="#download" title="资源" >
+                                        <div class="icon-container">
+                                            <div class="icon download-icon svgSprite35"></div>
+                                        </div>
+                                        <div class="icontab-description">资源</div>
+                                    </a>
+                                </li>
+                                <li id="transcript-tab" data-bind="visible: !hideTranscriptTab()">
+                                    <a href="#transcript" title="字幕文本" >
+                                        <div class="icon-container">
+                                            <div class="icon transcript-icon svgSprite35"></div>
+                                        </div>
+                                        <div class="icontab-description">字幕文本</div>
+                                    </a>
+                                </li>
+                                
+                                 <li id="recomanded-courses-tab" title="Recommended Courses" data-bind="visible: recommendedCourses().length > 0">
+                                            <a href="#related" title="Related" >
+                                                <div class="icon-container">
+                                                    <div class="icon recomanded-courses-icon svgSprite35"></div>
+                                                </div>
+                                                <div class="icontab-description">Related</div>
+                                            </a>
+                                </li>
+                                 
+                                <li id="kipichallenge-tab" data-bind="visible: courseChallenge().length > 0 && isKipiActive()">
+                                    <a href="#kipi" title="Challenge" >
+                                        <div class="icon-container">
+                                            <div class="icon kipi-challenge-icon"></div>
+                                        </div>
+                                        <div class="icontab-description">Challenge</div>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                            <span class="info-container" id="goToForumsLink">
+                                <a href="#goToForums" title="转到论坛" data-bind="click: goToForums">
+                                    <div class="icon-container">
+                                        <div class="icon forum-icon svgSprite25"></div>
+                                    </div>
+                                    <div class="icontab-description">论坛</div>
+                                </a>
+                            </span>
+                        </div>
+                        <div id="course-info-container" class="course-details-info-container">
+                            <!-- ko if: willBeRetired() -->
+                            <div id="course-retirement-notification">
+                                <div class="retirement-icon warning"></div>
+                                <div class="retirement-text-container">
+                                    <p class="retirement-text" data-bind="html: retirementText"></p>
+                                    <!-- ko if: replacementCourseId() && replacementCourseId() > 0 -->
+                                    <a data-bind="text: replacementCourseTitle, attr: { href: replacementCourseUrl, title: replacementCourseTitle, onclick: trackCourseRetirementLink }"></a>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <div id="overview" class="tab-content">
+                                <div class="info-topbar">
+                                    <span title="课程信息" class="course-information">课程信息</span>
+                                </div>
+                                <!-- introduction-->
+                                <div class="accordian-container overview-container-height">
+                                    <div id="introduction-course-desc" class="introduction-tab-container marginR20">
+                                        <span id="course-title-desc" data-bind="html: introduction()" class="displayInlineBlock"></span>
+                                    </div>
+
+                                    <div class="margin-top-big"></div>
+
+                                    <div id="courseOutline" data-bind="template: { name: 'courseOutlineTemplate', foreach: activities }">
+                                    </div>
+
+                                    <div class="margin-top-big"></div>
+
+                                    <div class="overview-tab-headers semi-bold" title="学习">学习</div>
+                                    <div class="margin-top"></div>
+                                    <div data-bind="html: overview().objectives()" class="overview-tab-headers"></div>
+
+                                    <div class="margin-top-big"></div>
+
+                                    <div class="overview-tab-headers semi-bold" title="先修课程">先修课程</div>
+                                    <div class="margin-top"></div>
+                                    <div data-bind="html: overview().prerequisties()" class="overview-tab-headers"></div>
+                                        
+                                </div>
+                                <div id="course-overview" class="course-overview-footer">
+                                    <div class="course-overview-message caption fontW400">
+                                        <span>此课程的时间要求、模块和评估:</span>
+                                    </div>
+                                    <div class="course-overview-footer-data">
+                                        <span class="headline" data-bind="text: courseDuration"></span>
+                                        <span>小时*</span>
+                                        <span class="headline marginL5" data-bind="text: moduleCount"></span>
+                                        <span>单元</span>
+                                        <span class="headline marginL5" data-bind="text: assessmentCount"></span>
+                                        <span>评估</span>
+                                    </div>
+                                    <div class="course-overview-message caption fontW400">
+                                        <span>* 不包括实验室、知识检查和评估。</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="syllabus" class="tab-content">
+                                <div class="displayInlineBlock update-msg-container green" data-bind="visible: isCourseContentDeletedSinceUserLastLaunch">
+                                    <span class="star-img delete-content displayInlineBlock marginL20 vAlignTextBottom"></span>
+                                    <span id="course-content-change-message" class="displayInlineBlock verticalAlignTop marginL5">自从您上次访问之后，部分课程内容已删除。</span>
+                                </div>
+                                <div class="update-msg-container lineH17 hide">
+                                    <span class="star-img warning displayInlineBlock marginL20 marginT8"></span>
+                                </div>
+                                <div class="syllabus-topbar">
+                                    <h2 title="目录" class="table-content">目录</h2>
+
+                                </div>
+                                <div class="syllabus-topbar-column-headers">
+                                    <div id="introduction-course-description" class="introduction-tab-container marginR20 third-line">
+                                        <span id="course-title-description" data-bind="html: introduction()" class="displayInlineBlock"></span>
+                                    </div>
+                                    <div>
+                                            <span class="blue cursor-pointer width35 more-text" data-bind="event: { click: showOverviewTab }">
+                                                <a href="#" id="course-description-more" class="width35">更多信息</a>
+                                            </span>
+                                            <span class="blue cursor-pointer" data-bind="visible: isMoreText() ? false : true, event: { click: showShortDescription }">
+                                                <a href="#">缩减显示</a>
+                                            </span>
+                                        </div>
+                                    <div class="labels">
+                                        <span class="lbl-time" aria-hidden="true">时间</span>
+                                        <span class="lbl-all-items lbl-show-all"><a id="showHideAllCourseTableContents" href="javascript:void(0);" class="showHideAllCourse showAllAccPanel" title="全部显示" onclick="coursePlayerSwitchShowHide('TableContents')" >全部显示</a></span>
+                                    </div>
+                                </div>
+
+                                <div id="accordian-container" class="accordian-container" data-bind="css: { 'has-new-content': (isCourseUpdated() || isVersionModified()) }">
+                                    <div id="syllabus-accordian" data-bind="template: { name: 'moduleTemplate', foreach: activities }">
+                                    </div>
+                                </div>
+                                <div id="rate-and-review" class="rate-review-container">
+                                    
+                                </div>
+                            </div>
+
+                           
+
+<div id="download" class="tab-content">
+    <div class="download-topbar">
+        <label title="资源" class="download-resources">资源</label>
+    </div>
+
+    
+
+    <div id="download-tab-container">
+        <div class="download-data-container" id="download-container">
+            <div class="compressed-file-header fontW600 div-compressedfile hide"><span>.zip 压缩文件</span></div>
+            <div id="download-list" class="downloadlist" data-bind="with: referenceMaterials">
+                <ul data-bind="foreach: $data">
+                    <!-- ko if:  $data && $data.contentType() && $data.contentType().indexOf("zip") >= 0 && ($data.nodePath() == undefined || $data.nodePath() == 'supplementalcontent.zip' || $data.nodePath() == 'supplementalcontent') -->
+                    <li data-bind="template: { name: 'downloadTemplate', data: $data, as: 'courseDetails' }"></li>
+                    <!-- /ko -->
+                </ul>
+            </div>
+            <div class="individual-file-header fontW600 div-individualfile hide"><span>单独文件</span></div>
+            <div class="downloadlist" data-bind="with: referenceMaterials">
+                <ul data-bind="foreach: $data">
+                    <!-- ko if:  $data && $data.contentType() && $data.contentType().indexOf("urlencoded") < 0 && (($data.contentType().indexOf("zip") < 0 && $data.nodePath() == undefined) || ($data.nodePath() != undefined && $data.nodePath() != 'supplementalcontent')) -->
+                    <li data-bind="template: { name: 'downloadTemplate', data: $data, as: 'courseDetails' }"></li>
+                    <!-- /ko -->
+                </ul>
+            </div>
+            <div class="individual-file-header fontW600 div-externalresources hide"><span>外部资源</span></div>
+            <div class="downloadlist" data-bind="with: referenceMaterials">
+                <ul data-bind="foreach: $data">
+                    <!-- ko if:  $data && $data.contentType() && $data.contentType().indexOf("urlencoded") >= 0 -->
+                    <li data-bind="template: { name: 'externalResourcesDownloadTemplate', data: $data, as: 'courseDetails' }"></li>
+                    <!-- /ko -->
+                </ul>
+            </div>
+            <!--ko if:evaluationLinks().length > 0-->
+            <div class="software-evaluation-container">
+                <div class="software-evaluation-header fontW600 header-border-bottom"><span>软件评估</span></div>
+                <div data-bind="with: evaluationLinks">
+                    <ul data-bind="foreach: $data" class="bulleted-list">
+                        <li data-bind="template: { name: 'evaluationLinksTemplate', data: $data, as: 'courseDetails' }"></li>
+                    </ul>
+                </div>
+            </div>
+            <!--/ko-->
+        </div>
+    </div>
+    <div id="download-information" class="blue fontW700 hide">无下载</div>
+    <!--ko if:referenceMaterials().length == 0 && evaluationLinks().length > 0-->
+    <div class="software-evaluation-container">
+        <div class="software-evaluation-header fontW600 header-border-bottom"><span>软件评估</span></div>
+        <div data-bind="with: evaluationLinks">
+            <ul data-bind="foreach: $data" class="bulleted-list">
+                <li data-bind="template: { name: 'evaluationLinksTemplate', data: $data, as: 'courseDetails' }"></li>
+            </ul>
+        </div>
+    </div>
+    <!--/ko-->
+</div>
+                            
+
+<div id="transcript" class="tab-content">
+    <div class="download-topbar transcript-title">
+        <label title="没有为本课提供字幕文本。" class="download-resources" data-bind="visible: transcriptData().length == 0">没有为本课提供字幕文本。</label>
+        <label class="download-resources" data-bind="visible: transcriptData().length > 0, text: activeTopicTitle"></label>
+    </div>    
+    <div id="transcript-tab-container" data-bind="visible: transcriptData().length > 0"> 
+        <div class="transcript-search">
+            <label for="searchInTranscriptInput">查找： </label> <input id="searchInTranscriptInput" type="text" name="keyword" class="keyword" placeholder="搜索"> 
+            <div class="controls">
+                <a href="javascript:void(0)" id="search-prev" role="button" class="disabled">上一页</a> <a href="javascript:void(0)" id="search-next" role="button" class="disabled">下一页</a>
+                <input type="hidden" id="resultIndex" value="0" />
+                <input type="checkbox" name="opt[]" id="MatchWholeWord" checked> <label for="MatchWholeWord">仅全字匹配</label>
+            </div>
+            <br>
+        </div>
+        <div class="transcript-headers">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="left-row">时间戳</th>
+                        <th>字幕</th>
+                        <th class="right-row">
+                            
+                                <a href="javascript:void(0)" data-bind="click: function () { trackDownloadTranscript(transcriptDownloadUrl()); return window.open(transcriptDownloadUrl()); }" target="_blank">下载字幕文本</a>
+                            
+                        </th>                    
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="transcript-rows context">
+            <div class="table">            
+                <ul data-bind="foreach: transcriptData">
+                    <a href="javascript:void(0)" role="listitem" data-bind="click: $root.requestGoToVideoPosition">
+                        <li>
+                            <span class="left-row td" data-bind="text: startTime"></span>
+                            <span class="textContent td" data-bind="text: textContent"></span>
+                        </li>                
+                    </a>
+                </ul>
+            </div>
+        </div>        
+    </div>
+</div>
+                            
+                           
+                            
+
+                            <div id="related" class="tab-content">
+                                <div class="download-topbar">                                    
+                                    <label class="download-resources" data-bind="visible: recommendedCourses().length > 0">Recommended Courses</label>
+                                </div> 
+                                  
+                                <div id="coursedetails">
+                                    <div id="searchResultsContainer" class="search-results-container">
+                                       <div id="searchCourseResults" class="search-result-template-div">
+                                         <ul id="ul-related-courses" class="search-ul-section" data-bind="template: { name: 'RelatedCoursesTemplate', foreach: recommendedCourses }">
+                                         </ul>
+                                      </div>
+                                   </div>
+                                </div>
+                            </div>
+                            
+
+                            
+
+                            <div id="kipi" class="tab-content">
+                                <div class="challenge-banner">
+                                    <h2 title="Know it. Prove it. Challenge" class="table-content font600">Know it. Prove it. Challenge</h2>
+                                </div>
+                                <div class="marginT10">
+                                    <span>This course is part of the</span>
+                                    <a id="challengeLink" target="_blank"></a>
+                                    <span>challenge.</span>
+                                </div>
+
+                                <div class="marginT20">
+                                    <a href="../../kipi.aspx" target="_blank">See all challenges</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pop" class="popup-confirm popUpToShowCourseRemoveAlertPlayer LearningPlanItemSearchPage paddingTop">
+        <div class="infoHeaderDivPlayer">
+            <div class="infoIcon"></div>
+            <div class="headingtextstylessearch">
+                <span id="headerValue">课程太多</span>
+            </div>
+        </div>
+        <hr class="hrlineplayer" />
+        <div class="bodytextstylessearch">
+            <span id="bodyValue">您已达到可添加到学习计划的最大课程数（10 个）。请先删除一些课程再添加新课程，或创建新学习计划。</span>
+        </div>
+        <div class="bodytextstylessearch bodytextstyleplayer">
+            <div>
+                <div title="关闭" class="noButtondivSearch" onclick="disablePopup($('.popUpToShowCourseRemoveAlertPlayer'));">
+                    <span id="CloseOrNoSearch" class="nobuttonsearch" title="关闭">关闭</span>&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+        </section>
+    
+        <!-- End Course Player View -->
+    </section>
+   
+    
+<section id="overlay-container">
+    <!-- Overlay div -->
+    <div id="overlay" style="display: block;"></div>
+    <div id="divErrorMessage" class="overlay-wrapper visibilityHidden displayBlock" data-bind="notificationPopupBinding: isShown" role="alert">
+        <div class="overlay-container">
+            <span class="heading--large" id="overlay-error-heading" data-bind="html: headingText"></span>
+            <ul data-bind="foreach: errorArray">
+                <li>
+                    <div data-bind="html: ErrorMessage"></div>
+                </li>
+            </ul>
+            <div class="overlay-button-container">
+                <button data-bind="event: { click: ok }, html: btnText == undefined ? 'ok' : btnText" class="primarybutton .bottomright"></button>
+                <button data-bind="event: { click: cancel }, html: btnCancelText, visible: btnCancelText() != ''" class="primarybutton .bottomright"></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="divAjaxloaderControl" class="overlay-loading-wrapper" data-bind="notificationPopupBinding: isShown" role="alert">
+        <div class="overlay-container">
+            <div class="heading--large text-center">正在加载...</div>
+            <div id="loading-animation" title="正在加载..."></div>
+        </div>
+    </div>
+
+    <div id="divReauthenticateDlg" class="overlay-wrapper visibilityHidden displayBlock" data-bind="notificationPopupBinding: isShown" role="alert">
+        <div class="overlay-container overlay-container-resign">
+            <p><a id="reauthenticateLink" href="#">@Resource.MP_ClickToSignInAgain</a></p>
+        </div>
+    </div>
+
+    <div id="divCourseRetirement" class="overlay-wrapper visibilityHidden displayBlock" data-bind="notificationPopupBinding: isShown" role="alert">
+        <div class="overlay-container">
+            <div class="icon-container">
+                <div class="retirement-icon" data-bind="css: { 'warning': replacementCourse() != null, 'alert': replacementCourse() == null }"></div>
+            </div>
+            <div class="retirement-container">
+                <div class="notification-container">
+                    <span class="heading--large" data-bind="text: notification"></span>
+                    <p class="info-msg" data-bind="text: infoMsg"></p>
+                </div>
+                <!-- ko if: replacementCourse() != null -->
+                <div id="replacement-course-container">
+                    <div class="replacement-course-img">
+                        <img alt="" data-bind="attr: { src: replacementCourse().imgUrl }, event: { click: replacementCourse() != null ? viewNewCourse : seeAllCourses }" /></div>
+                    <div class="replacement-course-data fontW400">
+                        <div class="level-and-published-date fontW400"><span class="level green fontW400" data-bind="text: ResourceStrings.levelCaps + ' ' + replacementCourse().level"></span>&nbsp;|&nbsp;<span class="published-date fontW400" data-bind="    text: ResourceStrings.CP_Published + ' ' + replacementCourse().publishedDate"></span></div>
+                        <div class="title fontW400" data-bind="text: replacementCourse().name, attr: { title: replacementCourse().name }, event: { click: replacementCourse() != null ? viewNewCourse : seeAllCourses }"></div>
+                        <div class="course-short-description sLellipsis width100 fontW400" data-bind="text: replacementCourse().shortDescriptionStripped, attr: { title: replacementCourse().shortDescriptionStripped }"><span></span></div>
+                        <!-- ko if: replacementCourse().instructors && replacementCourse().instructors.length > 0 -->
+                        <div class="author-info">
+                            <span class="author-dsp-name" data-bind="text: replacementCourse().instructors[0].DisplayName != '' ? replacementCourse().instructors[0].DisplayName : ''"></span>
+                            <span class="author-job-title" data-bind="text: replacementCourse().instructors[0].JobTitle != '' ? ', ' + replacementCourse().instructors[0].JobTitle : ''"></span>
+                            <span class="author-company" data-bind="text: replacementCourse().instructors[0].Company != '' ? ', ' + replacementCourse().instructors[0].Company : ''"></span>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- /ko -->
+                <div class="overlay-button-container" data-bind="css: { 'replacement': replacementCourse() != null, 'no-replacement': replacementCourse() == null }">
+                    <button data-bind="event: { click: replacementCourse() != null ? seeAllCourses : viewHomePage }, text: btnTertiaryText" class="tertiarybutton bottomright"></button>
+                    <button data-bind="event: { click: replacementCourse() != null ? viewNewCourse : seeAllCourses }, text: btnPrimaryText" class="primarybutton bottomright"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="divEmbedCourseRetirement" class="overlay-wrapper visibilityHidden displayBlock" data-bind="notificationPopupBinding: isShown" role="alert">
+        <div class="overlay-container">
+            <div class="icon-container">
+                <div class="retirement-icon warning" ></div>
+            </div>
+            <div class="retirement-container">
+                <div class="notification-container">
+                    <span data-bind="text: notification"></span>
+                    <p class="info-msg" data-bind="text: infoMsg"></p>
+                </div>
+                <!-- ko if: replacementCourse() != null -->
+                <div id="replacement-embed-course-container">
+                    <div class="replacement-course-img">
+                        <img alt="" data-bind="attr: { src: replacementCourse().imgUrl }, event: { click: replacementCourse() != null ? viewNewCourse : seeAllCourses }" /></div>
+                    <div class="replacement-course-data fontW400">
+                        <div class="level-and-published-date fontW400"><span class="level green fontW400" data-bind="text: ResourceStrings.levelCaps + ' ' + replacementCourse().level"></span>&nbsp;|&nbsp;<span class="published-date fontW400" data-bind="    text: ResourceStrings.CP_Published + ' ' + replacementCourse().publishedDate"></span></div>
+                        <div class="title fontW400" data-bind="text: replacementCourse().name, attr: { title: replacementCourse().name }, event: { click: replacementCourse() != null ? viewNewCourse : seeAllCourses }"></div>
+                        <div class="course-short-description sLellipsis width100 fontW400" data-bind="text: replacementCourse().shortDescriptionStripped, attr: { title: replacementCourse().shortDescriptionStripped }"><span></span></div>
+                        <!-- ko if: replacementCourse().instructors && replacementCourse().instructors.length > 0 -->
+                        <div class="author-info">
+                            <span class="author-dsp-name" data-bind="text: replacementCourse().instructors[0].DisplayName != '' ? replacementCourse().instructors[0].DisplayName : ''"></span>
+                            <span class="author-job-title" data-bind="text: replacementCourse().instructors[0].JobTitle != '' ? ', ' + replacementCourse().instructors[0].JobTitle : ''"></span>
+                            <span class="author-company" data-bind="text: replacementCourse().instructors[0].Company != '' ? ', ' + replacementCourse().instructors[0].Company : ''"></span>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- /ko -->
+                <div class="overlay-button-container" data-bind="css: { 'replacement': replacementCourse() != null, 'no-replacement': replacementCourse() == null }">
+                    <button data-bind="event: { click: replacementCourse() != null ? seeAllCourses : viewHomePage }, text: btnTertiaryText" class="tertiarybutton bottomright"></button>
+                    <button data-bind="event: { click: replacementCourse() != null ? viewNewCourse : seeAllCourses }, text: btnPrimaryText" class="primarybutton bottomright"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+     
+    
+
+<section id="templates">
+    <!-- courseOutlineTemplate -->
+    <script type="text/html" id="courseOutlineTemplate">
+        <div class="inlineBlock overview-tab-headers semi-bold" data-bind="html: title(), attr: { 'title': title() }"></div>
+        <!-- ko if:  resource() == null || (resource() != null && resource().learningResourceType != "Exam") -->
+        <div class="inlineBlock overview-tab-headers " data-bind="html: description(), attr: { 'title': description() }"></div>
+        <div class="margin-top"></div>
+        <!-- /ko -->
+    </script>
+
+    <!-- downloadTemplate -->
+    <script type="text/html" id="downloadTemplate">
+        <div class="download-file-name">
+            <!-- ko if:  courseDetails.contentType().indexOf("zip") >= 0 -->
+            <span class="icon-ZipFolder font18"></span>
+            <!-- /ko -->
+            <label data-bind="text: courseDetails.name, attr: { 'title': courseDetails.name, 'for': 'download-check-' + courseDetails.itemPosition }"></label>
+        </div>
+        <div class="download-size-header floatR">
+            <span data-bind="text: courseDetails.size, attr: { 'title': courseDetails.size }"></span>
+            <a href="#" data-bind="text: 'Download', attr: { 'id': 'download-' + courseDetails.itemPosition }, click: function () { $root.downloadFile(this) }" class="fontW600 floatR"></a>
+        </div>
+    </script>
+
+    <!-- externalResourcesDownloadTemplate -->
+    <script type="text/html" id="externalResourcesDownloadTemplate">
+        <div class="download-file-name-external">
+            <a href="javascript:void(0)" data-bind="text: courseDetails.name, attr: { 'title': courseDetails.name }, click: function () { window.open(courseDetails.downloadUrl()) }" class="fontW600"></a>
+        </div>
+        <div class="download-size-header"><span></span></div>
+    </script>
+
+    <!-- evaluationLinksTemplate -->
+    <script type="text/html" id="evaluationLinksTemplate">
+        <a href="javascript:void(0)" data-bind="text: courseDetails.Name, attr: { 'title': courseDetails.EvaluationLink }, click: function () { return trackEvaluationLinks(Name, 'Evaluation Link') && window.open(courseDetails.EvaluationLink); } " target="_blank"></a>
+    </script>
+
+    <!-- courseOutlineNodeTemplate -->
+    <script type="text/html" id="courseOutlineNodeTemplate">
+
+        <!-- ko if: subActivity.contentLevel() > 1 || (subActivity.resource() && subActivity.resource().mediaType() == 'exam') -->
+        <ul class="outline-sub-header bulleted-list marginT10">
+            <li>
+                <div data-bind="html: subActivity.title(), attr: { 'title': subActivity.title() }"></div>
+                &nbsp;
+            </li>
+        </ul>
+        <!-- /ko -->
+        <!-- ko if:  activities() && activities().length > 0 -->
+        <div data-bind="template: { name: 'courseOutlineNodeTemplate', foreach: activities, as: 'subActivity' }">
+        </div>
+        <!-- /ko -->
+    </script>
+
+    <!-- nodeTemplate -->
+    <script type="text/html" id="nodeTemplate">
+        <!-- ko if: subActivity.contentLevel() > 1 && subActivity.resource() || (subActivity.resource() && subActivity.resource().mediaType() == 'exam') -->
+        <a href="#" data-bind="event: { click: $root.launchActivity }, attr: { 'class': 'course-components syllabusLevel-' + (subActivity.contentLevel() - 1) + (subActivity.prerequisitesSatisified() ? ' prereq-satisfied' : ' not-prereq-satisfied') + ((subActivity.isActive() && subActivity.resource()) ? ' active-activity' : ' not-active'), id: 'activity-' + id() }">
+            <div class="corse-item-container">
+                <div data-bind="css: subActivity.resource() ? 'component-icon svgsprite18 ' + (subActivity.resource().mediaType() ? subActivity.resource().mediaType() : 'no-media-play') + (subActivity.isPassedAssessment ? ' passed-assessment' : '') + ' level-indent' + (subActivity.contentLevel() - 1) : 'component-icon level-indent' + (subActivity.contentLevel() - 1)"></div>
+                <div data-bind="css: { 'corse-item-name': subActivity.resource(), 'corse-item-name-nomedia': !subActivity.resource(), 'green': ((updatedContentAvailable() || newContentAvailable()) && $root.isCourseUpdated()), 'corse-level-assessment': ((subActivity.contentLevel() == 1) && (subActivity.resource().mediaType() == 'exam')), 'module-level-assessment': ((subActivity.contentLevel() > 1) && (subActivity.resource().mediaType() == 'exam')), 'passed-assessment': (subActivity.isPassedAssessment) }, attr: { 'title': subActivity.title() }">
+                    <span data-bind="html: subActivity.title(), attr: { 'title': subActivity.title() }"></span>
+                    <span class="assetType" title=" (Optional)" data-bind="visible: (subActivity.resource() && !subActivity.requiredForCourseCompletion)"> (Optional)</span>
+                </div>
+                <!-- ko if: ((subActivity.isPassedAssessment && subActivity.isPassedAssessment()) || subActivity.completed()) && subActivity.resource() && subActivity.resource().mediaType() == 'exam' && subActivity.showScore -->
+                <span class="lineHeight16">|&nbsp;</span>
+                <span class="lineHeight16" data-bind="text: subActivity.isPassedAssessment ? ResourceStrings.CP_AssessmentScore + ' ' + subActivity.correctResponses() + '/' + subActivity.totalQuestions() : ResourceStrings.CP_AssessmentScore + ' ' + subActivity.assessmentQuestionsCorrectCount() + '/' + subActivity.assessmentQuestionsCount()"></span>
+                <!-- /ko -->
+                <!-- ko else-->
+                <span class="course-assessment"></span>
+                <!-- /ko -->
+            </div>
+            <div class="corse-item-progress">
+                <div class="corse-item-span paddingT0">
+                    <!-- ko if: subActivity.resource() && subActivity.resource().durationText() && subActivity.resource().mediaType() != 'exam' -->
+                    <span class="sr">时间</span>
+                    <span class="corse-item-span lineHNormal" data-bind="text: subActivity.resource().durationText()"></span>
+                    <!-- /ko -->
+                </div>
+                <div class="tick-icon-container">
+                    <!-- ko if: subActivity.completed() -->
+                    <span class="sr">您已学完本课</span>
+                    <span class="tick-icon"></span>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </a>
+        <!-- /ko -->
+        <!-- ko if:  markers() && markers().length > 0 && subActivity.contentLevel() > 1 -->
+        <div class="markers" data-bind="foreach: markers()">
+            <!-- ko if:  type() == 'videoMarker' -->
+            <a href="#" data-bind="event: { click: subActivity.prerequisitesSatisified() ? function () { $root.launchBookmark($parent, this) } : function () { return false; } }, attr: { 'class': 'course-components syllabusLevel-' + subActivity.contentLevel() + 1 }">
+                <div class="bookmark-container">
+                    <div data-bind="css: 'component-icon bookmark-icon svgsprite18 ' + ' level-indent' + subActivity.contentLevel() + 1"></div>
+                    <div class="blue bookmark-title cursor-pointer" data-bind="html: title()"></div>
+                </div>
+                <div class="bookmark-duration">
+                    <span class="sr">时间</span>
+                    <span data-bind="text: location()"></span>
+                </div>
+            </a>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+        <!-- ko if:  activities() && activities().length > 0 -->
+        <div data-bind="template: { name: 'nodeTemplate', foreach: activities, as: 'subActivity' }">
+        </div>
+        <!-- /ko -->
+    </script>
+
+    <!-- moduleTemplate -->
+    <script type="text/html" id="moduleTemplate">
+        <h3 data-bind="attr: { id: 'module_' + id() }" aria-expanded="false">
+            <a title="切换" class="accordion-title-icon-expandcollapse floatL">
+                <img src="https://mvastorage.microsoft.com/public/css/content/images/MLX_Icons_v9.svg" width="400" height="480" class="twitter-img" />
+            </a>
+            <div class="corse-item-name semi-bold">
+                <span class="star-span green" data-bind="visible: ((updatedContentAvailable() || newContentAvailable()) && ($parent.isCourseUpdated() || $parent.isVersionModified()))">*</span>
+                <div class="acc-item-name" data-bind="html: title(), attr: { 'title': title() }, css: { 'green': ((updatedContentAvailable() || newContentAvailable()) && ($parent.isCourseUpdated() || $parent.isVersionModified())) }"></div>
+            </div>
+            <div class="corse-item-time" data-bind="text: $parent.isDurationAvailable() ? expectedDurationTime : ''"></div>
+        </h3>
+        <div data-bind="template: { name: 'nodeTemplate', data: $data, as: 'subActivity' }">
+        </div>
+    </script>
+</section>
+
+    <script type="text/html" id="RelatedCoursesTemplate">   
+      <li>
+      <a class="related-course-list-item" href="javascript:void(0)" data-bind="click: function () { trackRelatedCourseClick(coursePlayerURL, productID, title); }, attr: { href: coursePlayerURL }">          
+        <div id="coursedescription" class="related-course-description">
+            <div>
+                <div class="left-pane floatL charcoal">
+                    
+                    <span class="green" data-bind="text: getLevelName(levelName)"></span>
+                    <span class="">&nbsp;|&nbsp;</span>
+                    <span class="publish-date" data-bind="text: ResourceStrings.CP_Published + ' ' + getDateDiffString(releaseDatetime)"></span>
+                </div>
+            </div>
+            <div class="left-pane-position cf">
+                <div class="left-pane floatL  width100">
+                    <div class="floatL course-name">
+                        <h2 class="related-ellipsis">
+                            <span class="font16" data-bind="text: title"></span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="course-short-description sLellipsis width100">
+                    <span class="course-short-description-dotdotdot" data-bind="html: description, attr: { title: removeTagsCourseDescription(description) }"></span>
+                </div>
+                <!-- ko if:  authors != null -->
+                    <div class="author-info" id="related-courses-authorinfo">
+                        <span class="instructorslabel">讲师：</span>
+                        <span class="instructorslabel" data-bind="text: authors"></span>                       
+                    </div>
+                <!-- /ko -->
+            </div>
+        </div> 
+     </a>
+      </li>
+    </script>
+
+
+                    </div>
+                
+                </div>
+                 
+                
+                
+            </section>
+        </main>
+        
+        
+
+        
+        
+
+<div id="popups-footer-container"></div>
+<footer class="footer" role="contentinfo">
+    <div class="footer-content">
+        <div class="leftFooter">
+            <div class="comboCountries">
+                
+<nav id="language-nav" class="pop-menu" >
+    <a class="pop-trigger inactive selected-country" id="language-trigger" aria-owns="language-menu" href="javascript:void(0)" >
+        <span class="sr">Your current language is</span>
+        <div class="sprite world"></div>
+        <span class="text">Chinese - Simplified</span> <span class="sr">select to change</span>
+    </a>
+    <div class="carot pop-content" id="comboLanguagesCarot"></div>
+    <div class="pop-content footerPopUp popUpLanguages" id="language-menu" style="display:none;">
+        <fieldset >
+            <legend class="header-title">选择您的语言<span class="sr">执行此操作只会更改网站的文本显示语言，不会根据语言筛选内容。</span></legend>
+            <div class="languagesContainer footerPopUpContainer">
+                <p class="selectLanguagesMessage">执行此操作只会更改网站的文本显示语言，不会根据语言筛选内容。</p>
+                <ul class="languages-list">
+                    
+                            <li class="languages-item">
+                                
+                                <span id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl00_selectedLanguage" class="selectedLanguage" onclick="showCountriesPopup();">Chinese - Simplified</span>
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;zh-tw&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl01_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl01$lkbLanguage&#39;,&#39;&#39;)">Chinese - Traditional</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;cs&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl02_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl02$lkbLanguage&#39;,&#39;&#39;)">Czech</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;en-US&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl03_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl03$lkbLanguage&#39;,&#39;&#39;)">English</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;fr-fr&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl04_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl04$lkbLanguage&#39;,&#39;&#39;)">French</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;de-de&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl05_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl05$lkbLanguage&#39;,&#39;&#39;)">German</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;it-it&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl06_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl06$lkbLanguage&#39;,&#39;&#39;)">Italian</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;ja&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl07_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl07$lkbLanguage&#39;,&#39;&#39;)">Japanese</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;ko&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl08_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl08$lkbLanguage&#39;,&#39;&#39;)">Korean</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;pl&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl09_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl09$lkbLanguage&#39;,&#39;&#39;)">Polish</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;pt-br&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl10_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl10$lkbLanguage&#39;,&#39;&#39;)">Portuguese (Brazil)</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;ru&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl11_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl11$lkbLanguage&#39;,&#39;&#39;)">Russian</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;es-es&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl12_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl12$lkbLanguage&#39;,&#39;&#39;)">Spanish</a>
+                                
+                            </li>
+                        
+                            <li class="languages-item">
+                                <a onclick="return setFooterComboLanguages(&#39;tr&#39;);" id="ctl00_ctl00_UserControlFooter_UserControlComboLanguages_RepeaterLanguages_ctl13_lkbLanguage" class="link" href="javascript:__doPostBack(&#39;ctl00$ctl00$UserControlFooter$UserControlComboLanguages$RepeaterLanguages$ctl13$lkbLanguage&#39;,&#39;&#39;)">Turkish</a>
+                                
+                            </li>
+                        
+                </ul>
+            </div>
+        </fieldset>
+    </div>
+</nav>
+
+            </div>
+
+            <div class="support pop-menu">
+                <div class="carot pop-content" id="supportCarot"></div>
+                <a role="button" class="pop-trigger active" id="support-trigger"aria-owns="menuSupport-container" href="javascript:void(0)" >支持</a>
+                <div id="menuSupport-container" class="pop-content"  style="display:none;">
+                    <ul class="menuSupport">
+                        
+                            <li class="course-get-help">
+                                <a id="ctl00_ctl00_UserControlFooter_hlCourseGetHelp" class="footer-text-style" href="http://trainingsupport.microsoft.com/zh-hans/tcmva/forum/tcmvaazure-course_42702" target="_blank">获得关于此课程的帮助</a>
+                            </li>
+                        
+                        <li>
+                            <a class="footer-text-style" href="https://mva.microsoft.com/Help.aspx?type=general-faq" onclick="trackNavigationClick('footer:help:general faqs', 'o');">常见问题解答</a>
+                        </li>
+                        <li id="ctl00_ctl00_UserControlFooter_liSupportForums">
+                            <a id="ctl00_ctl00_UserControlFooter_hlSupportForums" class="footer-text-style" onclick="trackNavigationClick(&#39;footer:help:support forums&#39;, &#39;o&#39;);" href="https://trainingsupport.microsoft.com/zh-hans/tcmva/forum" target="_blank">论坛</a>
+                        </li>
+                        <li>
+                            <a class="footer-text-style" id="hlFeedback" href="https://trainingsupport.microsoft.com/zh-hans/tcmva/forum/tcmvafdbk-tcmvaprodother?sort=lastreplydate&dir=desc&tab=Threads&threadType=All&tm=1432229985926" target="_blank" onclick="trackNavigationClick('footer:help:feedback', 'o');">反馈信息</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="followus pop-menu">
+                <div class="carot pop-content" id="followusCarot"></div>
+                <a class="trigger active pop-trigger" id="follow-trigger" aria-owns="menuFollowus-container" href="javascript:void(0)" >关注我们</a>
+                <div id="menuFollowus-container" class="pop-content" style="display:none;">
+                    <ul class="menuFollowus">
+                        
+                        
+                        
+                        
+                        
+                            <li>
+                                <a onclick="trackFooterFollowUs('rss');" id="hlRSS" target="_blank" name="博客" class="sprite rss" href="https://borntolearn.mslearn.net/b/mva"></a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-items">
+                <div class="legal-links">
+                    <ul>
+                        
+                            <li>
+                                <a href="https://mva.microsoft.com/colleges/sitemap-china" id="ctl00_ctl00_UserControlFooter_urlSiteMap" class="footer-text-style" onclick="trackNavigationClick(&#39;footer:sitemap&#39;, &#39;o&#39;);">站点地图</a>
+                            </li>
+                        
+
+                        <li>
+                            <a href="https://go.microsoft.com/fwlink/?LinkId=521839" id="ctl00_ctl00_UserControlFooter_urlPrivacyStatement" class="footer-text-style" target="_blank" onclick="trackNavigationClick(&#39;footer:privacy statement&#39;, &#39;o&#39;);">隐私声明</a>
+                        </li>
+                        <li>
+                            <a href="http://go.microsoft.com/fwlink/?LinkID=206977" id="ctl00_ctl00_UserControlFooter_urlTermsOfUse" class="footer-text-style" target="_blank" onclick="trackNavigationClick(&#39;footer:terms of use&#39;, &#39;o&#39;);">使用条款</a>
+                        </li>
+                        <li>
+                            <a href="https://go.microsoft.com/?linkid=9851308" id="ctl00_ctl00_UserControlFooter_urlTrademarks" class="footer-text-style" target="_blank" onclick="trackNavigationClick(&#39;footer:trademarks&#39;, &#39;o&#39;);">商标</a>
+                        </li>
+
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="ms-copyright">
+                © 2017 Microsoft
+            </div>
+
+            <div class="ms-logo">
+                <a id="microsoftlogo" class="sprite mslogo" href="http://www.microsoft.com" target="_blank" title="Microsoft 主页" onclick="trackNavigationClick('footer:microsoft', 'o');"></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        <div id="backgroundPopup"></div>
+
+        <div id="ctl00_ctl00_uProgress" style="display:none;">
+	
+                <div class="progress-panel">
+                    <div class="progress-image"></div>
+                </div>
+            
+</div>
+
+        
+        <input type="hidden" name="hfBaseURL" id="hfBaseURL" value="https://mva.microsoft.com/" />
+        <input type="hidden" id="hfDefaultErrorMessage" value="发生了错误" />
+
+        
+        
+    
+    <script type="text/javascript">
+      
+    </script>
+
+
+        <script type="text/javascript" src="https://mvastorage.microsoft.com/public/scripts/learningplan-2017-07-25-1352.js"></script>
+        <script type="text/javascript" src="https://mvastorage.microsoft.com/public/scripts/profileInitializer-2017-07-25-1352.js"></script>
+    </form>
+    <section id="Reauthentication-container" class="modal-popup-container" style="display: none;">
+        <!-- Overlay div -->
+        <div class="overlaymodal" style="display: block;"></div>
+        <div class="register-overlay-loading-wrapper displayBlock overlay-bgcolor">
+            <div class="overlay-container">
+                <div class="user-migrated reauth-message">
+                    <div class="top-container">
+                        <div class="maintenance-msg">
+                            <div class="maintenance-msg-icon"></div>
+                            <div class="maintenance-msg-text headline">Your session has expired.</div>
+                        </div>
+                    </div>
+                    <div class="bottom-container">
+                        <p>Would you like us to sign you back in? If you click <b>No</b>, you will be signed out from the site and will lose any unsaved progress.</p>                        
+                    </div>                    
+                    <div class="overlay-button-container">
+                        <button  id="btnAuthentication" class="primarybutton" autofocus>是</button>
+                        <button  id="btnCancelAuthentication" class="primarybutton reauth-button" >否</button>
+                    </div>
+                </div>          
+            </div>
+        </div>
+        
+    </section>
+
+</body>
+</html>
+

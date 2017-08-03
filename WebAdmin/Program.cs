@@ -10,6 +10,7 @@ using MSDev.Task.Helpers;
 using MSDev.Task.Tasks;
 using MSDev.Task.Tools;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace WebAdmin
 {
@@ -20,6 +21,10 @@ namespace WebAdmin
 
         public static void Main(string[] args)
         {
+            Console.OutputEncoding=Encoding.UTF8;
+            //MvaHelper helper = new MvaHelper();
+            //var re = helper.GetMvaDetails("https://mva.microsoft.com/zh-cn/training-courses/-api-17770").Result;
+
 
             if (IsTask)
             {
@@ -60,7 +65,7 @@ namespace WebAdmin
                     Console.WriteLine("Task start ");
 
                     Log.Write(fileName, "rssNews Start!");
-                    var task3= new DevBlogsTask();
+                    var task3 = new DevBlogsTask();
                     var rssnews = task3.GetNewsAsync().Result;
                     foreach (var news in rssnews)
                     {

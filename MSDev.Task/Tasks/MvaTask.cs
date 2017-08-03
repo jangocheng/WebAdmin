@@ -86,5 +86,15 @@ namespace MSDev.Task.Tasks
             }
 			return toBeAddMcList;
 		}
+
+
+        /// <summary>
+        /// 更新视频详细信息
+        /// </summary>
+        public void UpdateDetail(string url)
+        {
+
+        }
+
 	}
 }
