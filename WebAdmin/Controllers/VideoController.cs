@@ -30,6 +30,7 @@ namespace WebAdmin.Controllers
         {
             int pageSize = 12;
             var videos = _context.MvaVideos
+                .Where(m=>m.LanguageCode.Equals("zh-cn"))
                 .OrderByDescending(m => m.UpdatedTime)
                 .Skip((p - 1) * pageSize).Take(pageSize)
                 .ToList();
@@ -63,13 +64,32 @@ namespace WebAdmin.Controllers
             return JsonFailed();
         }
         [HttpGet]
-        public IActionResult RecommendMva(string id)
+        public IActionResult EditMvaVideo(string id)
         {
             var video = _context.MvaVideos.Find(Guid.Parse(id));
-            video.IsRecommend = true;
-            _context.MvaVideos.Update(video);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            return View(video);
+        }
+
+        [HttpPost]
+        public IActionResult EditMvaVideo(MvaVideos mvaVideo)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var video = _context.MvaVideos.Find(mvaVideo.Id);
+                video.Tags = mvaVideo.Tags;
+                video.Technologies = mvaVideo.Technologies;
+                video.IsRecommend = mvaVideo.IsRecommend;
+
+                _context.Update(video);
+                var re = _context.SaveChanges();
+                if (re > 0)
+                {
+                    return View(video);
+                }
+            }
+            
+            return View(mvaVideo);
         }
     }
 

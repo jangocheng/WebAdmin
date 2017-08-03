@@ -15,8 +15,6 @@ namespace WebAdmin
 {
     public class Program
     {
-
-
         private static bool IsTask = true;//是否运行Task
         //private static bool IsTask = false;
 
