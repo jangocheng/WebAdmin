@@ -1,0 +1,291 @@
+{
+    "manifest": {
+        "metadata": {
+            "title": "Course 42582: Visual Studio 2017: Web开发"
+        },
+        "organizations": {
+            "@default": "TOC1",
+            "organization": [
+                {
+                    "@identifier": "TOC1",
+                    "item": [
+                        {
+                            "@identifier": "YvJkpON8D_5711100275",
+                            "@isdeleted": "false",
+                            "@isvisible": "true",
+                            "item": [
+                                {
+                                    "@identifier": "FsdE0QN8D_2011100275",
+                                    "@isdeleted": "false",
+                                    "@isvisible": "true",
+                                    "metadata": {
+                                        "description": ""
+                                    },
+                                    "resource": {
+                                        "@href": "..\/..\/common\/videodriver.html?settingsUrl=content\/content_fsde0qn8d_2011100275",
+                                        "@scormtype": "sco",
+                                        "metadata": {
+                                            "description": "",
+                                            "duration": "00:27:31",
+                                            "learningresourcetype": "Video",
+                                            "points": 3
+                                        }
+                                    },
+                                    "title": "Visual Studio 2017中的新功能"
+                                }
+                            ],
+                            "metadata": {
+                                "description": "学习了解Visual Studio 2017中的新特性"
+                            },
+                            "objectives": [
+                                {
+                                    "@objectiveID": 95923,
+                                    "objective": "了解Visual Studio 2017的新特性"
+                                }
+                            ],
+                            "title": "01 | Visual Studio 2017中的新功能"
+                        },
+                        {
+                            "@identifier": "ymfJAPN8D_911100275",
+                            "@isdeleted": "false",
+                            "@isvisible": "true",
+                            "item": [
+                                {
+                                    "@identifier": "3P7XFRN8D_4711100275",
+                                    "@isdeleted": "false",
+                                    "@isvisible": "true",
+                                    "metadata": {
+                                        "description": ""
+                                    },
+                                    "resource": {
+                                        "@href": "..\/..\/common\/videodriver.html?settingsUrl=content\/content_3p7xfrn8d_4711100275",
+                                        "@scormtype": "sco",
+                                        "metadata": {
+                                            "description": "",
+                                            "duration": "00:35:39",
+                                            "learningresourcetype": "Video",
+                                            "points": 3
+                                        }
+                                    },
+                                    "title": "Visual Studio 2017中的ASP.NET Core"
+                                }
+                            ],
+                            "metadata": {
+                                "description": "使用Visual Studio 2017开发ASP.NET Core应用"
+                            },
+                            "objectives": [
+                                {
+                                    "@objectiveID": 95924,
+                                    "objective": "使用Visual Studio 2017开发ASP.NET Core应用"
+                                }
+                            ],
+                            "title": "02 | Visual Studio 2017中的ASP.NET Core"
+                        },
+                        {
+                            "@identifier": "3PF7LPN8D_2611100275",
+                            "@isdeleted": "false",
+                            "@isvisible": "true",
+                            "item": [
+                                {
+                                    "@identifier": "tWIyRRN8D_4311100275",
+                                    "@isdeleted": "false",
+                                    "@isvisible": "true",
+                                    "metadata": {
+                                        "description": ""
+                                    },
+                                    "resource": {
+                                        "@href": "..\/..\/common\/videodriver.html?settingsUrl=content\/content_twiyrrn8d_4311100275",
+                                        "@scormtype": "sco",
+                                        "metadata": {
+                                            "description": "",
+                                            "duration": "00:42:38",
+                                            "learningresourcetype": "Video",
+                                            "points": 3
+                                        }
+                                    },
+                                    "title": "使用 Angular来创建Web应用"
+                                }
+                            ],
+                            "metadata": {
+                                "description": "使用Visual Studio 2017开发Angular 2.x应用"
+                            },
+                            "objectives": [
+                                {
+                                    "@objectiveID": 95925,
+                                    "objective": "使用Visual Studio 2017开发Angular 2.x应用"
+                                }
+                            ],
+                            "title": "03 | 使用 Angular来创建Web应用"
+                        },
+                        {
+                            "@identifier": "mIpuXPN8D_2611100275",
+                            "@isdeleted": "false",
+                            "@isvisible": "true",
+                            "item": [
+                                {
+                                    "@identifier": "Yw8IfRN8D_5911100275",
+                                    "@isdeleted": "false",
+                                    "@isvisible": "true",
+                                    "metadata": {
+                                        "description": ""
+                                    },
+                                    "resource": {
+                                        "@href": "..\/..\/common\/videodriver.html?settingsUrl=content\/content_yw8ifrn8d_5911100275",
+                                        "@scormtype": "sco",
+                                        "metadata": {
+                                            "description": "",
+                                            "duration": "00:40:29",
+                                            "learningresourcetype": "Video",
+                                            "points": 3
+                                        }
+                                    },
+                                    "title": "在Microsoft Teams里面创建智能机器人, 连接器和标签页"
+                                }
+                            ],
+                            "metadata": {
+                                "description": "了解Microsoft Teams中的各种集成可能性以及在演示中开发。"
+                            },
+                            "objectives": [
+                                {
+                                    "@objectiveID": 95926,
+                                    "objective": "为Microsoft Teams设置多个扩展"
+                                }
+                            ],
+                            "title": "04 | 在Microsoft Teams里面创建智能机器人, 连接器和标签页"
+                        },
+                        {
+                            "@identifier": "hzkyiPN8D_6011100275",
+                            "@isdeleted": "false",
+                            "@isvisible": "true",
+                            "item": [
+                                {
+                                    "@identifier": "BWmCtRN8D_4111100275",
+                                    "@isdeleted": "false",
+                                    "@isvisible": "true",
+                                    "metadata": {
+                                        "description": ""
+                                    },
+                                    "resource": {
+                                        "@href": "..\/..\/common\/videodriver.html?settingsUrl=content\/content_bwmctrn8d_4111100275",
+                                        "@scormtype": "sco",
+                                        "metadata": {
+                                            "description": "",
+                                            "duration": "00:29:29",
+                                            "learningresourcetype": "Video",
+                                            "points": 3
+                                        }
+                                    },
+                                    "title": "Azure Portal上的DevOps"
+                                }
+                            ],
+                            "metadata": {
+                                "description": "观看演示，了解如何在Azure Portal上建立DevOps。"
+                            },
+                            "objectives": [
+                                {
+                                    "@objectiveID": 95927,
+                                    "objective": "在Azure Portal上实现一个DevOps-Pipeline"
+                                }
+                            ],
+                            "title": "05 | Azure Portal上的DevOps"
+                        },
+                        {
+                            "@identifier": "r7lC4PN8D_1011100275",
+                            "@isdeleted": "false",
+                            "@isvisible": "true",
+                            "item": [
+                                {
+                                    "@identifier": "kwnS9RN8D_9611100275",
+                                    "@isdeleted": "false",
+                                    "@isvisible": "true",
+                                    "metadata": {
+                                        "description": ""
+                                    },
+                                    "resource": {
+                                        "@href": "..\/..\/common\/videodriver.html?settingsUrl=content\/content_kwns9rn8d_9611100275",
+                                        "@scormtype": "sco",
+                                        "metadata": {
+                                            "description": "",
+                                            "duration": "00:47:44",
+                                            "learningresourcetype": "Video",
+                                            "points": 3
+                                        }
+                                    },
+                                    "title": "每一个开发者都应该了解的，十大Entity Framework的变化"
+                                }
+                            ],
+                            "metadata": {
+                                "description": "了解Entity Framework 1.1里面，能让你的开发变得轻松的，十个新的特性和变化。"
+                            },
+                            "objectives": [
+                                {
+                                    "@objectiveID": 95928,
+                                    "objective": "了解EF Core 1.1的新特性"
+                                }
+                            ],
+                            "title": "06 |每一个开发者都应该了解的，十大Entity Framework的变化"
+                        },
+                        {
+                            "@identifier": "EsacDQN8D_4011100275",
+                            "@isdeleted": "false",
+                            "@isvisible": "true",
+                            "item": [
+                                {
+                                    "@identifier": "lQWfLSN8D_8711100275",
+                                    "@isdeleted": "false",
+                                    "@isvisible": "true",
+                                    "metadata": {
+                                        "description": ""
+                                    },
+                                    "resource": {
+                                        "@href": "..\/..\/common\/videodriver.html?settingsUrl=content\/content_lqwflsn8d_8711100275",
+                                        "@scormtype": "sco",
+                                        "metadata": {
+                                            "description": "",
+                                            "duration": "01:04:15",
+                                            "learningresourcetype": "Video",
+                                            "points": 3
+                                        }
+                                    },
+                                    "title": "DocumentDb入门"
+                                }
+                            ],
+                            "metadata": {
+                                "createdVersion": "",
+                                "description": "跟着演示，学习用不同语言来使用DocumentDb。",
+                                "version": ""
+                            },
+                            "objectives": [
+                                {
+                                    "@objectiveID": 95929,
+                                    "objective": "学习了解DocumentDb"
+                                }
+                            ],
+                            "title": "07 | DocumentDb入门"
+                        },
+                        {
+                            "@identifier": "nOwj8BS8D_5911100275",
+                            "@isdeleted": "false",
+                            "@isvisible": "true",
+                            "resource": {
+                                "@href": "..\/..\/common\/assessmentdriver.html?assessmentUrl=content\/content_nowj8bs8d_5911100275",
+                                "@scormtype": "sco",
+                                "metadata": {
+                                    "description": "",
+                                    "duration": "00:10:00",
+                                    "learningresourcetype": "Exam",
+                                    "points": 8
+                                }
+                            },
+                            "title": "知识检测"
+                        }
+                    ],
+                    "title": "Visual Studio 2017: Web开发"
+                }
+            ]
+        }
+    }
+}{"manifest":{"metadata":{"title":"Course 42582: Visual Studio 2017: Web开发"},"organizations":{"@default":"TOC1","organization":[{"@identifier":"TOC1","item":[{"@identifier":"YvJkpON8D_5711100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"FsdE0QN8D_2011100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_fsde0qn8d_2011100275","@scormtype":"sco","metadata":{"description":"","duration":"00:27:31","learningresourcetype":"Video","points":3}},"title":"Visual Studio 2017中的新功能"}],"metadata":{"description":"学习了解Visual Studio 2017中的新特性"},"objectives":[{"@objectiveID":95923,"objective":"了解Visual Studio 2017的新特性"}],"title":"01 | Visual Studio 2017中的新功能"},{"@identifier":"ymfJAPN8D_911100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"3P7XFRN8D_4711100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_3p7xfrn8d_4711100275","@scormtype":"sco","metadata":{"description":"","duration":"00:35:39","learningresourcetype":"Video","points":3}},"title":"Visual Studio 2017中的ASP.NET Core"}],"metadata":{"description":"使用Visual Studio 2017开发ASP.NET Core应用"},"objectives":[{"@objectiveID":95924,"objective":"使用Visual Studio 2017开发ASP.NET Core应用"}],"title":"02 | Visual Studio 2017中的ASP.NET Core"},{"@identifier":"3PF7LPN8D_2611100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"tWIyRRN8D_4311100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_twiyrrn8d_4311100275","@scormtype":"sco","metadata":{"description":"","duration":"00:42:38","learningresourcetype":"Video","points":3}},"title":"使用 Angular来创建Web应用"}],"metadata":{"description":"使用Visual Studio 2017开发Angular 2.x应用"},"objectives":[{"@objectiveID":95925,"objective":"使用Visual Studio 2017开发Angular 2.x应用"}],"title":"03 | 使用 Angular来创建Web应用"},{"@identifier":"mIpuXPN8D_2611100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"Yw8IfRN8D_5911100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_yw8ifrn8d_5911100275","@scormtype":"sco","metadata":{"description":"","duration":"00:40:29","learningresourcetype":"Video","points":3}},"title":"在Microsoft Teams里面创建智能机器人, 连接器和标签页"}],"metadata":{"description":"了解Microsoft Teams中的各种集成可能性以及在演示中开发。"},"objectives":[{"@objectiveID":95926,"objective":"为Microsoft Teams设置多个扩展"}],"title":"04 | 在Microsoft Teams里面创建智能机器人, 连接器和标签页"},{"@identifier":"hzkyiPN8D_6011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"BWmCtRN8D_4111100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_bwmctrn8d_4111100275","@scormtype":"sco","metadata":{"description":"","duration":"00:29:29","learningresourcetype":"Video","points":3}},"title":"Azure Portal上的DevOps"}],"metadata":{"description":"观看演示，了解如何在Azure Portal上建立DevOps。"},"objectives":[{"@objectiveID":95927,"objective":"在Azure Portal上实现一个DevOps-Pipeline"}],"title":"05 | Azure Portal上的DevOps"},{"@identifier":"r7lC4PN8D_1011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"kwnS9RN8D_9611100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_kwns9rn8d_9611100275","@scormtype":"sco","metadata":{"description":"","duration":"00:47:44","learningresourcetype":"Video","points":3}},"title":"每一个开发者都应该了解的，十大Entity Framework的变化"}],"metadata":{"description":"了解Entity Framework 1.1里面，能让你的开发变得轻松的，十个新的特性和变化。"},"objectives":[{"@objectiveID":95928,"objective":"了解EF Core 1.1的新特性"}],"title":"06 |每一个开发者都应该了解的，十大Entity Framework的变化"},{"@identifier":"EsacDQN8D_4011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"lQWfLSN8D_8711100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_lqwflsn8d_8711100275","@scormtype":"sco","metadata":{"description":"","duration":"01:04:15","learningresourcetype":"Video","points":3}},"title":"DocumentDb入门"}],"metadata":{"createdVersion":"","description":"跟着演示，学习用不同语言来使用DocumentDb。","version":""},"objectives":[{"@objectiveID":95929,"objective":"学习了解DocumentDb"}],"title":"07 | DocumentDb入门"},{"@identifier":"nOwj8BS8D_5911100275","@isdeleted":"false","@isvisible":"true","resource":{"@href":"..\/..\/common\/assessmentdriver.html?assessmentUrl=content\/content_nowj8bs8d_5911100275","@scormtype":"sco","metadata":{"description":"","duration":"00:10:00","learningresourcetype":"Exam","points":8}},"title":"知识检测"}],"title":"Visual Studio 2017: Web开发"}]}}}
+{"manifest":{"metadata":{"title":"Course 42582: Visual Studio 2017: Web开发"},"organizations":{"@default":"TOC1","organization":[{"@identifier":"TOC1","item":[{"@identifier":"YvJkpON8D_5711100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"FsdE0QN8D_2011100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_fsde0qn8d_2011100275","@scormtype":"sco","metadata":{"description":"","duration":"00:27:31","learningresourcetype":"Video","points":3}},"title":"Visual Studio 2017中的新功能"}],"metadata":{"description":"学习了解Visual Studio 2017中的新特性"},"objectives":[{"@objectiveID":95923,"objective":"了解Visual Studio 2017的新特性"}],"title":"01 | Visual Studio 2017中的新功能"},{"@identifier":"ymfJAPN8D_911100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"3P7XFRN8D_4711100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_3p7xfrn8d_4711100275","@scormtype":"sco","metadata":{"description":"","duration":"00:35:39","learningresourcetype":"Video","points":3}},"title":"Visual Studio 2017中的ASP.NET Core"}],"metadata":{"description":"使用Visual Studio 2017开发ASP.NET Core应用"},"objectives":[{"@objectiveID":95924,"objective":"使用Visual Studio 2017开发ASP.NET Core应用"}],"title":"02 | Visual Studio 2017中的ASP.NET Core"},{"@identifier":"3PF7LPN8D_2611100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"tWIyRRN8D_4311100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_twiyrrn8d_4311100275","@scormtype":"sco","metadata":{"description":"","duration":"00:42:38","learningresourcetype":"Video","points":3}},"title":"使用 Angular来创建Web应用"}],"metadata":{"description":"使用Visual Studio 2017开发Angular 2.x应用"},"objectives":[{"@objectiveID":95925,"objective":"使用Visual Studio 2017开发Angular 2.x应用"}],"title":"03 | 使用 Angular来创建Web应用"},{"@identifier":"mIpuXPN8D_2611100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"Yw8IfRN8D_5911100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_yw8ifrn8d_5911100275","@scormtype":"sco","metadata":{"description":"","duration":"00:40:29","learningresourcetype":"Video","points":3}},"title":"在Microsoft Teams里面创建智能机器人, 连接器和标签页"}],"metadata":{"description":"了解Microsoft Teams中的各种集成可能性以及在演示中开发。"},"objectives":[{"@objectiveID":95926,"objective":"为Microsoft Teams设置多个扩展"}],"title":"04 | 在Microsoft Teams里面创建智能机器人, 连接器和标签页"},{"@identifier":"hzkyiPN8D_6011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"BWmCtRN8D_4111100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_bwmctrn8d_4111100275","@scormtype":"sco","metadata":{"description":"","duration":"00:29:29","learningresourcetype":"Video","points":3}},"title":"Azure Portal上的DevOps"}],"metadata":{"description":"观看演示，了解如何在Azure Portal上建立DevOps。"},"objectives":[{"@objectiveID":95927,"objective":"在Azure Portal上实现一个DevOps-Pipeline"}],"title":"05 | Azure Portal上的DevOps"},{"@identifier":"r7lC4PN8D_1011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"kwnS9RN8D_9611100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_kwns9rn8d_9611100275","@scormtype":"sco","metadata":{"description":"","duration":"00:47:44","learningresourcetype":"Video","points":3}},"title":"每一个开发者都应该了解的，十大Entity Framework的变化"}],"metadata":{"description":"了解Entity Framework 1.1里面，能让你的开发变得轻松的，十个新的特性和变化。"},"objectives":[{"@objectiveID":95928,"objective":"了解EF Core 1.1的新特性"}],"title":"06 |每一个开发者都应该了解的，十大Entity Framework的变化"},{"@identifier":"EsacDQN8D_4011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"lQWfLSN8D_8711100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_lqwflsn8d_8711100275","@scormtype":"sco","metadata":{"description":"","duration":"01:04:15","learningresourcetype":"Video","points":3}},"title":"DocumentDb入门"}],"metadata":{"createdVersion":"","description":"跟着演示，学习用不同语言来使用DocumentDb。","version":""},"objectives":[{"@objectiveID":95929,"objective":"学习了解DocumentDb"}],"title":"07 | DocumentDb入门"},{"@identifier":"nOwj8BS8D_5911100275","@isdeleted":"false","@isvisible":"true","resource":{"@href":"..\/..\/common\/assessmentdriver.html?assessmentUrl=content\/content_nowj8bs8d_5911100275","@scormtype":"sco","metadata":{"description":"","duration":"00:10:00","learningresourcetype":"Exam","points":8}},"title":"知识检测"}],"title":"Visual Studio 2017: Web开发"}]}}}
+{"manifest":{"metadata":{"title":"Course 42582: Visual Studio 2017: Web开发"},"organizations":{"@default":"TOC1","organization":[{"@identifier":"TOC1","item":[{"@identifier":"YvJkpON8D_5711100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"FsdE0QN8D_2011100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_fsde0qn8d_2011100275","@scormtype":"sco","metadata":{"description":"","duration":"00:27:31","learningresourcetype":"Video","points":3}},"title":"Visual Studio 2017中的新功能"}],"metadata":{"description":"学习了解Visual Studio 2017中的新特性"},"objectives":[{"@objectiveID":95923,"objective":"了解Visual Studio 2017的新特性"}],"title":"01 | Visual Studio 2017中的新功能"},{"@identifier":"ymfJAPN8D_911100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"3P7XFRN8D_4711100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_3p7xfrn8d_4711100275","@scormtype":"sco","metadata":{"description":"","duration":"00:35:39","learningresourcetype":"Video","points":3}},"title":"Visual Studio 2017中的ASP.NET Core"}],"metadata":{"description":"使用Visual Studio 2017开发ASP.NET Core应用"},"objectives":[{"@objectiveID":95924,"objective":"使用Visual Studio 2017开发ASP.NET Core应用"}],"title":"02 | Visual Studio 2017中的ASP.NET Core"},{"@identifier":"3PF7LPN8D_2611100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"tWIyRRN8D_4311100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_twiyrrn8d_4311100275","@scormtype":"sco","metadata":{"description":"","duration":"00:42:38","learningresourcetype":"Video","points":3}},"title":"使用 Angular来创建Web应用"}],"metadata":{"description":"使用Visual Studio 2017开发Angular 2.x应用"},"objectives":[{"@objectiveID":95925,"objective":"使用Visual Studio 2017开发Angular 2.x应用"}],"title":"03 | 使用 Angular来创建Web应用"},{"@identifier":"mIpuXPN8D_2611100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"Yw8IfRN8D_5911100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_yw8ifrn8d_5911100275","@scormtype":"sco","metadata":{"description":"","duration":"00:40:29","learningresourcetype":"Video","points":3}},"title":"在Microsoft Teams里面创建智能机器人, 连接器和标签页"}],"metadata":{"description":"了解Microsoft Teams中的各种集成可能性以及在演示中开发。"},"objectives":[{"@objectiveID":95926,"objective":"为Microsoft Teams设置多个扩展"}],"title":"04 | 在Microsoft Teams里面创建智能机器人, 连接器和标签页"},{"@identifier":"hzkyiPN8D_6011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"BWmCtRN8D_4111100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_bwmctrn8d_4111100275","@scormtype":"sco","metadata":{"description":"","duration":"00:29:29","learningresourcetype":"Video","points":3}},"title":"Azure Portal上的DevOps"}],"metadata":{"description":"观看演示，了解如何在Azure Portal上建立DevOps。"},"objectives":[{"@objectiveID":95927,"objective":"在Azure Portal上实现一个DevOps-Pipeline"}],"title":"05 | Azure Portal上的DevOps"},{"@identifier":"r7lC4PN8D_1011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"kwnS9RN8D_9611100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_kwns9rn8d_9611100275","@scormtype":"sco","metadata":{"description":"","duration":"00:47:44","learningresourcetype":"Video","points":3}},"title":"每一个开发者都应该了解的，十大Entity Framework的变化"}],"metadata":{"description":"了解Entity Framework 1.1里面，能让你的开发变得轻松的，十个新的特性和变化。"},"objectives":[{"@objectiveID":95928,"objective":"了解EF Core 1.1的新特性"}],"title":"06 |每一个开发者都应该了解的，十大Entity Framework的变化"},{"@identifier":"EsacDQN8D_4011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"lQWfLSN8D_8711100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_lqwflsn8d_8711100275","@scormtype":"sco","metadata":{"description":"","duration":"01:04:15","learningresourcetype":"Video","points":3}},"title":"DocumentDb入门"}],"metadata":{"createdVersion":"","description":"跟着演示，学习用不同语言来使用DocumentDb。","version":""},"objectives":[{"@objectiveID":95929,"objective":"学习了解DocumentDb"}],"title":"07 | DocumentDb入门"},{"@identifier":"nOwj8BS8D_5911100275","@isdeleted":"false","@isvisible":"true","resource":{"@href":"..\/..\/common\/assessmentdriver.html?assessmentUrl=content\/content_nowj8bs8d_5911100275","@scormtype":"sco","metadata":{"description":"","duration":"00:10:00","learningresourcetype":"Exam","points":8}},"title":"知识检测"}],"title":"Visual Studio 2017: Web开发"}]}}}
+{"manifest":{"metadata":{"title":"Course 42582: Visual Studio 2017: Web开发"},"organizations":{"@default":"TOC1","organization":[{"@identifier":"TOC1","item":[{"@identifier":"YvJkpON8D_5711100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"FsdE0QN8D_2011100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_fsde0qn8d_2011100275","@scormtype":"sco","metadata":{"description":"","duration":"00:27:31","learningresourcetype":"Video","points":3}},"title":"Visual Studio 2017中的新功能"}],"metadata":{"description":"学习了解Visual Studio 2017中的新特性"},"objectives":[{"@objectiveID":95923,"objective":"了解Visual Studio 2017的新特性"}],"title":"01 | Visual Studio 2017中的新功能"},{"@identifier":"ymfJAPN8D_911100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"3P7XFRN8D_4711100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_3p7xfrn8d_4711100275","@scormtype":"sco","metadata":{"description":"","duration":"00:35:39","learningresourcetype":"Video","points":3}},"title":"Visual Studio 2017中的ASP.NET Core"}],"metadata":{"description":"使用Visual Studio 2017开发ASP.NET Core应用"},"objectives":[{"@objectiveID":95924,"objective":"使用Visual Studio 2017开发ASP.NET Core应用"}],"title":"02 | Visual Studio 2017中的ASP.NET Core"},{"@identifier":"3PF7LPN8D_2611100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"tWIyRRN8D_4311100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_twiyrrn8d_4311100275","@scormtype":"sco","metadata":{"description":"","duration":"00:42:38","learningresourcetype":"Video","points":3}},"title":"使用 Angular来创建Web应用"}],"metadata":{"description":"使用Visual Studio 2017开发Angular 2.x应用"},"objectives":[{"@objectiveID":95925,"objective":"使用Visual Studio 2017开发Angular 2.x应用"}],"title":"03 | 使用 Angular来创建Web应用"},{"@identifier":"mIpuXPN8D_2611100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"Yw8IfRN8D_5911100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_yw8ifrn8d_5911100275","@scormtype":"sco","metadata":{"description":"","duration":"00:40:29","learningresourcetype":"Video","points":3}},"title":"在Microsoft Teams里面创建智能机器人, 连接器和标签页"}],"metadata":{"description":"了解Microsoft Teams中的各种集成可能性以及在演示中开发。"},"objectives":[{"@objectiveID":95926,"objective":"为Microsoft Teams设置多个扩展"}],"title":"04 | 在Microsoft Teams里面创建智能机器人, 连接器和标签页"},{"@identifier":"hzkyiPN8D_6011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"BWmCtRN8D_4111100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_bwmctrn8d_4111100275","@scormtype":"sco","metadata":{"description":"","duration":"00:29:29","learningresourcetype":"Video","points":3}},"title":"Azure Portal上的DevOps"}],"metadata":{"description":"观看演示，了解如何在Azure Portal上建立DevOps。"},"objectives":[{"@objectiveID":95927,"objective":"在Azure Portal上实现一个DevOps-Pipeline"}],"title":"05 | Azure Portal上的DevOps"},{"@identifier":"r7lC4PN8D_1011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"kwnS9RN8D_9611100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_kwns9rn8d_9611100275","@scormtype":"sco","metadata":{"description":"","duration":"00:47:44","learningresourcetype":"Video","points":3}},"title":"每一个开发者都应该了解的，十大Entity Framework的变化"}],"metadata":{"description":"了解Entity Framework 1.1里面，能让你的开发变得轻松的，十个新的特性和变化。"},"objectives":[{"@objectiveID":95928,"objective":"了解EF Core 1.1的新特性"}],"title":"06 |每一个开发者都应该了解的，十大Entity Framework的变化"},{"@identifier":"EsacDQN8D_4011100275","@isdeleted":"false","@isvisible":"true","item":[{"@identifier":"lQWfLSN8D_8711100275","@isdeleted":"false","@isvisible":"true","metadata":{"description":""},"resource":{"@href":"..\/..\/common\/videodriver.html?settingsUrl=content\/content_lqwflsn8d_8711100275","@scormtype":"sco","metadata":{"description":"","duration":"01:04:15","learningresourcetype":"Video","points":3}},"title":"DocumentDb入门"}],"metadata":{"createdVersion":"","description":"跟着演示，学习用不同语言来使用DocumentDb。","version":""},"objectives":[{"@objectiveID":95929,"objective":"学习了解DocumentDb"}],"title":"07 | DocumentDb入门"},{"@identifier":"nOwj8BS8D_5911100275","@isdeleted":"false","@isvisible":"true","resource":{"@href":"..\/..\/common\/assessmentdriver.html?assessmentUrl=content\/content_nowj8bs8d_5911100275","@scormtype":"sco","metadata":{"description":"","duration":"00:10:00","learningresourcetype":"Exam","points":8}},"title":"知识检测"}],"title":"Visual Studio 2017: Web开发"}]}}}

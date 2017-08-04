@@ -1,16 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using MSDev.DB.Entities;
-using MSDev.Task.Helpers;
 using MSDev.Task.Tasks;
 using MSDev.Task.Tools;
-using Newtonsoft.Json;
 using System.Text;
+using MSDev.Task.Helpers;
 
 namespace WebAdmin
 {
@@ -21,10 +18,9 @@ namespace WebAdmin
 
         public static void Main(string[] args)
         {
-            Console.OutputEncoding=Encoding.UTF8;
+            Console.OutputEncoding = Encoding.UTF8;
             //MvaHelper helper = new MvaHelper();
-            //var re = helper.GetMvaDetails("https://mva.microsoft.com/zh-cn/training-courses/-api-17770").Result;
-
+            //var re = helper.GetMvaDetails("https://mva.microsoft.com/zh-cn/training-courses/Visual-Studio-2017Web-17809").Result;
 
             if (IsTask)
             {

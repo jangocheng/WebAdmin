@@ -103,12 +103,19 @@ namespace MSDev.Task.Helpers
 
         public async Task<List<MvaDetails>> GetMvaDetails(string url)
         {
-            
+            string apimlxprod = "https://api-mlxprod.microsoft.com/services/products/anonymous/17809";
+
             var list = new List<MvaDetails>();
             HttpClient hc = new HttpClient();
-            string htmlString = await hc.GetStringAsync(url);
 
-            Log.Write("html.html", htmlString);
+            string courseInfoUrl =await hc.GetStringAsync(apimlxprod);
+            courseInfoUrl = JsonConvert.DeserializeObject<string>(courseInfoUrl);
+            courseInfoUrl = courseInfoUrl + "/imsmanifestlite.json";
+            Console.WriteLine(courseInfoUrl);
+            string courseInfo = await hc.GetStringAsync(courseInfoUrl);
+            Log.Write("info.json", courseInfo);
+
+            string htmlString = await hc.GetStringAsync(url);
 
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(htmlString);

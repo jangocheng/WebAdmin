@@ -37,6 +37,7 @@
     <ProjectReference Include="..\MSDev.Task\MSDev.Task.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\FormModels\Videos\" />
     <Folder Include="Models\ViewModels\" />
   </ItemGroup>
 
