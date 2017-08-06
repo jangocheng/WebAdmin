@@ -13,14 +13,14 @@ namespace WebAdmin
 {
     public class Program
     {
-        private static bool IsTask = true;//是否运行Task
-        //private static bool IsTask = false;
+        //private static bool IsTask = true;//是否运行Task
+        private static bool IsTask = false;
 
         public static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            //MvaHelper helper = new MvaHelper();
-            //var re = helper.GetMvaDetails("https://mva.microsoft.com/zh-cn/training-courses/Visual-Studio-2017Web-17809").Result;
+            var task = new MvaTask();
+            var re = task.UpdateDetail();
 
             if (IsTask)
             {

@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MSDev.DB;
 using MSDev.DB.Entities;
 using WebAdmin.Helpers;
@@ -57,7 +56,6 @@ namespace WebAdmin.Controllers
                 return JsonOk(re);
             }
             return JsonFailed();
-
 
         }
 

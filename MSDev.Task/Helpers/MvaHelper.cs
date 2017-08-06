@@ -11,6 +11,8 @@ using MSDev.Task.Entities;
 using Newtonsoft.Json;
 using HtmlAgilityPack;
 using MSDev.Task.Tools;
+using System.Xml.Linq;
+using MSDev.DB;
 
 namespace MSDev.Task.Helpers
 {
@@ -101,64 +103,88 @@ namespace MSDev.Task.Helpers
         }
 
 
-        public async Task<List<MvaDetails>> GetMvaDetails(string url)
+        public async Task<(string, List<MvaDetails>)> GetMvaDetails(MvaVideos video)
         {
-            string apimlxprod = "https://api-mlxprod.microsoft.com/services/products/anonymous/17809";
+            string apimlxprod = "https://api-mlxprod.microsoft.com/services/products/anonymous/" + video.MvaId;
 
+            string url = video.SourceUrl;
             var list = new List<MvaDetails>();
-            HttpClient hc = new HttpClient();
 
-            string courseInfoUrl =await hc.GetStringAsync(apimlxprod);
-            courseInfoUrl = JsonConvert.DeserializeObject<string>(courseInfoUrl);
-            courseInfoUrl = courseInfoUrl + "/imsmanifestlite.json";
-            Console.WriteLine(courseInfoUrl);
-            string courseInfo = await hc.GetStringAsync(courseInfoUrl);
-            Log.Write("info.json", courseInfo);
+            try
+            {
+                HttpClient hc = new HttpClient();
 
-            string htmlString = await hc.GetStringAsync(url);
+                string mlxprodStaticUrl = await hc.GetStringAsync(apimlxprod);
+                //取课程内容
+                mlxprodStaticUrl = JsonConvert.DeserializeObject<string>(mlxprodStaticUrl);
+                var courseInfoUrl = mlxprodStaticUrl + "/imsmanifestlite.json";
+                string courseInfo = await hc.GetStringAsync(courseInfoUrl);
+                courseInfo = courseInfo.Replace("@", "_");
 
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(htmlString);
-            var info = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']//section[@id='coursePlayer']//div[@id='info-tab-container']//div[@id='course-info-container']");
+                //解析课程内容，获取课程id,名称，时间等
+                var mvaCourseInfo = JsonConvert.DeserializeObject<MvaDetailInfoEntity>(courseInfo);
+                var courseItems = mvaCourseInfo.manifest.organizations.organization.First().item
+                    .Select(m => m.item).ToList();
 
-            string detailDescription = info.SelectSingleNode(".//div[@id='overview']/div[@class='accordian-container overview-container-height']")?.InnerHtml;
+                foreach (var courses in courseItems)
+                {
+                    if (courses == null) continue;
+                    foreach (var course in courses)
+                    {
+                        var mvaDetail = new MvaDetails();
+                        if (course.resource.metadata.learningresourcetype.Equals("Video"))
+                        {
+                            mvaDetail.Id = Guid.NewGuid();
+                            mvaDetail.MvaId = course._identifier;
+                            mvaDetail.Title = course.title;
+                            if (DateTime.TryParse(course.resource?.metadata?.duration, out var duration))
+                            {
+                                mvaDetail.Duration = duration;
+                            }
 
-            var mvaDetails = info.SelectSingleNode(".//div[@id='syllabus']//div[@id='accordian-container']");
+                            mvaDetail.SourceUrl = video.SourceUrl + "?l=" + course._identifier;
+                            mvaDetail.MvaVideo = video;
+                            mvaDetail.Status = 1;
+                            mvaDetail.UpdatedTime = DateTime.Now;
+                            list.Add(mvaDetail);
+                        }
+                        continue;
+                    }
+                }
+                //根据课程id，获取下载地址
+                foreach (var mvaDetail in list)
+                {
+                    var downloadUrl = mlxprodStaticUrl + "/content/content_" + mvaDetail.MvaId + "/videosettings.xml";
+                    string xmlString = await hc.GetStringAsync(downloadUrl);
+                    if (xmlString != null)
+                    {
+                        var xmlDoc = XDocument.Parse(xmlString);
+                        var downloadList = xmlDoc.Root.Element("PlaylistItems").Element("PlaylistItem")?.Elements("MediaSources")
+                            .Where(m => m.Attribute("videoType").Value.Equals("progressive"))
+                            .First()?.Elements("MediaSource");
 
-            Console.WriteLine(mvaDetails.InnerHtml);
-            //    .Select(m => new MvaDetails
-            //    {
-            //        Title = m.SelectSingleNode(".//div[@class='corse-item-name']").Attributes["title"]?.Value,
-            //        SourceUrl = url + m.Attributes["id"]?.Value.Replace("activity-", "?l="),
-            //        Duration = DateTime.Parse(m.SelectSingleNode(".//div[@class='corse-item-progress']//span[@class='corse-item-span']")?.InnerText),
+                        mvaDetail.LowDownloadUrl = downloadList.Where(m => m.Attribute("videoMode").Value.Equals("360p")).First()?.Value;
+                        mvaDetail.MidDownloadUrl = downloadList.Where(m => m.Attribute("videoMode").Value.Equals("540p")).First()?.Value;
+                        mvaDetail.HighDownloadUrl = downloadList.Where(m => m.Attribute("videoMode").Value.Equals("720p")).First()?.Value;
+                    }
 
-            //    });
+                }
+                string htmlString = await hc.GetStringAsync(url);
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(htmlString);
+                var info = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']//section[@id='coursePlayer']//div[@id='info-tab-container']//div[@id='course-info-container']");
 
-            //foreach (var detail in mvaDetails)
-            //{
-            //    if (detail.Title.Contains("学习手册"))
-            //    {
-            //        detail.Title = string.Empty;
-            //        continue;
-            //    }
+                string detailDescription = info.SelectSingleNode(".//div[@id='overview']/div[@class='accordian-container overview-container-height']")?.InnerHtml;
+                detailDescription = detailDescription ?? "无";
+                return (detailDescription, list);
+            }
+            catch (Exception e)
+            {
 
-            //    var htmlDoc1 = new HtmlDocument();
-            //    htmlDoc1.LoadHtml(detail.SourceUrl);
-            //    var content = htmlDoc1.DocumentNode.SelectNodes(".//div[@id='video-player-wrapper']//video[@class='pf-video']//source[@type='video/mp4']");
-            //    detail.LowDownloadUrl = content.Where(s => s.Attributes["videoMode"].Equals("360p"))?.First().Attributes["src"]?.Value;
-            //    detail.MidDownloadUrl = content.Where(s => s.Attributes["videoMode"].Equals("540p"))?.First().Attributes["src"]?.Value;
-            //    detail.HighDownloadUrl = content.Where(s => s.Attributes["videoMode"].Equals("720p"))?.First().Attributes["src"]?.Value;
-
-
-            //    Console.WriteLine(JsonConvert.SerializeObject(detail));
-            //    list.Add(detail);
-            //}
-
-            return list;
-
+                Log.Write("mvaDetail.json", video.SourceUrl);
+                Console.WriteLine(e.Source + e.Message);
+                return default((string, List<MvaDetails>));
+            }
         }
-
-
-
     }
 }

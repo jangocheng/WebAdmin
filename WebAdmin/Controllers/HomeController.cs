@@ -28,7 +28,6 @@ namespace WebAdmin.Controllers
 		}
 
 
-
 		public IActionResult Contact()
 		{
 			ViewData["Message"] = "Your contact page.";

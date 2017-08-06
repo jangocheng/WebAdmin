@@ -8,9 +8,10 @@ using MSDev.DB;
 namespace WebAdmin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170805112311_mvaDetail-mvaid")]
+    partial class mvaDetailmvaid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -420,13 +421,13 @@ namespace WebAdmin.Migrations
                     b.Property<DateTime>("Duration");
 
                     b.Property<string>("HighDownloadUrl")
-                        .HasMaxLength(500);
+                        .HasMaxLength(256);
 
                     b.Property<string>("LowDownloadUrl")
-                        .HasMaxLength(500);
+                        .HasMaxLength(256);
 
                     b.Property<string>("MidDownloadUrl")
-                        .HasMaxLength(500);
+                        .HasMaxLength(256);
 
                     b.Property<string>("MvaId")
                         .HasMaxLength(32);
@@ -434,7 +435,7 @@ namespace WebAdmin.Migrations
                     b.Property<Guid?>("MvaVideoId");
 
                     b.Property<string>("SourceUrl")
-                        .HasMaxLength(500);
+                        .HasMaxLength(256);
 
                     b.Property<int?>("Status");
 

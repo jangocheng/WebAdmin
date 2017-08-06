@@ -27,7 +27,7 @@ namespace WebAdmin
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            
+
             Configuration = builder.Build();
             _hostingEnvironment = env;
         }
@@ -45,7 +45,12 @@ namespace WebAdmin
             services.AddDbContext<AppDbContext>(
                 option => option.UseSqlServer(
                     Configuration.GetConnectionString("OnlineConnection"),
-                    b => b.MigrationsAssembly("WebAdmin")
+                    b =>
+                    {
+                        b.MigrationsAssembly("WebAdmin");
+                        b.EnableRetryOnFailure();
+                        
+                    }
                 )
             );
 
