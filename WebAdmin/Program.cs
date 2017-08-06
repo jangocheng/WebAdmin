@@ -13,15 +13,12 @@ namespace WebAdmin
 {
     public class Program
     {
-        //private static bool IsTask = true;//是否运行Task
-        private static bool IsTask = false;
+        private static bool IsTask = true;//是否运行Task
+        //private static bool IsTask = false;
 
         public static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            var task = new MvaTask();
-            var re = task.UpdateDetail();
-
             if (IsTask)
             {
                 var t = new Thread(StartAutoTask)
@@ -106,9 +103,13 @@ namespace WebAdmin
                     Log.Write(fileName, "MVATask Start!");
                     var task2 = new MvaTask();
                     var re = task2.SaveMvaVideo().Result;
+                    //更新视频 详细内容
                     foreach (MvaVideos video in re)
                     {
+                        var newDetails = task2.getMvaDetailAsync(video).Result;
                         Log.Write(fileName, "\t" + video?.Title);
+                        Log.Write(fileName, "\t 包括子视频：" + newDetails.Count + "个");
+
                     }
                     Log.Write(fileName, "MVATask End!\n");
                     Task.WaitAll();

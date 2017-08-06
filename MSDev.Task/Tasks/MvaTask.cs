@@ -88,15 +88,22 @@ namespace MSDev.Task.Tasks
         }
 
 
+        public async Task<List<MvaDetails>> getMvaDetailAsync(MvaVideos video)
+        {
+            MvaHelper helper = new MvaHelper();
+            var re = await helper.GetMvaDetails(video);
+            return re.Item2;
+        }
+
         /// <summary>
-        /// 更新视频详细信息
+        /// 批量更新视频详细信息
         /// </summary>
         public bool UpdateDetail()
         {
             //查询需要获取详情的mva视频
             var list = Context.MvaVideos
-                .OrderBy(m=>m.UpdatedTime)
-                .Where(m=>m.LanguageCode.Equals("zh-cn"))
+                .OrderBy(m => m.UpdatedTime)
+                .Where(m => m.LanguageCode.Equals("zh-cn"))
                 .ToList();
 
             MvaHelper helper = new MvaHelper();
