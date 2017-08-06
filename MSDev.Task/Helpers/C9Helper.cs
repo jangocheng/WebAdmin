@@ -209,7 +209,7 @@ namespace MSDev.Task.Helpers
 
                 video.Language = mainNode.SelectSingleNode(".//div[@class='itemHead holder' and @dir='ltr']")?
                     .GetAttributeValue("lang", Empty);
-                video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")
+                video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")?
                     .InnerHtml;
                 var downloadUrls = mainNode.SelectNodes(".//section[@class='ch9tab download']//div[@class='download']//ul//li")?
                      .Select(s => new
@@ -221,7 +221,8 @@ namespace MSDev.Task.Helpers
                 foreach (var downloadUrl in downloadUrls)
                 {
 
-                    var downloadType = downloadUrl.text.ToLower().Trim();
+                    var downloadType = downloadUrl.text?.ToLower().Trim();
+                    if (string.IsNullOrEmpty(downloadType)) continue;
                     if (downloadType.Contains(".mp3"))
                     {
                         video.Mp3Url = downloadUrl.value;
@@ -248,13 +249,15 @@ namespace MSDev.Task.Helpers
                     .GetAttributeValue("datetime", Empty));
 
                 video.UpdatedTime = video.CreatedTime;
+                return video;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Log.Write("c9videoGetErrors.txt", url);
+                Log.Write("c9videoGetErrors.txt", url+$";{e.Source}:{e.Message}");
                 Console.WriteLine($"The Error:{url}");
+               
             }
-            return video;
+            return default(C9Videos);
         }
     }
 }

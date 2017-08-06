@@ -69,7 +69,7 @@ namespace WebAdmin
                     Log.Write(fileName, "BingNewsTask Start!");
                     var task = new BingNewsTask();
                     var bingNewsList = task.GetNews("微软").Result;
-
+                    
                     foreach (BingNews bingNews in bingNewsList)
                     {
                         Log.Write(fileName, "\t" + bingNews?.Title);

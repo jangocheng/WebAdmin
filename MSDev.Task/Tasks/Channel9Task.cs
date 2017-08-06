@@ -113,8 +113,11 @@ namespace MSDev.Task.Tasks
 				}
 
 				C9Videos re = _helper.GetPageVideo(a).Result;
-				re.Id = Guid.NewGuid();
-				videoList.Add(re);
+                if (re != null)
+                {
+                    re.Id = Guid.NewGuid();
+                    videoList.Add(re);
+                }
 			});
 			try
 			{
