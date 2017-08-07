@@ -49,3 +49,9 @@ var Toast = (function () {
     };
     return Toast;
 }());
+
+function reloadPage(time = 3000) {
+
+    window.setTimeout(function () {
+    }, time)
+}

@@ -41,12 +41,10 @@
 <script>
 
     function del(id) {
-        $.post('DelMvaVideo', { id: id }, function (data) {
-
+        $.post('/Video/DelMvaVideo', { id: id }, function (data) {
             if (data.errorCode == 0) {
                 Toast.Success("删除成功");
                 location.reload();
-
             } else {
                 Toast.Error(data.msg);
                 console.log(data);
