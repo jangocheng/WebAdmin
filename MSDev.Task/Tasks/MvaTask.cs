@@ -106,26 +106,35 @@ namespace MSDev.Task.Tasks
                 .Where(m => m.LanguageCode.Equals("zh-cn"))
                 .ToList();
 
+            var beUpdateList = new List<MvaVideos>(list);
+
             MvaHelper helper = new MvaHelper();
             Console.WriteLine($"共有{list.Count}条数据需要处理");
             int i = 1;
-            Parallel.ForEach(list, new ParallelOptions { MaxDegreeOfParallelism = 10 }, item =>
+            Parallel.ForEach(beUpdateList, new ParallelOptions { MaxDegreeOfParallelism = 10 }, item =>
             {
                 mvaDetailTask(item);
             });
 
-            Console.WriteLine("开始写入数据");
+            Console.WriteLine("开始写入详情数据");
+            Context.SaveChanges();
+            Console.WriteLine("开始更新video detailDescription");
+            foreach (var item in beUpdateList)
+            {
+                var oldVideo = Context.MvaVideos.Find(item.Id);
+                oldVideo.DetailDescription = item.DetailDescription;
+                Context.MvaVideos.Update(oldVideo);
+            }
             Context.SaveChanges();
             Console.WriteLine("写入数据成功");
-
 
             //内部方法
             void mvaDetailTask(MvaVideos item)
             {
                 var re = helper.GetMvaDetails(item).Result;
                 //更新mvavideo表
-                //var detailDescription = re.Item1;
-                //item.DetailDescription = detailDescription;
+                var detailDescription = re.Item1;
+                item.DetailDescription = detailDescription;
                 //Context.Update(item);
 
                 //插入mvadetail

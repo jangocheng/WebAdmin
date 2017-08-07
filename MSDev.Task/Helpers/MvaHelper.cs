@@ -106,8 +106,9 @@ namespace MSDev.Task.Helpers
 
         public async Task<(string, List<MvaDetails>)> GetMvaDetails(MvaVideos video)
         {
-            string apimlxprod = "https://api-mlxprod.microsoft.com/services/products/anonymous/" + video.MvaId + "?version=1.0.0.1&isTranscript=false&languageId=6";
-            
+            //TODO:此处需要处理版本号
+            string apimlxprod = "https://api-mlxprod.microsoft.com/services/products/anonymous/" + video.MvaId + "?version=1.0.0.1&languageId=6";
+
             string url = video.SourceUrl;
             var list = new List<MvaDetails>();
             try
@@ -126,6 +127,7 @@ namespace MSDev.Task.Helpers
                 var courseItems = mvaCourseInfo.manifest.organizations.organization.First().item
                     .Select(m => m.item).ToList();
 
+                int sequence = 1;
                 foreach (var courses in courseItems)
                 {
                     if (courses == null) continue;
@@ -145,8 +147,11 @@ namespace MSDev.Task.Helpers
                             mvaDetail.SourceUrl = video.SourceUrl + "?l=" + course._identifier;
                             mvaDetail.MvaVideo = video;
                             mvaDetail.Status = 1;
+                            mvaDetail.Sequence = sequence;
+                            mvaDetail.CreatedTime = DateTime.Now;
                             mvaDetail.UpdatedTime = DateTime.Now;
                             list.Add(mvaDetail);
+                            sequence++;
                         }
                         continue;
                     }
@@ -181,7 +186,7 @@ namespace MSDev.Task.Helpers
             catch (Exception e)
             {
 
-                Log.Write("mvaDetail.json", video.SourceUrl);
+                Log.Write("mvaDetail.json", apimlxprod);
                 Console.WriteLine(e.Source + e.Message);
                 return default((string, List<MvaDetails>));
             }

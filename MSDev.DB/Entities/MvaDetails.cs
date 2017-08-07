@@ -10,6 +10,8 @@ namespace MSDev.DB.Entities
 
         [MaxLength(32)]
         public string MvaId { get; set; }
+        [MaxLength(3)]
+        public int Sequence { get; set; }
 
         public MvaVideos MvaVideo { get; set; }
 
