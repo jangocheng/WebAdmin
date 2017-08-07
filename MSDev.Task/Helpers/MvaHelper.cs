@@ -106,11 +106,10 @@ namespace MSDev.Task.Helpers
 
         public async Task<(string, List<MvaDetails>)> GetMvaDetails(MvaVideos video)
         {
-            string apimlxprod = "https://api-mlxprod.microsoft.com/services/products/anonymous/" + video.MvaId;
-
+            string apimlxprod = "https://api-mlxprod.microsoft.com/services/products/anonymous/" + video.MvaId + "?version=1.0.0.1&isTranscript=false&languageId=6";
+            
             string url = video.SourceUrl;
             var list = new List<MvaDetails>();
-
             try
             {
                 HttpClient hc = new HttpClient();
