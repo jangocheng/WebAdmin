@@ -19,7 +19,7 @@ namespace WebAdmin
         public static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            
+
             //var task = new MvaTask();
             //task.UpdateDetail();
 

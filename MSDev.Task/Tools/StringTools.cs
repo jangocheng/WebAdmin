@@ -93,6 +93,12 @@ namespace MSDev.Task.Tools
             return distance[sourceWordCount, targetWordCount];
         }
 
+        /// <summary>
+        /// 对比字符串相似度
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public static double GetSimilar(string source,string target)
         {
             string longerString,shorterString;
@@ -120,6 +126,19 @@ namespace MSDev.Task.Tools
                 }
             }
             return sameNum / shorterString.Length;
+        }
+
+
+        /// <summary>
+        /// 获取搜索关键词当前行内容
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="search"></param>
+        public static string GetRow(string str, string search)
+        {
+            int startP=str.LastIndexOf(search);
+            int endP = str.Substring(startP).IndexOf("\n");
+            return str.Substring(startP, endP);
         }
     }
 }

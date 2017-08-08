@@ -104,6 +104,7 @@ namespace MSDev.Task.Tasks
             var list = Context.MvaVideos
                 .OrderBy(m => m.UpdatedTime)
                 .Where(m => m.LanguageCode.Equals("zh-cn"))
+                .Take(1)
                 .ToList();
 
             var beUpdateList = new List<MvaVideos>(list);
@@ -119,13 +120,13 @@ namespace MSDev.Task.Tasks
             Console.WriteLine("开始写入详情数据");
             Context.SaveChanges();
             Console.WriteLine("开始更新video detailDescription");
-            foreach (var item in beUpdateList)
-            {
-                var oldVideo = Context.MvaVideos.Find(item.Id);
-                oldVideo.DetailDescription = item.DetailDescription;
-                Context.MvaVideos.Update(oldVideo);
-            }
-            Context.SaveChanges();
+            //foreach (var item in beUpdateList)
+            //{
+            //    var oldVideo = Context.MvaVideos.Find(item.Id);
+            //    oldVideo.DetailDescription = item.DetailDescription;
+            //    Context.MvaVideos.Update(oldVideo);
+            //}
+            //Context.SaveChanges();
             Console.WriteLine("写入数据成功");
 
             //内部方法

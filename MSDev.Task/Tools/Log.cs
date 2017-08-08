@@ -20,7 +20,7 @@ namespace MSDev.Task.Tools
 		}
 
 
-		public static void Write(string filePath, string row)
+		public static void Write(string filePath, string row,bool append=true)
 		{
 			var file = new FileInfo(filePath);
 			if (!file.Directory.Exists)
@@ -28,21 +28,42 @@ namespace MSDev.Task.Tools
 				file.Directory.Create();
 			}
 			Lock.EnterWriteLock();
-			using (StreamWriter stream = file.AppendText())
-			{
-				try
-				{
-					stream.WriteLine(row);
-				}
-				catch
-				{
-					Console.WriteLine(row);
-				}
-				finally
-				{
-					Lock.ExitWriteLock();
-				}
-			}
+            if (!append)
+            {
+                using (StreamWriter stream = file.CreateText())
+                {
+                    try
+                    {
+                        stream.WriteLine(row);
+                    }
+                    catch
+                    {
+                        Console.WriteLine(row);
+                    }
+                    finally
+                    {
+                        Lock.ExitWriteLock();
+                    }
+                }
+            }
+            else
+            {
+                using (StreamWriter stream = file.AppendText())
+                {
+                    try
+                    {
+                        stream.WriteLine(row);
+                    }
+                    catch
+                    {
+                        Console.WriteLine(row);
+                    }
+                    finally
+                    {
+                        Lock.ExitWriteLock();
+                    }
+                }
+            }
 		}
 	}
 }

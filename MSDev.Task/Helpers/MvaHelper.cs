@@ -107,13 +107,33 @@ namespace MSDev.Task.Helpers
         public async Task<(string, List<MvaDetails>)> GetMvaDetails(MvaVideos video)
         {
             //TODO:此处需要处理版本号
-            string apimlxprod = "https://api-mlxprod.microsoft.com/services/products/anonymous/" + video.MvaId + "?version=1.0.0.1&languageId=6";
+            string apimlxprod = "https://api-mlxprod.microsoft.com/services/products/anonymous/" + video.MvaId;
 
             string url = video.SourceUrl;
             var list = new List<MvaDetails>();
             try
             {
                 HttpClient hc = new HttpClient();
+                //静态页面分析
+                string htmlString = await hc.GetStringAsync(url);
+                string version = "1.0.0.0";//默认course版本号
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(htmlString);
+                Log.Write("mvadetail.html", htmlString, false);
+
+                version = StringTools.GetRow(htmlString, "courseVersion");
+                version = version.Substring(0, version.IndexOf(","));
+                version = version.Replace("courseVersion:", string.Empty);
+                version = version.Replace("'", string.Empty);
+                version = version.Trim();
+
+                apimlxprod += $"?version={version}&languageId=6";
+
+                var info = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']//section[@id='coursePlayer']//div[@id='info-tab-container']//div[@id='course-info-container']");
+
+                string detailDescription = info.SelectSingleNode(".//div[@id='overview']/div[@class='accordian-container overview-container-height']")?.InnerHtml;
+                detailDescription = detailDescription ?? "无";
+
 
                 string mlxprodStaticUrl = await hc.GetStringAsync(apimlxprod);
                 //取课程内容
@@ -174,13 +194,7 @@ namespace MSDev.Task.Helpers
                     }
 
                 }
-                string htmlString = await hc.GetStringAsync(url);
-                var htmlDoc = new HtmlDocument();
-                htmlDoc.LoadHtml(htmlString);
-                var info = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']//section[@id='coursePlayer']//div[@id='info-tab-container']//div[@id='course-info-container']");
 
-                string detailDescription = info.SelectSingleNode(".//div[@id='overview']/div[@class='accordian-container overview-container-height']")?.InnerHtml;
-                detailDescription = detailDescription ?? "无";
                 return (detailDescription, list);
             }
             catch (Exception e)
