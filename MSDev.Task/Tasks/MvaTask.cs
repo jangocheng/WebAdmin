@@ -104,7 +104,6 @@ namespace MSDev.Task.Tasks
             var list = Context.MvaVideos
                 .OrderBy(m => m.UpdatedTime)
                 .Where(m => m.LanguageCode.Equals("zh-cn"))
-                .Take(1)
                 .ToList();
 
             var beUpdateList = new List<MvaVideos>(list);
