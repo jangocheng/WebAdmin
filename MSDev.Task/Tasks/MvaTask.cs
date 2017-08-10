@@ -119,13 +119,13 @@ namespace MSDev.Task.Tasks
             Console.WriteLine("开始写入详情数据");
             Context.SaveChanges();
             Console.WriteLine("开始更新video detailDescription");
-            //foreach (var item in beUpdateList)
-            //{
-            //    var oldVideo = Context.MvaVideos.Find(item.Id);
-            //    oldVideo.DetailDescription = item.DetailDescription;
-            //    Context.MvaVideos.Update(oldVideo);
-            //}
-            //Context.SaveChanges();
+            foreach (var item in beUpdateList)
+            {
+                var oldvideo = Context.MvaVideos.Find(item.Id);
+                oldvideo.DetailDescription = item.DetailDescription;
+                Context.MvaVideos.Update(oldvideo);
+            }
+            Context.SaveChanges();
             Console.WriteLine("写入数据成功");
 
             //内部方法

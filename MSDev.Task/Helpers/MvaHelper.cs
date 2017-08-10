@@ -119,7 +119,6 @@ namespace MSDev.Task.Helpers
                 string version = "1.0.0.0";//默认course版本号
                 var htmlDoc = new HtmlDocument();
                 htmlDoc.LoadHtml(htmlString);
-                Log.Write("mvadetail.html", htmlString, false);
 
                 version = StringTools.GetRow(htmlString, "courseVersion");
                 version = version.Substring(0, version.IndexOf(","));
@@ -199,7 +198,6 @@ namespace MSDev.Task.Helpers
             }
             catch (Exception e)
             {
-
                 Log.Write("mvaDetail.json", apimlxprod);
                 Console.WriteLine(e.Source + e.Message);
                 return default((string, List<MvaDetails>));

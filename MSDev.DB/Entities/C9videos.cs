@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MSDev.DB.Entities
 
@@ -16,6 +17,10 @@ namespace MSDev.DB.Entities
         public string Mp4HigUrl { get; set; }
         public string Mp4LowUrl { get; set; }
         public string Mp4MidUrl { get; set; }
+        [MaxLength(64)]
+        public string SeriesType { get; set; }
+        [MaxLength(1000)]
+        public string VideoEmbed { get; set; }
         public string SeriesTitle { get; set; }
         public string SeriesTitleUrl { get; set; }
         public string SourceUrl { get; set; }

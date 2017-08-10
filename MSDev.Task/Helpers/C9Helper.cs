@@ -97,7 +97,7 @@ namespace MSDev.Task.Helpers
             {
                 var hw = new HtmlWeb();
                 // option获取InnerText，需要加以下设置
-                HtmlAgilityPack.HtmlNode.ElementsFlags.Remove("option");
+                HtmlNode.ElementsFlags.Remove("option");
                 HtmlDocument htmlDoc = hw.Load(fullUrl);
                 HtmlNode mainNode = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']");
                 video.Duration = mainNode.SelectSingleNode(".//div[@class='playerContainer']//time[@class='caption']")?
@@ -193,6 +193,11 @@ namespace MSDev.Task.Helpers
                 Title = article.Title,
                 ThumbnailUrl = article.ThumbnailUrl
             };
+
+
+            video.SeriesType = article.SeriesTitleUrl.Substring(1);
+            video.SeriesType = video.SeriesType.Substring(0, video.SeriesType.IndexOf(@"/"));
+
             string url = C9Daemon + article.SourceUrl;
             try
             {
@@ -206,10 +211,11 @@ namespace MSDev.Task.Helpers
                 video.Author = mainNode.SelectSingleNode(".//div[@class='authors']")?.Descendants("a")?.Select(s => s.InnerText)
                     .ToArray().Join();
 
-
                 video.Language = mainNode.SelectSingleNode(".//div[@class='itemHead holder' and @dir='ltr']")?
                     .GetAttributeValue("lang", Empty);
-                video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")?
+                video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']//textarea[@class='embed-code']")?
+                    .InnerText;
+                video.VideoEmbed = mainNode.SelectSingleNode(".//section[@class='ch9tab embed']/div[@class='ch9tabContent']")?
                     .InnerHtml;
                 var downloadUrls = mainNode.SelectNodes(".//section[@class='ch9tab download']//div[@class='download']//ul//li")?
                      .Select(s => new
@@ -247,15 +253,16 @@ namespace MSDev.Task.Helpers
                 video.Views = 0;
                 video.CreatedTime = DateTime.Parse(mainNode.SelectSingleNode(".//time[@class='timeHelper']")?
                     .GetAttributeValue("datetime", Empty));
+                if (video.CreatedTime == null) video.CreatedTime = DateTime.Now;
 
                 video.UpdatedTime = video.CreatedTime;
                 return video;
             }
             catch (Exception e)
             {
-                Log.Write("c9videoGetErrors.txt", url+$";{e.Source}:{e.Message}");
+                Log.Write("c9videoGetErrors.txt", url + $";{e.Source}:{e.Message}");
                 Console.WriteLine($"The Error:{url}");
-               
+
             }
             return default(C9Videos);
         }

@@ -200,6 +200,8 @@ namespace MSDev.DB
             {
                 entity.ToTable("C9Videos");
 
+                entity.HasIndex(e => e.SeriesType)
+                    .HasName("IX_C9Videos_SeriesType");
                 entity.HasIndex(e => e.Language)
                     .HasName("IX_C9Videos_Language");
 
