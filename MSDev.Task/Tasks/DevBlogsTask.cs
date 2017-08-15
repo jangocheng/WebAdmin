@@ -11,7 +11,7 @@ namespace MSDev.Task.Tasks
 {
     public class DevBlogsTask : MSDTask
     {
-        private const string devBlogsFeedsLink = "http://sxp.microsoft.com/feeds/3.0/devblogs";
+        private const string devBlogsFeedsLink = "https://blogs.technet.microsoft.com/cloudplatform/rssfeeds/devblogs";
 
         public async Task<List<RssNews>> GetNewsAsync()
         {

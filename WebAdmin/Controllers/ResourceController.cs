@@ -1,12 +1,9 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
 using MSDev.DB;
 using MSDev.DB.Entities;
 using WebAdmin.FormModels.Resource;
-using Microsoft.EntityFrameworkCore;
-using WebAdmin.Models.ViewModels;
 
 namespace WebAdmin.Controllers
 {
@@ -16,10 +13,8 @@ namespace WebAdmin.Controllers
     public class ResourceController : BaseController
     {
         private readonly AppDbContext _context;
-        private readonly IMapper _mapper;
-        public ResourceController(IMapper mapper, AppDbContext context)
+        public ResourceController( AppDbContext context)
         {
-            _mapper = mapper;
             _context = context;
         }
 

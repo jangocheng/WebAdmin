@@ -1,5 +1,3 @@
-using MSDev.Task.Entities;
-using MSDev.Task.Helpers;
 using MSDev.Task.Tasks;
 using System;
 using System.Collections.Generic;
@@ -9,14 +7,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using MSDev.DB.Entities;
 using static System.String;
-using Microsoft.Extensions.Configuration;
 
 namespace WebAdmin.Services
 {
-	/// <summary>
-	/// Use with Websocket
-	/// </summary>
-	public class TaskRunner
+    /// <summary>
+    /// Use with Websocket
+    /// </summary>
+    public class TaskRunner
 	{
 		private readonly WebSocket _webSocket;
 

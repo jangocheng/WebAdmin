@@ -1,5 +1,4 @@
 using System;
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,11 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using MSDev.DB;
 using MSDev.Task.Helpers;
-using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace WebAdmin
 {
@@ -42,6 +41,14 @@ namespace WebAdmin
                );
             services.AddAuthorization(options => options.AddPolicy("admin", policy => policy.RequireRole("admin")));
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("/Auth/Login/");
+                    options.AccessDeniedPath = new PathString("/Auth/Forbidden/");
+                    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                });
+
             services.AddDbContext<AppDbContext>(
                 option => option.UseSqlServer(
                     Configuration.GetConnectionString("OnlineConnection"),
@@ -49,13 +56,12 @@ namespace WebAdmin
                     {
                         b.MigrationsAssembly("WebAdmin");
                         b.EnableRetryOnFailure();
-                        
+
                     }
                 )
             );
 
             services.AddScoped(typeof(ApiHelper));
-            services.AddAutoMapper();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -72,16 +78,8 @@ namespace WebAdmin
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            var cookieOption = new CookieAuthenticationOptions()
-            {
-                AuthenticationScheme = "MSDevAdmin",
-                LoginPath = new PathString("/Auth/Login/"),
-                AccessDeniedPath = new PathString("/Auth/Forbidden/"),
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true,
-                ExpireTimeSpan = TimeSpan.FromDays(1)
-            };
-            app.UseCookieAuthentication(cookieOption);
+
+            app.UseAuthentication();
             app.UseStaticFiles();
             var webSocketOptions = new WebSocketOptions()
             {

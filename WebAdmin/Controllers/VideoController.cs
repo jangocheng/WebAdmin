@@ -1,14 +1,9 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
 using MSDev.DB;
 using MSDev.DB.Entities;
-using WebAdmin.FormModels.Resource;
-using Microsoft.EntityFrameworkCore;
-using WebAdmin.Models.ViewModels;
 using WebAdmin.Helpers;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace WebAdmin.Controllers
 {
@@ -18,10 +13,8 @@ namespace WebAdmin.Controllers
     public class VideoController : BaseController
     {
         private readonly AppDbContext _context;
-        private readonly IMapper _mapper;
-        public VideoController(IMapper mapper, AppDbContext context)
+        public VideoController(AppDbContext context)
         {
-            _mapper = mapper;
             _context = context;
         }
 

@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using MSDev.DB.Entities;
 using WebAdmin.FormModels.Catalog;
-using AutoMapper;
 using MSDev.DB;
 using WebAdmin.FormModels.Config;
 using static System.String;
@@ -14,10 +13,8 @@ namespace WebAdmin.Controllers
     public class ConfigController : BaseController
     {
         private readonly AppDbContext _context;
-        private readonly IMapper _mapper;
-        public ConfigController(IMapper mapper, AppDbContext context)
+        public ConfigController(AppDbContext context)
         {
-            _mapper = mapper;
             _context = context;
         }
         [HttpGet]

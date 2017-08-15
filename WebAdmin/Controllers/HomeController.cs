@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.FileProviders;
 using MSDev.Task.Tasks;
 
 namespace WebAdmin.Controllers
 {
-	public class HomeController : BaseController
+    public class HomeController : BaseController
 	{
 		private IConfigurationRoot _configuration;
 		public HomeController(IConfigurationRoot configuration)

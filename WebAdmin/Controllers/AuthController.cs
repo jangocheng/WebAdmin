@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using MSDev.DB;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using WebAdmin.Helpers;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication;
 
 namespace WebAdmin.Controllers
 {
@@ -45,7 +45,7 @@ namespace WebAdmin.Controllers
                     identity.AddClaim(new Claim(ClaimTypes.Name, "admin"));
 
                     var principal = new ClaimsPrincipal(identity);
-                    HttpContext.Authentication.SignInAsync("MSDevAdmin", principal);
+                    HttpContext.SignInAsync(principal);
 
                     HttpContext.Items["username"] = username;
                     return RedirectToAction("Index", "Home");
@@ -60,7 +60,7 @@ namespace WebAdmin.Controllers
 
         public IActionResult Logout()
         {
-            HttpContext.Authentication.SignOutAsync("MSDevAdmin");
+            HttpContext.SignOutAsync();
             HttpContext.Items.Clear();
             return RedirectToAction("Index", "Home");
         }

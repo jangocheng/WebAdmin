@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -7,15 +6,21 @@ using MSDev.DB.Entities;
 using MSDev.Task.Tasks;
 using MSDev.Task.Tools;
 using System.Text;
-using MSDev.Task.Helpers;
+using Microsoft.AspNetCore;
 
 namespace WebAdmin
 {
     public class Program
     {
         private static bool IsTask = true;//是否运行Task
-        //private static bool IsTask = false;
+                                          //private static bool IsTask = false;
 
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
+            .UseStartup<Startup>()
+            .Build();
+        }
         public static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -31,15 +36,8 @@ namespace WebAdmin
                 };
                 t.Start();
             }
+            BuildWebHost(args).Run();
 
-            IWebHost host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .UseApplicationInsights()
-                .Build();
-            host.Run();
         }
 
         /// <summary>
@@ -73,7 +71,7 @@ namespace WebAdmin
                     Log.Write(fileName, "BingNewsTask Start!");
                     var task = new BingNewsTask();
                     var bingNewsList = task.GetNews("微软").Result;
-                    
+
                     foreach (BingNews bingNews in bingNewsList)
                     {
                         Log.Write(fileName, "\t" + bingNews?.Title);
