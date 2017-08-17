@@ -71,13 +71,24 @@ namespace WebAdmin.Services
 					List<MvaVideos> re = await task.SaveMvaVideo();
 					foreach (MvaVideos video in re)
 					{
-                        var newDetails = task.getMvaDetailAsync(video).Result;
+                        var newDetails = task.GetMvaDetailAsync(video).Result;
                         await Echo("video:" + video?.Title);
                         await Echo("\t包括子视频：" + newDetails.Count + "个");
                     }
                     await Echo("Done");
 				}
-			}
+                
+                if (command.Equals("mvadetails"))
+                {
+                    var task = new MvaTask();
+                    List<MvaVideos> re = await task.UpdateRecentDetailAsync();
+                    foreach (MvaVideos video in re)
+                    {
+                        await Echo("video:" + video?.Title);
+                    }
+                    await Echo("Done");
+                }
+            }
 			catch (Exception e)
 			{
 				Console.WriteLine(e.Message);

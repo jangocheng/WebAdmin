@@ -87,23 +87,61 @@ namespace MSDev.Task.Tasks
             return toBeAddMcList;
         }
 
-
-        public async Task<List<MvaDetails>> getMvaDetailAsync(MvaVideos video)
+        /// <summary>
+        /// 获取并存储视频详细内容
+        /// </summary>
+        /// <param name="video"></param>
+        /// <returns></returns>
+        public async Task<List<MvaDetails>> GetMvaDetailAsync(MvaVideos video)
         {
             MvaHelper helper = new MvaHelper();
             var re = await helper.GetMvaDetails(video);
+            foreach (var item in re.Item2)
+            {
+                //去重处理
+                var exist = Context.MvaDetails.Any(m => m.MvaId.Equals(item.MvaId));
+                if (exist) re.Item2.Remove(item);
+            }
+            Context.MvaDetails.AddRange(re.Item2);
+            Context.SaveChanges();
             return re.Item2;
+        }
+
+        /// <summary>
+        /// 手动更新最近视频 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<MvaVideos>> UpdateRecentDetailAsync()
+        {
+            //查询需要获取详情的mva视频
+            var list = Context.MvaVideos
+                .OrderByDescending(m => m.UpdatedTime)
+                .Where(m => m.LanguageCode.Equals("zh-cn"))
+                .Take(10)
+                .ToList();
+            foreach (var item in list)
+            {
+                var re=await GetMvaDetailAsync(item);
+                if(re.Count<1)
+                {
+                    list.Remove(item);
+                }
+            }
+            return list;
         }
 
         /// <summary>
         /// 批量更新视频详细信息
         /// </summary>
-        public bool UpdateDetail()
+        /// <param name="num">要更新的数量</param>
+        /// <returns></returns>
+        public List<MvaVideos> UpdateDetail(int num = 999)
         {
             //查询需要获取详情的mva视频
             var list = Context.MvaVideos
-                .OrderBy(m => m.UpdatedTime)
+                .OrderByDescending(m => m.UpdatedTime)
                 .Where(m => m.LanguageCode.Equals("zh-cn"))
+                .Take(num)
                 .ToList();
 
             var beUpdateList = new List<MvaVideos>(list);
@@ -147,7 +185,7 @@ namespace MSDev.Task.Tasks
                 Console.WriteLine($"获取第{i}条数据");
                 i++;
             }
-            return true;
+            return beUpdateList;
         }
 
     }

@@ -19,26 +19,31 @@
                 资讯更新
                 <ul class="nav nav-pills">
                     <li>
-                        <a class=""
+                        <a class="cursor-point"
                            data-bind="click:runTask.bind($data,'bingnews')">
                             更新必应新闻
                         </a>
+                        <a class="cursor-point">官方博客</a>
                     </li>
                 </ul>
             </li>
             <li>
                 视频更新
-                <ul>
+                <ul class="nav nav-pills">
                     <li>
-                        <a class=""
+                        <a class="cursor-point"
                            data-bind="click:runTask.bind($data,'c9article')">
                             更新C9列表
                         </a>
                     </li>
                     <li>
-                        <a class=""
+                        <a class="cursor-point"
                            data-bind="click:runTask.bind($data,'mvavideos')">
                             更新MvaVideos
+                        </a>
+                        <a class="cursor-point" 
+                           data-bind="click:runTask.bind($data,'mvadetails')">
+                            更新mva详情
                         </a>
                     </li>
                 </ul>

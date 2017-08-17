@@ -108,7 +108,7 @@ namespace WebAdmin
                     //更新视频 详细内容
                     foreach (MvaVideos video in re)
                     {
-                        var newDetails = task2.getMvaDetailAsync(video).Result;
+                        var newDetails = task2.GetMvaDetailAsync(video).Result;
                         Log.Write(fileName, "\t" + video?.Title);
                         Log.Write(fileName, "\t 包括子视频：" + newDetails.Count + "个");
 

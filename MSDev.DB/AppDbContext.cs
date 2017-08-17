@@ -44,6 +44,12 @@ namespace MSDev.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<MvaDetails>(entity =>
+            {
+                entity.HasIndex(e => e.MvaId).IsUnique();
+                entity.HasIndex(e => e.Title);
+            });
+
             modelBuilder.Entity<AspNetRoleClaims>(entity =>
             {
                 entity.HasIndex(e => e.RoleId)
