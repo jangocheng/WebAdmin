@@ -1,0 +1,50 @@
+@using MSDev.DB.Entities
+@{
+	ViewBag.Title = "官方博客管理";
+	Layout = "_NewsLayout";
+}
+<table class="table table-hover table-striped">
+	<thead>
+		<tr>
+			<th>标题</th>
+			<th>来源</th>
+			<th>时间</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			foreach (RssNews news in (List<RssNews>)ViewBag.ListData)
+			{
+
+			<tr>
+				<td><a href="@news.Link" target="_blank">@news.Title</a></td>
+				<td>@news.Author</td>
+				<td>@string.Format("{0:yyyy-MM-dd HH:mm}", @news.CreateTime)</td>
+				<td>
+					<input type="hidden" value="@news.Id" />
+					<a class="label label-danger" onclick="delNews('@news.Id')">删除</a>
+				</td>
+			</tr>
+			}
+		}
+	</tbody>
+</table>
+<pager pager-option="ViewBag.Pager as MyPagerOption"></pager>
+
+<script>
+
+	function delNews(id) {
+		$.post('DelBlog', { id: id }, function (data) {
+
+			if (data.errorCode == 0) {
+				Toast.Success("删除成功");
+				location.reload();
+
+			} else {
+				Toast.Error(data.msg);
+				console.log(data);
+			}
+		})
+	}
+</script>

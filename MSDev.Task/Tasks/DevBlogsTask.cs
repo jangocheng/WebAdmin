@@ -32,24 +32,19 @@ namespace MSDev.Task.Tasks
                 Type = 1,
                 Status = 1
             });
-            List<RssNews> toBeAdd = new List<RssNews>();//待添加数据
+            var toBeAdd = new List<RssNews>(rssnews);//待添加数据
 
             //取最新数据，去重 
-            var oldData =Context.RssNews.OrderByDescending(m => m.LastUpdateTime).Take(20).ToList();
+            var oldData = Context.RssNews.OrderByDescending(m => m.LastUpdateTime).Take(20).ToList();
             foreach (var news in rssnews)
             {
                 foreach (var data in oldData)
                 {
                     if (news.Title.Equals(data.Title))
                     {
-                        news.Title = string.Empty;
+                        toBeAdd.Remove(news);
                         break;
                     }
-                }
-
-                if (!string.IsNullOrEmpty(news.Title))
-                {
-                    toBeAdd.Add(news);
                 }
             }
             //插入新数据

@@ -45,6 +45,29 @@ namespace WebAdmin.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult DevBlogs(int p=1)
+        {
+            int pageSize = 15;
+            var blogs = _context.RssNews
+                .OrderByDescending(m => m.LastUpdateTime)
+                .Skip((p - 1) * pageSize).Take(pageSize)
+                .ToList();
+            int totalNumber = _context.RssNews.Count();
+
+            ViewBag.ListData = blogs;
+
+            var pageOption = new MyPagerOption()
+            {
+                CurrentPage = p,
+                PageSize = pageSize,
+                RouteUrl = "/News/DevBlogs",
+                Total = totalNumber
+            };
+            ViewBag.Pager = pageOption;
+            return View();
+        }
+
         [HttpPost]
         public IActionResult DelNews(string id)
         {
@@ -59,5 +82,17 @@ namespace WebAdmin.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult DelBlog(int id)
+        {
+            RssNews news = _context.RssNews.Find(id);
+            _context.RssNews.Remove(news);
+            var re = _context.SaveChanges();
+            if (re > 0)
+            {
+                return JsonOk(re);
+            }
+            return JsonFailed();
+        }
     }
 }
