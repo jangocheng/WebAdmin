@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MSDev.DB.Entities
 
@@ -18,5 +19,15 @@ namespace MSDev.DB.Entities
         public int Status { get; set; }
         public string Title { get; set; }
         public int Type { get; set; }
+        /// <summary>
+        /// 中文标题
+        /// </summary>
+        public string TitleCn { get; set; }
+
+        /// <summary>
+        /// 中文内容
+        /// </summary>
+        [MaxLength(4000)]
+        public string Content { get; set; }
     }
 }

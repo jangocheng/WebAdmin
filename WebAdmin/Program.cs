@@ -25,9 +25,6 @@ namespace WebAdmin
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-            //var task = new MvaTask();
-            //task.UpdateDetail();
-
             if (IsTask)
             {
                 var t = new Thread(StartAutoTask)

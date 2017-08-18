@@ -22,7 +22,10 @@ namespace MSDev.Task.Helpers
 
         public static string AutoSuggestionApiKey
         {
-            get => _autoSuggestionApiKey;
+            get
+            {
+                return _autoSuggestionApiKey;
+            }
 
             set
             {
@@ -41,7 +44,10 @@ namespace MSDev.Task.Helpers
 
         public static string SearchApiKey
         {
-            get => _searchApiKey;
+            get
+            {
+                return _searchApiKey;
+            }
 
             set
             {

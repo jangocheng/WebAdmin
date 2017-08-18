@@ -67,8 +67,7 @@ namespace WebAdmin.Controllers
 
             foreach (var item in list)
             {
-                var newImgUrl = item.Imgurl.Replace("http", "https");
-                newImgUrl = newImgUrl.Replace("img.msdev.cc", "msdev-img.oss-cn-hongkong.aliyuncs.com");
+                var newImgUrl = item.Imgurl.Replace("httpss", "https");
                 item.Imgurl = newImgUrl;
             }
 
