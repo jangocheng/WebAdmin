@@ -46,7 +46,7 @@ namespace WebAdmin.Controllers
         }
 
         [HttpGet]
-        public IActionResult DevBlogs(int p=1)
+        public IActionResult DevBlogs(int p = 1)
         {
             int pageSize = 15;
             var blogs = _context.RssNews
@@ -66,6 +66,18 @@ namespace WebAdmin.Controllers
             };
             ViewBag.Pager = pageOption;
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult EditDevBlog(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var blog = _context.RssNews.Find(id);
+
+            return View(blog);
         }
 
         [HttpPost]

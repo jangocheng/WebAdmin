@@ -3,7 +3,7 @@
 	ViewBag.Title = "官方博客管理";
 	Layout = "_NewsLayout";
 }
-<table class="table table-hover table-striped">
+<table class="table table-hover table-striped table-bordered">
 	<thead>
 		<tr>
 			<th>标题</th>
@@ -24,6 +24,7 @@
 				<td>
 					<input type="hidden" value="@news.Id" />
 					<a class="label label-danger" onclick="delNews('@news.Id')">删除</a>
+                    <a class="label label-success" asp-action="EditDevBlog" asp-route-id="@news.Id">编辑</a>
 				</td>
 			</tr>
 			}

@@ -1,0 +1,50 @@
+@model MSDev.DB.Entities.RssNews
+@{
+    ViewBag.Title = "编辑博客";
+    Layout = "_NewsLayout";
+}
+
+<form asp-action="UpdateDevBlog">
+    <div class="invisible">
+        <input asp-for="Author" type="hidden"/>
+        <input asp-for="Categories" type="hidden" />
+        <input asp-for="CreateTime" type="hidden" />
+        <input asp-for="Title" type="hidden" />
+        <input asp-for="Description" type="hidden" />
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="LastUpdateTime" type="hidden" />
+        <input asp-for="Link" type="hidden" />
+        <input asp-for="Status" type="hidden" />
+        <input asp-for="Type" type="hidden" />
+        <input asp-for="PublishId" type="hidden" />
+        <input asp-for="MobileContent" type="hidden" />
+
+    </div>
+    <div class="col-md-6">
+        <h4>原内容</h4>
+        <p>
+            标题：
+            @Model.Title
+        </p>
+        <div style="height:800px; overflow:auto;padding:8px;border:1px solid #d0d0d0">
+
+            @Html.Raw(Model.Description)
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h4>
+            <a class="btn btn-sm btn-success">翻译</a>
+            <button class="btn btn-sm btn-primary">保存</button>
+        </h4>
+        <p>
+            中文标题：
+            <input asp-for="@Model.TitleCn" class="form-control" />
+        </p>
+        中文内容:
+        <textarea asp-for="@Model.Content" class="form-control">
+        @Html.Raw(Model.Content)
+    </textarea>
+    </div>
+</form>
+
