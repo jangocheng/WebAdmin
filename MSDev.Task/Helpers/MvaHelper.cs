@@ -7,14 +7,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Internal;
 using MSDev.DB.Entities;
-using MSDev.Task.Entities;
+using MSDev.Work.Entities;
 using Newtonsoft.Json;
 using HtmlAgilityPack;
-using MSDev.Task.Tools;
+using MSDev.Work.Tools;
 using System.Xml.Linq;
-using MSDev.DB;
 
-namespace MSDev.Task.Helpers
+namespace MSDev.Work.Helpers
 {
     public class MvaHelper
     {

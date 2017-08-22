@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace MSDev.Task.Entities
+namespace MSDev.Work.Entities
 {
     public class Metadata
     {

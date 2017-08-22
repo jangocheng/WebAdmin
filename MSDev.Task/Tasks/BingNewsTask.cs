@@ -5,14 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using MSDev.DB.Entities;
-using MSDev.Task.Entities;
-using MSDev.Task.Helpers;
-using MSDev.Task.Tools;
+using MSDev.Work.Entities;
+using MSDev.Work.Helpers;
+using MSDev.Work.Tools;
 using static System.String;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
-namespace MSDev.Task.Tasks
+namespace MSDev.Work.Tasks
 {
     public class BingNewsTask : MSDTask
     {

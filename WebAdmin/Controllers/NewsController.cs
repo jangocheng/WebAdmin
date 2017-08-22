@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MSDev.DB;
 using MSDev.DB.Entities;
 using WebAdmin.Helpers;
-using MSDev.Task.Tasks;
+using MSDev.Work.Tasks;
 
 namespace WebAdmin.Controllers
 {

@@ -1,14 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace MSDev.DB.Entities
 {
-	/// <summary>
-	/// 存储常用配置
-	/// </summary>
-	public class Config
+    /// <summary>
+    /// 存储常用配置
+    /// </summary>
+    public class Config
 	{
 		public Guid Id { get; set; }
 		/// <summary>

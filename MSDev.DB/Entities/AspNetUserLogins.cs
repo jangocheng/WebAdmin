@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace MSDev.DB.Entities
 {
     public partial class AspNetUserLogins

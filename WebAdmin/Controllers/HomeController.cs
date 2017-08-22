@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using MSDev.Task.Tasks;
+using MSDev.Work.Tasks;
 
 namespace WebAdmin.Controllers
 {

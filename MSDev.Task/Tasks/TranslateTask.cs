@@ -1,18 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Primitives;
 using MSDev.DB.Entities;
-using MSDev.Task.Entities;
-using MSDev.Task.Helpers;
-using MSDev.Task.Tools;
-using static System.String;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+using MSDev.Work.Helpers;
 
-namespace MSDev.Task.Tasks
+namespace MSDev.Work.Tasks
 {
     public class TranslateTask : MSDTask
     {

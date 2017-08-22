@@ -1,4 +1,4 @@
-namespace MSDev.Task.EnumTypes
+namespace MSDev.Work.EnumTypes
 {
     public enum NewsTypes
     {

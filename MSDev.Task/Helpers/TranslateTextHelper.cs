@@ -1,14 +1,10 @@
-using MSDev.DB.Entities;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Web;
 
-namespace MSDev.Task.Helpers
+namespace MSDev.Work.Helpers
 {
     public class TranslateTextHelper
     {

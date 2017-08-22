@@ -15,6 +15,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
@@ -23,7 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MSDev.DB\MSDev.DB.csproj" />
-    <ProjectReference Include="..\MSDev.Task\MSDev.Task.csproj" />
+    <ProjectReference Include="..\MSDev.Task\MSDev.Work.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\FormModels\Videos\" />

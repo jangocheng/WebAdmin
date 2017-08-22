@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MSDev.DB;
 
 
-namespace MSDev.Task.Tasks
+namespace MSDev.Work.Tasks
 {
 	public class MSDTask
 	{

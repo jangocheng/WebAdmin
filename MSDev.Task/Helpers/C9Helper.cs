@@ -1,20 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore.Internal;
 using MSDev.DB.Entities;
-using MSDev.Task.Entities;
-using MSDev.Task.Tools;
+using MSDev.Work.Tools;
 using Newtonsoft.Json;
 using static System.String;
 
-namespace MSDev.Task.Helpers
+namespace MSDev.Work.Helpers
 {
     public class C9Helper
     {

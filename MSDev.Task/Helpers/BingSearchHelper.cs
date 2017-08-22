@@ -4,9 +4,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System;
-using MSDev.Task.Entities;
+using MSDev.Work.Entities;
 
-namespace MSDev.Task.Helpers
+namespace MSDev.Work.Helpers
 {
     public class BingSearchHelper
     {

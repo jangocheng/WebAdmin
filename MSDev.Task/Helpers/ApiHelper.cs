@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace MSDev.Task.Helpers
+namespace MSDev.Work.Helpers
 {
 	public class ApiHelper
 	{

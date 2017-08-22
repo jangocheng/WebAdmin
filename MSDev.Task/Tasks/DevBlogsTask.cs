@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MSDev.DB.Entities;
-using MSDev.Task.Entities;
-using MSDev.Task.EnumTypes;
-using MSDev.Task.Helpers;
-using MSDev.Task.Tools;
+using MSDev.Work.Entities;
+using MSDev.Work.Helpers;
+using MSDev.Work.Tools;
 
-namespace MSDev.Task.Tasks
+namespace MSDev.Work.Tasks
 {
     public class DevBlogsTask : MSDTask
     {

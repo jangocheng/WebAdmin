@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading;
 
-namespace MSDev.Task.Tools
+namespace MSDev.Work.Tools
 {
-	public static class Log
+    public static class Log
 	{
 		private static readonly ReaderWriterLockSlim Lock = new ReaderWriterLockSlim();
 

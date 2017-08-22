@@ -3,8 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using MSDev.DB.Entities;
-using MSDev.Task.Tasks;
-using MSDev.Task.Tools;
+using MSDev.Work.Tasks;
+using MSDev.Work.Tools;
 using System.Text;
 using Microsoft.AspNetCore;
 

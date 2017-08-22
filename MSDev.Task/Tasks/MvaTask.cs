@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using MSDev.DB.Entities;
-using MSDev.Task.Helpers;
-using MSDev.Task.Tools;
+using MSDev.Work.Helpers;
+using MSDev.Work.Tools;
 using Newtonsoft.Json;
-using static System.String;
 
-namespace MSDev.Task.Tasks
+namespace MSDev.Work.Tasks
 {
     public class MvaTask : MSDTask
     {

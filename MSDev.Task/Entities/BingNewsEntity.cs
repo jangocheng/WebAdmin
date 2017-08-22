@@ -1,6 +1,6 @@
 using System;
 
-namespace MSDev.Task.Entities
+namespace MSDev.Work.Entities
 {
 
     public class BingNewsEntity

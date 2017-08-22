@@ -1,4 +1,4 @@
-namespace MSDev.Task.Tasks
+namespace MSDev.Work.Tasks
 {
 	public class CloudNewsTask
     {
