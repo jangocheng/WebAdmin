@@ -30,7 +30,7 @@ namespace MSDev.Task.Tasks
         {
             var content = _helper.TranslateText(rss.Description);
             var title = _helper.TranslateText(rss.Title);
-            var oldNews = Context.RssNews.Find(rss);
+            var oldNews = Context.RssNews.Find(rss.Id);
             oldNews.Content = content;
             oldNews.TitleCn = title;
             Context.Update(oldNews);

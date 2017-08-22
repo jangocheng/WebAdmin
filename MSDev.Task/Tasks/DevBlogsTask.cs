@@ -6,6 +6,7 @@ using MSDev.DB.Entities;
 using MSDev.Task.Entities;
 using MSDev.Task.EnumTypes;
 using MSDev.Task.Helpers;
+using MSDev.Task.Tools;
 
 namespace MSDev.Task.Tasks
 {
@@ -32,8 +33,8 @@ namespace MSDev.Task.Tasks
                 Type = 1,
                 Status = 1
             });
+            
             var toBeAdd = new List<RssNews>(rssnews);//待添加数据
-
             //取最新数据，去重 
             var oldData = Context.RssNews.OrderByDescending(m => m.LastUpdateTime).Take(20).ToList();
             foreach (var news in rssnews)
@@ -46,6 +47,22 @@ namespace MSDev.Task.Tasks
                         break;
                     }
                 }
+            }
+            // 添加翻译内容
+            var key = Configuration.GetSection("TranslateKey")?.Value;
+            var translateHelper = new TranslateTextHelper(key);
+            try
+            {
+                foreach (var item in toBeAdd)
+                {
+                    item.Content = translateHelper.TranslateText(item.Description);
+                    item.TitleCn = translateHelper.TranslateText(item.Title);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Log.Write("errors.txt", "翻译:" + e.Source + e.InnerException.Message, true);
             }
             //插入新数据
             Context.RssNews.AddRange(toBeAdd);

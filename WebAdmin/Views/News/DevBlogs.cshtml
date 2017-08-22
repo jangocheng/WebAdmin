@@ -18,7 +18,13 @@
 			{
 
 			<tr>
-				<td><a href="@news.Link" target="_blank">@news.Title</a></td>
+				<td>
+                    <a href="@news.Link" target="_blank">
+                        <span class="glyphicon glyphicon-new-window"></span>
+                    </a> 
+                    <a asp-action="EditDevBlog" asp-route-id="@news.Id">@news.Title</a>
+                    
+                </td>
 				<td>@news.Author</td>
 				<td>@string.Format("{0:yyyy-MM-dd HH:mm}", @news.CreateTime)</td>
 				<td>
