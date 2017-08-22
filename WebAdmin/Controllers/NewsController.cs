@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MSDev.DB;
 using MSDev.DB.Entities;
 using WebAdmin.Helpers;
+using MSDev.Task.Tasks;
 
 namespace WebAdmin.Controllers
 {
@@ -80,6 +81,23 @@ namespace WebAdmin.Controllers
             return View(blog);
         }
 
+        [HttpGet]
+        public IActionResult TranslateBlog(int? id)
+        {
+            if (id == null) return NotFound();
+            var blog = _context.RssNews.Find(id);
+            var task = new TranslateTask();
+            var re = task.TranslateBlog(blog);
+            if (re)
+            {
+                return RedirectToAction("EditDevBlog", new { id = id });
+            }
+            else
+            {
+                return JumpPage("翻译失败", "/News/EditDevBlog/" + id);
+            }
+
+        }
         [HttpPost]
         public IActionResult DelNews(string id)
         {
