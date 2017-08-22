@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MSDev.Entities;
+using MSDev.DB.Entities;
 
 namespace MSDev.DB
 {

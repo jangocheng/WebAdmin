@@ -10,6 +10,9 @@ using MSDev.DB;
 using MSDev.Work.Helpers;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using MSDev.DB.Entities;
+using Microsoft.AspNetCore.Identity;
+using WebAdmin.Services;
 
 namespace WebAdmin
 {
@@ -34,10 +37,28 @@ namespace WebAdmin
         {
 
             services.AddSingleton(Configuration);
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+              options.UseSqlServer(Configuration.GetConnectionString("UserConnection")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddDbContext<AppDbContext>(
+                option => option.UseSqlServer(
+                    Configuration.GetConnectionString("OnlineConnection"),
+                    b =>
+                    {
+                        b.MigrationsAssembly("WebAdmin");
+                        b.EnableRetryOnFailure();
+                    }
+                )
+            );
+
             // Add framework services.
-            services.AddMvc()
-                   .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-               );
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddAuthorization(options => options.AddPolicy("admin", policy => policy.RequireRole("admin")));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -47,20 +68,6 @@ namespace WebAdmin
                     options.AccessDeniedPath = new PathString("/Auth/Forbidden/");
                     options.ExpireTimeSpan = TimeSpan.FromDays(1);
                 });
-
-            services.AddDbContext<AppDbContext>(
-                option => option.UseSqlServer(
-                    Configuration.GetConnectionString("OnlineConnection"),
-                    b =>
-                    {
-                        b.MigrationsAssembly("WebAdmin");
-                        b.EnableRetryOnFailure();
-
-                    }
-                )
-            );
-
-            services.AddScoped(typeof(ApiHelper));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

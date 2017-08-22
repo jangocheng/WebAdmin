@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MSDev.Models;
 using WebAdmin.Services;
 using WebAdmin.Models.ManageViewModels;
+using MSDev.DB.Entities;
 
 namespace MSDev.Controllers
 {
