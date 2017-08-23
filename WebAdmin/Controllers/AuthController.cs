@@ -45,9 +45,10 @@ namespace WebAdmin.Controllers
                     identity.AddClaim(new Claim(ClaimTypes.Name, "admin"));
 
                     var principal = new ClaimsPrincipal(identity);
-                    HttpContext.SignInAsync(principal);
+                    HttpContext.SignInAsync("MSDevAdmin",principal);
 
                     HttpContext.Items["username"] = username;
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -60,7 +61,7 @@ namespace WebAdmin.Controllers
 
         public IActionResult Logout()
         {
-            HttpContext.SignOutAsync();
+            HttpContext.SignOutAsync("MSDevAdmin");
             HttpContext.Items.Clear();
             return RedirectToAction("Index", "Home");
         }

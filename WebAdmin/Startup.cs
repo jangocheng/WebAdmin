@@ -37,15 +37,8 @@ namespace WebAdmin
         {
 
             services.AddSingleton(Configuration);
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("UserConnection")));
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.AddTransient<IEmailSender, EmailSender>();
             services.AddDbContext<AppDbContext>(
                 option => option.UseSqlServer(
                     Configuration.GetConnectionString("OnlineConnection"),
@@ -56,18 +49,28 @@ namespace WebAdmin
                     }
                 )
             );
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            // Add framework services.
-            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddAuthorization(options => options.AddPolicy("admin", policy => policy.RequireRole("admin")));
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
+            services.AddAuthentication(
+                o =>
                 {
-                    options.LoginPath = new PathString("/Auth/Login/");
-                    options.AccessDeniedPath = new PathString("/Auth/Forbidden/");
-                    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                    o.DefaultChallengeScheme = "MSDevAdmin";
+                    o.DefaultSignInScheme = "MSDevAdmin";
+                    o.DefaultAuthenticateScheme = "MSDevAdmin";
+
+                })
+                .AddCookie("MSDevAdmin",options =>
+                {
+                    options.AccessDeniedPath = "/Auth/Forbidden/";
+                    options.LoginPath = "/Auth/Login/";
+                    options.ExpireTimeSpan = TimeSpan.FromHours(24);
                 });
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            // Add framework services.
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -84,9 +87,8 @@ namespace WebAdmin
                 app.UseExceptionHandler("/Home/Error");
             }
 
-
-            app.UseAuthentication();
             app.UseStaticFiles();
+            app.UseAuthentication();
             var webSocketOptions = new WebSocketOptions()
             {
                 KeepAliveInterval = TimeSpan.FromSeconds(120),
