@@ -18,7 +18,7 @@ namespace MSDev.Work.Tasks
             ICollection<RssEntity> blogs = await RssHelper.GetRss(devBlogsFeedsLink);
 
             //var lastNews = await repository.DbSet.Where(x => x.Type == NewsTypes.DevBlog).LastOrDefaultAsync();
-            IEnumerable<RssNews> rssnews = blogs.OrderBy(x => x.PublishId).Select(x => new RssNews
+            IEnumerable<RssNews> rssnews = blogs.OrderBy(x => x.LastUpdateTime).Select(x => new RssNews
             {
                 Title = x.Title,
                 Author = x.Author,
@@ -32,21 +32,26 @@ namespace MSDev.Work.Tasks
                 Type = 1,
                 Status = 1
             });
-            
-            var toBeAdd = new List<RssNews>(rssnews);//待添加数据
+
+            var toBeAdd = new List<RssNews>();//待添加数据
             //取最新数据，去重 
             var oldData = Context.RssNews.OrderByDescending(m => m.LastUpdateTime).Take(20).ToList();
             foreach (var news in rssnews)
             {
+                var isNew = true;
                 foreach (var data in oldData)
                 {
                     if (news.Title.Equals(data.Title))
                     {
-                        toBeAdd.Remove(news);
+                        Console.WriteLine("重复" + news.Title);
+                        isNew = false;
                         break;
                     }
                 }
+                if (isNew)
+                    toBeAdd.Add(news);
             }
+
             // 添加翻译内容
             var key = Configuration.GetSection("TranslateKey")?.Value;
             var translateHelper = new TranslateTextHelper(key);
