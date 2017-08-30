@@ -26,7 +26,7 @@ namespace WebAdmin
             Console.OutputEncoding = Encoding.UTF8;
 
             if (IsTask)
-            {
+            {   
                 var t = new Thread(StartAutoTask)
                 {
                     IsBackground = true
