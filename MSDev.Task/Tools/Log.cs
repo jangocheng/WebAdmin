@@ -10,7 +10,7 @@ namespace MSDev.Work.Tools
 
 		public static void Write(string row)
 		{
-			var file = new FileInfo("c9article.txt");
+			var file = new FileInfo("logs.txt");
 			using (StreamWriter stream = file.AppendText())
 			{
 				stream.WriteLine(row + "\n");

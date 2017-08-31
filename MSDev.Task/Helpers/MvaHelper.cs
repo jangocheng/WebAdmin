@@ -109,6 +109,8 @@ namespace MSDev.Work.Helpers
             string apimlxprod = "https://api-mlxprod.microsoft.com/services/products/anonymous/" + video.MvaId;
 
             string url = video.SourceUrl;
+            string courseInfoUrl = "";
+
             var list = new List<MvaDetails>();
             try
             {
@@ -136,7 +138,7 @@ namespace MSDev.Work.Helpers
                 string mlxprodStaticUrl = await hc.GetStringAsync(apimlxprod);
                 //取课程内容
                 mlxprodStaticUrl = JsonConvert.DeserializeObject<string>(mlxprodStaticUrl);
-                var courseInfoUrl = mlxprodStaticUrl + "/imsmanifestlite.json";
+                courseInfoUrl = mlxprodStaticUrl + "/imsmanifestlite.json";
                 string courseInfo = await hc.GetStringAsync(courseInfoUrl);
                 courseInfo = courseInfo.Replace("@", "_");
 
@@ -197,7 +199,8 @@ namespace MSDev.Work.Helpers
             }
             catch (Exception e)
             {
-                Log.Write("mvaDetail.json", apimlxprod);
+                Log.Write("mvaDetailErrors.txt", "video:" + video.SourceUrl + ";courseInfoUrl" + courseInfoUrl, true);
+                Log.Write("mvaDetailErrors.txt", e.Source + e.Message + e.InnerException.Message);
                 Console.WriteLine(e.Source + e.Message);
                 return default((string, List<MvaDetails>));
             }

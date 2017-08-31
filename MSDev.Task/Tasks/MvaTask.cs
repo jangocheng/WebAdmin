@@ -79,6 +79,7 @@ namespace MSDev.Work.Tasks
             }
             catch (Exception e)
             {
+                Log.Write("mvaErrors.txt", "MvaTask:SaveMvaVideo=>" + e.Source + e.Message + e.InnerException.Message, true);
                 Console.WriteLine(e.Source + e.Message);
             }
             return toBeAddMcList;
@@ -118,8 +119,8 @@ namespace MSDev.Work.Tasks
                 .ToList();
             foreach (var item in list)
             {
-                var re=await GetMvaDetailAsync(item);
-                if(re.Count<1)
+                var re = await GetMvaDetailAsync(item);
+                if (re.Count < 1)
                 {
                     list.Remove(item);
                 }
