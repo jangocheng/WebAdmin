@@ -1,12 +1,6 @@
-using System;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-
 namespace MSDev.Work.Helpers
 {
-	public class ApiHelper
+    public class ApiHelper
 	{
 		private const string BaseDaemon = "https://api.msdev.cc";
 		//private const string BaseDaemon = "http://localhost:3672";

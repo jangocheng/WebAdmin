@@ -1,17 +1,6 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using System.Text;
-using Microsoft.Extensions.Logging;
-using System.IO;
-using Microsoft.EntityFrameworkCore;
-using MSDev.DB;
-
-
 namespace MSDev.Work.Tasks
 {
-	public class MSDTask
+    public class MSDTask
 	{
 		private static readonly IServiceCollection Services = new ServiceCollection();
 

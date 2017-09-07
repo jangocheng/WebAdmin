@@ -1,9 +1,3 @@
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System;
 using MSDev.Work.Entities;
 
 namespace MSDev.Work.Helpers

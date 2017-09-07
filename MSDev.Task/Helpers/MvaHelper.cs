@@ -1,17 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Internal;
-using MSDev.DB.Entities;
 using MSDev.Work.Entities;
-using Newtonsoft.Json;
-using HtmlAgilityPack;
 using MSDev.Work.Tools;
-using System.Xml.Linq;
 
 namespace MSDev.Work.Helpers
 {

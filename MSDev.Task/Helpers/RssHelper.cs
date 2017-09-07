@@ -1,14 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System;
 using MSDev.Work.Entities;
 
 namespace MSDev.Work.Helpers
 {
-	public static class RssHelper
+    public static class RssHelper
 	{
 		private readonly static HttpClient httpClient;
 

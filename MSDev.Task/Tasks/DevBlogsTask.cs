@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MSDev.DB.Entities;
 using MSDev.Work.Entities;
 using MSDev.Work.Helpers;
 using MSDev.Work.Tools;

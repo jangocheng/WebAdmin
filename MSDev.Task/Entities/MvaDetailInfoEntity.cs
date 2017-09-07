@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace MSDev.Work.Entities
 {
     public class Metadata

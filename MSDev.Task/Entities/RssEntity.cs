@@ -1,8 +1,6 @@
-using System;
-
 namespace MSDev.Work.Entities
 {
-	public class RssEntity
+    public class RssEntity
     {
         public string Categories { get; set; }
 
