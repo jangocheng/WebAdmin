@@ -1,3 +1,5 @@
+using System;
+
 namespace MSDev.Work.Tools
 {
     public class StringTools

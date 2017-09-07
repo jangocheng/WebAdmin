@@ -1,3 +1,4 @@
+using MSDev.DB.Entities;
 using MSDev.Work.Helpers;
 
 namespace MSDev.Work.Tasks

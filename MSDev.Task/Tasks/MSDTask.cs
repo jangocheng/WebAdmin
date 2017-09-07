@@ -1,3 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using MSDev.DB;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+
 namespace MSDev.Work.Tasks
 {
     public class MSDTask

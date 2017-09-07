@@ -1,4 +1,15 @@
+using HtmlAgilityPack;
+using Microsoft.EntityFrameworkCore.Internal;
+using MSDev.DB.Entities;
 using MSDev.Work.Tools;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using static System.String;
 
 namespace MSDev.Work.Helpers
 {
@@ -23,7 +34,7 @@ namespace MSDev.Work.Helpers
             int pageNumber = 0;
             var hc = new HttpClient();
             string htmlString = await hc.GetStringAsync(BeginUrl);
-            if (IsNullOrEmpty(htmlString)) return pageNumber;
+            if (string.IsNullOrEmpty(htmlString)) return pageNumber;
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(htmlString);
 

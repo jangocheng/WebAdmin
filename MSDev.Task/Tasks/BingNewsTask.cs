@@ -1,7 +1,14 @@
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
+using MSDev.DB.Entities;
 using MSDev.Work.Entities;
 using MSDev.Work.Helpers;
 using MSDev.Work.Tools;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using static System.String;
 namespace MSDev.Work.Tasks
 {
     public class BingNewsTask : MSDTask

@@ -1,3 +1,9 @@
+using System;
+using System.IO;
+using System.Net;
+using System.Runtime.Serialization;
+using System.Web;
+
 namespace MSDev.Work.Helpers
 {
     public class TranslateTextHelper

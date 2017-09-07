@@ -1,3 +1,5 @@
+using System;
+
 namespace MSDev.Work.Entities
 {
     public class RssEntity
