@@ -28,66 +28,80 @@ namespace WebAdmin.Services
 			Console.WriteLine("command is :" + command);
 			try
 			{
-				if (command.Equals("bingnews"))
-				{
-                   
-                    var task = new BingNewsTask();
-					List<BingNews> bingNewsList = await task.GetNews("微软");
 
-					Console.WriteLine(bingNewsList.Count);
-					foreach (BingNews bingNews in bingNewsList)
-					{
-						await Echo(bingNews.Title);
-					}
-					await Echo("Done");
-				}
-				if (command.Equals("c9article"))
-				{
-					var task = new Channel9Task();
-					//获取最近5页articles
-					for (int i = 5; i >= 1; i--)
-					{
-						List<C9Articles> articles = await task.SaveArticles(i);
-						if (articles == null) continue;
-						foreach (C9Articles c9Article in articles)
-						{
-							await Echo("article:" + c9Article?.Title);
-						}
-					}
-					// 更新视频页内容
-					var videos = await task.SaveVideosAsync(0, 60);
-					if (videos != null)
-					{
-						foreach (C9Videos video in videos)
-						{
-							await Echo("video:" + video?.Title);
-						}
-					}
-					await Echo("Done");
-				}
-				if (command.Equals("mvavideos"))
-				{
-					var task = new MvaTask();
-					List<MvaVideos> re = await task.SaveMvaVideo();
-					foreach (MvaVideos video in re)
-					{
-                        var newDetails = task.GetMvaDetailAsync(video).Result;
-                        await Echo("video:" + video?.Title);
-                        await Echo("\t包括子视频：" + newDetails.Count + "个");
-                    }
-                    await Echo("Done");
-				}
-                
-                if (command.Equals("mvadetails"))
+                switch (command)
                 {
-                    var task = new MvaTask();
-                    List<MvaVideos> re = await task.UpdateRecentDetailAsync();
-                    foreach (MvaVideos video in re)
-                    {
-                        await Echo("video:" + video?.Title);
-                    }
-                    await Echo("Done");
+
+                    case "bingnews":
+                        var task = new BingNewsTask();
+                        List<BingNews> bingNewsList = await task.GetNews("微软");
+
+                        Console.WriteLine(bingNewsList.Count);
+                        foreach (BingNews bingNews in bingNewsList)
+                        {
+                            await Echo(bingNews.Title);
+                        }
+                        await Echo("Done");
+                        break;
+
+                    case "c9article":
+                        var task1 = new Channel9Task();
+                        //获取最近5页articles
+                        for (int i = 5; i >= 1; i--)
+                        {
+                            List<C9Articles> articles = await task1.SaveArticles(i);
+                            if (articles == null) continue;
+                            foreach (C9Articles c9Article in articles)
+                            {
+                                await Echo("article:" + c9Article?.Title);
+                            }
+                        }
+                        // 更新视频页内容
+                        var videos = await task1.SaveVideosAsync(0, 60);
+                        if (videos != null)
+                        {
+                            foreach (C9Videos video in videos)
+                            {
+                                await Echo("video:" + video?.Title);
+                            }
+                        }
+                        await Echo("Done");
+                        break;
+
+                    case "mvavideos":
+                        var task2 = new MvaTask();
+                        List<MvaVideos> re = await task2.SaveMvaVideo();
+                        foreach (MvaVideos video in re)
+                        {
+                            var newDetails = task2.GetMvaDetailAsync(video).Result;
+                            await Echo("video:" + video?.Title);
+                            await Echo("\t包括子视频：" + newDetails.Count + "个");
+                        }
+                        await Echo("Done");
+                        break;
+                    case "mvadetails":
+                        var task3 = new MvaTask();
+                        List<MvaVideos> videoList = await task3.UpdateRecentDetailAsync();
+                        foreach (MvaVideos video in videoList)
+                        {
+                            await Echo("video:" + video?.Title);
+                        }
+                        await Echo("Done");
+                        break;
+
+                    case "devblogs":
+                        var task4 = new DevBlogsTask();
+                        var rssnews = task4.GetNewsAsync().Result;
+                        foreach (var news in rssnews)
+                        {
+                            await Echo("devblog:" + news?.Title);
+                        }
+                        await Echo("Done");
+                        break;
+                    default:
+                        break;
                 }
+
             }
 			catch (Exception e)
 			{

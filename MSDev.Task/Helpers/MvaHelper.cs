@@ -202,7 +202,7 @@ namespace MSDev.Work.Helpers
                 Log.Write("mvaDetailErrors.txt", "video:" + video.SourceUrl + ";courseInfoUrl" + courseInfoUrl, true);
                 Log.Write("mvaDetailErrors.txt", e.Source + e.Message + e.InnerException.Message);
                 Console.WriteLine(e.Source + e.Message);
-                return default((string, List<MvaDetails>));
+                return default;
             }
         }
     }

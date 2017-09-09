@@ -94,15 +94,31 @@ namespace MSDev.Work.Tasks
         {
             MvaHelper helper = new MvaHelper();
             var re = await helper.GetMvaDetails(video);
-            foreach (var item in re.Item2)
+            if (re.Item2.Count > 0)
             {
-                //去重处理
-                var exist = Context.MvaDetails.Any(m => m.MvaId.Equals(item.MvaId));
-                if (exist) re.Item2.Remove(item);
+                try
+                {
+                    var toBeAddDetail = new List<MvaDetails>();
+                    foreach (var item in re.Item2)
+                    {
+                        //去重处理
+                        var exist = Context.MvaDetails.Any(m => m.MvaId.Equals(item.MvaId));
+                        if (!exist) toBeAddDetail.Add(item);
+                    }
+                    if (toBeAddDetail.Count > 0)
+                    {
+                        Context.MvaDetails.AddRange(toBeAddDetail);
+                        Context.SaveChanges();
+                    }
+                    return toBeAddDetail;
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Source + e.Message);
+                }
             }
-            Context.MvaDetails.AddRange(re.Item2);
-            Context.SaveChanges();
-            return re.Item2;
+            return default;
         }
 
         /// <summary>

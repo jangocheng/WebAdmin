@@ -53,6 +53,7 @@ namespace MSDev.Work.Tasks
             }
 
             // 添加翻译内容
+            if (toBeAdd.Count < 1) return toBeAdd;
             var key = Configuration.GetSection("TranslateKey")?.Value;
             var translateHelper = new TranslateTextHelper(key);
             try

@@ -14,22 +14,26 @@
 <div class="row">
     <div class="col-md-2">
         <h4>任务列表:</h4>
-        <ul class="nav nav-pills">
+        <ul class="nav nav-pills nav-stacked">
             <li>
                 资讯更新
-                <ul class="nav nav-pills">
+                <ul class="nav nav-pills nav-stacked">
                     <li>
                         <a class="cursor-point"
                            data-bind="click:runTask.bind($data,'bingnews')">
                             更新必应新闻
                         </a>
-                        <a class="cursor-point">官方博客</a>
+                    </li>
+                    <li>
+                        <a class="cursor-point" data-bind="click:runTask.bind($data,'devblogs')">
+                            官方博客
+                        </a>
                     </li>
                 </ul>
             </li>
             <li>
                 视频更新
-                <ul class="nav nav-pills">
+                <ul class="nav nav-pills nav-stacked">
                     <li>
                         <a class="cursor-point"
                            data-bind="click:runTask.bind($data,'c9article')">
@@ -41,7 +45,10 @@
                            data-bind="click:runTask.bind($data,'mvavideos')">
                             更新MvaVideos
                         </a>
-                        <a class="cursor-point" 
+
+                    </li>
+                    <li>
+                        <a class="cursor-point"
                            data-bind="click:runTask.bind($data,'mvadetails')">
                             更新mva详情
                         </a>
