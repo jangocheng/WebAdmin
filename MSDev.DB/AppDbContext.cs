@@ -42,6 +42,14 @@ namespace MSDev.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<RssNews>(entity =>
+            {
+                entity.HasIndex(e => e.Categories);
+                entity.HasIndex(e => e.Title).IsUnique();
+                entity.HasIndex(e => e.LastUpdateTime);
+            });
+
             modelBuilder.Entity<MvaDetails>(entity =>
             {
                 entity.HasIndex(e => e.MvaId).IsUnique();
@@ -214,6 +222,8 @@ namespace MSDev.DB
 
                 entity.HasIndex(e => e.Title)
                     .HasName("IX_C9Videos_Title");
+                entity.HasIndex(e => e.Tags)
+                  .HasName("IX_C9Videos_Tags");
 
                 entity.HasIndex(e => e.UpdatedTime)
                     .HasName("IX_C9Videos_UpdatedTime");
@@ -282,13 +292,12 @@ namespace MSDev.DB
             {
                 entity.HasIndex(e => e.LanguageCode)
                     .HasName("IX_MvaVideos_LanguageCode");
-
                 entity.HasIndex(e => e.Title)
                     .HasName("IX_MvaVideos_Title");
-
-                entity.HasIndex(e => e.Technologies)
+                entity.HasIndex(e => e.Tags)
+                    .HasName("IX_MvaVideos_Title");
+                entity.HasIndex(e => e.Tags)
                    .HasName("IX_MvaVideos_Technologies");
-
                 entity.HasIndex(e => e.UpdatedTime)
                     .HasName("IX_MvaVideos_UpdatedTime");
 
