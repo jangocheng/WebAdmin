@@ -31,6 +31,11 @@
     <Folder Include="Models\FormModels\Videos\" />
     <Folder Include="Models\ViewModels\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\lib\codemirror\codemirror.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">

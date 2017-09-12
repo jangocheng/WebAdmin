@@ -1,0 +1,26 @@
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "文章管理";
+
+}
+<div class="row">
+    <div class="pull-left">
+        <ul class="nav nav-stacked">
+            <li>
+                <a asp-action="Index">文章列表</a>
+                <a asp-action="Write">添加文章</a>
+            </li>
+            @*			<li><a asp-action="devblog">博客</a></li>*@
+
+        </ul>
+    </div>
+    <div class="col-md-8">
+        @RenderBody()
+    </div>
+</div>
+
+@section Scripts{
+    @RenderSection("Scripts", required: false)
+
+}
+
