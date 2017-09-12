@@ -12,6 +12,8 @@ namespace MSDev.DB
         }
 
         #region DbSet
+
+        public DbSet<Blog> Blog { get; set; }
         public DbSet<Config> Config { get; set; }
         public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
@@ -42,6 +44,15 @@ namespace MSDev.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Blog>(entity =>
+            {
+                entity.HasIndex(e => e.Title);
+                entity.HasIndex(e => e.Tags);
+                entity.HasIndex(e => e.AuthorId);
+                entity.HasIndex(e => e.UpdateTime);
+
+            });
+
 
             modelBuilder.Entity<RssNews>(entity =>
             {

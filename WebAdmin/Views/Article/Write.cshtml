@@ -18,9 +18,7 @@
 
 @section Scripts{
     @Html.Partial("_EditorMD");
-
     <script>
-
         var testEditor;
         $(document).ready(function () {
 
@@ -50,7 +48,14 @@
                 searchReplace: true,
                 //watch : false,                // 关闭实时预览
                 toolbar: true,             //关闭工具栏
-                //toolbarIcons: "opento", //自定义图标
+                toolbarIcons: [
+                    "undo", "redo", "|",
+                    "list-ul", "list-ol", "hr", "|",
+                    "uppercase", "lowercase", "link", "help", "|",
+                    "reference-link", "code-block", "image", "table", "|",
+                    "watch", "preview", "fullscreen"
+                ], //自定义图标
+
                 toolbarIconsClass: {},
                 //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
                 //emoji: true,
@@ -64,8 +69,6 @@
                 //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
                 //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
                 //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
-
-
                 imageUpload: true,
                 imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                 imageUploadURL: "/blogs/upload",
