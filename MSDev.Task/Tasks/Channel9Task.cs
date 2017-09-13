@@ -55,7 +55,6 @@ namespace MSDev.Work.Tasks
 					url = url.Trim();
 					C9Videos re = _helper.GetPageVideoByUrl(url);
 
-
 					if (Context.C9Videos.Any(m => m.SourceUrl == re.SourceUrl))
 					{
 						url = stream.ReadLine();
@@ -104,7 +103,7 @@ namespace MSDev.Work.Tasks
 					return;
 				}
 				// 数据库去重
-				if (lastVideo.Any(m => m.SourceUrl == a.SourceUrl))
+				if (lastVideo.Any(m => m.SourceUrl.Equals(a.SourceUrl)))
 				{
 					return;
 				}

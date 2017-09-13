@@ -58,19 +58,17 @@ namespace MSDev.Work.Tasks
                 .Skip(0).Take(30)
                 .ToList();
             List<MvaVideos> mvaList = await _helper.GetMvaVideos(0, 30);
-            var toBeAddMcList = mvaList.ToList();
 
-            foreach (MvaVideos mvaVideo in mvaList)
+            var toBeAddMcList = mvaList.FindAll(NotSame);
+            //不重复内容
+            bool NotSame(MvaVideos video)
             {
-                foreach (MvaVideos video in lastVideo)
+                if (lastVideo.Any(m => m.Title.Equals(video.Title)))
                 {
-                    if (video.Title == mvaVideo.Title)
-                    {
-                        Console.WriteLine("repeat:" + mvaVideo.Title);
-                        toBeAddMcList.Remove(mvaVideo);
-                        break;
-                    }
+                    Console.WriteLine("重复:" + video.Title);
+                    return false;
                 }
+                return true;
             }
             try
             {

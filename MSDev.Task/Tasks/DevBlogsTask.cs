@@ -18,7 +18,7 @@ namespace MSDev.Work.Tasks
             ICollection<RssEntity> blogs = await RssHelper.GetRss(devBlogsFeedsLink);
 
             //var lastNews = await repository.DbSet.Where(x => x.Type == NewsTypes.DevBlog).LastOrDefaultAsync();
-            IEnumerable<RssNews> rssnews = blogs.OrderBy(x => x.LastUpdateTime).Select(x => new RssNews
+            List<RssNews> rssnews = blogs.OrderBy(x => x.LastUpdateTime).Select(x => new RssNews
             {
                 Title = x.Title,
                 Author = x.Author,
@@ -31,25 +31,22 @@ namespace MSDev.Work.Tasks
                 MobileContent = x.MobileContent,
                 Type = 1,
                 Status = 1
-            });
+            }).ToList();
 
-            var toBeAdd = new List<RssNews>();//待添加数据
             //取最新数据，去重 
             var oldData = Context.RssNews.OrderByDescending(m => m.LastUpdateTime).Take(20).ToList();
-            foreach (var news in rssnews)
+            var toBeAdd = rssnews.FindAll(NotSame);
+
+            //判断重复
+            bool NotSame(RssNews news)
             {
-                var isNew = true;
-                foreach (var data in oldData)
+
+                if (oldData.Any(m => m.Title.Equals(news.Title)))
                 {
-                    if (news.Title.Equals(data.Title))
-                    {
-                        Console.WriteLine("重复" + news.Title);
-                        isNew = false;
-                        break;
-                    }
+                    Console.WriteLine("重复" + news.Title);
+                    return false;
                 }
-                if (isNew)
-                    toBeAdd.Add(news);
+                return true;
             }
 
             // 添加翻译内容

@@ -28,7 +28,7 @@ namespace MSDev.Work.Tasks
             //获取新闻
             if (IsNullOrEmpty(BingSearchKey))
             {
-                return default(List<BingNews>);
+                return default;
             }
             BingSearchHelper.SearchApiKey = BingSearchKey;
             List<BingNewsEntity> newNews = await BingSearchHelper.GetNewsSearchResults(query);
