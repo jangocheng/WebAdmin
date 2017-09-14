@@ -51,7 +51,6 @@ namespace WebAdmin.Controllers
                       new ArraySegment<byte>(buffer), CancellationToken.None);
                 }
                 await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
-                //await Echo(webSocket, "1231");
             }
         }
 

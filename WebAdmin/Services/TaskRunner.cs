@@ -75,7 +75,14 @@ namespace WebAdmin.Services
                         {
                             var newDetails = task2.GetMvaDetailAsync(video).Result;
                             await Echo("video:" + video?.Title);
-                            await Echo("\t包括子视频：" + newDetails.Count + "个");
+                            if (newDetails?.Count > 0)
+                            {
+                                await Echo("\t包括子视频：" + newDetails?.Count + "个");
+                            }
+                            else
+                            {
+                                await Echo("\t没有子视频或获取子视频失败");
+                            }
                         }
                         await Echo("Done");
                         break;
