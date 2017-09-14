@@ -13,7 +13,7 @@ namespace WebAdmin
     public class Program
     {
         private static bool IsTask = false;//是否运行Task
-                                          //private static bool IsTask = false;
+                                           //private static bool IsTask = false;
 
         public static IWebHost BuildWebHost(string[] args)
         {
@@ -26,7 +26,7 @@ namespace WebAdmin
             Console.OutputEncoding = Encoding.UTF8;
 
             if (IsTask)
-            {   
+            {
                 var t = new Thread(StartAutoTask)
                 {
                     IsBackground = true
