@@ -23,7 +23,7 @@ namespace MSDev.Work.Helpers
 			}
 		}
 
-		public static async Task<ICollection<RssEntity>> GetRss(string url)
+		public static async Task<List<RssEntity>> GetRss(string url)
 		{
 			var blogs = new List<RssEntity>();
 			string xmlString = await httpClient.GetStringAsync(url);

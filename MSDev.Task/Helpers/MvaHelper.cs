@@ -127,15 +127,22 @@ namespace MSDev.Work.Helpers
                 version = version.Replace("'", string.Empty);
                 version = version.Trim();
 
-                apimlxprod += $"?version={version}&languageId=6";
+                string languageId = StringTools.GetRow(htmlString, "languageId");
+                languageId = languageId.Substring(0, languageId.IndexOf(","));
+                languageId = languageId.Replace("languageId:", string.Empty);
+                languageId = languageId.Replace("'", string.Empty);
+                languageId = languageId.Trim();
+
+                apimlxprod += $"?version={version}&languageId={languageId}";
+                Console.WriteLine(apimlxprod);
 
                 var info = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']//section[@id='coursePlayer']//div[@id='info-tab-container']//div[@id='course-info-container']");
 
                 string detailDescription = info.SelectSingleNode(".//div[@id='overview']/div[@class='accordian-container overview-container-height']")?.InnerHtml;
                 detailDescription = detailDescription ?? "无";
 
-
                 string mlxprodStaticUrl = await hc.GetStringAsync(apimlxprod);
+
                 //取课程内容
                 mlxprodStaticUrl = JsonConvert.DeserializeObject<string>(mlxprodStaticUrl);
                 courseInfoUrl = mlxprodStaticUrl + "/imsmanifestlite.json";
@@ -199,7 +206,6 @@ namespace MSDev.Work.Helpers
             }
             catch (Exception e)
             {
-                Log.Write("mvaDetailErrors.txt", "video:" + video.SourceUrl + ";courseInfoUrl" + courseInfoUrl, true);
                 Log.Write("mvaDetailErrors.txt", e.Source + e.Message + e.InnerException.Message);
                 Console.WriteLine(e.Source + e.Message);
                 return default;

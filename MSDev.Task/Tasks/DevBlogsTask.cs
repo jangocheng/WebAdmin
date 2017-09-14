@@ -2,6 +2,7 @@ using MSDev.DB.Entities;
 using MSDev.Work.Entities;
 using MSDev.Work.Helpers;
 using MSDev.Work.Tools;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace MSDev.Work.Tasks
 
         public async Task<List<RssNews>> GetNewsAsync()
         {
-            ICollection<RssEntity> blogs = await RssHelper.GetRss(devBlogsFeedsLink);
+            List<RssEntity> blogs = await RssHelper.GetRss(devBlogsFeedsLink);
 
             //var lastNews = await repository.DbSet.Where(x => x.Type == NewsTypes.DevBlog).LastOrDefaultAsync();
             List<RssNews> rssnews = blogs.OrderBy(x => x.LastUpdateTime).Select(x => new RssNews
@@ -32,15 +33,29 @@ namespace MSDev.Work.Tasks
                 Type = 1,
                 Status = 1
             }).ToList();
+            //先去重源数据
+            for (int i = 0; i < rssnews.Count - 1; i++)
+            {
+                for (int j = i + 1; j < rssnews.Count; j++)
+                {
+                    if (rssnews[i].Title.Equals(rssnews[j].Title))
+                    {
+                        rssnews[i].Title = string.Empty;
+                        break;
+                    }
+                }
+            }
 
             //取最新数据，去重 
             var oldData = Context.RssNews.OrderByDescending(m => m.LastUpdateTime).Take(20).ToList();
             var toBeAdd = rssnews.FindAll(NotSame);
 
+
             //判断重复
             bool NotSame(RssNews news)
             {
 
+                if (string.IsNullOrEmpty(news.Title)) return false;
                 if (oldData.Any(m => m.Title.Equals(news.Title)))
                 {
                     Console.WriteLine("重复" + news.Title);

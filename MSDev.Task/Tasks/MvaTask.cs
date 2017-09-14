@@ -109,11 +109,12 @@ namespace MSDev.Work.Tasks
                         Context.SaveChanges();
                     }
                     return toBeAddDetail;
-
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Source + e.Message);
+
+                    Console.WriteLine(e.Source + e.Message + e.InnerException);
+                    return default;
                 }
             }
             return default;
@@ -131,15 +132,16 @@ namespace MSDev.Work.Tasks
                 .Where(m => m.LanguageCode.Equals("zh-cn"))
                 .Take(10)
                 .ToList();
+            var updateVideos = new List<MvaVideos>();
             foreach (var item in list)
             {
                 var re = await GetMvaDetailAsync(item);
-                if (re.Count < 1)
+                if (re.Count > 0)
                 {
-                    list.Remove(item);
+                    updateVideos.Add(item);
                 }
             }
-            return list;
+            return updateVideos;
         }
 
         /// <summary>
