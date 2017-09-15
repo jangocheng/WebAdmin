@@ -34,7 +34,7 @@ namespace WebAdmin
             services.AddSingleton(Configuration);
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-            services.AddDbContext<AppDbContext>(
+            services.AddDbContextPool<AppDbContext>(
                 option => option.UseSqlServer(
                     Configuration.GetConnectionString("OnlineConnection"),
                     b =>

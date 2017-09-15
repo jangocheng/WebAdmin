@@ -134,7 +134,6 @@ namespace MSDev.Work.Helpers
                 languageId = languageId.Trim();
 
                 apimlxprod += $"?version={version}&languageId={languageId}";
-                Console.WriteLine(apimlxprod);
 
                 var info = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']//section[@id='coursePlayer']//div[@id='info-tab-container']//div[@id='course-info-container']");
 

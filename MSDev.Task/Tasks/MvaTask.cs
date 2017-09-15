@@ -154,7 +154,7 @@ namespace MSDev.Work.Tasks
             //查询需要获取详情的mva视频
             var list = Context.MvaVideos
                 .OrderByDescending(m => m.UpdatedTime)
-                .Where(m => m.LanguageCode.Equals("zh-cn"))
+                .Where(m => string.IsNullOrWhiteSpace(m.DetailDescription))
                 .Take(num)
                 .ToList();
 
@@ -163,11 +163,36 @@ namespace MSDev.Work.Tasks
             MvaHelper helper = new MvaHelper();
             Console.WriteLine($"共有{list.Count}条数据需要处理");
             int i = 1;
+            //所有待添加的详情
+            var toBeAddDetails = new List<MvaDetails>();
             Parallel.ForEach(beUpdateList, new ParallelOptions { MaxDegreeOfParallelism = 10 }, item =>
             {
                 mvaDetailTask(item);
             });
+            //去重新内容
+            for (int k = 0; k < toBeAddDetails.Count - 1; k++)
+            {
+                for (int j = k + 1; j < toBeAddDetails.Count; j++)
+                {
+                    if (toBeAddDetails[k].MvaId.Equals(toBeAddDetails[j].MvaId))
+                    {
+                        toBeAddDetails[k].MvaId = null;
+                        break;
+                    }
+                }
+            }
 
+            //去重库里的内容
+            toBeAddDetails.RemoveAll(m =>
+            {
+                if (m.MvaId == null || Context.MvaDetails.Any(o => o.MvaId.Equals(m.MvaId)))
+                {
+                    Console.WriteLine("repeat：" + m.MvaId);
+                    return true;
+                }
+                return false;
+            });
+            Context.MvaDetails.AddRange(toBeAddDetails);
             Console.WriteLine("开始写入详情数据");
             Context.SaveChanges();
             Console.WriteLine("开始更新video detailDescription");
@@ -191,10 +216,10 @@ namespace MSDev.Work.Tasks
 
                 //插入mvadetail
                 var mvaDetails = re.Item2;
+
                 if (mvaDetails != null)
                 {
-                    Context.MvaDetails.AddRange(mvaDetails);
-
+                    toBeAddDetails.AddRange(mvaDetails);
                 }
                 Console.WriteLine($"获取第{i}条数据");
                 i++;
