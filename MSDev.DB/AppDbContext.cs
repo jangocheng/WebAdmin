@@ -50,9 +50,7 @@ namespace MSDev.DB
                 entity.HasIndex(e => e.Tags);
                 entity.HasIndex(e => e.AuthorId);
                 entity.HasIndex(e => e.UpdateTime);
-
             });
-
 
             modelBuilder.Entity<RssNews>(entity =>
             {
@@ -345,6 +343,15 @@ namespace MSDev.DB
             {
                 entity.HasIndex(e => e.CatalogId)
                     .HasName("IX_Resource_CatelogId");
+
+                entity.HasIndex(e => e.Type)
+                    .HasName("IX_Resource_Type");
+                entity.HasIndex(e => e.UpdatedTime)
+                  .HasName("IX_Resource_UpdatedTime");
+                entity.HasIndex(e => e.Name)
+                  .HasName("IX_Resource_Name");
+                entity.HasIndex(e => e.Tag)
+                  .HasName("IX_Resource_Tag");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
