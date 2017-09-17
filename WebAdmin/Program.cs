@@ -12,7 +12,7 @@ namespace WebAdmin
 {
     public class Program
     {
-        private static bool IsTask = false;//是否运行Task
+        private static bool IsTask = true;//是否运行Task
                                            //private static bool IsTask = false;
 
         public static IWebHost BuildWebHost(string[] args)
@@ -24,10 +24,6 @@ namespace WebAdmin
         public static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-
-
-            var task = new MvaTask();
-            task.UpdateDetail(200);
 
             if (IsTask)
             {

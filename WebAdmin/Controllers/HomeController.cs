@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MSDev.Work.Tasks;
@@ -32,6 +33,8 @@ namespace WebAdmin.Controllers
 			return View();
 		}
 
+
+        [AllowAnonymous]
 		public IActionResult Error()
 		{
 			return View();

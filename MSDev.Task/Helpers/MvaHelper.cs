@@ -205,7 +205,7 @@ namespace MSDev.Work.Helpers
             }
             catch (Exception e)
             {
-                Log.Write("mvaDetailErrors.txt", e.Source + e.Message + e.InnerException.Message);
+                Log.Write("mvaDetailErrors.txt", e.Source + e.Message + e.InnerException?.Message);
                 Console.WriteLine(e.Source + e.Message);
                 return default;
             }
