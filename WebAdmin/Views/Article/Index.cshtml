@@ -22,8 +22,8 @@
                     @blog.UpdateTime
                 </td>
                 <td>
-                    <a href="#" class="label label-success">编辑</a>
-                    <a href="#" class="label label-danger">删除</a>
+                    <a asp-action="Edit" asp-route-id="@blog.Id" class="label label-success">编辑</a>
+                    <a asp-action="DeleteArticle" asp-route-id="@blog.Id" class="label label-danger">删除</a>
                 </td>
             </tr>
         }

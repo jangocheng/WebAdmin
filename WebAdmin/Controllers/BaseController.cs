@@ -45,7 +45,7 @@ namespace WebAdmin.Controllers
             var errors = ModelState.Values.Where(m => m.Errors.Count > 0)
                 .Select(m => m.Errors.FirstOrDefault())
                 .ToList();
-            ErrorMessage = errors.FirstOrDefault().ErrorMessage;
+            ErrorMessage = errors.FirstOrDefault()?.ErrorMessage;
         }
         /// <summary>
         /// 成功返回数据

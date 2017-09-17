@@ -20,8 +20,7 @@ namespace WebAdmin.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public IActionResult Index(int p=1)
+        public IActionResult Index(int p = 1)
         {
             int pageSize = 12;
             var blogs = _context.Blog.OrderByDescending(m => m.UpdateTime)
@@ -36,7 +35,6 @@ namespace WebAdmin.Controllers
         }
 
 
-        [HttpGet]
         public IActionResult Write()
         {
             //查询文章分类
@@ -44,12 +42,73 @@ namespace WebAdmin.Controllers
                 .ToList();
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
-                ModelState.AddModelError(string.Empty,ErrorMessage);
+                ModelState.AddModelError(string.Empty, ErrorMessage);
             }
             ViewBag.Catalogs = catalogs;
 
             return View();
         }
+
+
+        public IActionResult Edit(Guid id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            if (_context.Blog.Any(m => m.Id.Equals(id)))
+            {
+                var blog = _context.Blog.Find(id);
+                return View(blog);
+            }
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                ModelState.AddModelError(string.Empty, ErrorMessage);
+            }
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        [HttpPost]
+        public IActionResult UpdateArticle(Blog blog)
+        {
+            if (ModelState.IsValid)
+            {
+                if (blog.Id == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                if (_context.Blog.Any(m => m.Id == blog.Id))
+                {
+                    _context.Update(blog);
+                    _context.SaveChanges();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            SetErrorMessage();
+            return RedirectToAction(nameof(Edit), new
+            {
+                id = blog.Id
+            });
+
+        }
+
+        public IActionResult DeleteArticle(Guid id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            if (_context.Blog.Any(m => m.Id.Equals(id)))
+            {
+                var oldBlog = _context.Blog.Find(id);
+                _context.Blog.Remove(oldBlog);
+                _context.SaveChanges();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
 
         [HttpPost]
         public IActionResult AddArticle(AddArticleForm article)
@@ -59,7 +118,7 @@ namespace WebAdmin.Controllers
                 if (_context.Blog.Any(m => m.Title.Equals(article.Title)))
                 {
                     ErrorMessage = "重复的标题";
-                    return RedirectToAction("Write");
+                    return RedirectToAction(nameof(Write));
                 }
                 //TODO:作者与状态待完善
                 var newBlog = new Blog
@@ -77,13 +136,14 @@ namespace WebAdmin.Controllers
                 _context.Blog.Add(newBlog);
                 if (_context.SaveChanges() > 0)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 }
             }
             SetErrorMessage();
 
-            return RedirectToAction("Write");
+            return RedirectToAction(nameof(Write));
         }
+
     }
 
 }
