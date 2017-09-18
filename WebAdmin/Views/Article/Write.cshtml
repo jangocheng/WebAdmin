@@ -1,31 +1,41 @@
 @model WebAdmin.Models.FormModels.Article.AddArticleForm
 @{
-    Layout = "_LeftNav";
+    ViewData["Title"] = "编写文章";
+
 }
 <head>
     <link href="~/lib/editor.md/css/editormd.css" rel="stylesheet" />
 </head>
 
 <div class="row">
-    <form class="form-inline" asp-action="AddArticle">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <select name="CatalogId" class="form-control">
-            @foreach (var catalog in ViewBag.Catalogs as List<Catalog>)
-            {
-                if (catalog.IsTop == 0)
-                {
-                    <option value="@catalog.Id">@catalog.TopCatalog.Name:@catalog.Name</option>
-                }
-            }
-        </select>
+    <form asp-action="AddArticle">
+        <div class="col-md-2" style="padding:0 0">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <select name="CatalogId" class="form-control">
+                    @foreach (var catalog in ViewBag.Catalogs as List<Catalog>)
+                    {
+                        if (catalog.IsTop == 0)
+                        {
+                            <option value="@catalog.Id">@catalog.TopCatalog.Name:@catalog.Name</option>
+                        }
+                    }
+                </select>
+                <input asp-for="Title" class="form-control" placeholder="标题" />
+                <input asp-for="Tags" placeholder="标签;" class="form-control" />
 
-        <input asp-for="Title" class="form-control"
-               placeholder="标题" />
+            </div>
 
-        <button type="submit" class="btn btn-primary">保存</button>
-
-        <div id="editormd">
-            <textarea style="display:none;" asp-for="Content"></textarea>
+            <div class="form-group">
+                <textarea asp-for="Description" rows="8" placeholder="文章描述" class="form-control"></textarea>
+            </div>
+            <a class="btn btn-warning" asp-action="Index">返回</a>
+            <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+        <div class="col-md-10">
+            <div id="editormd">
+                <textarea style="display:none;" asp-for="Content"></textarea>
+            </div>
         </div>
     </form>
 </div>

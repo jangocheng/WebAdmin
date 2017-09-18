@@ -13,6 +13,12 @@ namespace WebAdmin.Models.FormModels.Article
         [Required]
         [MaxLength(128)]
         public string Title { get; set; }
+
+        [MaxLength(256)]
+        public string Tags { get; set; }
+
+        [MaxLength(512)]
+        public string Description { get; set; }
         [Required]
         [MaxLength(4000)]
         public string Content { get; set; }

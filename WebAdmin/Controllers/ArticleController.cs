@@ -59,6 +59,9 @@ namespace WebAdmin.Controllers
             if (_context.Blog.Any(m => m.Id.Equals(id)))
             {
                 var blog = _context.Blog.Find(id);
+
+                ViewBag.Catalogs = _context.Catalog.Where(m => m.Type.Equals("文章"))
+                    .ToList();
                 return View(blog);
             }
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -128,6 +131,8 @@ namespace WebAdmin.Controllers
                     CreatedTime = DateTime.Now,
                     UpdateTime = DateTime.Now,
                     Title = article.Title,
+                    Description = article.Description,
+                    Tags = article.Tags,
                     Content = article.Content,
                     Status = "new",
                     AuthorName = "NilTor"
