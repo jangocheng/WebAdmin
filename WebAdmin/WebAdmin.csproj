@@ -30,6 +30,7 @@
   <ItemGroup>
     <Folder Include="Models\FormModels\Videos\" />
     <Folder Include="Models\ViewModels\" />
+    <File Include=".bowerrc"/>
   </ItemGroup>
 
 
