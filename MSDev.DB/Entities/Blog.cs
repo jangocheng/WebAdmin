@@ -52,7 +52,9 @@ namespace MSDev.DB.Entities
 
         public DateTime CreatedTime { get; set; }
         public DateTime UpdateTime { get; set; }
+        public bool IsRecommend { get; set; }
 
+        public int? Views { get; set; }
         [MaxLength(64)]
         public string Status { get; set; }
 

@@ -31,5 +31,7 @@ namespace MSDev.DB.Entities
         public string Title { get; set; }
         public bool IsRecommend { get; set; }
         public DateTime UpdatedTime { get; set; }
+
+        public int? Views { get; set; }
     }
 }
