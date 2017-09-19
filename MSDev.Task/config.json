@@ -1,0 +1,13 @@
+{
+  "MicrosoftAzureStorage": {
+    "msdev_AzureStorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=msdev;AccountKey=7UYvX212TbhkE5kpx/S95hvvnOLD/WzAh7mMFvStzonoVN6ipwkE95m43ZeINElop128VIJwPrnyxGERvKkxXA=="
+  },
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Warning",
+      "System": "Warning",
+      "Microsoft": "Warning"
+    }
+  }
+}

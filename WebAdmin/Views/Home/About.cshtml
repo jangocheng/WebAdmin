@@ -1,0 +1,79 @@
+
+<div>
+  <h4>任务列表:</h4>
+  <ul>
+    <li>
+      <button class="btn btn-default"
+              data-bind="click:runTask.bind($data,'bingnews')">
+        必应新闻
+      </button>
+
+    </li>
+  </ul>
+</div>
+
+<div>
+  <h4>执行输出:</h4>
+  <div class="panel">
+
+<pre><code data-bind="html:consoleInfomation"></code>
+</pre>
+  </div>
+</div>
+
+@section Scripts
+{
+  <script>
+    var socket;
+    var scheme = document.location.protocol == "https:" ? "wss" : "ws";
+    var port = document.location.port ? (":" + document.location.port) : "";
+    var url = scheme + "://" + document.location.hostname + port + "/home/runtask";
+    socket = new WebSocket(url);
+
+    function updateState() {
+      if (!socket) {
+
+      } else {
+        switch (socket.readyState) {
+          case WebSocket.CLOSED:
+            console.log("closed");
+            break;
+          case WebSocket.CLOSING:
+            console.log("closing");
+            break;
+          case WebSocket.CONNECTING:
+            console.log("connecting");
+            break;
+          case WebSocket.OPEN:
+            console.log("open");
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    socket.onmessage=function(e) {
+      //viewModel.consoleInfomation(viewModel.consoleInfomation+e.data);
+      console.log(e.data);
+    }
+
+    var viewModel = {
+      consoleInfomation: ko.observable(),
+      runTask: function (type) {
+        if (!socket || socket.readyState !== WebSocket.OPEN) {
+          alert("socket not connected");
+        }
+        socket.send(type);
+        //socket.close(1000, "Closing from client");
+      }
+    }
+    ko.applyBindings(viewModel);
+
+
+
+
+  </script>
+}
+
+

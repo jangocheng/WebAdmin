@@ -1,0 +1,160 @@
+
+@using MSDev.DB.Entities
+@model MSDev.DB.Entities.Resource
+@{
+    Layout = "_PageLayout";
+    ViewBag.Title = "下载管理";
+
+    var catalogs = ViewBag.Catalogs as List<Catalog>;
+
+}
+@section LeftNav
+    {
+
+    @Html.Partial("_LeftNav")
+}
+
+<!--添加下载-->
+<div class="col-md-10">
+    <h4 class="text-primary cursor-point" data-toggle="collapse" data-target="#addDownload">
+        添加下载 +
+    </h4>
+    <form asp-action="AddDownload" class="collapse" id="addDownload">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <select class="form-control" id="TopCatalog">
+                    @{
+                        foreach (Catalog catalog in catalogs.Where(m => m.IsTop == 1).ToList())
+                        {
+                            <option value="@catalog.Id">@catalog.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                <select asp-for="Catalog" class="form-control">
+                    @{
+                        <option value="">选择分类</option>
+                        foreach (Catalog catalog in catalogs.Where(m => m.IsTop == 0).ToList())
+                        {
+                            <option value="@catalog.Id" data-type="@catalog.TopCatalog.Id">@catalog.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <select asp-for="Language" class="form-control">
+                    <option value="0">中文</option>
+                    <option value="1">英文</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                @Html.Partial("_ResourceTypeOptions", Model)
+            </div>
+        </div>
+        <div class="form-group">
+            <input asp-for="Name" class="form-control" placeholder="名称" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="AbsolutePath" class="form-control" placeholder="来源地址" />
+            <span asp-validation-for="AbsolutePath"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Provider" class="form-control" placeholder="作者/提供方,以;分隔" />
+            <span asp-validation-for="Provider"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Catalog" class="form-control" placeholder="分类" value="下载" type="hidden" />
+        </div>
+        <div class="form-group">
+            <textarea asp-for="Description" class="form-control" placeholder="说明" rows="5"></textarea>
+            <span asp-validation-for="Description"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Tag" class="form-control" placeholder="标签,以;分隔" />
+            <span asp-validation-for="Tag"></span>
+        </div>
+
+        <div class="form-group">
+            <input asp-for="Imgurl" class="form-control" placeholder="图片地址" />
+            <span asp-validation-for="Imgurl"></span>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-sm btn-primary" type="submit">添加</button>
+        </div>
+
+    </form>
+</div>
+<div class="clearfix"></div>
+<!--下载列表-->
+<div class="col-md-10">
+    <h4>下载列表</h4>
+    <table class="table table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>名称</th>
+                <th>类型</th>
+                <th>语言</th>
+                <th>说明</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var download in (List<Resource>)ViewBag.Downloads)
+                {
+                    var style = "";
+                    <tr>
+                        <td>
+                            @if (@download.IsRecommend)
+                            {
+                                style = "text-primary";
+                            }
+                            <span class="@style">
+                                @download.Name
+                            </span>
+                        </td>
+                        <td>@TypeValueHelper.ResourceType[download.Type]</td>
+                        <td>@TypeValueHelper.Language[download.Language]</td>
+
+
+                        <td>@download.Description</td>
+                        <td>
+                            <a asp-action="DelDownload" asp-route-id="@download.Id" class="label label-danger">删除</a>
+                            <a asp-action="EditDownload" asp-route-id="@download.Id" class="label label-success">编辑</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            freshSelect();
+            $("#TopCatalog").change(function () {
+                freshSelect();
+            });
+
+        });
+
+        function freshSelect() {
+            var type = $("#TopCatalog").val();
+            $("#Catalog>option").each(function (index, data) {
+                if ($(this).data("type") === type) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    </script>
+}

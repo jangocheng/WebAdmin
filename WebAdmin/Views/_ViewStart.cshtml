@@ -1,0 +1,11 @@
+
+@{
+    Layout = "_Layout";
+}
+@{
+    JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+    {
+        Formatting = Newtonsoft.Json.Formatting.None,
+        ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+    };
+}

@@ -1,0 +1,82 @@
+@using MSDev.DB.Entities
+@model MSDev.DB.Entities.Resource
+@{
+    Layout = "_PageLayout";
+    ViewBag.Title = "编辑-下载管理";
+    var catalog = Model.Catalog;
+
+
+}
+@section LeftNav
+    {
+
+    @Html.Partial("_LeftNav")
+}
+
+<!--修改下载-->
+<div class="col-md-6">
+
+    <h4 class="text-primary cursor-point">
+        修改下载
+    </h4>
+    <form asp-action="UpdateDownload" id="updateDownload">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group row">
+            <input type="hidden" asp-for="CatalogId" />
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreatedTime" />
+            <input type="hidden" asp-for="Status" />
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <select asp-for="Language" class="form-control" value="@Model.Language">
+                    <option value="0">中文</option>
+                    <option value="1">英文</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                @Html.Partial("_ResourceTypeOptions", Model)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input asp-for="Name" class="form-control" placeholder="名称" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Provider" class="form-control" placeholder="作者/提供方,以;分隔" />
+            <span asp-validation-for="Provider"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="AbsolutePath" class="form-control" placeholder="完整地址" />
+            <span asp-validation-for="AbsolutePath"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Catalog" class="form-control" placeholder="分类" value="下载" type="hidden" />
+        </div>
+        <div class="form-group">
+            <textarea asp-for="Description" class="form-control" placeholder="说明" rows="5"></textarea>
+            <span asp-validation-for="Description"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Tag" class="form-control" placeholder="标签,以;分隔" />
+            <span asp-validation-for="Tag"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Imgurl" class="form-control" placeholder="图片地址" />
+            <span asp-validation-for="Imgurl"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="checkbox has-success">
+                <label>
+                    <input type="checkbox" asp-for="IsRecommend">
+                    选择推荐
+                </label>
+            </div>
+            <button class="btn btn-sm btn-primary" type="submit">修改</button>
+        </div>
+
+    </form>
+</div>
+<div class="clearfix"></div>
