@@ -73,6 +73,12 @@ namespace WebAdmin
                     {
                         Log.Write(fileName, "\t" + bingNews?.Title);
                     }
+                    var bingNewsList1 = task.GetNews("科技").Result;
+
+                    foreach (BingNews bingNews in bingNewsList1)
+                    {
+                        Log.Write(fileName, "\t" + bingNews?.Title);
+                    }
                     Log.Write(fileName, "BingNewsTask End!\n");
 
                     //TODO: 处理登录
