@@ -7,6 +7,8 @@ using WebAdmin.Services;
 using Microsoft.AspNetCore.Authorization;
 using MSDev.DB;
 using System.Linq;
+using MSDev.Work.Tasks;
+using MSDev.Work.Helpers;
 
 namespace WebAdmin.Controllers
 {
@@ -74,6 +76,34 @@ namespace WebAdmin.Controllers
             var re = _context.SaveChanges();
             return Json(re);
 
+        }
+
+
+        /// <summary>
+        /// 临时任务
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult TempTask()
+        {
+            var helper = new C9Helper();
+            var toBeDealVideos = _context.C9Videos.Where(m => string.IsNullOrEmpty(m.Description))
+                .ToList();
+
+            Console.WriteLine("需要更新："+toBeDealVideos.Count);
+
+            var i = 1;
+            foreach (var video in toBeDealVideos)
+            {
+                var newVideo = helper.GetPageVideoByUrl("https://channel9.msdn.com" + video.SourceUrl);
+                video.Description = newVideo.Description;
+                Console.WriteLine($"获取{i}个完成");
+                i++;
+            }
+
+            _context.C9Videos.UpdateRange(toBeDealVideos);
+            var re = _context.SaveChanges();
+
+            return Content(re.ToString());
         }
     }
 
