@@ -54,7 +54,7 @@ namespace WebAdmin
 
                 try
                 {
-                    Console.WriteLine("Task start ");
+                    Console.WriteLine(hour+": Task start ");
 
                     Log.Write(fileName, "rssNews Start!");
                     var task3 = new DevBlogsTask();
