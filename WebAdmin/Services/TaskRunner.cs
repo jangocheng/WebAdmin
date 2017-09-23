@@ -14,21 +14,20 @@ namespace WebAdmin.Services
     /// Use with Websocket
     /// </summary>
     public class TaskRunner
-	{
-		private readonly WebSocket _webSocket;
+    {
+        private readonly WebSocket _webSocket;
 
-		public TaskRunner(WebSocket webSocket)
-		{
-			_webSocket = webSocket;
-		}
+        public TaskRunner(WebSocket webSocket)
+        {
+            _webSocket = webSocket;
+        }
 
-		public async Task Run(string command)
-		{
+        public async Task Run(string command)
+        {
 
-			Console.WriteLine("command is :" + command);
-			try
-			{
-
+            Console.WriteLine("command is :" + command);
+            try
+            {
                 switch (command)
                 {
 
@@ -38,6 +37,13 @@ namespace WebAdmin.Services
 
                         Console.WriteLine(bingNewsList.Count);
                         foreach (BingNews bingNews in bingNewsList)
+                        {
+                            await Echo(bingNews.Title);
+                        }
+                        List<BingNews> bingNewsList1 = await task.GetNews("科技");
+
+                        Console.WriteLine(bingNewsList.Count);
+                        foreach (BingNews bingNews in bingNewsList1)
                         {
                             await Echo(bingNews.Title);
                         }
@@ -110,20 +116,20 @@ namespace WebAdmin.Services
                 }
 
             }
-			catch (Exception e)
-			{
-				Console.WriteLine(e.Message);
-			}
-		}
-		private async Task Echo(string message)
-		{
-			if (!IsNullOrEmpty(message))
-			{
-				var bytes = Encoding.UTF8.GetBytes(message);
-				await _webSocket.SendAsync(
-				  new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
-			}
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+        private async Task Echo(string message)
+        {
+            if (!IsNullOrEmpty(message))
+            {
+                var bytes = Encoding.UTF8.GetBytes(message);
+                await _webSocket.SendAsync(
+                  new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
+            }
 
-		}
-	}
+        }
+    }
 }

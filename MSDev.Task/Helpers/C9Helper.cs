@@ -210,7 +210,7 @@ namespace MSDev.Work.Helpers
 
                 video.Language = mainNode.SelectSingleNode(".//div[@class='itemHead holder' and @dir='ltr']")?
                     .GetAttributeValue("lang", Empty);
-                video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']//textarea[@class='embed-code']")?
+                video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")?
                     .InnerText;
                 video.VideoEmbed = mainNode.SelectSingleNode(".//section[@class='ch9tab embed']/div[@class='ch9tabContent']")?
                     .InnerHtml;
@@ -261,7 +261,7 @@ namespace MSDev.Work.Helpers
                 Console.WriteLine($"The Error:{url}");
 
             }
-            return default(C9Videos);
+            return default;
         }
     }
 }

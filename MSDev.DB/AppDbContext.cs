@@ -241,7 +241,7 @@ namespace MSDev.DB
 
                 entity.Property(e => e.Author).HasMaxLength(256);
 
-                entity.Property(e => e.Description).HasColumnType("ntext");
+                entity.Property(e => e.Description);
 
                 entity.Property(e => e.Duration).HasMaxLength(32);
 
