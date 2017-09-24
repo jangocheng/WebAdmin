@@ -75,15 +75,16 @@
             const scheme = document.location.protocol === "https:" ? "wss" : "ws";
             const port = document.location.port ? (`:${document.location.port}`) : "";
             const url = `${scheme}://${document.location.hostname}${port}/task/runtask`;
-            var socket = new WebSocket(url);
+            let socket = new WebSocket(url);
             let consolemsg = "";
+
 
             var viewModel = {
                 consoleInformation: ko.observable(),
                 runTask: function (type) {
 
                     consolemsg = "";
-                    if (!socket || socket.readyState !== WebSocket.OPEN) {
+                    if (!socket ||  socket.readyState === WebSocket.CLOSED) {
                         socket = new WebSocket(url);
                     }
                     console.log(type);
@@ -97,14 +98,12 @@
 
             socket.onmessage = function (e) {
                 if (e.data === "Done") {
-                    socket.close(1000, "done");
-                    console.log("close");
+                    //socket.close(1000, "done");
+                    console.log("done");
                 }
                 consolemsg += e.data + '\r';
-                console.log(e.data);
                 viewModel.consoleInformation(consolemsg);
             }
-
         });
 
     </script>
