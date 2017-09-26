@@ -4,16 +4,16 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <EnableDefaultContentItems>true</EnableDefaultContentItems>
     <LangVersion>latest</LangVersion>
-
   </PropertyGroup>
 
   <PropertyGroup>
     <AssetTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp2.0\WebAdmin.xml</DocumentationFile>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.0" />
@@ -30,14 +30,8 @@
   <ItemGroup>
     <Folder Include="Models\FormModels\Videos\" />
     <Folder Include="Models\ViewModels\" />
-    <File Include=".bowerrc"/>
+    <File Include=".bowerrc" />
   </ItemGroup>
 
 
-  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-    <ItemGroup>
-      <DocFile Include="bin\**\**\*.xml" />
-    </ItemGroup>
-    <Copy SourceFiles="@(DocFile)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" />
-  </Target>
 </Project>
