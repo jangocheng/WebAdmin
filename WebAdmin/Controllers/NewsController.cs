@@ -26,7 +26,7 @@ namespace WebAdmin.Controllers
         {
             int pageSize = 15;
             var newsList = _context.BingNews
-                .OrderByDescending(m => m.UpdatedTime)
+                .OrderByDescending(m => m.CreatedTime)
                 .Skip((p - 1) * pageSize).Take(pageSize)
                 .ToList();
             int totalNumber = _context.BingNews.Count();

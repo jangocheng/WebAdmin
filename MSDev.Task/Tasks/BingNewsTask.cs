@@ -23,7 +23,7 @@ namespace MSDev.Work.Tasks
 
         }
 
-        public async Task<List<BingNews>> GetNews(string query, string freshness = "Day")
+        public async Task<List<BingNews>> GetNews(string keyword, string freshness = "Day")
         {
             //获取新闻
             if (IsNullOrEmpty(BingSearchKey))
@@ -31,7 +31,7 @@ namespace MSDev.Work.Tasks
                 return default;
             }
             BingSearchHelper.SearchApiKey = BingSearchKey;
-            List<BingNewsEntity> newNews = await BingSearchHelper.GetNewsSearchResults(query);
+            List<BingNewsEntity> newNews = await BingSearchHelper.GetNewsSearchResults(keyword);
             if (newNews == null)
             {
                 throw new ArgumentNullException(nameof(newNews));
@@ -69,11 +69,11 @@ namespace MSDev.Work.Tasks
                     newNews[i].Title = Empty;
                 }
 
-
             }
             //查询库中内容并去重
             var oldTitles = Context.BingNews
                 .OrderByDescending(m => m.UpdatedTime)
+                .Where(m => m.Tags.Equals(keyword))
                 .Select(m => m.Title)
                 .Take(50)
                 .ToList();
@@ -106,7 +106,11 @@ namespace MSDev.Work.Tasks
                 {
                     continue;
                 }
-
+                //对比库中标题，最后去重
+                if (Context.BingNews.Any(m => m.Title.Equals(item.Title)))
+                {
+                    continue;
+                }
                 Console.WriteLine("New News:" + item.Title);
 
                 var uri = new Uri(item.Url);
@@ -121,7 +125,7 @@ namespace MSDev.Work.Tasks
                     Url = targetUrl,
                     ThumbnailUrl = item.ThumbnailUrl,
                     Status = 0,
-                    Tags = query,
+                    Tags = keyword,
                     Provider = item.Provider,
                     CreatedTime = item.DatePublished,
                     UpdatedTime = DateTime.Now
