@@ -26,11 +26,11 @@ namespace WebAdmin.Helpers
             int totalPage = PagerOption.Total / PagerOption.PageSize + (PagerOption.Total % PagerOption.PageSize > 0 ? 1 : 0);
             if (totalPage <= 0) { return; }
             //当前路由地址
-            if (!IsNullOrEmpty(PagerOption.RouteUrl))
-            {
-                int lastIndex = PagerOption.RouteUrl.LastIndexOf("/", StringComparison.Ordinal);
-                PagerOption.RouteUrl = PagerOption.RouteUrl.Substring(0, lastIndex);
-            }
+            //if (!IsNullOrEmpty(PagerOption.RouteUrl))
+            //{
+            //    int lastIndex = PagerOption.RouteUrl.LastIndexOf("/", StringComparison.Ordinal);
+            //    PagerOption.RouteUrl = PagerOption.RouteUrl.Substring(0, lastIndex);
+            //}
             PagerOption.RouteUrl = PagerOption.RouteUrl.TrimEnd('/');
             PagerOption.RouteUrl = PagerOption.RouteUrl ?? "/";
             //构造分页样式

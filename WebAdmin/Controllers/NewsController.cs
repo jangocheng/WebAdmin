@@ -24,7 +24,6 @@ namespace WebAdmin.Controllers
         [HttpGet]
         public IActionResult BingNews(int p = 1)
         {
-
             int pageSize = 15;
             var newsList = _context.BingNews
                 .OrderByDescending(m => m.UpdatedTime)
@@ -33,7 +32,6 @@ namespace WebAdmin.Controllers
             int totalNumber = _context.BingNews.Count();
 
             ViewBag.ListData = newsList;
-
             var pageOption = new MyPagerOption()
             {
                 CurrentPage = p,
