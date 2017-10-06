@@ -1,2 +1,6 @@
-<script src="~/lib/editor.md/editormd.js"></script>
-
+<environment names="Development">
+    <script src="~/lib/editor.md/editormd.js"></script>
+</environment>
+<environment names="Staging,Production">
+    <script src="~/lib/editor.md/editormd.js"></script>
+</environment>

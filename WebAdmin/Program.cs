@@ -118,7 +118,7 @@ namespace WebAdmin
 
                     }
                     Log.Write(fileName, "MVATask End!\n");
-                    Task.WaitAll();
+                   
                 }
                 catch (Exception e)
                 {
