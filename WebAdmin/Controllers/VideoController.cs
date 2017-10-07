@@ -44,6 +44,12 @@ namespace WebAdmin.Controllers
             return View(videos);
         }
             
+        [HttpGet]
+        public IActionResult AddVideo()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult DelMvaVideo(string id)
         {

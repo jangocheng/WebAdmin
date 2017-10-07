@@ -1,20 +1,21 @@
 @{
-	Layout = "_Layout";
-	ViewData["Title"] = "视频管理";
+    Layout = "_Layout";
+    ViewData["Title"] = "视频管理";
 
 }
 <div class="row">
-	<div class="pull-left">
-		<ul class="nav nav-stacked">
-			<li>
-				<a asp-action="Index">Mva视频</a>
-			</li>
-@*			<li><a asp-action="devblog">博客</a></li>*@
-
-		</ul>
-	</div>
-	<div class="col-md-8">
-		@RenderBody()
-	</div>
+    <div class="pull-left">
+        <ul class="nav nav-stacked">
+            <li>
+                <a asp-action="AddVideo">添加视频</a>
+            </li>
+            <li>
+                <a asp-action="Index">Mva视频</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-8">
+        @RenderBody()
+    </div>
 </div>
 

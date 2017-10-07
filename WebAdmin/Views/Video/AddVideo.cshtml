@@ -1,0 +1,39 @@
+@model MSDev.DB.Entities.Video
+@{
+    Layout = "_LeftNav";
+}
+<form asp-action="AddVideo">
+    <div class="form-horizontal">
+        <h4>MvaVideos</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Tags" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Tags" class="form-control" />
+                <span asp-validation-for="Tags" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox text-success">
+                    <input asp-for="IsRecommend" />
+                    <label asp-for="IsRecommend"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="编辑" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">返回</a>
+</div>
+
