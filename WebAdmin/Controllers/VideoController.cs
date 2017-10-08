@@ -28,7 +28,7 @@ namespace WebAdmin.Controllers
                 .Skip((p - 1) * pageSize).Take(pageSize)
                 .ToList();
 
-            int totalNumber = _context.MvaVideos.Count();
+            int totalNumber = _context.Video.Count();
 
             ViewBag.ListData = videos;
 
@@ -108,6 +108,19 @@ namespace WebAdmin.Controllers
         {
             MvaVideos video = _context.MvaVideos.Find(Guid.Parse(id));
             _context.MvaVideos.Remove(video);
+            var re = _context.SaveChanges();
+            if (re > 0)
+            {
+                return JsonOk(re);
+            }
+            return JsonFailed();
+        }
+
+        [HttpPost]
+        public IActionResult DelVideo(string id)
+        {
+            var video = _context.Video.Find(Guid.Parse(id));
+            _context.Video.Remove(video);
             var re = _context.SaveChanges();
             if (re > 0)
             {
