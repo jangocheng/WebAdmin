@@ -14,23 +14,23 @@
     </thead>
     <tbody>
         @{
-            foreach (Video video in (List<Video>)ViewBag.ListData)
+            foreach (MvaVideos video in (List<MvaVideos>)ViewBag.ListData)
             {
                 <tr>
                     <td class="col-md-4">
-                        <a href="@video.Url" target="_blank">
-                            @video.Name
+                        <a href="@video.SourceUrl" target="_blank">
+                            @video.Title
                         </a>
                         @if (video.IsRecommend) { 
                             <span class="text-danger">荐</span>
                         }
                     </td>
-                    <td class="col-md-5">@video.Tags</td>
+                    <td class="col-md-5">@video.Technologies</td>
                     <td class="col-md-2">@string.Format("{0:yyyy-MM-dd HH:mm}", video.UpdatedTime)</td>
                     <td>
                         <input type="hidden" value="@video.Id" />
                         <a class="label label-danger" onclick="del('@video.Id')">删除</a>
-                        <a class="label label-primary" asp-action="EditVideo" asp-route-id="@video.Id">编辑</a>
+                        <a class="label label-primary" asp-action="EditMvaVideo" asp-route-id="@video.Id">编辑</a>
                     </td>
                 </tr>}
         }
@@ -41,7 +41,7 @@
 <script>
 
     function del(id) {
-        $.post('/Video/DelVideo', { id: id }, function (data) {
+        $.post('/Video/DelMvaVideo', { id: id }, function (data) {
             if (data.errorCode == 0) {
                 Toast.Success("删除成功");
                 location.reload();

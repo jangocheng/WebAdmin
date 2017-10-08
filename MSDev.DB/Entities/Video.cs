@@ -27,8 +27,8 @@ namespace MSDev.DB.Entities
         [MaxLength(32)]
         public string Status { get; set; }
         public string ThumbnailUrl { get; set; }
-        public string CreatedTime { get; set; }
-        public string UpdatedTime { get; set; }
+        public DateTime CreatedTime { get; set; }
+        public DateTime UpdatedTime { get; set; }
         public bool IsRecommend { get; set; }
         public int? Views { get; set; }
     }

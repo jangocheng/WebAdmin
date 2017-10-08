@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MSDev.DB;
 using MSDev.DB.Entities;
 using WebAdmin.Helpers;
+using WebAdmin.Models.ViewModels;
 
 namespace WebAdmin.Controllers
 {
@@ -22,8 +23,7 @@ namespace WebAdmin.Controllers
         public IActionResult Index(int p = 1)
         {
             int pageSize = 12;
-            var videos = _context.MvaVideos
-                .Where(m=>m.LanguageCode.Equals("zh-cn"))
+            var videos = _context.Video
                 .OrderByDescending(m => m.UpdatedTime)
                 .Skip((p - 1) * pageSize).Take(pageSize)
                 .ToList();
@@ -43,10 +43,63 @@ namespace WebAdmin.Controllers
 
             return View(videos);
         }
-            
+
+        [HttpGet]
+        public IActionResult MvaVideo(int p = 1)
+        {
+            int pageSize = 12;
+            var videos = _context.MvaVideos
+                .Where(m => m.LanguageCode.Equals("zh-cn"))
+                .OrderByDescending(m => m.UpdatedTime)
+                .Skip((p - 1) * pageSize).Take(pageSize)
+                .ToList();
+
+            int totalNumber = _context.MvaVideos.Count();
+
+            ViewBag.ListData = videos;
+
+            var pageOption = new MyPagerOption()
+            {
+                CurrentPage = p,
+                PageSize = pageSize,
+                RouteUrl = "/Video/MvaVideo",
+                Total = totalNumber
+            };
+            ViewBag.Pager = pageOption;
+
+            return View(videos);
+        }
+
         [HttpGet]
         public IActionResult AddVideo()
         {
+            var catalogs = _context.Catalog
+                .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
+                .ToList();
+
+            ViewBag.Catalogs = catalogs;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddVideo(Video video)
+        {
+            if (ModelState.IsValid)
+            {
+                video.Id = Guid.NewGuid();
+                video.Status = "new";
+                video.IsRecommend = false;
+                video.Views = 0;
+                video.CreatedTime = DateTime.Now;
+                video.UpdatedTime = DateTime.Now;
+
+                _context.Video.Add(video);
+                var re = _context.SaveChanges();
+                if (re > 0)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
             return View();
         }
 
@@ -87,7 +140,7 @@ namespace WebAdmin.Controllers
                     return View(video);
                 }
             }
-            
+
             return View(mvaVideo);
         }
     }
