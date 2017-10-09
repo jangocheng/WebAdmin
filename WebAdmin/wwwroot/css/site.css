@@ -1,5 +1,4 @@
 body {
-
 }
 
 * {
@@ -14,6 +13,9 @@ body {
     cursor: pointer;
 }
 
+input[type='checkbox'] {
+    margin-left:0 !important;
+}
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;

@@ -1,4 +1,4 @@
-@model WebAdmin.Models.ViewModels.EditVideoView
+@model MSDev.DB.Entities.Video
 @{
     Layout = "_LeftNav";
 }
@@ -6,78 +6,76 @@
     <div class="form-horizontal">
         <h4>编辑视频</h4>
         <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <input type="hidden" name="Id" value="@Model.Video.Id" />
-
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
         <div class="form-group">
-            <label asp-for="Video.Catalog" class="col-md-2 control-label"></label>
+            <label asp-for="Catalog" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="Video.Catalog" class="form-control">
-                    @foreach (var item in Model.Catalogs)
+                <select asp-for="Catalog" class="form-control">
+                    @foreach (var item in ViewBag.Catalogs as List<Catalog>)
                     {
                         <option value="@item.Id">@item.Name</option>
                     }
                 </select>
-                <span asp-validation-for="Video.Catalog" class="text-danger"></span>
+                <span asp-validation-for="Catalog" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Video.Name" class="col-md-2 control-label"></label>
+            <label asp-for="Name" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Video.Name" class="form-control" placeholder="视频名称" />
-                <span asp-validation-for="Video.Name" class="text-danger"></span>
+                <input asp-for="Name" class="form-control" placeholder="视频名称" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Video.Author" class="col-md-2 control-label"></label>
+            <label asp-for="Author" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Video.Author" class="form-control" placeholder="作者" />
-                <span asp-validation-for="Video.Author" class="text-danger"></span>
+                <input asp-for="Author" class="form-control" placeholder="作者" />
+                <span asp-validation-for="Author" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group">
-            <label asp-for="Video.Description" class="col-md-2 control-label"></label>
+            <label asp-for="Description" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <textarea asp-for="Video.Description" class="form-control" placeholder="描述"></textarea>
-                <span asp-validation-for="Video.Description" class="text-danger"></span>
+                <textarea asp-for="Description" class="form-control" placeholder="描述"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Video.Tags" class="col-md-2 control-label"></label>
+            <label asp-for="Tags" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Video.Tags" class="form-control" placeholder="标签" />
-                <span asp-validation-for="Video.Tags" class="text-danger"></span>
+                <input asp-for="Tags" class="form-control" placeholder="标签" />
+                <span asp-validation-for="Tags" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Video.ThumbnailUrl" class="col-md-2 control-label"></label>
+            <label asp-for="ThumbnailUrl" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Video.ThumbnailUrl" class="form-control" placeholder="缩略图" />
-                <span asp-validation-for="Video.ThumbnailUrl" class="text-danger"></span>
+                <input asp-for="ThumbnailUrl" class="form-control" placeholder="缩略图" />
+                <span asp-validation-for="ThumbnailUrl" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Video.Url" class="col-md-2 control-label"></label>
+            <label asp-for="Url" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Video.Url" class="form-control" placeholder="链接" />
-                <span asp-validation-for="Video.Url" class="text-danger"></span>
+                <input asp-for="Url" class="form-control" placeholder="链接" style="margin-left:0 !important" />
+                <span asp-validation-for="Url" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox text-success">
-                    <input asp-for="Video.IsRecommend" />
-                    <label asp-for="Video.IsRecommend"></label>
+                    <input asp-for="IsRecommend" />
+                    <label asp-for="IsRecommend"></label>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="编辑" class="btn btn-primary" />
+                <input type="submit" value="保存" class="btn btn-primary" />
             </div>
         </div>
     </div>

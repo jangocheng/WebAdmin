@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MSDev.DB;
 using MSDev.DB.Entities;
 using WebAdmin.Helpers;
@@ -107,43 +109,36 @@ namespace WebAdmin.Controllers
         public IActionResult EditVideo(string id)
         {
             var video = _context.Video.Find(Guid.Parse(id));
+
+            if (video == null) { return NotFound(); }
             var catalogs = _context.Catalog
              .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
              .ToList();
 
-            return View(new EditVideoView
-            {
-                Catalogs = catalogs,
-                Video = video
-            });
+            ViewBag.Catalogs = catalogs;
+            return View(video);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditVideo(Video videoFrom)
+        public IActionResult EditVideo(Video videoForm)
         {
             if (ModelState.IsValid)
             {
-
-                var video = _context.Video.Find(videoFrom.Id);
-                video.Tags = videoFrom.Tags;
-                video.IsRecommend = videoFrom.IsRecommend;
-
-                _context.Update(video);
+                var oldVideo = _context.Video.Find(videoForm.Id);
+                if (oldVideo == null)
+                {
+                    return NotFound();
+                }
+                videoForm.UpdatedTime = DateTime.Now;
+                _context.Entry(oldVideo).CurrentValues.SetValues(videoForm);
                 var re = _context.SaveChanges();
                 if (re > 0)
                 {
                     return RedirectToAction(nameof(Index));
                 }
             }
-            var catalogs = _context.Catalog
-             .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
-             .ToList();
-            return View(new EditVideoView
-            {
-                Catalogs = catalogs,
-                Video = videoFrom
-            });
+            return RedirectToAction(nameof(EditVideo));
         }
 
 
