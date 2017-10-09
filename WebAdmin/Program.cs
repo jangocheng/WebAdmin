@@ -45,7 +45,7 @@ namespace WebAdmin
             while (true)
             {
                 int hour = DateTime.Now.ToLocalTime().Hour;
-                if (hour != 8 && hour != 18 && hour != 22)
+                if (hour != 7 && hour != 12 && hour != 18)
                 {
                     Thread.Sleep(60 * 60 * 1000);
                     continue;
@@ -118,7 +118,9 @@ namespace WebAdmin
 
                     }
                     Log.Write(fileName, "MVATask End!\n");
-                   
+                    Log.Write(fileName, "=========Finished==========\n");
+
+
                 }
                 catch (Exception e)
                 {

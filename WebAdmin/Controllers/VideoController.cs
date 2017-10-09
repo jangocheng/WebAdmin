@@ -103,6 +103,50 @@ namespace WebAdmin.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult EditVideo(string id)
+        {
+            var video = _context.Video.Find(Guid.Parse(id));
+            var catalogs = _context.Catalog
+             .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
+             .ToList();
+
+            return View(new EditVideoView
+            {
+                Catalogs = catalogs,
+                Video = video
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditVideo(Video videoFrom)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var video = _context.Video.Find(videoFrom.Id);
+                video.Tags = videoFrom.Tags;
+                video.IsRecommend = videoFrom.IsRecommend;
+
+                _context.Update(video);
+                var re = _context.SaveChanges();
+                if (re > 0)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            var catalogs = _context.Catalog
+             .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
+             .ToList();
+            return View(new EditVideoView
+            {
+                Catalogs = catalogs,
+                Video = videoFrom
+            });
+        }
+
+
         [HttpPost]
         public IActionResult DelMvaVideo(string id)
         {
@@ -128,6 +172,7 @@ namespace WebAdmin.Controllers
             }
             return JsonFailed();
         }
+
         [HttpGet]
         public IActionResult EditMvaVideo(string id)
         {
