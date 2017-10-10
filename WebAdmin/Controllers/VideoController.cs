@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MSDev.DB;
 using MSDev.DB.Entities;
+using Newtonsoft.Json;
 using WebAdmin.Helpers;
+using WebAdmin.Models.FormModels.Videos;
 using WebAdmin.Models.ViewModels;
 
 namespace WebAdmin.Controllers
@@ -26,6 +28,7 @@ namespace WebAdmin.Controllers
         {
             int pageSize = 12;
             var videos = _context.Video
+                .Include(m => m.Catalog)
                 .OrderByDescending(m => m.UpdatedTime)
                 .Skip((p - 1) * pageSize).Take(pageSize)
                 .ToList();
@@ -84,7 +87,7 @@ namespace WebAdmin.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddVideo(Video video)
+        public IActionResult AddVideo(Video video, string catalogId)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +98,7 @@ namespace WebAdmin.Controllers
                 video.CreatedTime = DateTime.Now;
                 video.UpdatedTime = DateTime.Now;
 
+                video.Catalog = _context.Catalog.Find(Guid.Parse(catalogId));
                 _context.Video.Add(video);
                 var re = _context.SaveChanges();
                 if (re > 0)
@@ -121,17 +125,19 @@ namespace WebAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditVideo(Video videoForm)
+        public IActionResult EditVideo(VideoForm video, string id, string catalogId)
         {
             if (ModelState.IsValid)
             {
-                var oldVideo = _context.Video.Find(videoForm.Id);
+                var oldVideo = _context.Video.Find(Guid.Parse(id));
                 if (oldVideo == null)
                 {
                     return NotFound();
                 }
-                videoForm.UpdatedTime = DateTime.Now;
-                _context.Entry(oldVideo).CurrentValues.SetValues(videoForm);
+
+                Console.WriteLine(JsonConvert.SerializeObject(video));
+                _context.Entry(oldVideo).CurrentValues.SetValues(video);
+                oldVideo.Catalog = _context.Catalog.Find(Guid.Parse(catalogId));
                 var re = _context.SaveChanges();
                 if (re > 0)
                 {

@@ -28,7 +28,6 @@
     </ItemGroup>
     <ItemGroup>
         <Folder Include="AutoTask\" />
-        <Folder Include="Models\FormModels\Videos\" />
         <File Include=".bowerrc" />
     </ItemGroup>
 </Project>

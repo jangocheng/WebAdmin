@@ -25,7 +25,7 @@
                             <span class="text-danger">荐</span>
                         }
                     </td>
-                    <td class="col-md-5">@video.Tags</td>
+                    <td class="col-md-5">@video.Catalog?.Name</td>
                     <td class="col-md-2">@string.Format("{0:yyyy-MM-dd HH:mm}", video.UpdatedTime)</td>
                     <td>
                         <input type="hidden" value="@video.Id" />
