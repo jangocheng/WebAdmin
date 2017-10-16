@@ -106,49 +106,32 @@ namespace MSDev.Work.Helpers
         public async Task<string> GetBingTranslateAsync(string content)
         {
             string result = "";
-
-            Log.Write("translate.txt", "source:" + content);
             if (content == null)
             {
                 return default;
             }
-            var requestBody = new List<BingTranslateRequest>()
-            {
-                new BingTranslateRequest
-                {
-                    Text = content,
-                    SourceLanguage = "en",
-                    TargetLanguage = "zh-Hans"
-                }
-            };
             using (var hc = new HttpClient())
             {
-                try
-                {
-                    hc.DefaultRequestHeaders.TryAddWithoutValidation("Cookie", "mtstkn=zjY%2FeGV9RQpJ%2Fb5zHXmn%2FwDrkC3fmMTQXW1jhbAMg4NqrZ3Q%2BCtyMCEtkorJgErv; MUID=36C006E0669A654423240C47629A637D; SRCHD=AF=NOFORM; SRCHUID=V=2&GUID=48E5753D244145AF83BA59BFCB948ED9; SRCHUSR=DOB=20170620; MUIDB=36C006E0669A654423240C47629A637D; _IFAV=COUNT=NaN; ULC=H=143E5|1:1&T=143E5|1:1; _SS=SID=0794CF56E29F693D0826C44CE33E684D; _EDGE_S=SID=0794CF56E29F693D0826C44CE33E684D; MicrosoftApplicationsTelemetryDeviceId=9486e28c-bd2a-64f3-20cd-4e2289a04ab2; MicrosoftApplicationsTelemetryFirstLaunchTime=1507873173107; WLID=09wu9p7hOyscyLh8jjXDpTyvU59VrzyOdy65bmcs1SPJSpfKqHV75d+Di3Qj3UmhJQNoPjXEHvvFNrwIhboIuKzI/pcCuh0EslSRyg6wj/s=; SRCHHPGUSR=CW=1348&CH=813&DPR=2&UTC=480&WTS=63643469988; KievRPSAuth=FABSARRaTOJILtFsMkpLVWSG6AN6C/svRwNmAAAEgAAACK2pGNUp/oQTEAG3uxqfCOw%2BWMN9jdJBkcfEg6p9nZAaDAPUfjygE%2B3%2BAoU2Z/hWRSFYCgww9tQZI91OwfGkNStUrNY6axW%2BeYRbt8iYJsq9QE4dPORIC7VbQfuLcAr9qC8BdnthLwqzm%2BNrmjSs%2B0Vl8OnPmAJ6ge8ayH6rC%2BcLYDlMVhiFExVZA/O1kNtv5mKAqSphmNwTFAoB1e/xk22t70rUNPiarFjA/wb4YO0bO/R3bfChbha6uiuZcVJ2UdX3lVUxGj0NVumKOm5v00w%2BFP4nLmiKmO%2B%2BCrv8dKTMETP7RH8Jlt3afs7bQIYUuYrNkuuhL96bxMtKq5Mauase0mWcDSVb0BMHcTKONxSExjNIb/f59d1Q8BQAbbc/LYjlCDKHPyjkp4IrPHTYYbc%3D; PPLState=1; ANON=A=BAD034877E3773F0C11EE3C0FFFFFFFF&E=1408&W=1; NAP=V=1.9&E=13ae&C=FHVwH60y3BvccG8R2d1IBs5Y4F4rx64OlTNWCRFkTqBBglUU1PfUxQ&W=1; SNRHOP=I=&TS=; _U=1FBIrhwNdfcoMbdijf7xN8PKj81oPmBG-hv46BYL7fA6X20-PANHcSDkkNGHgM7QD7voL4f2AQP7eusLniNyTLl-nhEsjQh8aCblOhz1YDekFnaCnu5etFF57DsjSIrnG; WLS=C=fc6e0c59a6c0a524&N=zpty; srcLang=-; smru_list=; sourceDia=en-US; destLang=zh-CHS; dmru_list=da%2Czh-CHS; destDia=zh-CN");
 
-                    hc.DefaultRequestHeaders.TryAddWithoutValidation("Host", "translator.microsoft.com");
-                    hc.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+                hc.DefaultRequestHeaders.TryAddWithoutValidation("Host", "translator.microsoft.com");
+                hc.DefaultRequestHeaders.TryAddWithoutValidation("Origin", "https://translator.microsoft.com");
+                hc.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063");
+                hc.DefaultRequestHeaders.TryAddWithoutValidation("Cookie", "ARRAffinity=f7f232231c2b9c0e7e4afcab9a2f3fab5ef0e78b791ebc50e4da15307c913d5d; MicrosoftApplicationsTelemetryDeviceId=7c43ec8a-e2cb-f005-b2e2-ffbe9ef5e8d9; MicrosoftApplicationsTelemetryFirstLaunchTime=1507822065801; wfvt_3586249983=59e4b6ef039c9; dnn.lang_to=zh-Hans; MC1=GUID=ad720ce26f3246ff833089b645d2cf56&HASH=ad72&LV=201710&V=4&LU=1506928549365; A=I&I=AxUFAAAAAACHBwAAPvSszMBL/Ww8VySy32LIlg!!&V=4; _ga=GA1.2.1962624722.1506947626; MSFPC=ID=ad720ce26f3246ff833089b645d2cf56&CS=3&LV=201710&V=1; MUID=1F97F122760D6BAF2019FA2D77AC6A5F; ANON=A=BAD034877E3773F0C11EE3C0FFFFFFFF&E=1459&W=1; NAP=V=1.9&E=13ff&C=tohUgPXblNgwsnYsOoBPXpeInkRGs2vkYOyY3mB1im2w42ui2trzRg&W=1; AMCV_EA76ADE95776D2EC7F000101%40AdobeOrg=-894706358%7CMCIDTS%7C17443%7CMCMID%7C28946246135856923772890756032015701046%7CMCAAMLH-1507611531%7C11%7CMCAAMB-1507611532%7CcIBAx_aQzFEHcPoEv0GwcQ%7CMCCIDH%7C1491354629%7CMCOPTOUT-1507013931s%7CNONE%7CMCSYNCSOP%7C411-17450%7CvVersion%7C2.3.0; AAMC_mscom_0=AMSYNCSOP%7C411-17450; __CT_Data=gpv=3&apv_1006_www32=2&cpv_1006_www32=2&apv_32381_www07=1&cpv_32381_www07=1&rpv_32381_www07=1; MSCC=1507216411; WT_FPC=id=20c2f9d8419105d0f4c1507760937121:lv=1507767129544:ss=1507765356870; omniID=1507818537161_0295_9967_e7cc_7ee37f6f95c7; WRUIDAWS=1437764312555795; _gid=GA1.2.439788021.1508161259");
 
-                    hc.DefaultRequestHeaders.TryAddWithoutValidation("Origin", "https://translator.microsoft.com");
-                    //hc.DefaultRequestHeaders.TryAddWithoutValidation("Referer", "https://www.bing.com/translator");
+                //hc.DefaultRequestHeaders.TryAddWithoutValidation("Referer", "https://www.bing.com/translator");
 
-                    var body = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
-                    var response = await hc.PostAsync("https://translator.microsoft.com/neural/api/translator/translate", body);
-                    result = await response.Content.ReadAsStringAsync();
-
-                    Console.WriteLine("result:" + result);
-                    var rspObject = JsonConvert.DeserializeObject<BingTranslateResponse>(result);
-                    result = rspObject.ResultNMT;
-                    Log.Write("translate.txt", "Translate:" + result);
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Source + e.Message);
-                    Log.Write("translateError.txt", e.Source + e.Message);
-
-                }
+                var requestContent =
+                    new BingTranslateRequest
+                    {
+                        Text = content,
+                        SourceLanguage = "en",
+                        TargetLanguage = "zh-Hans"
+                    };
+                var body = new StringContent(JsonConvert.SerializeObject(requestContent), Encoding.UTF8, "application/json");
+                var response = await hc.PostAsync("https://translator.microsoft.com/neural/api/translator/translate", body);
+                var resultString = await response.Content.ReadAsStringAsync();
+                var responseObject = JsonConvert.DeserializeObject<BingTranslateResponse>(resultString);
+                result = responseObject.ResultNMT;
             }
             return result;
         }
