@@ -137,5 +137,6 @@ namespace MSDev.Work.Tasks
             Console.WriteLine($"Update {re} news!");
             return newsTba;
         }
+
     }
 }

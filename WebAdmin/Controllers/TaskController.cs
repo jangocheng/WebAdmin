@@ -85,25 +85,19 @@ namespace WebAdmin.Controllers
         /// <returns></returns>
         public IActionResult TempTask()
         {
-            var helper = new C9Helper();
-            var toBeDealVideos = _context.C9Videos.Where(m => string.IsNullOrEmpty(m.Description))
-                .ToList();
 
-            Console.WriteLine("需要更新："+toBeDealVideos.Count);
-
-            var i = 1;
-            foreach (var video in toBeDealVideos)
+            var task = new TranslateTask();
+            var rssNews = _context.RssNews.ToList();
+            int i = 1;
+            foreach (var item in rssNews)
             {
-                var newVideo = helper.GetPageVideoByUrl("https://channel9.msdn.com" + video.SourceUrl);
-                video.Description = newVideo.Description;
-                Console.WriteLine($"获取{i}个完成");
+                if (task.TranslateBlog(item))
+                {
+                    Console.WriteLine(item.Title);
+                }
                 i++;
             }
-
-            _context.C9Videos.UpdateRange(toBeDealVideos);
-            var re = _context.SaveChanges();
-
-            return Content(re.ToString());
+            return Content(i.ToString());
         }
     }
 
