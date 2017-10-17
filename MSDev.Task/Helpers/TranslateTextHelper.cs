@@ -78,7 +78,13 @@ namespace MSDev.Work.Helpers
             return translation;
         }
 
-
+        /// <summary>
+        /// 使用智能感知翻译API
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public string GetTranslate(string content, string from = "en", string to = "zh-CHS")
         {
             string result = "";
@@ -103,6 +109,11 @@ namespace MSDev.Work.Helpers
             return default;
         }
 
+        /// <summary>
+        /// 使用必应神经网络示例翻译
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
         public async Task<string> GetBingTranslateAsync(string content)
         {
             string result = "";
@@ -128,10 +139,22 @@ namespace MSDev.Work.Helpers
                         TargetLanguage = "zh-Hans"
                     };
                 var body = new StringContent(JsonConvert.SerializeObject(requestContent), Encoding.UTF8, "application/json");
-                var response = await hc.PostAsync("https://translator.microsoft.com/neural/api/translator/translate", body);
-                var resultString = await response.Content.ReadAsStringAsync();
-                var responseObject = JsonConvert.DeserializeObject<BingTranslateResponse>(resultString);
-                result = responseObject.ResultNMT;
+
+                try
+                {
+                    var response = await hc.PostAsync("https://translator.microsoft.com/neural/api/translator/translate", body);
+                    var resultString = await response.Content.ReadAsStringAsync();
+
+                    var responseObject = JsonConvert.DeserializeObject<BingTranslateResponse>(resultString);
+                    result = responseObject.ResultNMT;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message + e.Source);
+                    Console.WriteLine("content:" + content);
+                    return content;
+                }
+
             }
             return result;
         }
