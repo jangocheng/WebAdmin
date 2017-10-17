@@ -173,7 +173,7 @@ namespace MSDev.Work.Helpers
         }
 
 
-        public static async Task<List<BingNewsEntity>> GetTopNews(string category= "ScienceAndTechnology")
+        public static async Task<List<BingNewsEntity>> GetTopNews(string category = "ScienceAndTechnology")
         {
             var articles = new List<BingNewsEntity>();
             try
@@ -212,7 +212,6 @@ namespace MSDev.Work.Helpers
             {
                 Console.WriteLine(e.Source + e.Message);
             }
-
             return articles;
         }
     }
