@@ -18,6 +18,6 @@ namespace MSDev.Work.Entities
 
         public DateTime DatePublished { get; set; }
 
-        public string CateGory { get; set; }
+        public string Category { get; set; }
     }
 }

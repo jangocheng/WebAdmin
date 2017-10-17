@@ -12,9 +12,12 @@ namespace MSDev.Work.Helpers
     {
         #region Define Attributes
 
-        private const string ImageSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/images/search";
-        private const string AutoSuggestionEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/suggestions";
-        private const string NewsSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v5.0/news/search";
+        private const string ImageSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v7.0/images/search";
+        private const string AutoSuggestionEndPoint = "https://api.cognitive.microsoft.com/bing/v7.0/suggestions";
+        private const string NewsSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v7.0/news/search";
+        private const string TopNewsSearchEndPoint = "https://api.cognitive.microsoft.com/bing/v7.0/news";
+
+
         private static HttpClient AutoSuggestionClient { get; set; }
         private static HttpClient SearchClient { get; set; }
 
@@ -116,6 +119,7 @@ namespace MSDev.Work.Helpers
             return suggestions;
         }
 
+
         /// <summary>
         /// 获取必应新闻列表
         /// </summary>
@@ -152,7 +156,51 @@ namespace MSDev.Work.Helpers
                         ThumbnailUrl = data.value[i].image?.thumbnail?.contentUrl,
                         Provider = data.value[i].provider?[0].name,
                         DatePublished = data.value[i].datePublished,
-                        CateGory = data.value[i].category
+                        Category = data.value[i].category
+                    };
+                    if (!string.IsNullOrEmpty(news.ThumbnailUrl))
+                    {
+                        articles.Add(news);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Source + e.Message);
+            }
+
+            return articles;
+        }
+
+
+        public static async Task<List<BingNewsEntity>> GetTopNews(string category= "ScienceAndTechnology")
+        {
+            var articles = new List<BingNewsEntity>();
+            try
+            {
+                HttpResponseMessage result = await SearchClient.GetAsync(
+              $"{TopNewsSearchEndPoint}/?category={category}");
+
+                result.EnsureSuccessStatusCode();
+                string json = await result.Content.ReadAsStringAsync();
+                dynamic data = JObject.Parse(json);
+
+                if (data.value == null || data.value.Count <= 0)
+                {
+                    return articles;
+                }
+
+                for (int i = 0; i < data.value.Count; i++)
+                {
+                    var news = new BingNewsEntity
+                    {
+                        Title = data.value[i].name,
+                        Url = data.value[i].url,
+                        Description = data.value[i].description,
+                        ThumbnailUrl = data.value[i].image?.thumbnail?.contentUrl,
+                        Provider = data.value[i].provider?[0].name,
+                        DatePublished = data.value[i].datePublished,
+                        Category = data.value[i].category
                     };
                     if (!string.IsNullOrEmpty(news.ThumbnailUrl))
                     {
