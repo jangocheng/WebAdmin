@@ -44,7 +44,15 @@ namespace WebAdmin
                     }
                 )
             );
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("DefaultConnection"),
+                    b =>
+                    {
+                        b.MigrationsAssembly("WebAdmin");
+                        b.EnableRetryOnFailure();
+                    }
+                )
+            );
 
             services.AddAuthorization(options => options.AddPolicy("admin", policy => policy.RequireRole("admin")));
 
@@ -56,12 +64,12 @@ namespace WebAdmin
                     o.DefaultAuthenticateScheme = "MSDevAdmin";
 
                 })
-                .AddCookie("MSDevAdmin",options =>
-                {
-                    options.AccessDeniedPath = "/Auth/Forbidden/";
-                    options.LoginPath = "/Auth/Login/";
-                    options.ExpireTimeSpan = TimeSpan.FromHours(24);
-                });
+                .AddCookie("MSDevAdmin", options =>
+                 {
+                     options.AccessDeniedPath = "/Auth/Forbidden/";
+                     options.LoginPath = "/Auth/Login/";
+                     options.ExpireTimeSpan = TimeSpan.FromHours(24);
+                 });
 
             services.AddTransient<IEmailSender, EmailSender>();
             // Add framework services.

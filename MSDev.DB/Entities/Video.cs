@@ -11,6 +11,14 @@ namespace MSDev.DB.Entities
     public class Video
     {
         public Guid Id { get; set; }
+        /// <summary>
+        /// 关联的博客
+        /// </summary>
+        public Blog Blog { get; set; }
+        /// <summary>
+        /// 关联的习题
+        /// </summary>
+        public Practice Practice { get; set; }
         [MaxLength(64)]
         public string Name { get; set; }
         [MaxLength(512)]

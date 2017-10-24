@@ -13,6 +13,7 @@ namespace MSDev.DB
 
         #region DbSet
 
+        public DbSet<Practice> Practice { get; set; }
         public DbSet<Video> Video { get; set; }
         public DbSet<Blog> Blog { get; set; }
         public DbSet<Config> Config { get; set; }

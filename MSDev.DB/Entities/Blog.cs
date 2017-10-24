@@ -43,6 +43,14 @@ namespace MSDev.DB.Entities
         /// 分类
         /// </summary>
         public Catalog Catalog { get; set; }
+        /// <summary>
+        /// 关联的视频
+        /// </summary>
+        public Video Video { get; set; }
+        /// <summary>
+        /// 关联的练习
+        /// </summary>
+        public Practice Practice { get; set; }
 
         /// <summary>
         /// 在线地址
