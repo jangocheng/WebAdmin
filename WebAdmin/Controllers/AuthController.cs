@@ -28,25 +28,20 @@ namespace WebAdmin.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            var user = _context.AspNetUsers.Where(m => m.Email.Equals(username)).FirstOrDefault();
+            var user = _context.Users.Where(m => m.Email.Equals(username)).FirstOrDefault();
             if (user == null)
             {
                 ViewBag.Error = "Not Found";
             }
             else
             {
-                var userRole = _context.AspNetUserRoles.Where(m => m.UserId == user.Id).Include(m => m.Role).FirstOrDefault();
-
-                System.Console.WriteLine(JsonConvert.SerializeObject(userRole));
-                if (userRole?.Role.Name == "Admin" && PasswordHelper.VerifyHashedPassword(user.PasswordHash, password))
+                if (false)
                 {
                     var identity = new ClaimsIdentity("admin");
                     identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
                     identity.AddClaim(new Claim(ClaimTypes.Name, "admin"));
-
                     var principal = new ClaimsPrincipal(identity);
                     HttpContext.SignInAsync("MSDevAdmin",principal);
-
                     HttpContext.Items["username"] = username;
 
                     return RedirectToAction("Index", "Home");

@@ -31,6 +31,6 @@ namespace MSDev.DB.Entities
         /// <summary>
         /// Á·Ï°
         /// </summary>
-        public List<Practice> Practice { get; set; }
+        public List<UserPractice> Practice { get; set; }
     }
 }

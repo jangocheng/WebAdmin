@@ -44,15 +44,6 @@ namespace WebAdmin
                     }
                 )
             );
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-                Configuration.GetConnectionString("DefaultConnection"),
-                    b =>
-                    {
-                        b.MigrationsAssembly("WebAdmin");
-                        b.EnableRetryOnFailure();
-                    }
-                )
-            );
 
             services.AddAuthorization(options => options.AddPolicy("admin", policy => policy.RequireRole("admin")));
 
