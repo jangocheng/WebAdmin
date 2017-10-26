@@ -9,7 +9,7 @@ namespace MSDev.DB
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
+
         }
 
         #region DbSet
@@ -41,10 +41,20 @@ namespace MSDev.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<UserPractice>(entity=>
+            modelBuilder.Entity<UserPractice>(entity =>
             {
                 entity.HasKey(e => new { e.PracticeId, e.UserId });
             });
+
+            modelBuilder.Entity<UserPractice>()
+            .HasOne(e => e.Practice)
+            .WithMany(p => p.UserPractice)
+            .HasForeignKey(e => e.PracticeId);
+
+            modelBuilder.Entity<UserPractice>()
+                .HasOne(e => e.User)
+                .WithMany(u => u.UserPractice)
+                .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<Blog>(entity =>
             {
@@ -67,7 +77,7 @@ namespace MSDev.DB
                 entity.HasIndex(e => e.Title);
             });
 
-          
+
 
             modelBuilder.Entity<BingNews>(entity =>
             {

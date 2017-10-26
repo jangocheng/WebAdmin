@@ -8,7 +8,7 @@ namespace MSDev.DB.Entities
     public class User : IdentityUser
     {
         /// <summary>
-        /// 身份证号
+        /// 韬唤璇佸彿
         /// </summary>
         [MaxLength(16)]
         public string IdentityCard { get; set; }
@@ -17,7 +17,7 @@ namespace MSDev.DB.Entities
         public string RealName { get; set; }
 
         /// <summary>
-        /// 性别
+        /// 鎬у埆
         /// </summary>
         [MaxLength(8)]
         public string Sex { get; set; }
@@ -25,12 +25,12 @@ namespace MSDev.DB.Entities
         [MaxLength(32)]
         public string City { get; set; }
         /// <summary>
-        /// 积分
+        /// 绉垎
         /// </summary>
         public int Score { get; set; }
         /// <summary>
-        /// 练习
+        /// 缁冧範
         /// </summary>
-        public List<UserPractice> Practice { get; set; }
+        public ICollection<UserPractice> UserPractice { get; set; }
     }
 }

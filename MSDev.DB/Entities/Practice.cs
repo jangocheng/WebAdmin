@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,7 +14,7 @@ namespace MSDev.DB.Entities
         public Blog Blog { get; set; }
         public Video Video { get; set; }
 
-        public List<UserPractice> UserPractice { get; set; }
+        public ICollection<UserPractice> UserPractice { get; set; }
 
         [MaxLength(64)]
         public string Title { get; set; }
