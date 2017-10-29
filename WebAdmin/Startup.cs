@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using MSDev.DB;
 using Newtonsoft.Json;
 using WebAdmin.Services;
+using MSDev.DB.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebAdmin
 {
@@ -44,6 +46,24 @@ namespace WebAdmin
                     }
                 )
             );
+            services.AddIdentity<User, IdentityRole>()
+             .AddEntityFrameworkStores<AppDbContext>()
+             .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+
+                options.User.RequireUniqueEmail = true;
+            });
+
 
             services.AddAuthorization(options => options.AddPolicy("admin", policy => policy.RequireRole("admin")));
 
