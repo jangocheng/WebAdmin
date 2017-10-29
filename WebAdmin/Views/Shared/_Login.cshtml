@@ -1,19 +1,18 @@
+@inject UserManager<User> UserManager;
 <ul class="nav navbar-nav navbar-right">
+    @{
+        var username = UserManager.GetUserName(User);
+        if (!string.IsNullOrEmpty(username))
+        {
+            <li>
+                <a href="#">@username</a>
 
-	@{
+            </li>
+            <li>
+                <a asp-controller="Auth" asp-action="Logout">登出</a>
 
-			var username = User.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
-			if (!string.IsNullOrEmpty(username))
-			{
-			<li>
-				<a href="#">@username</a>
-
-			</li>
-			<li>
-				<a asp-controller="Auth" asp-action="Logout">登出</a>
-
-			</li>
-			}
-	}
+            </li>
+        }
+    }
 
 </ul>

@@ -48,14 +48,14 @@ namespace WebAdmin.Controllers
             else
             {
                 var result = await _signInManager.PasswordSignInAsync(user, password, true, lockoutOnFailure: false);
-                if (result.Succeeded)
+                var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+                if (result.Succeeded && isAdmin)
                 {
                     var identity = new ClaimsIdentity("admin");
                     identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
-                    identity.AddClaim(new Claim(ClaimTypes.Name, "admin"));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
                     var principal = new ClaimsPrincipal(identity);
                     HttpContext.SignInAsync("MSDevAdmin", principal).Wait();
-                    HttpContext.Items["username"] = username;
                     return RedirectToAction("Index", "Home");
                 }
 

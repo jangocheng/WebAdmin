@@ -184,7 +184,6 @@ namespace WebAdmin.Controllers
         [HttpPost]
         public IActionResult EditMvaVideo(MvaVideos mvaVideo)
         {
-
             if (ModelState.IsValid)
             {
                 var video = _context.MvaVideos.Find(mvaVideo.Id);
@@ -196,7 +195,7 @@ namespace WebAdmin.Controllers
                 var re = _context.SaveChanges();
                 if (re > 0)
                 {
-                    return View(video);
+                    return RedirectToAction(nameof(EditMvaVideo));
                 }
             }
 
