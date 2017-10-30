@@ -2,6 +2,7 @@ using MSDev.Work.Entities;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -163,6 +164,9 @@ namespace MSDev.Work.Helpers
                         articles.Add(news);
                     }
                 }
+
+                articles = articles.Where(m => m.Category != null && m.Category.Equals("ScienceAndTechnology"))
+                    .ToList();
             }
             catch (Exception e)
             {

@@ -4,6 +4,7 @@ using MSDev.DB.Entities;
 using MSDev.Work.Entities;
 using MSDev.Work.Helpers;
 using MSDev.Work.Tools;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +35,9 @@ namespace MSDev.Work.Tasks
             List<BingNewsEntity> newNews = await BingSearchHelper.GetNewsSearchResults(keyword);
             if (newNews == null)
             {
-                throw new ArgumentNullException(nameof(newNews));
+                return default;
             }
+
             //TODO:获取过滤来源名单
             string[] providerFilter = { "大连天健网", "中金在线", "安卓网资讯专区", "中国通信网", "中国网", "华商网", "A5站长网", "东方财富网 股票", "秦巴在线", "ITBEAR科技资讯", "京华网", "TechWeb", "四海网" };
 
@@ -113,10 +115,7 @@ namespace MSDev.Work.Tasks
                 }
                 Console.WriteLine("New News:" + item.Title);
 
-                var uri = new Uri(item.Url);
-                Dictionary<string, StringValues> queryDictionary = QueryHelpers.ParseQuery(uri.Query);
-                string targetUrl = queryDictionary["r"];
-                targetUrl = Domain + "?r=" + targetUrl;
+                var targetUrl = Domain + "?r=" + item.Url;
                 var news = new BingNews
                 {
                     Id = Guid.NewGuid(),
