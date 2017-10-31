@@ -32,5 +32,7 @@ namespace MSDev.DB.Entities
         /// 练习
         /// </summary>
         public ICollection<UserPractice> UserPractice { get; set; }
+
+        public ICollection<Activity> Activity { get; set; }
     }
 }
