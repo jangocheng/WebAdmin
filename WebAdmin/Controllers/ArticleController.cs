@@ -6,6 +6,7 @@ using MSDev.DB.Entities;
 using WebAdmin.Helpers;
 using Microsoft.EntityFrameworkCore;
 using WebAdmin.Models.FormModels.Article;
+using System.Security.Claims;
 
 namespace WebAdmin.Controllers
 {
@@ -84,6 +85,7 @@ namespace WebAdmin.Controllers
 
                 if (_context.Blog.Any(m => m.Id == blog.Id))
                 {
+                    blog.Status = StatusType.Edit;
                     _context.Update(blog);
                     _context.SaveChanges();
                     return RedirectToAction(nameof(Index));
@@ -112,8 +114,8 @@ namespace WebAdmin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddArticle(AddArticleForm article)
         {
             if (ModelState.IsValid)
@@ -134,8 +136,8 @@ namespace WebAdmin.Controllers
                     Description = article.Description,
                     Tags = article.Tags,
                     Content = article.Content,
-                    Status = "new",
-                    AuthorName = "NilTor"
+                    Status = StatusType.New,
+                    AuthorName = User.Claims.Where(c => c.Type == ClaimTypes.Name).First().Value
                 };
 
                 _context.Blog.Add(newBlog);
@@ -148,6 +150,29 @@ namespace WebAdmin.Controllers
 
             return RedirectToAction(nameof(Write));
         }
+        /// <summary>
+        /// 发布文章
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult PublishArticle(string id)
+        {
+            var article = _context.Blog.Find(Guid.Parse(id));
+            if (article == null)
+            {
+                return NotFound();
+            }
+            article.Status = StatusType.Publish;
+            _context.Update(article);
+            if (_context.SaveChanges() > 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            SetErrorMessage();
+            return RedirectToAction(nameof(Index));
+        }
+
+
 
     }
 

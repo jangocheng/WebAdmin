@@ -31,6 +31,7 @@
             </div>
             <a class="btn btn-warning" asp-action="Index">返回</a>
             <button type="submit" class="btn btn-primary">保存</button>
+
         </div>
         <div class="col-md-10">
             <div id="editormd">
@@ -45,14 +46,7 @@
     <script>
         var testEditor;
         $(document).ready(function () {
-
-            //var editor = editormd("editormd", {
-            //    width: "100%",
-            //    height: 940,
-            //    path: '/lib/editor.md/lib/',
-            //});
-            initMarkdown("# Test #");
-
+            initMarkdown("# 标题 #");
         });
 
         function initMarkdown(content) {
@@ -70,7 +64,7 @@
                 //syncScrolling : false,
                 saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
                 searchReplace: true,
-                //watch : false,                // 关闭实时预览
+                //watch : true,                // 关闭实时预览
                 toolbar: true,             //关闭工具栏
                 toolbarIcons: [
                     "undo", "redo", "|",
@@ -97,7 +91,6 @@
                 imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                 imageUploadURL: "/blogs/upload",
                 onload: function () {
-                    console.log('onload', this);
                     //this.fullscreen();
                     //this.unwatch();
                     //this.watch().fullscreen();

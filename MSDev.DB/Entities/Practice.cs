@@ -25,5 +25,6 @@ namespace MSDev.DB.Entities
         public DateTime CreatedTime { get; set; }
         public DateTime UpdatedTime { get; set; }
 
+
     }
 }
