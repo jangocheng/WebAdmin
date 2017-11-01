@@ -33,6 +33,6 @@ namespace MSDev.DB.Entities
         /// </summary>
         public ICollection<UserPractice> UserPractice { get; set; }
 
-        public ICollection<Activity> Activity { get; set; }
+        public ICollection<UserActivity> UserActivity { get; set; }
     }
 }

@@ -13,6 +13,8 @@ namespace MSDev.DB
         }
 
         #region DbSet
+        public DbSet<UserActivity> UserActivity { get; set; }
+        public DbSet<Activity> Activity { get; set; }
         public DbSet<UserPractice> UserPractice { get; set; }
         public DbSet<Practice> Practice { get; set; }
         public DbSet<Video> Video { get; set; }
@@ -41,6 +43,21 @@ namespace MSDev.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<UserActivity>(entity =>
+            {
+                entity.HasKey(e => new { e.AcitvityId, e.UserId });
+            });
+
+            modelBuilder.Entity<UserActivity>()
+            .HasOne(e => e.Activity)
+            .WithMany(p => p.UserActivity)
+            .HasForeignKey(e => e.AcitvityId);
+
+            modelBuilder.Entity<UserActivity>()
+                .HasOne(e => e.User)
+                .WithMany(u => u.UserActivity)
+                .HasForeignKey(e => e.UserId);
+
             modelBuilder.Entity<UserPractice>(entity =>
             {
                 entity.HasKey(e => new { e.PracticeId, e.UserId });
