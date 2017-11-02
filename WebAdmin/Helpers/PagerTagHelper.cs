@@ -49,48 +49,57 @@ namespace WebAdmin.Helpers
 
                             int startPage = (PagerOption.CurrentPage / maxPage) * maxPage + 1;
                             int endPage = startPage + maxPage > totalPage + 1 ? totalPage + 1 : startPage + maxPage;
+                            //判断url是否已包含参数
+                            var pageParam = "?p=";
+                            if (PagerOption.RouteUrl.Contains("?"))
+                            {
+                                pageParam = "&p=";
+                            }
 
-                            sbPage.Append("<nav>");
-                            sbPage.Append("  <ul class=\"pagination\">");
+                            sbPage.Append("<nav class='row ml-0'>");
+                            sbPage.Append("  <ul class=\"pagination col col-md-auto pr-0\">");
                             // 前一页
-                            sbPage.AppendFormat("       <li><a href=\"{0}?p={1}\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>",
+                            sbPage.AppendFormat("       <li class=\"page-item\"><a class=\"page-link\" href=\"{0}" + pageParam + "{1}\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>",
                                 PagerOption.RouteUrl,
                                 startPage - maxPage <= 0 ? 1 : startPage - maxPage);
 
                             // 构造页数
-
                             for (int i = startPage; i < endPage; i++)
                             {
 
-                                sbPage.AppendFormat("       <li {1}><a href=\"{2}?p={0}\">{0}</a></li>",
+                                sbPage.AppendFormat("       <li class=\"page-item\" {1}><a class=\"page-link\" href=\"{2}" + pageParam + "{0}\">{0}</a></li>",
                                     i,
                                     i == PagerOption.CurrentPage ? "class=\"active\"" : "",
                                     PagerOption.RouteUrl);
                             }
 
-                            sbPage.Append("       <li>");
+                            sbPage.Append("       <li class=\"page-item\">");
 
                             // 后一页
-                            sbPage.AppendFormat("         <a href=\"{0}?p={1}\" aria-label=\"Next\">",
+                            sbPage.AppendFormat("         <a class=\"page-link\" href=\"{0}" + pageParam + "{1}\" aria-label=\"Next\">",
                                 PagerOption.RouteUrl,
-                                endPage + maxPage > totalPage ? PagerOption.CurrentPage : endPage + maxPage);
+                                endPage + maxPage > totalPage ? PagerOption.CurrentPage : endPage);
                             sbPage.Append("               <span aria-hidden=\"true\">&raquo;</span>");
                             sbPage.Append("         </a>");
                             sbPage.Append("       </li>");
+                            sbPage.Append("</ul>");
 
-                            sbPage.Append("<li><span>");
-
-                            sbPage.Append("<input type='number' id='totalPage' style='width:50px;padding:0;margin:-2px 4px;'/>");
+                            sbPage.Append("<ul class='d-flex col-md-auto pl-0' >");
+                            sbPage.Append("<li class=\"page-item page-link\"><span>");
+                            sbPage.Append("<input type='number' id='totalPage' class='col-sm-12' style='width:50px;padding:0;margin:-2px 4px;'/>");
                             sbPage.Append("<a href='javascript:gotoPage()' id='gotoPage' onclick='gotoPage'>跳转</a>");
                             sbPage.Append($" 共:{totalPage}页</span>");
                             sbPage.Append("</li>");
                             sbPage.Append("</ul>");
                             sbPage.Append("</nav>");
+
+
                             sbPage.Append(@"
 							<script>
 								function gotoPage() {
 									var page = document.getElementById('totalPage').value;
-									window.location.href = '" + PagerOption.RouteUrl + @"?p='+page;
+                                    if(page<1) page = 1;
+									window.location.href = '" + PagerOption.RouteUrl + pageParam + @"'+page;
 								}
 							</script>");
                             #endregion
