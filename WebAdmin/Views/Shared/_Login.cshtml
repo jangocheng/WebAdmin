@@ -1,18 +1,12 @@
 @inject UserManager<User> UserManager;
-<ul class="nav navbar-nav navbar-right">
+<span class="navbar-text">
     @{
         var username = UserManager.GetUserName(User);
         if (!string.IsNullOrEmpty(username))
         {
-            <li>
-                <a href="#">@username</a>
-
-            </li>
-            <li>
-                <a asp-controller="Auth" asp-action="Logout">登出</a>
-
-            </li>
+            <a href="#">@username</a>
+            <span>&nbsp;&nbsp;</span>
+            <a asp-controller="Auth" asp-action="Logout">登出</a>
         }
     }
-
-</ul>
+</span>
