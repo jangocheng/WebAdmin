@@ -4,20 +4,20 @@
 
 }
 <div class="row">
-    <div class="col-md-1">
-        <ul class="nav nav-stacked">
+    <div class="col col-md-auto">
+        <ul class="nav nav-pills flex-column">
             <li>
-                <a asp-action="AddVideo">添加视频</a>
+                <a class="nav-link" asp-action="AddVideo">添加视频</a>
             </li>
             <li>
-                <a asp-action="Index">教学视频</a>
+                <a class="nav-link" asp-action="Index">教学视频</a>
             </li>
             <li>
-                <a asp-action="MvaVideo">Mva视频</a>
+                <a class="nav-link" asp-action="MvaVideo">Mva视频</a>
             </li>
         </ul>
     </div>
-    <div class="col-md-8">
+    <div class="col">
         @RenderBody()
     </div>
 </div>

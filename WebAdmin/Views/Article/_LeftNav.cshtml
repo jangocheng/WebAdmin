@@ -4,18 +4,19 @@
 
 }
 <div class="row">
-    <div class="pull-left">
-        <ul class="nav nav-stacked">
-            <li>
-                <a asp-action="Index">文章列表</a>
-                <a asp-action="Write">添加文章</a>
+    <div class="col col-md-auto">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item"> 
+                <a class="nav-link" asp-action="Index">文章列表</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Write">添加文章</a>
             </li>
             @*<li><a asp-action="devblog">博客</a></li>*@
 
         </ul>
     </div>
-    <div class="col-md-8">
-
+    <div class="col col-md-auto">
         @RenderBody()
     </div>
 </div>

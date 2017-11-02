@@ -7,45 +7,44 @@
     <link href="~/lib/editor.md/css/editormd.css" rel="stylesheet" />
 </head>
 
-<div class="row">
-    <form class="" asp-action="UpdateArticle">
-        <div class="col-md-2" style="padding:0 0">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <input asp-for="Id" type="hidden" />
-            <input asp-for="AuthorId" type="hidden" />
-            <input asp-for="AuthorName" type="hidden" />
-            <input asp-for="CreatedTime" type="hidden" />
-            <input asp-for="SourceUrl" type="hidden" />
-            <input asp-for="Status" type="hidden" />
-            <input asp-for="UpdateTime" type="hidden" />
+<form asp-action="AddArticle" class="row ">
+    <div class="col-md-2 p-1">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="AuthorId" type="hidden" />
+        <input asp-for="AuthorName" type="hidden" />
+        <input asp-for="CreatedTime" type="hidden" />
+        <input asp-for="SourceUrl" type="hidden" />
+        <input asp-for="Status" type="hidden" />
+        <input asp-for="UpdateTime" type="hidden" />
 
-            <div class="form-group">
-                <select asp-for="Catalog" class="form-control">
-                    @foreach (var catalog in ViewBag.Catalogs as List<Catalog>)
+        <div class="form-group">
+            <select asp-for="Catalog" class="form-control">
+                @foreach (var catalog in ViewBag.Catalogs as List<Catalog>)
+                {
+                    if (catalog.IsTop == 0)
                     {
-                        if (catalog.IsTop == 0)
-                        {
-                            <option value="@catalog.Id">@catalog.TopCatalog.Name:@catalog.Name</option>
-                        }
+                        <option value="@catalog.Id">@catalog.TopCatalog.Name:@catalog.Name</option>
                     }
-                </select>
-                <input asp-for="Title" class="form-control" placeholder="标题" />
-                <input asp-for="Tags" placeholder="标签;" class="form-control" />
-            </div>
-            <div class="form-group">
-                <textarea asp-for="Description" rows="8" placeholder="文章描述" class="form-control"></textarea>
-            </div>
-            <a class="btn btn-warning" asp-action="Index">返回</a>
-            <button type="submit" class="btn btn-primary">保存</button>
+                }
+            </select>
+            <input asp-for="Title" class="form-control" placeholder="标题" />
+            <input asp-for="Tags" placeholder="标签;" class="form-control" />
         </div>
-        <div class="col-md-10">
-            <div id="editormd">
-                <textarea style="display:none;" asp-for="Content"></textarea>
-            </div>
+        <div class="form-group">
+            <textarea asp-for="Description" rows="8" placeholder="文章描述" class="form-control"></textarea>
         </div>
+        <a class="btn btn-warning" asp-action="Index">返回</a>
+        <button type="submit" class="btn btn-primary">保存</button>
+    </div>
+    <div class="col-md-10">
+        <div id="editormd">
+            <textarea style="display:none;" asp-for="Content"></textarea>
+        </div>
+    </div>
 
-    </form>
-</div>
+</form>
+
 
 @section Scripts{
     @Html.Partial("_EditorMD");

@@ -9,65 +9,64 @@
 {
 	@Html.Partial("_LeftNav")
 }
-<h3>配置</h3>
-
-
 <!-- TODO:下拉隐藏 -->
-<h4 class="text-primary cursor-point"
-	data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
-	添加配置 +
-</h4>
-<form asp-action="AddConfig" class="col-md-6 collapse" id="collapseForm">
-	<div asp-validation-summary="All"></div>
+<div class="row flex-column">
+    <h4 class="text-primary cursor-point "
+        data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+        添加配置 +
+    </h4>
+    <form asp-action="AddConfig" class="collapse" id="collapseForm">
+        <div asp-validation-summary="All"></div>
 
-	<div class="form-group">
-		<select asp-for="Type" class="form-control" multiple="">
-			<option value="必应新闻" selected>必应新闻</option>
-		</select>
-	</div>
+        <div class="form-group">
+            <select asp-for="Type" class="form-control" multiple="">
+                <option value="必应新闻" selected>必应新闻</option>
+            </select>
+        </div>
 
-	<div class="form-group">
-		<input asp-for="Name" class="form-control" placeholder="标识名称" />
-		<span asp-validation-for="Name"></span>
-	</div>
+        <div class="form-group">
+            <input asp-for="Name" class="form-control" placeholder="标识名称" />
+            <span asp-validation-for="Name"></span>
+        </div>
 
-	<div class="form-group">
-		<textarea asp-for="Value" rows="5" class="form-control" placeholder="配置内容"></textarea>
-		<span class="text-primary">使用;分隔多个值.</span>
-		<span asp-validation-for="Value"></span>
-	</div>
+        <div class="form-group">
+            <textarea asp-for="Value" rows="5" class="form-control" placeholder="配置内容"></textarea>
+            <span class="text-primary">使用;分隔多个值.</span>
+            <span asp-validation-for="Value"></span>
+        </div>
 
-	<button type="submit" class="btn btn-sm btn-primary">添加</button>
+        <button type="submit" class="btn btn-sm btn-primary">添加</button>
 
-</form>
-<div class="clearfix"></div>
-<!--配置列表-->
-<h4>配置列表</h4>
-
-<div class="col-md-6">
-	<table class="table table-bordered table-hover table-striped table-condensed">
-		<thead>
-		<tr>
-			<th>分类</th>
-			<th>标识</th>
-			<th>内容</th>
-			<th>操作</th>
-		</tr>
-		</thead>
-		<tbody>
-		@{
-			foreach (Config config in (List<Config>) ViewBag.Configs)
-			{
-				<tr>
-					<td>@config.Type</td>
-					<td>@config.Name</td>
-					<td>@config.Value</td>
-					<td>
-						<a asp-action="DelConfig" asp-route-id="@config.Id" class="label label-danger cursor-point">删除</a>
-					</td>
-				</tr>
-			}
-		}
-		</tbody>
-	</table>
+    </form>
 </div>
+
+
+<!--配置列表-->
+<div class="row flex-column">
+    <h4>配置列表</h4>
+    <table class="table table-bordered table-hover table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>分类</th>
+                <th>标识</th>
+                <th>内容</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{foreach (Config config in (List<Config>)ViewBag.Configs)
+                {
+                    <tr>
+                        <td>@config.Type</td>
+                        <td>@config.Name</td>
+                        <td>@config.Value</td>
+                        <td>
+                            <a asp-action="DelConfig" asp-route-id="@config.Id" class="label label-danger cursor-point">删除</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+

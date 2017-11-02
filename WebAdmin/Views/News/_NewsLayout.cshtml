@@ -4,15 +4,15 @@
 
 }
 <div class="row">
-	<div class="pull-left">
-		<ul class="nav nav-stacked">
+	<div class="col col-md-auto">
+		<ul class="nav nav-pills flex-column">
 			<li>
-				<a asp-action="BingNews">新闻</a>
+				<a class="nav-link" asp-action="BingNews">新闻</a>
 			</li>
-			<li><a asp-action="DevBlogs">官方博客</a></li>
+			<li><a class="nav-link" asp-action="DevBlogs">官方博客</a></li>
 		</ul>
 	</div>
-	<div class="col-md-11">
+	<div class="col-md-auto">
 		@RenderBody()
 	</div>
 </div>

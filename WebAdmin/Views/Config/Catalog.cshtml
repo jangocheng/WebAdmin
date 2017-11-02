@@ -8,7 +8,7 @@
 }
 @section LeftNav
 {
-    @Html.Partial("_LeftNav");
+    @Html.Partial("_LeftNav")
 }
 
 @{
@@ -40,14 +40,14 @@
 
         <input asp-for="Name" class="form-control" placeholder="显示名称" />
         <input asp-for="Value" class="form-control" placeholder="标识值" />
-        <button type="submit" class="btn btn-sm btn-primary">添加</button>
+        <button type="submit" class="btn btn-primary">添加</button>
     </div>
 </form>
 <hr />
 <h4>目录列表</h4>
 <!--目录列表-->
-<table class="table table-hover table-responsive table-condensed table-bordered">
-    <thead>
+<table class="table table-hover table-bordered table-light">
+    <thead class="thead-dark">
         <tr>
             <th>分类</th>
             <th>名称</th>
@@ -60,13 +60,13 @@
             Debug.Assert(catalogs != null, "catalogs != null");
             foreach (Catalog topCatalog in topCatalogs)
             {
-                <tr class="bg-info">
+                <tr class="table-active">
                     <td>@topCatalog.Type</td>
                     <td>@topCatalog.Name</td>
                     <td>@topCatalog.Value</td>
                     <td>
-                        <a asp-action="EditCatalog" asp-route-id="@topCatalog.Id" class="label label-success">编辑</a>
-                        <a asp-action="DelCatalog" asp-route-id="@topCatalog.Id" class="label label-danger">删除</a>
+                        <a asp-action="EditCatalog" asp-route-id="@topCatalog.Id" class="badge badge-info">编辑</a>
+                        <a asp-action="DelCatalog" asp-route-id="@topCatalog.Id" class="badge badge-danger">删除</a>
                     </td>
                 </tr>var childCatalogs = catalogs.Where(m => m.TopCatalog == topCatalog).ToList();
 
@@ -77,8 +77,8 @@
                         <td>@childCatalog.Name</td>
                         <td>@childCatalog.Value</td>
                         <td>
-                            <a asp-action="EditCatalog" asp-route-id="@childCatalog.Id" class="label label-success">编辑</a>
-                            <a asp-action="DelCatalog" asp-route-id="@childCatalog.Id" class="label label-danger">删除</a>
+                            <a asp-action="EditCatalog" asp-route-id="@childCatalog.Id" class="badge badge-info">编辑</a>
+                            <a asp-action="DelCatalog" asp-route-id="@childCatalog.Id" class="badge badge-danger">删除</a>
                         </td>
                     </tr>
                 }

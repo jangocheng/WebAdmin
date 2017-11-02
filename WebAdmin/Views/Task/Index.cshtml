@@ -9,45 +9,43 @@
         }
     </style>
 </head>
-
 <div class="row">
     <div class="col-md-2">
         <h4>任务列表:</h4>
-        <ul class="nav nav-pills nav-stacked">
-            <li>
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
                 资讯更新
-                <ul class="nav nav-pills nav-stacked">
-                    <li>
-                        <a class="cursor-point"
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"
                            data-bind="click:runTask.bind($data,'bingnews')">
                             更新必应新闻
                         </a>
                     </li>
-                    <li>
-                        <a class="cursor-point" data-bind="click:runTask.bind($data,'devblogs')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bind="click:runTask.bind($data,'devblogs')">
                             官方博客
                         </a>
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="nav-item">
                 视频更新
-                <ul class="nav nav-pills nav-stacked">
-                    <li>
-                        <a class="cursor-point"
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"
                            data-bind="click:runTask.bind($data,'c9article')">
                             更新C9列表
                         </a>
                     </li>
-                    <li>
-                        <a class="cursor-point"
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"
                            data-bind="click:runTask.bind($data,'mvavideos')">
                             更新MvaVideos
                         </a>
-
                     </li>
-                    <li>
-                        <a class="cursor-point"
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"
                            data-bind="click:runTask.bind($data,'mvadetails')">
                             更新mva详情
                         </a>
@@ -59,8 +57,7 @@
 
     <div class="col-md-10">
         <h4>执行输出:</h4>
-
-        <div class="panel">
+        <div class="card">
             <pre><code data-bind="html:consoleInformation" class="consoleWindow"></code></pre>
         </div>
 

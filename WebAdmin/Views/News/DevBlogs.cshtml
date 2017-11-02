@@ -29,8 +29,8 @@
 				<td>@string.Format("{0:yyyy-MM-dd HH:mm}", @news.CreateTime)</td>
 				<td>
 					<input type="hidden" value="@news.Id" />
-					<a class="label label-danger" onclick="delNews('@news.Id')">删除</a>
-                    <a class="label label-success" asp-action="EditDevBlog" asp-route-id="@news.Id">编辑</a>
+					<a class="badge badge-danger" href="#" onclick="delNews('@news.Id')">删除</a>
+                    <a class="badge badge-success" asp-action="EditDevBlog" asp-route-id="@news.Id">编辑</a>
 				</td>
 			</tr>
 			}
