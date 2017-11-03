@@ -7,7 +7,7 @@
     <link href="~/lib/editor.md/css/editormd.css" rel="stylesheet" />
 </head>
 
-<form asp-action="AddArticle" class="row ">
+<form asp-action="UpdateArticle" class="row ">
     <div class="col-md-2 p-1">
         <div asp-validation-summary="All" class="text-danger"></div>
         <input asp-for="Id" type="hidden" />
@@ -19,12 +19,19 @@
         <input asp-for="UpdateTime" type="hidden" />
 
         <div class="form-group">
-            <select asp-for="Catalog" class="form-control">
+            <select name="CatalogId" class="form-control">
                 @foreach (var catalog in ViewBag.Catalogs as List<Catalog>)
                 {
                     if (catalog.IsTop == 0)
                     {
-                        <option value="@catalog.Id">@catalog.TopCatalog.Name:@catalog.Name</option>
+                        if (Model.Catalog.Id == catalog.Id)
+                        {
+                            <option value="@catalog.Id" selected>@catalog.TopCatalog.Name:@catalog.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@catalog.Id">@catalog.TopCatalog.Name:@catalog.Name</option>
+                        }
                     }
                 }
             </select>

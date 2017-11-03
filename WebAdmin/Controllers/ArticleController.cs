@@ -25,6 +25,7 @@ namespace WebAdmin.Controllers
         {
             int pageSize = 12;
             var blogs = _context.Blog.OrderByDescending(m => m.UpdateTime)
+                .Include(m => m.Catalog)
                 .Skip((p - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
@@ -59,7 +60,10 @@ namespace WebAdmin.Controllers
             }
             if (_context.Blog.Any(m => m.Id.Equals(id)))
             {
-                var blog = _context.Blog.Find(id);
+                var blog = _context.Blog
+                    .Where(m => m.Id == id)
+                    .Include(m => m.Catalog)
+                    .FirstOrDefault();
 
                 ViewBag.Catalogs = _context.Catalog.Where(m => m.Type.Equals("文章"))
                     .ToList();
@@ -74,7 +78,7 @@ namespace WebAdmin.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateArticle(Blog blog)
+        public IActionResult UpdateArticle(Blog blog, string CatalogId)
         {
             if (ModelState.IsValid)
             {
@@ -85,6 +89,7 @@ namespace WebAdmin.Controllers
 
                 if (_context.Blog.Any(m => m.Id == blog.Id))
                 {
+                    blog.Catalog = _context.Catalog.Find(Guid.Parse(CatalogId));
                     blog.Status = StatusType.Edit;
                     _context.Update(blog);
                     _context.SaveChanges();
