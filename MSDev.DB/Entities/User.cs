@@ -27,12 +27,28 @@ namespace MSDev.DB.Entities
         /// <summary>
         /// 积分
         /// </summary>
-        public int Score { get; set; }
+        public int? Score { get; set; }
+        /// <summary>
+        /// 贡献值 
+        /// </summary>
+        public int? Contribution { get; set; }
+        /// <summary>
+        /// 是否实名认证
+        /// </summary>
+        public bool IsCertification { get; set; }
+        /// <summary>
+        /// 是否公开信息
+        /// </summary>
+        public bool IsPublic { get; set; }
+
+        public Member Member { get; set; }
         /// <summary>
         /// 练习
         /// </summary>
         public ICollection<UserPractice> UserPractice { get; set; }
 
         public ICollection<UserActivity> UserActivity { get; set; }
+
+        public ICollection<PracticeAnswer> PracticeAnswer { get; set; }
     }
 }

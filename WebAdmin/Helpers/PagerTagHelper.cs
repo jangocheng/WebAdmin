@@ -15,7 +15,6 @@ namespace WebAdmin.Helpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-
             output.TagName = "div";
 
             if (PagerOption.PageSize <= 0) { PagerOption.PageSize = 15; }

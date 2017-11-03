@@ -13,6 +13,8 @@ namespace MSDev.DB
         }
 
         #region DbSet
+        public DbSet<PracticeAnswer> PracticeAnswer { get; set; }
+        public DbSet<Member> Member { get; set; }
         public DbSet<UserActivity> UserActivity { get; set; }
         public DbSet<Activity> Activity { get; set; }
         public DbSet<UserPractice> UserPractice { get; set; }

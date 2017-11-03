@@ -17,22 +17,24 @@
             foreach (Video video in (List<Video>)ViewBag.ListData)
             {
                 <tr>
-                    <td class="col-md-4">
+                    <td>
                         <a href="@video.Url" target="_blank">
                             @video.Name
                         </a>
-                        @if (video.IsRecommend) { 
+                        @if (video.IsRecommend)
+                        {
                             <span class="text-danger">荐</span>
                         }
                     </td>
-                    <td class="col-md-5">@video.Catalog?.Name</td>
-                    <td class="col-md-2">@string.Format("{0:yyyy-MM-dd HH:mm}", video.UpdatedTime)</td>
+                    <td>@video.Catalog?.Name</td>
+                    <td>@string.Format("{0:yyyy-MM-dd HH:mm}", video.UpdatedTime)</td>
                     <td>
                         <input type="hidden" value="@video.Id" />
-                        <a class="label label-danger" onclick="del('@video.Id')">删除</a>
-                        <a class="label label-primary" asp-action="EditVideo" asp-route-id="@video.Id">编辑</a>
+                        <a class="badge badge-info" asp-action="EditVideo" asp-route-id="@video.Id">编辑</a>
+                        <a class="badge badge-danger" href="#" onclick="del('@video.Id')">删除</a>
                     </td>
-                </tr>}
+                </tr>
+            }
         }
     </tbody>
 </table>

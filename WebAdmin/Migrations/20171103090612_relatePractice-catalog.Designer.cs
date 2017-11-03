@@ -11,9 +11,10 @@ using System;
 namespace WebAdmin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171103090612_relatePractice-catalog")]
+    partial class relatePracticecatalog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -472,24 +473,6 @@ namespace WebAdmin.Migrations
                     b.ToTable("DevBlogs");
                 });
 
-            modelBuilder.Entity("MSDev.DB.Entities.Member", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("ExpiredTime");
-
-                    b.Property<string>("Level");
-
-                    b.Property<string>("LevelName");
-
-                    b.Property<int?>("Score");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Member");
-                });
-
             modelBuilder.Entity("MSDev.DB.Entities.MvaDetails", b =>
                 {
                     b.Property<Guid>("Id")
@@ -632,17 +615,12 @@ namespace WebAdmin.Migrations
 
                     b.Property<DateTime>("CreatedTime");
 
-                    b.Property<string>("Status")
-                        .HasMaxLength(32);
-
                     b.Property<string>("Title")
                         .HasMaxLength(64);
 
                     b.Property<DateTime>("UpdatedTime");
 
                     b.Property<Guid?>("VideoId");
-
-                    b.Property<int?>("Views");
 
                     b.HasKey("Id");
 
@@ -657,38 +635,6 @@ namespace WebAdmin.Migrations
                         .HasFilter("[VideoId] IS NOT NULL");
 
                     b.ToTable("Practice");
-                });
-
-            modelBuilder.Entity("MSDev.DB.Entities.PracticeAnswer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("AgreeNumber");
-
-                    b.Property<string>("Content")
-                        .HasMaxLength(4000);
-
-                    b.Property<DateTime>("CreatedTime");
-
-                    b.Property<int?>("DisagreeNumber");
-
-                    b.Property<Guid?>("PracticeId");
-
-                    b.Property<string>("Status")
-                        .HasMaxLength(32);
-
-                    b.Property<DateTime>("UpdatedTime");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PracticeId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("PracticeAnswer");
                 });
 
             modelBuilder.Entity("MSDev.DB.Entities.Resource", b =>
@@ -855,8 +801,6 @@ namespace WebAdmin.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<int?>("Contribution");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -865,15 +809,9 @@ namespace WebAdmin.Migrations
                     b.Property<string>("IdentityCard")
                         .HasMaxLength(16);
 
-                    b.Property<bool>("IsCertification");
-
-                    b.Property<bool>("IsPublic");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<Guid?>("MemberId");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -890,7 +828,7 @@ namespace WebAdmin.Migrations
                     b.Property<string>("RealName")
                         .HasMaxLength(32);
 
-                    b.Property<int?>("Score");
+                    b.Property<int>("Score");
 
                     b.Property<string>("SecurityStamp");
 
@@ -903,10 +841,6 @@ namespace WebAdmin.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MemberId")
-                        .IsUnique()
-                        .HasFilter("[MemberId] IS NOT NULL");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -1082,17 +1016,6 @@ namespace WebAdmin.Migrations
                         .HasForeignKey("MSDev.DB.Entities.Practice", "VideoId");
                 });
 
-            modelBuilder.Entity("MSDev.DB.Entities.PracticeAnswer", b =>
-                {
-                    b.HasOne("MSDev.DB.Entities.Practice", "Practice")
-                        .WithMany("PracticeAnswer")
-                        .HasForeignKey("PracticeId");
-
-                    b.HasOne("MSDev.DB.Entities.User", "User")
-                        .WithMany("PracticeAnswer")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("MSDev.DB.Entities.Resource", b =>
                 {
                     b.HasOne("MSDev.DB.Entities.Catalog", "Catalog")
@@ -1106,13 +1029,6 @@ namespace WebAdmin.Migrations
                     b.HasOne("MSDev.DB.Entities.Resource", "Resource")
                         .WithMany("Sources")
                         .HasForeignKey("ResourceId");
-                });
-
-            modelBuilder.Entity("MSDev.DB.Entities.User", b =>
-                {
-                    b.HasOne("MSDev.DB.Entities.Member", "Member")
-                        .WithOne("User")
-                        .HasForeignKey("MSDev.DB.Entities.User", "MemberId");
                 });
 
             modelBuilder.Entity("MSDev.DB.Entities.UserActivity", b =>

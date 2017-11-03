@@ -119,7 +119,21 @@ namespace WebAdmin.Controllers
              .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
              .ToList();
 
+            //获取可关联博客
+            var relateBlogs = _context.Blog
+                .Where(m => m.Video == null)
+                .Where(m => m.Catalog.Name == video.Catalog.Name)
+                .ToList();
+
+            //获取可关联练习
+            var relatePractices = _context.Practice
+                .Where(m => m.Video == null)
+                .Where(m => m.Catalog.Name == video.Catalog.Name)
+                .ToList();
+
             ViewBag.Catalogs = catalogs;
+            ViewBag.RelateBlogs = relateBlogs;
+            ViewBag.RelatePractices = relatePractices;
             return View(video);
         }
 

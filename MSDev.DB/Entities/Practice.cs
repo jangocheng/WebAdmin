@@ -14,6 +14,8 @@ namespace MSDev.DB.Entities
         public Blog Blog { get; set; }
         public Video Video { get; set; }
 
+        public Catalog Catalog { get; set; }
+
         public ICollection<UserPractice> UserPractice { get; set; }
 
         [MaxLength(64)]
@@ -21,7 +23,11 @@ namespace MSDev.DB.Entities
 
         [MaxLength(2000)]
         public string Content { get; set; }
+        [MaxLength(32)]
+        public string Status { get; set; }
 
+        public ICollection<PracticeAnswer> PracticeAnswer { get; set; }
+        public int? Views { get; set; }
         public DateTime CreatedTime { get; set; }
         public DateTime UpdatedTime { get; set; }
 

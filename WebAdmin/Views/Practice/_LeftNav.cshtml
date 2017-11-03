@@ -1,0 +1,22 @@
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "实践管理";
+
+}
+<div class="row">
+    <div class="col col-md-auto">
+        <ul class="nav nav-pills flex-column">
+            <li>
+                <a class="nav-link" asp-action="Index">实践列表</a>
+            </li>
+            <li>
+                <a class="nav-link" asp-action="Create">添加实践</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        @RenderBody()
+    </div>
+</div>
+
+@RenderSection("Scripts", required: false)

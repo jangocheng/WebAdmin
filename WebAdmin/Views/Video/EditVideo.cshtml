@@ -2,80 +2,75 @@
 @{
     Layout = "_LeftNav";
 }
-<form asp-action="EditVideo">
-    <div class="form-horizontal">
+<form asp-action="EditVideo" class="row">
+    <div class="col-md-6">
         <h4>编辑视频</h4>
         <hr />
         <div asp-validation-summary="All" class="text-danger"></div>
-        <input type="hidden" name="id" value="@Model.Id"/>
+        <input type="hidden" name="id" value="@Model.Id" />
         <div class="form-group">
-            <label  class="col-md-2 control-label">分类</label>
-            <div class="col-md-10">
-                <select name="catalogId" class="form-control">
-                    @foreach (var item in ViewBag.Catalogs as List<Catalog>)
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
-                </select>
-            </div>
+
+            <select name="catalogId" class="form-control">
+                @foreach (var item in ViewBag.Catalogs as List<Catalog>)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
         </div>
         <div class="form-group">
-            <label asp-for="Name" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Name" class="form-control" placeholder="视频名称" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+            <input asp-for="Name" class="form-control" placeholder="视频名称" />
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Author" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Author" class="form-control" placeholder="作者" />
-                <span asp-validation-for="Author" class="text-danger"></span>
+            <input asp-for="Author" class="form-control" placeholder="作者" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <textarea asp-for="Description" class="form-control" placeholder="描述"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Tags" class="form-control" placeholder="标签" />
+            <span asp-validation-for="Tags" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="ThumbnailUrl" class="form-control" placeholder="缩略图" />
+            <span asp-validation-for="ThumbnailUrl" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Url" class="form-control" placeholder="链接" style="margin-left:0 !important" />
+            <span asp-validation-for="Url" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="checkbox text-success">
+                <input asp-for="IsRecommend" />
+                <label asp-for="IsRecommend"></label>
             </div>
         </div>
 
         <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <textarea asp-for="Description" class="form-control" placeholder="描述"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
+            <input type="submit" value="保存" class="btn btn-primary" />
+        </div>
+    </div>
+    <!--关联信息-->
+    <div class="col-md-6">
+        <h4>设置关联：</h4>
+        <div class="form-group">
+            <label>关联的博客</label>
+            <select name="BlogId" class="form-control">
+                @foreach (var blog in ViewBag.RelateBlogs as List<Blog>)
+                {
+                    <option value="@blog.Id">@blog.Title</option>
+                }
+            </select>
         </div>
         <div class="form-group">
-            <label asp-for="Tags" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Tags" class="form-control" placeholder="标签" />
-                <span asp-validation-for="Tags" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="ThumbnailUrl" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="ThumbnailUrl" class="form-control" placeholder="缩略图" />
-                <span asp-validation-for="ThumbnailUrl" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Url" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Url" class="form-control" placeholder="链接" style="margin-left:0 !important" />
-                <span asp-validation-for="Url" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox text-success">
-                    <input asp-for="IsRecommend" />
-                    <label asp-for="IsRecommend"></label>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="保存" class="btn btn-primary" />
-            </div>
+            <label>关联的练习</label>
+            <select name="BlogId" class="form-control">
+                <option value="value">text</option>
+            </select>
         </div>
     </div>
 </form>

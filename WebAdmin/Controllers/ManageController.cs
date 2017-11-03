@@ -12,7 +12,7 @@ using WebAdmin.Services;
 using WebAdmin.Models.ManageViewModels;
 using MSDev.DB.Entities;
 
-namespace MSDev.Controllers
+namespace WebAdmin.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]

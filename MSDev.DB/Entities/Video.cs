@@ -15,6 +15,7 @@ namespace MSDev.DB.Entities
         /// 关联的博客
         /// </summary>
         public Blog Blog { get; set; }
+
         /// <summary>
         /// 关联的习题
         /// </summary>
