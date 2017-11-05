@@ -21,7 +21,7 @@ namespace MSDev.DB.Entities
         /// </summary>
         [MaxLength(8)]
         public string Sex { get; set; }
-        public DateTime Birthday{ get; set; }
+        public DateTime? Birthday{ get; set; }
         [MaxLength(32)]
         public string City { get; set; }
         /// <summary>

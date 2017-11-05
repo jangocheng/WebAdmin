@@ -58,18 +58,38 @@
     <div class="col-md-6">
         <h4>设置关联：</h4>
         <div class="form-group">
-            <label>关联的博客</label>
+            <label>关联的博客: @Model.Blog.Title</label>
             <select name="BlogId" class="form-control">
+                <option value="">选择博客</option>
                 @foreach (var blog in ViewBag.RelateBlogs as List<Blog>)
                 {
-                    <option value="@blog.Id">@blog.Title</option>
+                    if (Model.Blog == blog)
+                    {
+                        <option value="@blog.Id" selected>@blog.Title</option>
+                    }
+                    else
+                    {
+                        <option value="@blog.Id">@blog.Title</option>
+                    }
+
                 }
             </select>
         </div>
         <div class="form-group">
-            <label>关联的练习</label>
-            <select name="BlogId" class="form-control">
-                <option value="value">text</option>
+            <label>关联的实践: @Model.Practice.Title</label>
+            <select name="PracticeId" class="form-control">
+                <option value="">选择实践</option>
+                @foreach (var practice in ViewBag.RelatePractices as List<Practice>)
+                {
+                    if (Model.Practice == practice)
+                    {
+                        <option value="@practice.Id" selected>@practice.Title</option>
+                    }
+                    else
+                    {
+                        <option value="@practice.Id" >@practice.Title</option>
+                    }
+                }
             </select>
         </div>
     </div>

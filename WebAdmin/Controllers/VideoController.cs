@@ -110,14 +110,17 @@ namespace WebAdmin.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditVideo(string id)
+        public IActionResult EditVideo(Guid id)
         {
-            var video = _context.Video.Find(Guid.Parse(id));
+            var video = _context.Video
+                .Include(m => m.Practice)
+                .Include(m => m.Blog)
+                .FirstOrDefault(m => m.Id == id);
 
             if (video == null) { return NotFound(); }
             var catalogs = _context.Catalog
-             .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
-             .ToList();
+                .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
+                .ToList();
 
             //获取可关联博客
             var relateBlogs = _context.Blog
@@ -139,19 +142,20 @@ namespace WebAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditVideo(VideoForm video, string id, string catalogId)
+        public IActionResult EditVideo(VideoForm video, Guid id, string catalogId, Guid BlogId, Guid PracticeId)
         {
             if (ModelState.IsValid)
             {
-                var oldVideo = _context.Video.Find(Guid.Parse(id));
+                var oldVideo = _context.Video.Find(id);
                 if (oldVideo == null)
                 {
                     return NotFound();
                 }
 
-                Console.WriteLine(JsonConvert.SerializeObject(video));
                 _context.Entry(oldVideo).CurrentValues.SetValues(video);
                 oldVideo.Catalog = _context.Catalog.Find(Guid.Parse(catalogId));
+                oldVideo.Blog = _context.Blog.Find(BlogId);
+                oldVideo.Practice = _context.Practice.Find(PracticeId);
                 var re = _context.SaveChanges();
                 if (re > 0)
                 {
