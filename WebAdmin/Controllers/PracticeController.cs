@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MSDev.DB;
 using MSDev.DB.Entities;
+using WebAdmin.Helpers;
 
 namespace WebAdmin.Controllers
 {
@@ -19,13 +20,11 @@ namespace WebAdmin.Controllers
             _context = context;
         }
 
-        // GET: Practice
         public async Task<IActionResult> Index()
         {
             return View(await _context.Practice.ToListAsync());
         }
 
-        // GET: Practice/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -43,22 +42,31 @@ namespace WebAdmin.Controllers
             return View(practice);
         }
 
-        // GET: Practice/Create
         public IActionResult Create()
         {
+            //查询分类
+            var catalogs = _context.Catalog
+             .Where(m => m.TopCatalog.Value.Equals("PracticeCourse"))
+             .ToList();
+
+            ViewBag.Catalogs = catalogs;
             return View();
         }
 
-        // POST: Practice/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,CreatedTime,UpdatedTime")] Practice practice)
+        public async Task<IActionResult> Create(Practice practice, Guid CatalogId)
         {
             if (ModelState.IsValid)
             {
                 practice.Id = Guid.NewGuid();
+                practice.CreatedTime = DateTime.Now;
+                practice.UpdatedTime = DateTime.Now;
+                practice.Status = StatusType.New;
+                practice.Views = 0;
+                practice.Catalog = _context.Catalog.Find(CatalogId);
+
                 _context.Add(practice);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -66,7 +74,6 @@ namespace WebAdmin.Controllers
             return View(practice);
         }
 
-        // GET: Practice/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -82,42 +89,40 @@ namespace WebAdmin.Controllers
             return View(practice);
         }
 
-        // POST: Practice/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Title,Content,CreatedTime,UpdatedTime")] Practice practice)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Title,Content")] Practice practice)
         {
             if (id != practice.Id)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(practice);
+                    var currentPractice = _context.Practice.Find(id);
+                    if (currentPractice == null)
+                    {
+                        return NotFound();
+                    }
+                    currentPractice.Title = practice.Title;
+                    currentPractice.Content = practice.Content;
+                    currentPractice.UpdatedTime = DateTime.Now;
+                    currentPractice.Status = StatusType.Edit;
+                    _context.Update(currentPractice);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PracticeExists(practice.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //TODO:异常处理
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
             return View(practice);
         }
 
-        // GET: Practice/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -135,7 +140,6 @@ namespace WebAdmin.Controllers
             return View(practice);
         }
 
-        // POST: Practice/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
