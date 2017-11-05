@@ -54,8 +54,7 @@ namespace WebAdmin.Helpers
                             {
                                 pageParam = "&p=";
                             }
-                            sbPage.Append("<div class='clearfix'></div>");
-                            sbPage.Append("<nav class='row ml-0'>");
+                            sbPage.Append("<nav class='d-md-flex d-block ml-0'>");
                             sbPage.Append("  <ul class=\"pagination col-md-auto col-sm-12 pr-0\">");
                             // 前一页
                             sbPage.AppendFormat("       <li class=\"page-item\"><a class=\"page-link\" href=\"{0}" + pageParam + "{1}\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>",
