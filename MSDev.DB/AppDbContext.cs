@@ -137,7 +137,6 @@ namespace MSDev.DB
             modelBuilder.Entity<C9Videos>(entity =>
             {
                 entity.ToTable("C9Videos");
-
                 entity.HasIndex(e => e.SeriesType)
                     .HasName("IX_C9Videos_SeriesType");
                 entity.HasIndex(e => e.Language)

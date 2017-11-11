@@ -22,6 +22,7 @@ namespace MSDev.Work.Helpers
         private static readonly HttpClient HttpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(5) };
         public C9Helper()
         {
+
         }
 
         /// <summary>
@@ -192,7 +193,6 @@ namespace MSDev.Work.Helpers
                 ThumbnailUrl = article.ThumbnailUrl
             };
 
-
             video.SeriesType = article.SeriesTitleUrl.Substring(1);
             video.SeriesType = video.SeriesType.Substring(0, video.SeriesType.IndexOf(@"/"));
 
@@ -265,8 +265,10 @@ namespace MSDev.Work.Helpers
             return default;
         }
 
-        public async Task<bool> GetEventsAsync()
+        public async Task<List<C9Event>> GetEventsAsync()
         {
+            var eventList = new List<C9Event>();
+
             using (var hc = new HttpClient())
             {
                 foreach (var item in Events)
@@ -274,12 +276,12 @@ namespace MSDev.Work.Helpers
                     var url = C9Daemon + "Events/" + item;
                     string htmlString = await hc.GetStringAsync(url);
 
-                    if (IsNullOrEmpty(htmlString)) return false;
+                    if (IsNullOrEmpty(htmlString)) return default;
                     Console.WriteLine(htmlString);
                     var htmlDoc = new HtmlDocument();
                     htmlDoc.LoadHtml(htmlString);
 
-                    var C9Event = htmlDoc.DocumentNode
+                    var C9Events = htmlDoc.DocumentNode
                         .SelectNodes("//main//section//article[@class='abstract xSmall noVideo']")
                         .Select(s => new C9Event
                         {
@@ -295,10 +297,11 @@ namespace MSDev.Work.Helpers
                         })
                         .ToList();
 
-                    Console.WriteLine(JsonConvert.SerializeObject(C9Event));
+                    eventList.AddRange(C9Events);
+                    Console.WriteLine(JsonConvert.SerializeObject(C9Events));
                 }
             }
-            return true;
+            return eventList;
         }
     }
 }

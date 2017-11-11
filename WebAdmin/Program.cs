@@ -21,9 +21,12 @@ namespace WebAdmin
             .UseStartup<Startup>()
             .Build();
         }
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
+
+            var task = new C9EvnentTask();
+            await task.GetEeventsAsync();
 
             if (IsTask)
             {
