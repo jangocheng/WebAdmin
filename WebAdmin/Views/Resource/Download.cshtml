@@ -124,9 +124,7 @@
                             </td>
                             <td>@TypeValueHelper.ResourceType[download.Type]</td>
                             <td>@TypeValueHelper.Language[download.Language]</td>
-
-
-                            <td>@download.Description</td>
+                            <td style="max-width:600px">@download.Description</td>
                             <td>
                                 <a asp-action="DelDownload" asp-route-id="@download.Id" class="badge badge-danger">删除</a>
                                 <a asp-action="EditDownload" asp-route-id="@download.Id" class="badge badge-primary">编辑</a>

@@ -93,7 +93,7 @@ namespace WebAdmin.Controllers
         {
             if (String.IsNullOrEmpty(msg))
             {
-                msg = ModelState.Values.FirstOrDefault().Errors.FirstOrDefault().ErrorMessage;
+                msg = ModelState?.Values.FirstOrDefault()?.Errors.FirstOrDefault()?.ErrorMessage;
             }
 
             if (string.IsNullOrEmpty(redirect))
@@ -105,7 +105,7 @@ namespace WebAdmin.Controllers
                 ViewBag.Referer = redirect;
 
             }
-            ViewBag.RedirectMsg = msg;
+            ViewBag.RedirectMsg = msg == null ? "unknown error" : "msg";
             return View("Redirect");
         }
     }
