@@ -58,7 +58,7 @@
     <div class="col-md-6">
         <h4>设置关联：</h4>
         <div class="form-group">
-            <label>关联的博客: @Model.Blog.Title</label>
+            <label>关联的博客: @Model.Blog?.Title</label>
             <select name="BlogId" class="form-control">
                 <option value="">选择博客</option>
                 @foreach (var blog in ViewBag.RelateBlogs as List<Blog>)
@@ -76,7 +76,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label>关联的实践: @Model.Practice.Title</label>
+            <label>关联的实践: @Model.Practice?.Title</label>
             <select name="PracticeId" class="form-control">
                 <option value="">选择实践</option>
                 @foreach (var practice in ViewBag.RelatePractices as List<Practice>)

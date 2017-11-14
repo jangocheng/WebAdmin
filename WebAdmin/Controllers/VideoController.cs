@@ -180,9 +180,9 @@ namespace WebAdmin.Controllers
         }
 
         [HttpPost]
-        public IActionResult DelVideo(string id)
+        public IActionResult DelVideo(Guid id)
         {
-            var video = _context.Video.Find(Guid.Parse(id));
+            var video = _context.Video.Find(id);
             _context.Video.Remove(video);
             var re = _context.SaveChanges();
             if (re > 0)
