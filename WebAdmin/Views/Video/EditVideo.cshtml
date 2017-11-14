@@ -9,7 +9,6 @@
         <div asp-validation-summary="All" class="text-danger"></div>
         <input type="hidden" name="id" value="@Model.Id" />
         <div class="form-group">
-
             <select name="catalogId" class="form-control">
                 @foreach (var item in ViewBag.Catalogs as List<Catalog>)
                 {
@@ -42,14 +41,12 @@
             <input asp-for="Url" class="form-control" placeholder="链接" style="margin-left:0 !important" />
             <span asp-validation-for="Url" class="text-danger"></span>
         </div>
-
         <div class="form-group">
             <div class="checkbox text-success">
                 <input asp-for="IsRecommend" />
                 <label asp-for="IsRecommend"></label>
             </div>
         </div>
-
         <div class="form-group">
             <input type="submit" value="保存" class="btn btn-primary" />
         </div>
@@ -71,7 +68,6 @@
                     {
                         <option value="@blog.Id">@blog.Title</option>
                     }
-
                 }
             </select>
         </div>
