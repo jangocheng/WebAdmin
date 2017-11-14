@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace MSDev.DB.Entities
@@ -46,10 +47,12 @@ namespace MSDev.DB.Entities
         /// <summary>
         /// 关联的视频
         /// </summary>
+        [ForeignKey("VideoId")]
         public Video Video { get; set; }
         /// <summary>
         /// 关联的练习
         /// </summary>
+        [ForeignKey("PracticeId")]
         public Practice Practice { get; set; }
 
         /// <summary>

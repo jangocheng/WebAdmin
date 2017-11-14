@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MSDev.DB.Entities
 {
@@ -10,8 +11,9 @@ namespace MSDev.DB.Entities
     public class Practice
     {
         public Guid Id { get; set; }
-
+        [ForeignKey("BlogId")]
         public Blog Blog { get; set; }
+        [ForeignKey("VideoId")]
         public Video Video { get; set; }
 
         public Catalog Catalog { get; set; }

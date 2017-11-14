@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace MSDev.DB.Entities
@@ -14,11 +15,12 @@ namespace MSDev.DB.Entities
         /// <summary>
         /// 关联的博客
         /// </summary>
+        [ForeignKey("BlogId")]
         public Blog Blog { get; set; }
-
         /// <summary>
         /// 关联的习题
         /// </summary>
+        [ForeignKey("PracticeId")]
         public Practice Practice { get; set; }
         [MaxLength(64)]
         public string Name { get; set; }
