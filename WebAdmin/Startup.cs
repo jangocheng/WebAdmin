@@ -46,6 +46,18 @@ namespace WebAdmin
                     }
                 )
             );
+
+            var communityConnection = Configuration.GetConnectionString("CommunityConnection");
+            services.AddEntityFrameworkNpgsql().AddDbContext<CommunityContext>(
+                options => options.UseNpgsql(communityConnection,
+                b =>
+                    {
+                        b.MigrationsAssembly("WebAdmin");
+                        b.EnableRetryOnFailure();
+                    }
+                )
+            );
+
             services.AddIdentity<User, IdentityRole>()
              .AddEntityFrameworkStores<AppDbContext>()
              .AddDefaultTokenProviders();
