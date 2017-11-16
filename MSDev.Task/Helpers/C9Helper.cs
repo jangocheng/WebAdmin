@@ -16,8 +16,8 @@ namespace MSDev.Work.Helpers
     public class C9Helper
     {
         private const string BeginUrl = "https://channel9.msdn.com/Browse/AllContent?lang=en&lang=zh-cn&lang=zh-tw";
-
         private const string C9Daemon = "https://channel9.msdn.com/";
+        private static string[] Events = { "Build", "Ignite", "connect", "dotnetConf" };
 
         private static readonly HttpClient HttpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(5) };
         public C9Helper()
@@ -30,20 +30,21 @@ namespace MSDev.Work.Helpers
         /// <returns></returns>
         public async Task<int> GetTotalPage()
         {
-
             int pageNumber = 0;
-            var hc = new HttpClient();
-            string htmlString = await hc.GetStringAsync(BeginUrl);
-            if (string.IsNullOrEmpty(htmlString)) return pageNumber;
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(htmlString);
+            using (var hc = new HttpClient())
+            {
+                string htmlString = await hc.GetStringAsync(BeginUrl);
+                if (string.IsNullOrEmpty(htmlString)) return pageNumber;
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(htmlString);
 
-            string totalPage = htmlDoc.DocumentNode
-                .SelectSingleNode("//main/div[@class='paging nav holder']//li/span[@class='ellip']")
-                .ParentNode.SelectSingleNode(".//a")
-                .InnerText; //总页数
-            pageNumber = int.Parse(totalPage);
-            return pageNumber;
+                string totalPage = htmlDoc.DocumentNode
+                    .SelectSingleNode("//main/div[@class='paging nav holder']//li/span[@class='ellip']")
+                    .ParentNode.SelectSingleNode(".//a")
+                    .InnerText; //总页数
+                pageNumber = int.Parse(totalPage);
+                return pageNumber;
+            }
         }
 
         /// <summary>
@@ -262,6 +263,42 @@ namespace MSDev.Work.Helpers
 
             }
             return default;
+        }
+
+        public async Task<bool> GetEventsAsync()
+        {
+            using (var hc = new HttpClient())
+            {
+                foreach (var item in Events)
+                {
+                    var url = C9Daemon + "Events/" + item;
+                    string htmlString = await hc.GetStringAsync(url);
+
+                    if (IsNullOrEmpty(htmlString)) return false;
+                    Console.WriteLine(htmlString);
+                    var htmlDoc = new HtmlDocument();
+                    htmlDoc.LoadHtml(htmlString);
+
+                    var C9Event = htmlDoc.DocumentNode
+                        .SelectNodes("//main//section//article[@class='abstract xSmall noVideo']")
+                        .Select(s => new C9Event
+                        {
+                            Id = Guid.NewGuid(),
+                            CreatedTime = DateTime.Now,
+                            EventDate = s.SelectSingleNode("//time")?.InnerText,
+                            Language = s.Attributes["lang"]?.Value,
+                            EventName = item,
+                            SourceUrl = s.SelectSingleNode("//a[class='tile']")?.Attributes["href"]?.Value,
+                            ThumbnailUrl = s.SelectSingleNode("//img")?.Attributes["src"]?.Value,
+                            TopicName = s.SelectSingleNode("//header//a")?.Attributes["data-bi-name"]?.Value
+
+                        })
+                        .ToList();
+
+                    Console.WriteLine(JsonConvert.SerializeObject(C9Event));
+                }
+            }
+            return true;
         }
     }
 }

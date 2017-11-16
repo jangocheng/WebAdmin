@@ -16,14 +16,6 @@ namespace MSDev.Work.Tasks
 		{
 			_helper = new C9Helper();
 		}
-		/// <summary>
-		/// 开始执行任务
-		/// </summary>
-		public void StartAsync()
-		{
-
-		}
-
 
 		/// <summary>
 		/// 抓取单面视频内容
@@ -128,7 +120,6 @@ namespace MSDev.Work.Tasks
 				return null;
 			}
 		}
-
 
 		/// <summary>
 		/// C9 AllContent的抓取入库

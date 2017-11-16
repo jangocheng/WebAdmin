@@ -1,12 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace MSDev.DB.Entities
-
 {
-    public partial class C9Videos
+    public class EventVideo
     {
         public Guid Id { get; set; }
+        public C9Event C9Event { get; set; }
+
         public string Author { get; set; }
         public DateTime CreatedTime { get; set; }
         public string Description { get; set; }
@@ -34,6 +38,5 @@ namespace MSDev.DB.Entities
         public string Title { get; set; }
         public DateTime UpdatedTime { get; set; }
         public int? Views { get; set; }
-
     }
 }
