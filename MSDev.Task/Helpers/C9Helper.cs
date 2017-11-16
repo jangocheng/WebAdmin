@@ -290,15 +290,13 @@ namespace MSDev.Work.Helpers
                             EventDate = s.SelectSingleNode("//time")?.InnerText,
                             Language = s.Attributes["lang"]?.Value,
                             EventName = item,
-                            SourceUrl = s.SelectSingleNode("//a[class='tile']")?.Attributes["href"]?.Value,
+                            SourceUrl = s.SelectSingleNode("//a[@class='tile']")?.Attributes["href"]?.Value,
                             ThumbnailUrl = s.SelectSingleNode("//img")?.Attributes["src"]?.Value,
-                            TopicName = s.SelectSingleNode("//header//a")?.Attributes["data-bi-name"]?.Value
-
+                            TopicName = s.SelectSingleNode("//header/h3/a").InnerHtml
                         })
                         .ToList();
 
                     eventList.AddRange(C9Events);
-                    Console.WriteLine(JsonConvert.SerializeObject(C9Events));
                 }
             }
             return eventList;
