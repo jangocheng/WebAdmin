@@ -29,18 +29,19 @@ namespace MSDev.Work.Helpers
         /// 获取 列表分页总数
         /// </summary>
         /// <returns></returns>
-        public async Task<int> GetTotalPage()
+        public async Task<int> GetTotalPage(string url = "")
         {
+            url = IsNullOrWhiteSpace(url) ? BeginUrl : url;
             int pageNumber = 0;
             using (var hc = new HttpClient())
             {
-                string htmlString = await hc.GetStringAsync(BeginUrl);
+                string htmlString = await hc.GetStringAsync(url);
                 if (string.IsNullOrEmpty(htmlString)) return pageNumber;
                 var htmlDoc = new HtmlDocument();
                 htmlDoc.LoadHtml(htmlString);
 
                 string totalPage = htmlDoc.DocumentNode
-                    .SelectSingleNode("//main/div[@class='paging nav holder']//li/span[@class='ellip']")
+                    .SelectSingleNode("//main/div[contains(@class,'paging nav holder')]//li/span[@class='ellip']")
                     .ParentNode.SelectSingleNode(".//a")
                     .InnerText; //总页数
                 pageNumber = int.Parse(totalPage);
@@ -49,14 +50,63 @@ namespace MSDev.Work.Helpers
         }
 
         /// <summary>
+        /// 抓取事件视频
+        /// </summary>
+        /// <param name="sourceUrl"></param>
+        public async Task<List<EventVideo>> GetEventVideosAsync(C9Event c9Event)
+        {
+            var c9EventVideos = new List<EventVideo>();
+            var pageNumber = await GetTotalPage(c9Event.SourceUrl);
+            for (int i = 1; i <= pageNumber; i++)
+            {
+                //获取列表内容
+                var list = await GetArticleListAsync(i, c9Event.SourceUrl);
+                //获取详情内容
+                foreach (var item in list)
+                {
+                    var video = await GetPageVideo(item);
+                    var eventVideo = new EventVideo
+                    {
+                        Id = Guid.NewGuid(),
+                        Author = video.Author,
+                        Caption = video.Caption,
+                        CreatedTime = video.CreatedTime,
+                        Description = video.Description,
+                        Duration = video.Duration,
+                        Language = video.Language,
+                        Mp3Url = video.Mp3Url,
+                        Mp4HigUrl = video.Mp4HigUrl,
+                        Mp4LowUrl = video.Mp4LowUrl,
+                        Mp4MidUrl = video.Mp4MidUrl,
+                        SeriesTitle = video.SeriesTitle,
+                        SeriesTitleUrl = video.SeriesTitleUrl,
+                        SeriesType = video.SeriesType,
+                        SourceUrl = video.SourceUrl,
+                        Status = video.Status,
+                        Tags = video.Tags,
+                        ThumbnailUrl = video.ThumbnailUrl,
+                        Title = video.Title,
+                        UpdatedTime = video.UpdatedTime,
+                        VideoEmbed = video.VideoEmbed,
+                        Views = video.Views,
+                        C9Event = c9Event
+                    };
+                    c9EventVideos.Add(eventVideo);
+                }
+            }
+            return c9EventVideos;
+        }
+
+        /// <summary>
         /// 获取视频列表
         /// </summary>
-        public async Task<List<C9Articles>> GetArticleListAsync(int page = 1)
+        public async Task<List<C9Articles>> GetArticleListAsync(int page = 1, string url = "")
         {
             var articleList = new List<C9Articles>();
             try
             {
-                string url = BeginUrl + "&page=" + page;
+                url = IsNullOrWhiteSpace(url) ? BeginUrl : url;
+                url = url + "&page=" + page;
                 string htmlString = await HttpClient.GetStringAsync(url);
                 if (!IsNullOrEmpty(htmlString))
                 {
@@ -181,7 +231,7 @@ namespace MSDev.Work.Helpers
         /// <param name="article"></param>
         /// <param name="fullUrl"></param>
         /// <returns></returns>
-        public async Task<C9Videos> GetPageVideo(C9Articles article, string fullUrl = null)
+        public async Task<C9Videos> GetPageVideo(C9Articles article)
         {
             var video = new C9Videos
             {
@@ -244,7 +294,6 @@ namespace MSDev.Work.Helpers
                         video.Mp4HigUrl = downloadUrl.value;
                     }
                 }
-
                 video.Tags = mainNode
                     .SelectNodes(".//section[@class='ch9tab description']//div[@class='ch9tabContent']//div[@class='tags']//a")?
                     .Select(s => s.InnerText).ToArray()?.Join();
@@ -252,7 +301,8 @@ namespace MSDev.Work.Helpers
                 video.CreatedTime = DateTime.Parse(mainNode.SelectSingleNode(".//time[@class='timeHelper']")?
                     .GetAttributeValue("datetime", Empty));
                 if (video.CreatedTime == null) video.CreatedTime = DateTime.Now;
-
+                video.Caption = mainNode.SelectSingleNode(".//section[@class='ch9tab download']//div[@class='download']/div[2]")?
+                    .InnerHtml;
                 video.UpdatedTime = video.CreatedTime;
                 return video;
             }
@@ -260,11 +310,14 @@ namespace MSDev.Work.Helpers
             {
                 Log.Write("c9videoGetErrors.txt", url + $";{e.Source}:{e.Message}");
                 Console.WriteLine($"The Error:{url}");
-
             }
             return default;
         }
 
+        /// <summary>
+        /// 抓取事件
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<C9Event>> GetEventsAsync()
         {
             var eventList = new List<C9Event>();
@@ -290,7 +343,7 @@ namespace MSDev.Work.Helpers
                             EventDate = s.SelectSingleNode("//time")?.InnerText,
                             Language = s.Attributes["lang"]?.Value,
                             EventName = item,
-                            SourceUrl = s.SelectSingleNode("//a[@class='tile']")?.Attributes["href"]?.Value,
+                            SourceUrl = C9Daemon + s.SelectSingleNode("//a[@class='tile']")?.Attributes["href"]?.Value,
                             ThumbnailUrl = s.SelectSingleNode("//img")?.Attributes["src"]?.Value,
                             TopicName = s.SelectSingleNode("//header/h3/a").InnerHtml
                         })

@@ -28,15 +28,35 @@ namespace MSDev.Work.Tasks
         /// <returns></returns>
         public async Task GetEeventsAsync()
         {
-            var list =await _helper.GetEventsAsync();
-            Log.Write("output.json", JsonConvert.SerializeObject(list));
+            var list = await _helper.GetEventsAsync();
+            try
+            {
+                foreach (var item in list)
+                {
+                    if (Context.C9Event.Any(m => m.TopicName.Equals(item.TopicName))) continue;
+
+                    Context.C9Event.Add(item);
+                }
+                Context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + e.Source);
+            }
         }
 
-
+        /// <summary>
+        /// 获取EventVideos
+        /// </summary>
         public void GetVideos()
         {
+            var events = Context.C9Event.ToList();
+            foreach (var item in events)
+            {
+                _helper.GetEventVideosAsync(item);
+
+            }
 
         }
-
     }
 }
