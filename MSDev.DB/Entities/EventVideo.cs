@@ -37,6 +37,8 @@ namespace MSDev.DB.Entities
         public string ThumbnailUrl { get; set; }
         public string Title { get; set; }
         public DateTime UpdatedTime { get; set; }
+        [MaxLength(64)]
+        public string DateString { get; set; }
         public int? Views { get; set; }
     }
 }

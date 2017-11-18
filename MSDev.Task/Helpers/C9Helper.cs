@@ -5,6 +5,7 @@ using MSDev.Work.Tools;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -41,9 +42,10 @@ namespace MSDev.Work.Helpers
                 htmlDoc.LoadHtml(htmlString);
 
                 string totalPage = htmlDoc.DocumentNode
-                    .SelectSingleNode("//main/div[contains(@class,'paging nav holder')]//li/span[@class='ellip']")
-                    .ParentNode.SelectSingleNode(".//a")
+                    .SelectSingleNode("//main/div[contains(@class,'paging nav holder')]//li/span[@class='ellip']")?
+                    .ParentNode.SelectSingleNode(".//a")?
                     .InnerText; //总页数
+                if (totalPage == null) totalPage = "1";
                 pageNumber = int.Parse(totalPage);
                 return pageNumber;
             }
@@ -52,48 +54,60 @@ namespace MSDev.Work.Helpers
         /// <summary>
         /// 抓取事件视频
         /// </summary>
-        /// <param name="sourceUrl"></param>
+        /// <param name="c9Event"></param>
         public async Task<List<EventVideo>> GetEventVideosAsync(C9Event c9Event)
         {
             var c9EventVideos = new List<EventVideo>();
-            var pageNumber = await GetTotalPage(c9Event.SourceUrl);
-            for (int i = 1; i <= pageNumber; i++)
+            int pageNumber = await GetTotalPage(c9Event.SourceUrl);
+            Console.WriteLine("total Page:" + pageNumber);
+
+            Parallel.For(1, pageNumber, async f =>
             {
                 //获取列表内容
-                var list = await GetArticleListAsync(i, c9Event.SourceUrl);
+                var list = await GetArticleListAsync(f, c9Event.SourceUrl);
+                list = list.Where(m => !IsNullOrEmpty(m.Duration))
+                   .Where(m => m.SourceUrl != null)
+                   .ToList();
+                Console.WriteLine($"The {f} page has:{list.Count} videos");
+
                 //获取详情内容
                 foreach (var item in list)
                 {
-                    var video = await GetPageVideo(item);
-                    var eventVideo = new EventVideo
+                    var video = await GetPageEventVideo(item);
+
+                    if (video != null)
                     {
-                        Id = Guid.NewGuid(),
-                        Author = video.Author,
-                        Caption = video.Caption,
-                        CreatedTime = video.CreatedTime,
-                        Description = video.Description,
-                        Duration = video.Duration,
-                        Language = video.Language,
-                        Mp3Url = video.Mp3Url,
-                        Mp4HigUrl = video.Mp4HigUrl,
-                        Mp4LowUrl = video.Mp4LowUrl,
-                        Mp4MidUrl = video.Mp4MidUrl,
-                        SeriesTitle = video.SeriesTitle,
-                        SeriesTitleUrl = video.SeriesTitleUrl,
-                        SeriesType = video.SeriesType,
-                        SourceUrl = video.SourceUrl,
-                        Status = video.Status,
-                        Tags = video.Tags,
-                        ThumbnailUrl = video.ThumbnailUrl,
-                        Title = video.Title,
-                        UpdatedTime = video.UpdatedTime,
-                        VideoEmbed = video.VideoEmbed,
-                        Views = video.Views,
-                        C9Event = c9Event
-                    };
-                    c9EventVideos.Add(eventVideo);
+                        var eventVideo = new EventVideo
+                        {
+                            Id = Guid.NewGuid(),
+                            Author = video.Author,
+                            Caption = video.Caption,
+                            CreatedTime = video.CreatedTime,
+                            Description = video.Description,
+                            Duration = video.Duration,
+                            Language = video.Language,
+                            Mp3Url = video.Mp3Url,
+                            Mp4HigUrl = video.Mp4HigUrl,
+                            Mp4LowUrl = video.Mp4LowUrl,
+                            Mp4MidUrl = video.Mp4MidUrl,
+                            SeriesTitle = video.SeriesTitle,
+                            SeriesTitleUrl = video.SeriesTitleUrl,
+                            SeriesType = video.SeriesType,
+                            SourceUrl = video.SourceUrl,
+                            Status = video.Status,
+                            Tags = video.Tags,
+                            ThumbnailUrl = video.ThumbnailUrl,
+                            Title = video.Title,
+                            UpdatedTime = video.UpdatedTime,
+                            VideoEmbed = video.VideoEmbed,
+                            Views = video.Views,
+                            C9Event = c9Event
+                        };
+                        c9EventVideos.Add(eventVideo);
+                    }
                 }
-            }
+            });
+            Console.WriteLine(JsonConvert.SerializeObject(c9EventVideos));
             return c9EventVideos;
         }
 
@@ -106,7 +120,7 @@ namespace MSDev.Work.Helpers
             try
             {
                 url = IsNullOrWhiteSpace(url) ? BeginUrl : url;
-                url = url + "&page=" + page;
+                url = url + "?page=" + page;
                 string htmlString = await HttpClient.GetStringAsync(url);
                 if (!IsNullOrEmpty(htmlString))
                 {
@@ -202,8 +216,6 @@ namespace MSDev.Work.Helpers
                         video.Mp4HigUrl = downloadUrl.value;
                     }
                 }
-
-
                 video.Tags = mainNode
                     .SelectNodes(".//section[@class='ch9tab description']//div[@class='ch9tabContent']//div[@class='tags']//a")?
                     .Select(s => s.InnerText).ToArray()?.Join();
@@ -213,13 +225,11 @@ namespace MSDev.Work.Helpers
                     .GetAttributeValue("datetime", Empty));
 
                 video.UpdatedTime = video.CreatedTime;
-
             }
             catch (Exception e)
             {
-
                 Log.Write("c9videoError.txt", fullUrl);
-                Console.WriteLine($"The Error:{e}");
+                throw;
             }
             return video;
 
@@ -229,7 +239,6 @@ namespace MSDev.Work.Helpers
         /// 抓取单页视频内容
         /// </summary>
         /// <param name="article"></param>
-        /// <param name="fullUrl"></param>
         /// <returns></returns>
         public async Task<C9Videos> GetPageVideo(C9Articles article)
         {
@@ -242,10 +251,11 @@ namespace MSDev.Work.Helpers
                 Title = article.Title,
                 ThumbnailUrl = article.ThumbnailUrl
             };
-
-            video.SeriesType = article.SeriesTitleUrl.Substring(1);
-            video.SeriesType = video.SeriesType.Substring(0, video.SeriesType.IndexOf(@"/"));
-
+            if (article.SeriesTitleUrl != null)
+            {
+                video.SeriesType = article.SeriesTitleUrl.Substring(1);
+                video.SeriesType = video.SeriesType.Substring(0, video.SeriesType.IndexOf(@"/"));
+            }
             string url = C9Daemon + article.SourceUrl;
             try
             {
@@ -253,7 +263,6 @@ namespace MSDev.Work.Helpers
                 // option获取InnerText，需要加以下设置
                 HtmlAgilityPack.HtmlNode.ElementsFlags.Remove("option");
                 HtmlDocument htmlDoc = await hw.LoadFromWebAsync(url);
-
                 HtmlNode mainNode = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']");
 
                 video.Author = mainNode.SelectSingleNode(".//div[@class='authors']")?.Descendants("a")?.Select(s => s.InnerText)
@@ -272,34 +281,50 @@ namespace MSDev.Work.Helpers
                          value = s.Element("a").Attributes["href"]?.Value
                      }).ToList();
 
-                foreach (var downloadUrl in downloadUrls)
+                if (downloadUrls != null)
                 {
+                    foreach (var downloadUrl in downloadUrls)
+                    {
 
-                    var downloadType = downloadUrl.text?.ToLower().Trim();
-                    if (string.IsNullOrEmpty(downloadType)) continue;
-                    if (downloadType.Contains(".mp3"))
-                    {
-                        video.Mp3Url = downloadUrl.value;
-                    }
-                    else if (downloadType.Contains("low.mp4"))
-                    {
-                        video.Mp4LowUrl = downloadUrl.value;
-                    }
-                    else if (downloadType.Contains("mid.mp4"))
-                    {
-                        video.Mp4MidUrl = downloadUrl.value;
-                    }
-                    else if (downloadType.Contains("high.mp4"))
-                    {
-                        video.Mp4HigUrl = downloadUrl.value;
+                        var downloadType = downloadUrl.text?.ToLower().Trim();
+                        if (string.IsNullOrEmpty(downloadType)) continue;
+                        if (downloadType.Contains(".mp3"))
+                        {
+                            video.Mp3Url = downloadUrl.value;
+                        }
+                        else if (downloadType.Contains("low.mp4"))
+                        {
+                            video.Mp4LowUrl = downloadUrl.value;
+                        }
+                        else if (downloadType.Contains("mid.mp4"))
+                        {
+                            video.Mp4MidUrl = downloadUrl.value;
+                        }
+                        else if (downloadType.Contains("high.mp4"))
+                        {
+                            video.Mp4HigUrl = downloadUrl.value;
+                        }
                     }
                 }
                 video.Tags = mainNode
                     .SelectNodes(".//section[@class='ch9tab description']//div[@class='ch9tabContent']//div[@class='tags']//a")?
                     .Select(s => s.InnerText).ToArray()?.Join();
                 video.Views = 0;
-                video.CreatedTime = DateTime.Parse(mainNode.SelectSingleNode(".//time[@class='timeHelper']")?
-                    .GetAttributeValue("datetime", Empty));
+                //获取日期  结构不同时处理
+                var date = mainNode.SelectSingleNode(".//time[@class='timeHelper']")?
+                    .GetAttributeValue("datetime", Empty);
+                if (date == null)
+                {
+                    //event 
+                    date = mainNode.SelectSingleNode(".//div[@class='releaseDate']")?.InnerText;
+                    Console.WriteLine(date);
+                    date = date.Replace("at", "");
+                    video.CreatedTime = DateTime.ParseExact(date.Trim(), "MMM dd, yyyy  h:mmtt", CultureInfo.CreateSpecificCulture("en-US"));
+                }
+                else
+                {
+                    video.CreatedTime = DateTime.Parse(date.Trim());
+                }
                 if (video.CreatedTime == null) video.CreatedTime = DateTime.Now;
                 video.Caption = mainNode.SelectSingleNode(".//section[@class='ch9tab download']//div[@class='download']/div[2]")?
                     .InnerHtml;
@@ -308,10 +333,101 @@ namespace MSDev.Work.Helpers
             }
             catch (Exception e)
             {
-                Log.Write("c9videoGetErrors.txt", url + $";{e.Source}:{e.Message}");
-                Console.WriteLine($"The Error:{url}");
+                Console.WriteLine(e.Message + e.StackTrace + url);
+                return default;
             }
-            return default;
+        }
+
+
+        /// <summary>
+        /// 抓取Event单页视频内容
+        /// </summary>
+        /// <param name="article"></param>
+        /// <returns></returns>
+        public async Task<EventVideo> GetPageEventVideo(C9Articles article)
+        {
+            var video = new EventVideo
+            {
+                Duration = article.Duration,
+                SeriesTitle = article.SeriesTitle,
+                SeriesTitleUrl = article.SeriesTitleUrl,
+                SourceUrl = article.SourceUrl,
+                Title = article.Title,
+                ThumbnailUrl = article.ThumbnailUrl
+            };
+            if (article.SeriesTitleUrl != null)
+            {
+                video.SeriesType = article.SeriesTitleUrl.Substring(1);
+                video.SeriesType = video.SeriesType.Substring(0, video.SeriesType.IndexOf(@"/"));
+            }
+            string url = C9Daemon + article.SourceUrl;
+            try
+            {
+                var hw = new HtmlWeb();
+                // option获取InnerText，需要加以下设置
+                HtmlAgilityPack.HtmlNode.ElementsFlags.Remove("option");
+                HtmlDocument htmlDoc = await hw.LoadFromWebAsync(url);
+                HtmlNode mainNode = htmlDoc.DocumentNode.SelectSingleNode(".//main[@role='main']");
+
+                video.Author = mainNode.SelectSingleNode(".//div[@class='authors']")?.Descendants("a")?.Select(s => s.InnerText)
+                    .ToArray().Join();
+
+                video.Language = mainNode.SelectSingleNode(".//div[@class='itemHead holder' and @dir='ltr']")?
+                    .GetAttributeValue("lang", Empty);
+                video.Description = mainNode.SelectSingleNode(".//section[@class='ch9tab description']/div[@class='ch9tabContent']")?
+                    .InnerText;
+                video.VideoEmbed = mainNode.SelectSingleNode(".//section[@class='ch9tab embed']/div[@class='ch9tabContent']")?
+                    .InnerHtml;
+                var downloadUrls = mainNode.SelectNodes(".//section[@class='ch9tab download']//div[@class='download']//ul//li")?
+                     .Select(s => new
+                     {
+                         text = s.Element("a").Attributes["download"]?.Value,
+                         value = s.Element("a").Attributes["href"]?.Value
+                     }).ToList();
+
+                if (downloadUrls != null)
+                {
+                    foreach (var downloadUrl in downloadUrls)
+                    {
+
+                        var downloadType = downloadUrl.text?.ToLower().Trim();
+                        if (string.IsNullOrEmpty(downloadType)) continue;
+                        if (downloadType.Contains(".mp3"))
+                        {
+                            video.Mp3Url = downloadUrl.value;
+                        }
+                        else if (downloadType.Contains("low.mp4"))
+                        {
+                            video.Mp4LowUrl = downloadUrl.value;
+                        }
+                        else if (downloadType.Contains("mid.mp4"))
+                        {
+                            video.Mp4MidUrl = downloadUrl.value;
+                        }
+                        else if (downloadType.Contains("high.mp4"))
+                        {
+                            video.Mp4HigUrl = downloadUrl.value;
+                        }
+                    }
+                }
+                video.Tags = mainNode
+                    .SelectNodes(".//section[@class='ch9tab description']//div[@class='ch9tabContent']//div[@class='tags']//a")?
+                    .Select(s => s.InnerText).ToArray()?.Join();
+                video.Views = 0;
+                //event 
+                video.DateString = mainNode.SelectSingleNode(".//div[@class='releaseDate']")?.InnerText;
+                video.CreatedTime = DateTime.Now;
+                if (video.CreatedTime == null) video.CreatedTime = DateTime.Now;
+                video.Caption = mainNode.SelectSingleNode(".//section[@class='ch9tab download']//div[@class='download']/div[2]")?
+                    .InnerHtml;
+                video.UpdatedTime = video.CreatedTime;
+                return video;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + e.StackTrace + url);
+                return default;
+            }
         }
 
         /// <summary>
@@ -321,7 +437,6 @@ namespace MSDev.Work.Helpers
         public async Task<List<C9Event>> GetEventsAsync()
         {
             var eventList = new List<C9Event>();
-
             using (var hc = new HttpClient())
             {
                 foreach (var item in Events)
@@ -330,7 +445,6 @@ namespace MSDev.Work.Helpers
                     string htmlString = await hc.GetStringAsync(url);
 
                     if (IsNullOrEmpty(htmlString)) return default;
-                    Console.WriteLine(htmlString);
                     var htmlDoc = new HtmlDocument();
                     htmlDoc.LoadHtml(htmlString);
 

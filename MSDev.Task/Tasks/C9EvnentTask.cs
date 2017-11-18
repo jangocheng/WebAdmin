@@ -48,12 +48,26 @@ namespace MSDev.Work.Tasks
         /// <summary>
         /// 获取EventVideos
         /// </summary>
-        public void GetVideos()
+        public async Task GetVideosAsync()
         {
             var events = Context.C9Event.ToList();
             foreach (var item in events)
             {
-                _helper.GetEventVideosAsync(item);
+                Console.WriteLine("start get:" + item.TopicName);
+                var eventVideos = await _helper.GetEventVideosAsync(item);
+                if (eventVideos.Count > 0)
+                {
+                    Log.Write("output.json", JsonConvert.SerializeObject(eventVideos));
+                    Context.EventVideo.AddRange(eventVideos);
+                    try
+                    {
+                        Context.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Source + e.Message + e.StackTrace);
+                    }
+                }
 
             }
 
