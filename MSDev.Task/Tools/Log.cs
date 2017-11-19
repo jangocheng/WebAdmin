@@ -28,38 +28,32 @@ namespace MSDev.Work.Tools
             Lock.EnterWriteLock();
             if (!append)
             {
-                using (StreamWriter stream = file.CreateText())
+                try
                 {
-                    try
-                    {
-                        stream.WriteLine(row);
-                    }
-                    catch
-                    {
-                        Console.WriteLine(row);
-                    }
-                    finally
-                    {
-                        Lock.ExitWriteLock();
-                    }
+                    File.WriteAllLines(filePath, new string[] { row });
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("write to file failed");
+                }
+                finally
+                {
+                    Lock.ExitWriteLock();
                 }
             }
             else
             {
-                using (StreamWriter stream = file.AppendText())
+                try
                 {
-                    try
-                    {
-                        stream.WriteLine(row);
-                    }
-                    catch
-                    {
-                        Console.WriteLine(row);
-                    }
-                    finally
-                    {
-                        Lock.ExitWriteLock();
-                    }
+                    File.AppendAllLines(filePath, new string[] { row });
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("append to file failed");
+                }
+                finally
+                {
+                    Lock.ExitWriteLock();
                 }
             }
         }

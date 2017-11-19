@@ -520,9 +520,10 @@ namespace WebAdmin.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Author");
+                    b.Property<string>("Author")
+                        .HasMaxLength(256);
 
-                    b.Property<Guid?>("C9EventId");
+                    b.Property<Guid>("C9EventId");
 
                     b.Property<string>("Caption")
                         .HasMaxLength(4000);
@@ -530,38 +531,49 @@ namespace WebAdmin.Migrations
                     b.Property<DateTime>("CreatedTime");
 
                     b.Property<string>("DateString")
-                        .HasMaxLength(64);
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasMaxLength(5000);
 
                     b.Property<string>("Duration");
 
-                    b.Property<string>("Language");
+                    b.Property<string>("Language")
+                        .HasMaxLength(16);
 
-                    b.Property<string>("Mp3Url");
+                    b.Property<string>("Mp3Url")
+                        .HasMaxLength(256);
 
                     b.Property<string>("Mp4HigUrl");
 
-                    b.Property<string>("Mp4LowUrl");
+                    b.Property<string>("Mp4LowUrl")
+                        .HasMaxLength(256);
 
-                    b.Property<string>("Mp4MidUrl");
+                    b.Property<string>("Mp4MidUrl")
+                        .HasMaxLength(256);
 
-                    b.Property<string>("SeriesTitle");
+                    b.Property<string>("SeriesTitle")
+                        .HasMaxLength(256);
 
-                    b.Property<string>("SeriesTitleUrl");
+                    b.Property<string>("SeriesTitleUrl")
+                        .HasMaxLength(256);
 
                     b.Property<string>("SeriesType")
                         .HasMaxLength(64);
 
-                    b.Property<string>("SourceUrl");
+                    b.Property<string>("SourceUrl")
+                        .HasMaxLength(256);
 
                     b.Property<int?>("Status");
 
-                    b.Property<string>("Tags");
+                    b.Property<string>("Tags")
+                        .HasMaxLength(256);
 
-                    b.Property<string>("ThumbnailUrl");
+                    b.Property<string>("ThumbnailUrl")
+                        .HasMaxLength(256);
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .HasMaxLength(256);
 
                     b.Property<DateTime>("UpdatedTime");
 
@@ -1181,7 +1193,8 @@ namespace WebAdmin.Migrations
                 {
                     b.HasOne("MSDev.DB.Entities.C9Event", "C9Event")
                         .WithMany("EventVideos")
-                        .HasForeignKey("C9EventId");
+                        .HasForeignKey("C9EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MSDev.DB.Entities.MvaDetails", b =>
