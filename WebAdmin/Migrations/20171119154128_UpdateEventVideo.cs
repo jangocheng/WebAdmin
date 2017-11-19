@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
@@ -33,7 +33,7 @@ namespace WebAdmin.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Tags",
                 table: "EventVideo",
-                type: "nvarchar(256)",
+                type: "nvarchar(500)",
                 maxLength: 256,
                 nullable: true,
                 oldClrType: typeof(string),

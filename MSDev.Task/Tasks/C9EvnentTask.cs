@@ -103,17 +103,21 @@ namespace MSDev.Work.Tasks
             }
             //TODO 去重
             Task.WaitAll(tasks.ToArray());
-            Console.WriteLine(JsonConvert.SerializeObject(allVideoDetail));
+            var wrongData = new EventVideo();
             try
             {
                 Console.WriteLine("开始入库");
-                Context.EventVideo.AddRange(allVideoDetail);
-                await Context.SaveChangesAsync();
+                foreach (var item in allVideoDetail)
+                {
+                    Context.EventVideo.AddRange(item);
+                    wrongData = item;
+                    await Context.SaveChangesAsync();
+                }
                 Console.WriteLine("入库完成");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                Console.WriteLine("Wrong Data:"+JsonConvert.SerializeObject(wrongData));
             }
         }
     }

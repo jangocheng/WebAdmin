@@ -28,7 +28,6 @@ namespace MSDev.DB.Entities
         /// <summary>
         /// 字幕链接内容
         /// </summary>
-        [MaxLength(4000)]
         public string Caption { get; set; }
         public string ThumbnailUrl { get; set; }
         public string Title { get; set; }

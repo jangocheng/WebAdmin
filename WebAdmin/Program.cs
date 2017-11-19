@@ -25,9 +25,6 @@ namespace WebAdmin
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-            var task = new C9EvnentTask();
-            await task.GetVideoDetailAsync();
-
             if (IsTask)
             {
                 var t = new Thread(StartAutoTask)

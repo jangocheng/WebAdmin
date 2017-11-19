@@ -37,12 +37,11 @@ namespace MSDev.DB.Entities
         [MaxLength(256)]
         public string SourceUrl { get; set; }
         public int? Status { get; set; }
-        [MaxLength(256)]
+        [MaxLength(500)]
         public string Tags { get; set; }
         /// <summary>
         /// 字幕链接内容
         /// </summary>
-        [MaxLength(4000)]
         public string Caption { get; set; }
         [MaxLength(256)]
         public string ThumbnailUrl { get; set; }
