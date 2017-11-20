@@ -99,8 +99,8 @@ namespace MSDev.Work.Tasks
                     var toBeAddDetail = new List<MvaDetails>();
                     foreach (var item in re.Item2)
                     {
-                        //去重处理
-                        var exist = Context.MvaDetails.Any(m => m.MvaId.Equals(item.MvaId));
+                        //去重处理 不同语言mvaId可能会相同
+                        var exist = Context.MvaDetails.Any(m => m.MvaId.Equals(item.MvaId) && m.Title.Equals(item.Title));
                         if (!exist) toBeAddDetail.Add(item);
                     }
                     if (toBeAddDetail.Count > 0)

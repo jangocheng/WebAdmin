@@ -139,7 +139,7 @@ namespace MSDev.Work.Helpers
 
                 string detailDescription = info.SelectSingleNode(".//div[@id='overview']/div[@class='accordian-container overview-container-height']")?.InnerHtml;
                 detailDescription = detailDescription ?? "无";
-
+               
                 string mlxprodStaticUrl = await hc.GetStringAsync(apimlxprod);
 
                 //取课程内容
