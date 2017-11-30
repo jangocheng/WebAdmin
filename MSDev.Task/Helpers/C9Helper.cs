@@ -211,8 +211,7 @@ namespace MSDev.Work.Helpers
             }
             catch (Exception e)
             {
-                Log.Write("c9videoError.txt", fullUrl);
-                throw;
+                System.Console.WriteLine(e.Message + e.StackTrace);
             }
             return video;
 

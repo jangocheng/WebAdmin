@@ -117,6 +117,7 @@ namespace MSDev.Work.Tasks
             }
             catch (Exception e)
             {
+                System.Console.WriteLine(e.Message);
                 Console.WriteLine("Wrong Data:"+JsonConvert.SerializeObject(wrongData));
             }
         }
