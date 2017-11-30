@@ -124,13 +124,11 @@ namespace WebAdmin.Controllers
 
             //获取可关联博客
             var relateBlogs = _context.Blog
-                .Where(m => m.Video == null)
                 .Where(m => m.Catalog.Name == video.Catalog.Name)
                 .ToList();
 
             //获取可关联练习
             var relatePractices = _context.Practice
-                .Where(m => m.Video == null)
                 .Where(m => m.Catalog.Name == video.Catalog.Name)
                 .ToList();
 
@@ -154,8 +152,13 @@ namespace WebAdmin.Controllers
 
                 _context.Entry(oldVideo).CurrentValues.SetValues(video);
                 oldVideo.Catalog = _context.Catalog.Find(Guid.Parse(catalogId));
-                oldVideo.Blog = _context.Blog.Find(BlogId);
-                oldVideo.Practice = _context.Practice.Find(PracticeId);
+                //同时更新到blog表
+                var blog = _context.Blog.Find(BlogId);
+                var practice = _context.Practice.Find(PracticeId);
+                oldVideo.Blog = blog;
+                oldVideo.Practice = practice;
+                blog.Video = oldVideo;
+                blog.Practice = practice;
                 var re = _context.SaveChanges();
                 if (re > 0)
                 {

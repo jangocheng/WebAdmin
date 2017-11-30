@@ -11,7 +11,6 @@ namespace MSDev.DB.Entities
     /// </summary>
     public class Blog
     {
-
         public Guid Id { get; set; }
 
         [MaxLength(128)]
@@ -19,8 +18,11 @@ namespace MSDev.DB.Entities
 
         [MaxLength(500)]
         public string Description { get; set; }
+        [ForeignKey("VideoId")]
+        public Video Video { get; set; }
 
-
+        [ForeignKey("PracticeId")]
+        public Practice Practice { get; set; }
         public string Content { get; set; }
 
         /// <summary>
@@ -44,16 +46,6 @@ namespace MSDev.DB.Entities
         /// 分类
         /// </summary>
         public Catalog Catalog { get; set; }
-        /// <summary>
-        /// 关联的视频
-        /// </summary>
-        [ForeignKey("VideoId")]
-        public Video Video { get; set; }
-        /// <summary>
-        /// 关联的练习
-        /// </summary>
-        [ForeignKey("PracticeId")]
-        public Practice Practice { get; set; }
 
         /// <summary>
         /// 在线地址

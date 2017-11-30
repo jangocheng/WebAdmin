@@ -11,13 +11,11 @@ namespace MSDev.DB.Entities
     public class Practice
     {
         public Guid Id { get; set; }
-        [ForeignKey("BlogId")]
-        public Blog Blog { get; set; }
-        [ForeignKey("VideoId")]
-        public Video Video { get; set; }
-
         public Catalog Catalog { get; set; }
 
+
+        public Video Video { get; set; }
+        public Blog Blog { get; set; }
         public ICollection<UserPractice> UserPractice { get; set; }
 
         [MaxLength(64)]
