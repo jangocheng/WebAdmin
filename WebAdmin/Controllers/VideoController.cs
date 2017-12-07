@@ -92,7 +92,7 @@ namespace WebAdmin.Controllers
             if (ModelState.IsValid)
             {
                 video.Id = Guid.NewGuid();
-                video.Status = "new";
+                video.Status = StatusType.New;
                 video.IsRecommend = false;
                 video.Views = 0;
                 video.CreatedTime = DateTime.Now;
@@ -157,6 +157,7 @@ namespace WebAdmin.Controllers
                 var practice = _context.Practice.Find(PracticeId);
                 oldVideo.Blog = blog;
                 oldVideo.Practice = practice;
+                oldVideo.Status = StatusType.Edit;
                 blog.Video = oldVideo;
                 blog.Practice = practice;
                 var re = _context.SaveChanges();
@@ -222,6 +223,22 @@ namespace WebAdmin.Controllers
 
             return View(mvaVideo);
         }
-    }
 
+        /// <summary>
+        /// 发布视频
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult PublishVideo(Guid id)
+        {
+            var video = _context.Video.Find(id);
+            if (video != null)
+            {
+                video.Status = StatusType.Publish;
+                _context.SaveChanges();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }

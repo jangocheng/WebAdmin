@@ -34,7 +34,6 @@ namespace WebAdmin
                 t.Start();
             }
             BuildWebHost(args).Run();
-
         }
 
         /// <summary>
