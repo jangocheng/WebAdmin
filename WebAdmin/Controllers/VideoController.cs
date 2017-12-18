@@ -140,7 +140,7 @@ namespace WebAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditVideo(VideoForm video, Guid id, string catalogId, Guid BlogId, Guid PracticeId)
+        public IActionResult EditVideo(VideoForm video, Guid id, string catalogId, Guid? BlogId, Guid? PracticeId)
         {
             if (ModelState.IsValid)
             {
@@ -153,13 +153,22 @@ namespace WebAdmin.Controllers
                 _context.Entry(oldVideo).CurrentValues.SetValues(video);
                 oldVideo.Catalog = _context.Catalog.Find(Guid.Parse(catalogId));
                 //同时更新到blog表
-                var blog = _context.Blog.Find(BlogId);
-                var practice = _context.Practice.Find(PracticeId);
-                oldVideo.Blog = blog;
-                oldVideo.Practice = practice;
+
+                if (BlogId != null)
+                {
+                    var blog = _context.Blog.Find(BlogId);
+                    oldVideo.Blog = blog;
+                    blog.Video = oldVideo;
+
+                    if (PracticeId != null)
+                    {
+                        var practice = _context.Practice.Find(PracticeId);
+                        oldVideo.Practice = practice;
+                        blog.Practice = practice;
+                    }
+                }
+
                 oldVideo.Status = StatusType.Edit;
-                blog.Video = oldVideo;
-                blog.Practice = practice;
                 var re = _context.SaveChanges();
                 if (re > 0)
                 {
