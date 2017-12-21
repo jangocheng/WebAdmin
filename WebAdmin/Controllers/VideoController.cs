@@ -24,11 +24,12 @@ namespace WebAdmin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int p = 1)
+        public IActionResult Index(int p = 1, string series = "")
         {
             int pageSize = 12;
             var videos = _context.Video
                 .Include(m => m.Catalog)
+                .Where(m => m.Catalog.Value.Equals(series) || series == "")
                 .OrderByDescending(m => m.UpdatedTime)
                 .Skip((p - 1) * pageSize).Take(pageSize)
                 .ToList();
@@ -36,15 +37,12 @@ namespace WebAdmin.Controllers
             int totalNumber = _context.Video.Count();
 
             ViewBag.ListData = videos;
+            ViewBag.Catalogs = _context.Catalog
+                .Where(m => m.Type.Equals("视频"))
+                .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
+                .ToList();
 
-            var pageOption = new MyPagerOption()
-            {
-                CurrentPage = p,
-                PageSize = pageSize,
-                RouteUrl = "/Video/Index",
-                Total = totalNumber
-            };
-            ViewBag.Pager = pageOption;
+            SetPage(p, pageSize, totalNumber);
 
             return View(videos);
         }
