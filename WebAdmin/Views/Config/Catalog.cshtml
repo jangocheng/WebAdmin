@@ -7,7 +7,7 @@
     Layout = "_PageLayout";
 }
 @section LeftNav
-{
+    {
     @Html.Partial("_LeftNav")
 }
 
@@ -16,6 +16,7 @@
     var types = catalogs.Select(m => m.Type).Distinct().ToList();
     var topCatalogs = catalogs.Where(m => m.IsTop == 1).ToList();
 }
+
 <h4>添加目录</h4>
 <!--添加目录表彰-->
 <form asp-action="AddCatalog" class="form-inline">
@@ -27,7 +28,7 @@
             <option value="下载">下载</option>
             <option value="文档">文档</option>
             <option value="项目">项目</option>
-            
+
         </select>
 
         <!--查询获取顶级分类-->
@@ -45,7 +46,29 @@
         <button type="submit" class="btn btn-primary">添加</button>
     </div>
 </form>
+
 <hr />
+<ul class="nav nav-tabs nav-pills">
+    <li class="nav-item">
+        <a class="nav-link" asp-route-type="文章">文章</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-route-type="视频">视频</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-route-type="实践">实践</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-route-type="下载">下载</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-route-type="文档">文档</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-route-type="项目">项目</a>
+    </li>
+</ul>
+
 <h4>目录列表</h4>
 <!--目录列表-->
 <table class="table table-hover table-bordered table-light">
@@ -62,7 +85,7 @@
             Debug.Assert(catalogs != null, "catalogs != null");
             foreach (Catalog topCatalog in topCatalogs)
             {
-                <tr class="table-active">
+                <tr class="table-active" data-toggle="collapse" aria-expanded="true" data-target="#@topCatalog.Value">
                     <td>@topCatalog.Type</td>
                     <td>@topCatalog.Name</td>
                     <td>@topCatalog.Value</td>
@@ -70,9 +93,11 @@
                         <a asp-action="EditCatalog" asp-route-id="@topCatalog.Id" class="badge badge-info">编辑</a>
                         <a asp-action="DelCatalog" asp-route-id="@topCatalog.Id" class="badge badge-danger">删除</a>
                     </td>
-                </tr>var childCatalogs = catalogs.Where(m => m.TopCatalog == topCatalog).ToList();
+                </tr>
+                var childCatalogs = catalogs.Where(m => m.TopCatalog == topCatalog).ToList();
 
-                foreach (Catalog childCatalog in childCatalogs)
+            <tbody class="collapse" id="@topCatalog.Value">
+                @foreach (Catalog childCatalog in childCatalogs)
                 {
                     <tr>
                         <td></td>
@@ -84,29 +109,31 @@
                         </td>
                     </tr>
                 }
-            }
-        }
-    </tbody>
-</table>
+            </tbody>
 
-@section Scripts{
-    <script>
-        $(document).ready(function () {
-            freshTopSelect();
-            $("#Type").change(function () {
+        }
+        }
+        </tbody>
+    </table>
+
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
                 freshTopSelect();
+                $("#Type").change(function () {
+                    freshTopSelect();
+                });
             });
-        });
 
-        function freshTopSelect() {
-            var type = $("#Type").val();
-            $("#TopCatalog>option").each(function (index, data) {
-                if ($(this).data("type") === type) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        }
-    </script>
-}
+            function freshTopSelect() {
+                var type = $("#Type").val();
+                $("#TopCatalog>option").each(function (index, data) {
+                    if ($(this).data("type") === type) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+        </script>
+    }
