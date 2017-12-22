@@ -45,7 +45,6 @@ namespace WebAdmin.Controllers
                 Total = totalNumber
             };
             ViewBag.Pager = pageOption;
-
             return View(videos);
         }
 
