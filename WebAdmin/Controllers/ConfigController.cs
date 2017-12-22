@@ -24,10 +24,13 @@ namespace WebAdmin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Catalog()
+        public IActionResult Catalog(string type = "")
         {
             //获取所有目录
-            var catalogs = _context.Catalog.ToList();
+            var catalogs = _context.Catalog
+                .Where(m => m.Type.Equals(type) || type == "")
+                .ToList();
+
             ViewBag.Catalogs = catalogs;
             return View();
         }
@@ -57,7 +60,7 @@ namespace WebAdmin.Controllers
                     _context.Update(catalog);
                     _context.SaveChanges();
 
-                    return RedirectToAction("Catalog");
+                    return RedirectToAction(nameof(Catalog), new { type = catalog.Type });
                 }
             }
             return View("EditCatalog", catalog);
@@ -111,11 +114,11 @@ namespace WebAdmin.Controllers
             {
                 return View("Catalog");
             }
-            var catalog=_context.Catalog.Find(Guid.Parse(id));
+            var catalog = _context.Catalog.Find(Guid.Parse(id));
             _context.Catalog.Remove(catalog);
-            var re=_context.SaveChanges();
+            var re = _context.SaveChanges();
 
-            if (re>0)
+            if (re > 0)
             {
                 return RedirectToAction("catalog");
             }

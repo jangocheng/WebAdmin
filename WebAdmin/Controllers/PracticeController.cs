@@ -20,9 +20,24 @@ namespace WebAdmin.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int p = 1, string series = "")
         {
-            return View(await _context.Practice.ToListAsync());
+            int pageSize = 12;
+            var practices = _context.Practice.OrderByDescending(m => m.CreatedTime)
+                .Where(m => m.Catalog.Value.Equals(series) || series == "")
+                .Include(m => m.Catalog)
+                .Skip((p - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            int totalNumber = _context.Practice.Count();
+
+            ViewBag.Catalogs = _context.Catalog
+                .Where(m => m.Type.Equals("实践"))
+                .ToList();
+
+            SetPage(p, pageSize, totalNumber);
+            return View(practices);
         }
 
         public async Task<IActionResult> Details(Guid? id)

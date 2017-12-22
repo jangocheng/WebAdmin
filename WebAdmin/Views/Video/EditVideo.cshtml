@@ -13,6 +13,11 @@
             <select name="catalogId" class="form-control">
                 @foreach (var item in ViewBag.Catalogs as List<Catalog>)
                 {
+                    if (Model.Catalog.Id == item.Id)
+                    {
+                        <option value="@item.Id" selected>@item.Name</option>
+                        continue;
+                    }
                     <option value="@item.Id">@item.Name</option>
                 }
             </select>
@@ -51,6 +56,7 @@
         </div>
         <div class="form-group">
             <input type="submit" value="保存" class="btn btn-primary" />
+
         </div>
     </div>
     <!--关联信息-->
@@ -85,7 +91,7 @@
                     }
                     else
                     {
-                        <option value="@practice.Id" >@practice.Title</option>
+                        <option value="@practice.Id">@practice.Title</option>
                     }
                 }
             </select>

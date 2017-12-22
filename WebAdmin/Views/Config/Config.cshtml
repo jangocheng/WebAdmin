@@ -1,13 +1,13 @@
 @using MSDev.DB.Entities
 @model MSDev.DB.Entities.Config
 @{
-	ViewBag.Title = "配置值";
-	Layout = "_PageLayout";
+    ViewBag.Title = "配置值";
+    Layout = "_PageLayout";
 }
 
 @section LeftNav
-{
-	@Html.Partial("_LeftNav")
+    {
+    @Html.Partial("_LeftNav")
 }
 <!-- TODO:下拉隐藏 -->
 <div class="row flex-column">
@@ -20,7 +20,9 @@
 
         <div class="form-group">
             <select asp-for="Type" class="form-control" multiple="">
-                <option value="必应新闻" selected>必应新闻</option>
+                <option value="网站设置" selected>网站设置</option>
+                <option value="密钥配置">密钥配置</option>
+                <option value="默认值">默认值</option>
             </select>
         </div>
 
@@ -39,7 +41,6 @@
 
     </form>
 </div>
-
 
 <!--配置列表-->
 <div class="row flex-column">

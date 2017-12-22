@@ -21,16 +21,21 @@ namespace WebAdmin.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int p = 1)
+        public IActionResult Index(int p = 1, string series = "")
         {
             int pageSize = 12;
-            var blogs = _context.Blog.OrderByDescending(m => m.UpdateTime)
+            var blogs = _context.Blog.OrderByDescending(m => m.CreatedTime)
+                .Where(m => m.Catalog.Value.Equals(series) || series == "")
                 .Include(m => m.Catalog)
                 .Skip((p - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
             int totalNumber = _context.Blog.Count();
+
+            ViewBag.Catalogs = _context.Catalog
+                .Where(m => m.Type.Equals("文章"))
+                .ToList();
 
             SetPage(p, pageSize, totalNumber);
             return View(blogs);

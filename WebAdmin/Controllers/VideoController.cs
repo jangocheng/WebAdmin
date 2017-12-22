@@ -24,11 +24,12 @@ namespace WebAdmin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int p = 1)
+        public IActionResult Index(int p = 1, string series = "")
         {
             int pageSize = 12;
             var videos = _context.Video
                 .Include(m => m.Catalog)
+                .Where(m => m.Catalog.Value.Equals(series) || series == "")
                 .OrderByDescending(m => m.UpdatedTime)
                 .Skip((p - 1) * pageSize).Take(pageSize)
                 .ToList();
@@ -36,15 +37,13 @@ namespace WebAdmin.Controllers
             int totalNumber = _context.Video.Count();
 
             ViewBag.ListData = videos;
+            ViewBag.Catalogs = _context.Catalog
+                .Where(m => m.Type.Equals("视频"))
+                .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
+                .ToList();
 
-            var pageOption = new MyPagerOption()
-            {
-                CurrentPage = p,
-                PageSize = pageSize,
-                RouteUrl = "/Video/Index",
-                Total = totalNumber
-            };
-            ViewBag.Pager = pageOption;
+            SetPage(p, pageSize, totalNumber);
+
             return View(videos);
         }
 
@@ -139,7 +138,7 @@ namespace WebAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditVideo(VideoForm video, Guid id, string catalogId, Guid BlogId, Guid PracticeId)
+        public IActionResult EditVideo(VideoForm video, Guid id, string catalogId, Guid? BlogId, Guid? PracticeId)
         {
             if (ModelState.IsValid)
             {
@@ -152,13 +151,22 @@ namespace WebAdmin.Controllers
                 _context.Entry(oldVideo).CurrentValues.SetValues(video);
                 oldVideo.Catalog = _context.Catalog.Find(Guid.Parse(catalogId));
                 //同时更新到blog表
-                var blog = _context.Blog.Find(BlogId);
-                var practice = _context.Practice.Find(PracticeId);
-                oldVideo.Blog = blog;
-                oldVideo.Practice = practice;
+
+                if (BlogId != null)
+                {
+                    var blog = _context.Blog.Find(BlogId);
+                    oldVideo.Blog = blog;
+                    blog.Video = oldVideo;
+
+                    if (PracticeId != null)
+                    {
+                        var practice = _context.Practice.Find(PracticeId);
+                        oldVideo.Practice = practice;
+                        blog.Practice = practice;
+                    }
+                }
+
                 oldVideo.Status = StatusType.Edit;
-                blog.Video = oldVideo;
-                blog.Practice = practice;
                 var re = _context.SaveChanges();
                 if (re > 0)
                 {
