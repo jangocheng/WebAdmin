@@ -21,7 +21,7 @@ namespace MSDev.DB.Entities
         /// </summary>
         [MaxLength(8)]
         public string Sex { get; set; }
-        public DateTime? Birthday{ get; set; }
+        public DateTime? Birthday { get; set; }
         [MaxLength(32)]
         public string City { get; set; }
         /// <summary>
@@ -46,9 +46,9 @@ namespace MSDev.DB.Entities
         /// 练习
         /// </summary>
         public ICollection<UserPractice> UserPractice { get; set; }
-
         public ICollection<UserActivity> UserActivity { get; set; }
-
         public ICollection<PracticeAnswer> PracticeAnswer { get; set; }
+        public ICollection<UserServices> UserServices { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

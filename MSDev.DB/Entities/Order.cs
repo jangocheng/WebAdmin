@@ -14,6 +14,7 @@ namespace MSDev.DB.Entities
         /// <summary>
         /// 编号
         /// </summary>
+        [MaxLength(32)]
         public string SerialNumber { get; set; }
 
         /// <summary>
@@ -27,6 +28,8 @@ namespace MSDev.DB.Entities
         /// 关联用户
         /// </summary>
         public User User { get; set; }
+
+        public string UserId { get; set; }
 
         /// <summary>
         /// 单价

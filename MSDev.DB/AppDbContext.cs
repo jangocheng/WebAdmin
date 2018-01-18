@@ -13,6 +13,9 @@ namespace MSDev.DB
         }
 
         #region DbSet
+        public DbSet<UserServices> UserServices { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<Commodity> Commodity { get; set; }
         public DbSet<C9Event> C9Event { get; set; }
         public DbSet<EventVideo> EventVideo { get; set; }
         public DbSet<PracticeAnswer> PracticeAnswer { get; set; }
@@ -47,6 +50,27 @@ namespace MSDev.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<UserServices>(entity =>
+            {
+                entity.HasIndex(e => e.User);
+                entity.HasOne(e => e.User)
+                .WithMany(u => u.UserServices);
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.HasIndex(e => e.SerialNumber);
+                entity.HasOne(e => e.Commodity);
+                entity.HasOne(e => e.User)
+                .WithMany(u => u.Orders);
+            });
+
+            modelBuilder.Entity<Commodity>(entity =>
+            {
+                entity.HasIndex(e => e.Name);
+                entity.HasIndex(e => e.SerialNumber).IsUnique();
+            });
 
             modelBuilder.Entity<Blog>(entity =>
             {
