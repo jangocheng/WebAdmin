@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAdmin.DB.Utils;
 using static System.String;
 namespace MSDev.Work.Tasks
 {
@@ -123,7 +124,7 @@ namespace MSDev.Work.Tasks
                     Description = item.Description,
                     Url = targetUrl,
                     ThumbnailUrl = item.ThumbnailUrl,
-                    Status = 0,
+                    Status = StatusType.New,
                     Tags = keyword,
                     Provider = item.Provider,
                     CreatedTime = item.DatePublished,

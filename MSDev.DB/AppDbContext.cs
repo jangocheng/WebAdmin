@@ -53,17 +53,19 @@ namespace MSDev.DB
 
             modelBuilder.Entity<UserServices>(entity =>
             {
-                entity.HasIndex(e => e.User);
                 entity.HasOne(e => e.User)
-                .WithMany(u => u.UserServices);
+                .WithMany(u => u.UserServices)
+                .HasForeignKey(e => e.UserId);
             });
 
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.HasIndex(e => e.SerialNumber);
                 entity.HasOne(e => e.Commodity);
+
                 entity.HasOne(e => e.User)
-                .WithMany(u => u.Orders);
+                .WithMany(u => u.Orders)
+                .HasForeignKey(e => e.UserId);
             });
 
             modelBuilder.Entity<Commodity>(entity =>

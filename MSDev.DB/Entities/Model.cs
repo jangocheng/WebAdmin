@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using WebAdmin.DB.Utils;
 
 namespace MSDev.DB.Entities
 
@@ -12,7 +14,8 @@ namespace MSDev.DB.Entities
         /// <summary>
         /// 状态值
         /// </summary>
-        public int? Status { get; set; } = 0;
+        [MaxLength(32)]
+        public string Status { get; set; } = StatusType.New;
 
 
         /// <summary>

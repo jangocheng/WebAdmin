@@ -27,8 +27,8 @@ namespace MSDev.DB.Entities
         /// </summary>
         public DateTime ExpiredTime { get; set; }
 
-        [NotMapped]
         public User User { get; set; }
+
         public string UserId { get; set; }
 
         /// <summary>

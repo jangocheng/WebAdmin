@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebAdmin.DB.Utils;
 
 namespace MSDev.Work.Helpers
 {
@@ -172,7 +173,7 @@ namespace MSDev.Work.Helpers
 
                             mvaDetail.SourceUrl = video.SourceUrl + "?l=" + course._identifier;
                             mvaDetail.MvaVideo = video;
-                            mvaDetail.Status = 1;
+                            mvaDetail.Status = StatusType.Edit;
                             mvaDetail.Sequence = sequence;
                             mvaDetail.CreatedTime = DateTime.Now;
                             mvaDetail.UpdatedTime = DateTime.Now;
