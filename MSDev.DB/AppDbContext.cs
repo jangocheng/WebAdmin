@@ -72,6 +72,7 @@ namespace MSDev.DB
             {
                 entity.HasIndex(e => e.Name);
                 entity.HasIndex(e => e.SerialNumber).IsUnique();
+                entity.HasIndex(e => e.TargetId).IsUnique();
             });
 
             modelBuilder.Entity<Blog>(entity =>

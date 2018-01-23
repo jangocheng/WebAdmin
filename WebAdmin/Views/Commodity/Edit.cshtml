@@ -2,10 +2,10 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var Services = ViewBag.Services as List<Catalog>;
 }
 
 <h2>Edit</h2>
-
 <h4>Commodity</h4>
 <hr />
 <div class="row">
@@ -14,8 +14,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="SerialNumber" class="control-label"></label>
-                <input asp-for="SerialNumber" class="form-control" readonly/>
+                <input asp-for="SerialNumber" class="form-control" readonly />
                 <span asp-validation-for="SerialNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <select asp-for="Type" class="form-control">
+                    <option value="services">服务</option>
+                    <option value="commodity">商品</option>
+                </select>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Relation Service</label>
+                <select asp-for="TargetId" class="form-control">
+                    @foreach (var service in Services)
+                    {
+                        <option value="@service.Id">@service.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>

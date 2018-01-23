@@ -45,12 +45,18 @@ namespace WebAdmin.Controllers
 
         public IActionResult Create()
         {
+            // 查询关联服务(视频)
+            ViewBag.Services = _context.Catalog
+                .Where(m => m.IsTop == 0 && m.Type.Equals("视频"))
+                .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
+                .ToList();
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SerialNumber,Name,OriginPrice,Price,CurrentNumber,Description,Thumbnail")] Commodity commodity)
+        public async Task<IActionResult> Create([Bind("SerialNumber,TargetId,Type,Name,OriginPrice,Price,CurrentNumber,Description,Thumbnail")] Commodity commodity)
         {
             Console.WriteLine(JsonConvert.SerializeObject(commodity));
             if (ModelState.IsValid)
@@ -74,6 +80,12 @@ namespace WebAdmin.Controllers
             {
                 return NotFound();
             }
+            // 查询关联服务(视频)
+            ViewBag.Services = _context.Catalog
+                .Where(m => m.IsTop == 0 && m.Type.Equals("视频"))
+                .Where(m => m.TopCatalog.Value.Equals("CourseVideo"))
+                .ToList();
+
             return View(commodity);
         }
 

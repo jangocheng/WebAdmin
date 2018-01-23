@@ -21,6 +21,15 @@ namespace MSDev.DB.Entities
         [MaxLength(100)]
         public string Name { get; set; }
         /// <summary>
+        /// 商品类型:实物、虚拟(服务)
+        /// </summary>
+        [MaxLength(32)]
+        public string Type { get; set; }
+        /// <summary>
+        /// 服务型商品对应目标Id
+        /// </summary>
+        public Guid? TargetId { get; set; }
+        /// <summary>
         /// 原价
         /// </summary>
         public decimal OriginPrice { get; set; }
@@ -49,6 +58,6 @@ namespace MSDev.DB.Entities
         /// <summary>
         /// 目录id
         /// </summary>
-        public Guid CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
     }
 }

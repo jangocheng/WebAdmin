@@ -18,6 +18,11 @@ namespace MSDev.DB.Entities
         public string Type { get; set; }
 
         /// <summary>
+        /// 服务名称
+        /// </summary>
+        [MaxLength(100)]
+        public string Name { get; set; }
+        /// <summary>
         /// 服务对象Id
         /// </summary>
         public Guid TargetId { get; set; }
