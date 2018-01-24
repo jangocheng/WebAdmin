@@ -24,16 +24,14 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="target">
                 <label class="control-label">Relation Service</label>
                 <select asp-for="TargetId" class="form-control">
-
                     @foreach (var service in Services)
                     {
                         <option value="@service.Id">@service.Name</option>
                     }
                 </select>
-                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -43,12 +41,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="OriginPrice" class="control-label"></label>
-                <input asp-for="OriginPrice" class="form-control" type="number" min="1" />
+                <input asp-for="OriginPrice" class="form-control" type="number" min="0.01" />
                 <span asp-validation-for="OriginPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" type="number" min="1" />
+                <input asp-for="Price" class="form-control" type="number" min="0.01" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -82,4 +80,25 @@
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            getType();
+            $("#Type").change(function () {
+                getType();
+            });
+        });
+
+
+        // 判断商品类型
+        function getType() {
+            var type = $("#Type").val();
+            console.log(type);
+            if (type == "commodity") {
+                $("#target").val("");
+                $("#target").hide();
+            } else {
+                $("#target").show();
+            }
+        }
+    </script>
 }
