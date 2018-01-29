@@ -2,13 +2,17 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "bootstrap": "v4.0.0-beta",
+    "bootstrap": "v4.0.0",
     "jquery": "3.2.1",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
     "knockout": "3.4.2",
     "requirejs": "2.3.3",
     "editor.md": "^1.5.0",
-    "popper.js": "v1.12.6"
+    "popper.js": "v1.12.9"
+  },
+  "resolutions": {
+    "bootstrap": "v4.0.0",
+    "popper.js": "v1.12.9"
   }
 }
