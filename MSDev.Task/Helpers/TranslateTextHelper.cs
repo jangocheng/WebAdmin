@@ -73,7 +73,7 @@ namespace MSDev.Work.Helpers
             foreach (var item in contentArray)
             {
                 if (string.IsNullOrWhiteSpace(item)) continue;
-                translation += GetBingTranslateAsync(item).Result;
+                translation += GetTranslate(item).Result;
             }
             return translation;
         }
