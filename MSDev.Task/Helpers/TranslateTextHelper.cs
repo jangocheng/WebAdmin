@@ -73,7 +73,7 @@ namespace MSDev.Work.Helpers
             foreach (var item in contentArray)
             {
                 if (string.IsNullOrWhiteSpace(item)) continue;
-                translation += GetTranslate(item).Result;
+                translation += GetTranslateAsync(item).Result;
             }
             return translation;
         }
@@ -85,7 +85,7 @@ namespace MSDev.Work.Helpers
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        public string GetTranslate(string content, string from = "en", string to = "zh-CHS")
+        public async Task<string> GetTranslateAsync(string content, string from = "en", string to = "zh-CHS")
         {
             string result = "";
             string authToken = _tokenHelper.GetAccessToken();
@@ -94,7 +94,7 @@ namespace MSDev.Work.Helpers
             httpWebRequest.Headers.Add("Authorization", authToken);
             try
             {
-                using (WebResponse response = httpWebRequest.GetResponse())
+                using (WebResponse response = await httpWebRequest.GetResponseAsync())
                 using (Stream stream = response.GetResponseStream())
                 {
                     DataContractSerializer dcs = new DataContractSerializer(Type.GetType("System.String"));
